@@ -1,11 +1,11 @@
 {
     "token":"",
     "prefix":"",
-    "devs":[""],
+    "devs":["535986058991501323", "535986058991501323"],
     "guildid":"",
     "logchannel":"",
     "rolechannel":"",
     "muterole":"",
-    "hpemojiid":"",
-    "db": {"host": "", "port": ""} 
+    "hsemojiid":"",
+    "db": {"host": "155.138.229.220", "port": "28015", "user":"admin", "pass":"P@4T]*2;Db)!"} 
 }

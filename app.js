@@ -6,7 +6,7 @@ client.config = require('./config.json');
 
 client.login(client.config.token);
 client.pb = new pastebin({ 'api_dev_key': 'ffe5a5a4599619d9c1a843760b89b23b', 'api_user_name': 'MinehutArchives', 'api_password': '2,ErzA^WLCAz' })
-client.db = require('rethinkdbdash')({ db: 'minehut', servers: [{host: client.config.db.host, port: client.config.db.port}] });
+client.db = require('rethinkdbdash')({ db: 'minehut', servers: [{host: client.config.db.host, port: client.config.db.port, user: client.config.db.user, password: client.config.db.pass, }] });
 module.exports = client;
 
 fs.readdir('./events', (err, files) => {
