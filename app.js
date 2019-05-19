@@ -93,7 +93,7 @@ client.elevation = msg => {
     if (srmod && msg.member.roles.has(srmod.id)) permlvl = 3;
     let admin = msg.guild.roles.find(role => role.name === 'Administrator');
     if (admin && msg.member.roles.has(admin.id)) permlvl = 4;
-    if (client.config.dev.includes(msg.author.id)) permlvl = 5;
+    if (client.config.devs.indexOf(msg.author.id) > -1) permlvl = 5;
     return permlvl;
 }
 
