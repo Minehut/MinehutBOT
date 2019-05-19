@@ -1,0 +1,11 @@
+{
+    "token":"",
+    "prefix":"",
+    "devs":[""],
+    "guildid":"",
+    "logchannel":"",
+    "rolechannel":"",
+    "muterole":"",
+    "hpemojiid":"",
+    "db": {"host": "", "port": ""} 
+}
