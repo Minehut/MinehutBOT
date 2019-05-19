@@ -1,0 +1,17 @@
+{
+  "name": "minehut",
+  "version": "1.0.0",
+  "description": "The Minehut bot (unofficial as of rn)",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Facto",
+  "license": "MIT",
+  "dependencies": {
+    "cli-table2": "^0.2.0",
+    "discord.js": "^11.4.2",
+    "pastebin-js": "^1.0.2",
+    "rethinkdbdash": "^2.3.31"
+  }
+}
