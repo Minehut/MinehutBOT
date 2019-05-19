@@ -80,6 +80,7 @@ module.exports = {
                     const datepunished = new Date();
                     const num2insert = numData.number+1;
                     client.db.table('punishments').insert({ id: id, punished: { name: user.tag, id: user.id, avatarURL: user.avatarURL }, moderator: { name: client.user.tag, id: client.user.id }, reason: reason, type: 'WARN', date: datepunished, active: false }).run();
+                    client.db.table('userData').get(user.id).update({ msgs: 0 }).run();
                     client.db.table('numData').get('punishments').update({ number: num2insert }).run();
                     const embed = new Discord.RichEmbed()
                     .setDescription('You have been warned on Minehut!')
