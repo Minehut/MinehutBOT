@@ -1,7 +1,7 @@
 {
   "name": "minehut",
   "version": "1.0.0",
-  "description": "The Minehut bot (unofficial as of rn)",
+  "description": "The Minehut bot",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,9 +9,13 @@
   "author": "Facto",
   "license": "MIT",
   "dependencies": {
-    "cli-table2": "^0.2.0",
+    "cli-table2": "0.2.0",
     "discord.js": "^11.4.2",
+    "ffmpeg-binaries": "^4.0.0",
+    "node-opus": "^0.3.1",
     "pastebin-js": "^1.0.2",
-    "rethinkdbdash": "^2.3.31"
+    "rethinkdbdash": "^2.3.31",
+    "yt-search": "^0.4.1",
+    "ytdl-core": "^0.29.2"
   }
 }
