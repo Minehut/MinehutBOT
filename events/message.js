@@ -74,7 +74,6 @@ module.exports = {
 
             if (userData.msgs >= 5) {
                 const warns = await client.db.table('punishments').filter({ punished: { id: msg.author.id }, type: 'WARN', reason: 'Spam (Too many messages)' }).run();
-                console.log(warns.length);
                 if (warns.length < 2) {
                     const user = msg.author;
                     const reason = 'Spam (Too many messages)';
