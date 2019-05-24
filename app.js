@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const fs = require('fs');
 const pastebin = require('pastebin-js');
+const ytdl = require('ytdl-core');
 client.config = require('./config.json');
 
 client.login(client.config.token);
@@ -100,13 +101,13 @@ client.elevation = msg => {
 client.checkPerms = (msg, member) => {
     let punishable;
     let jrmod = msg.guild.roles.find(role => role.name === 'Junior Moderator');
-    if (member.roles.has(jrmod.id)) punishable = false;
+    if (jrmod && member.roles.has(jrmod.id)) punishable = false;
     let mod = msg.guild.roles.find(role => role.name === 'Moderator');
-    if (member.roles.has(mod.id)) punishable = false;
+    if (mod && member.roles.has(mod.id)) punishable = false;
     let srmod = msg.guild.roles.find(role => role.name === 'Senior Moderator');
-    if (member.roles.has(srmod.id)) punishable = false;
+    if (srmod && member.roles.has(srmod.id)) punishable = false;
     let admin = msg.guild.roles.find(role => role.name === 'Administrator');
-    if (member.roles.has(admin.id)) punishable = false;
+    if (admin && member.roles.has(admin.id)) punishable = false;
     return punishable; 
 }
 
