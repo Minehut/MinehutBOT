@@ -32,7 +32,7 @@ module.exports = {
     meta: {
         aliases: ['ban'],
         description: 'Bans a user for a specified reason',
-        permlvl: 1,
+        permlvl: 2,
         usage: ''              
     }
 }
