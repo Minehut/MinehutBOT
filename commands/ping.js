@@ -1,7 +1,6 @@
 module.exports = {
     run: async (client, msg, args) => {
-        const m = await msg.channel.send('Ping?');
-        m.edit(`Pong! \`${~~client.ping}ms\``);
+        msg.channel.send(`Pong! \`${~~client.ping}ms\``);
     },
     meta: {
         aliases: ['ping'],
