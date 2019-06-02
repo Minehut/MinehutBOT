@@ -1,10 +1,10 @@
 module.exports = {
     run: async (client, msg, args) => {
-        if (!args[0]) return msg.channel.send(`:x: Invalid args! Usage: ${meta.usage}`);
+        if (!args[0]) return msg.channel.send(':x: Invalid args! `Usage: !automod <censor> <invites> <whitelist/blacklist> <guild-id>`');
         if (args[0] == 'censor') {
-            if (!args[1]) return msg.channel.send(`:x: Invalid args! Usage: ${meta.usage}`);
+            if (!args[1]) return msg.channel.send(':x: Invalid args! `Usage: !automod <censor> <invites> <whitelist/blacklist> <guild-id>`');
             if (args[1] == 'invites') {
-                if (!args[2]) return msg.channel.send(`:x: Invalid args! Usage: ${meta.usage}`);
+                if (!args[2]) return msg.channel.send(':x: Invalid args! `Usage: !automod <censor> <invites> <whitelist/blacklist> <guild-id>`');
                 if (args[2] == 'whitelist') {
                     const wlinv = await client.db.table('automodData').get('whitelisted-invites').run();
                     if (args[3].length != 18 || !args[3]) return msg.channel.send(':x: You must supply an ID of a guild to whitelist!');
@@ -29,6 +29,6 @@ module.exports = {
         aliases: ['automod'],
         description: '',
         permlvl: 3,
-        usage: '!automod <censor> <invites> <whitelist/blacklist> <guild-id>'   
+        usage: ''   
     }
 }
