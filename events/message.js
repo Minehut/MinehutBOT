@@ -11,7 +11,6 @@ module.exports = {
         client.db.table('userData').get(msg.author.id).update({ msgs: newmsgs }).run();
 
         if (msg.content.startsWith(client.config.prefix)) {
-            client.log(`:wrench: ${msg.author.tag} (\`${msg.author.id}\`) used command in **#${msg.channel.name}** \`${msg.content}\``);
             const args = msg.content.slice(client.config.prefix.length).trim().split(/ +/g);
             const command = args.shift().toLowerCase();
             try {
@@ -21,6 +20,7 @@ module.exports = {
                         const meta = require('../commands/' + file).meta;
                         const perms = client.elevation(msg);
                         if (meta.aliases.includes(command)) {
+                            client.log(`:wrench: ${msg.author.tag} (\`${msg.author.id}\`) used command in **#${msg.channel.name}** \`${msg.content}\``);
                             if (meta.permlvl > perms) return;
                             return require('../commands/' + file).run(client, msg, args);    
                         }
