@@ -90,6 +90,7 @@ function updateStatus(client) {
 
 check(client);
 spaminterval(client);
+updateStatus(client);
 
 client.elevation = msg => {
     let permlvl = 0;
@@ -127,3 +128,4 @@ client.getTime = () => {
 client.log = msg => {
     client.channels.get(client.config.logchannel).send(`\`${client.getTime()}\` ${msg}`);
 }
+
