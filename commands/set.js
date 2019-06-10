@@ -1,4 +1,3 @@
-const download = require('image-downloader');
 module.exports = {
     run: async (client, msg, args) => {
         if (!args[0]) return msg.channel.send(':x: Invalid args! Usage: `!set <pfp/name>`');
