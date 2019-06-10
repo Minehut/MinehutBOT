@@ -1,6 +1,6 @@
 module.exports = {
     run: async (client, guild) => {
-        guild.members.forEach(member => {
+        guild.members.forEach(async member => {
             const user = await client.db.table('userData').get(member.id).run();
             if (!user) {
                 const muted = guild.roles.find(r => r.name === 'Muted');
