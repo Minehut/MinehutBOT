@@ -81,6 +81,13 @@ function spaminterval(client) {
     }, 3000)
 }
 
+function updateStatus(client) {
+    setInterval(function() {
+        const totalusers = client.users.size-1;
+        client.user.setActivity(`with ${totalusers} users`, { type: 'PLAYING' });
+    }, 10000)
+}
+
 check(client);
 spaminterval(client);
 
@@ -120,4 +127,3 @@ client.getTime = () => {
 client.log = msg => {
     client.channels.get(client.config.logchannel).send(`\`${client.getTime()}\` ${msg}`);
 }
-
