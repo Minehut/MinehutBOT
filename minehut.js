@@ -68,7 +68,7 @@ function check(client) {
             }
         }  
     });
-}, 0)
+}, 1000)
 }
 
 function spaminterval(client) {
@@ -120,3 +120,4 @@ client.getTime = () => {
 client.log = msg => {
     client.channels.get(client.config.logchannel).send(`\`${client.getTime()}\` ${msg}`);
 }
+
