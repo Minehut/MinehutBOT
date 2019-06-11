@@ -1,6 +1,6 @@
 module.exports = {
     run: async (client, msg, args) => {
-        const members = await msg.guild.fetchMembers().members;
+        const members = await msg.guild.members.fetch();
         members.forEach(async member => {
             const user = await client.db.table('userData').get(member.id).run();
             if (!user) {
