@@ -1,7 +1,5 @@
 module.exports = {
     run: async (client) => {
         console.log(`Ready as ${client.user.tag}`);
-        const totalusers = client.users.size-1;
-        client.user.setActivity(`with ${totalusers} users`, { type: 'PLAYING' });
-    }
+        client.user.setActivity(`with ${client.guilds.get(client.config.guildid).memberCount} users`, { type: 'PLAYING' });    }
 }
