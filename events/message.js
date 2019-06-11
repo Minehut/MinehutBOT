@@ -116,7 +116,7 @@ module.exports = {
                     .setFooter(`Punished: ${datepunished}`);
                     user.send(embed).then(() => {
                         const member = msg.guild.members.get(user.id);
-                        const muted = msg.guild.roles.find(role => role.name === 'Muted');
+                        const muted = msg.guild.roles.get(client.config.muterole);
                         member.addRole(muted);
                     });
                 }
