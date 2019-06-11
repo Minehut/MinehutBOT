@@ -105,7 +105,7 @@ module.exports = {
                     const num2insert = numData.number+1;
                     client.log(`:helmet_with_cross: ${msg.author.tag} (\`${msg.author.id}\`) violated MAX_DUPLICATES (<#${msg.channel.id}>): Too Many Duplicated Messages (${userData.msgs} / 5)`);
                     client.db.table('punishments').insert({ id: id, punished: { name: user.tag, id: user.id, avatarURL: user.avatarURL }, moderator: { name: client.user.tag, id: client.user.id }, reason: reason, type: 'MUTE', date: datepunished, dateExpired: expDate, active: true }).run();
-                    client.db.table('userData').get(user.id).update({ muted: true }).run();
+                    client.db.table('userData').get(user.id).update({ muted: true, msgs: 0 }).run();
                     client.db.table('numData').get('punishments').update({ number: num2insert }).run();
                     const embed = new Discord.RichEmbed()
                     .setDescription('You have been temporarily muted on Minehut!')
