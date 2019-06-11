@@ -7,7 +7,7 @@ module.exports = {
             let user;
             if (msg.mentions.users.size > 0) {
                 user = msg.mentions.users.first();
-            } else user = client.users.get(args[1]);
+            } else user = await msg.guild.fetchMember(args[1]);
             const data = await client.db.table('userData').get(args[1]).run();
             if (!user && !data) return msg.channel.send(':x: Invalid user!');
             function getID(user, data) {
