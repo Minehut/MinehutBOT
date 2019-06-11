@@ -2,10 +2,14 @@ module.exports = {
     run: async (client, msg, args) => {
         if (!args[0]) return msg.channel.send(':x: You must mention who you want to unmute.');
         let user;
+        let data;
         if (msg.mentions.users.size > 0) {
             user = msg.mentions.users.first();
-        } else user = client.users.get(args[0]);
-        const data = client.db.table('userData').get(args[0]).run();
+            data = await client.db.table('userData').get(user.id).run();
+        } else {
+            user = client.users.get(args[0]);
+            data = await client.db.table('userData').get(args[0]).run();
+        } 
         if (!user && !data) return msg.channel.send(':x: Invalid user!');
         const member = msg.guild.members.get(user.id);
         if (member) {
