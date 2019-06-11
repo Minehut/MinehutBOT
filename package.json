@@ -10,7 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "cli-table2": "git+https://github.com/Sniped/cli-table.git",
-    "discord.js": "git+https://github.com/discordjs/discord.js",
+    "discord.js": "^11.4.2",
     "ffmpeg-binaries": "^4.0.0",
     "node-opus": "^0.3.1",
     "pastebin-js": "^1.0.2",
