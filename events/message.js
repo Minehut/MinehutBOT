@@ -6,9 +6,10 @@ module.exports = {
         const userData = await client.db.table('userData').get(msg.author.id).run();
         if (!userData) {
             client.db.table('userData').insert({ id: msg.author.id, muted: false, msgs: 0 }).run();
+        } else {
+            const newmsgs = userData.msgs + 1;
+            client.db.table('userData').get(msg.author.id).update({ msgs: newmsgs }).run();    
         }
-        const newmsgs = userData.msgs + 1;
-        client.db.table('userData').get(msg.author.id).update({ msgs: newmsgs }).run();
 
         if (msg.content.startsWith(client.config.prefix)) {
             const args = msg.content.slice(client.config.prefix.length).trim().split(/ +/g);
