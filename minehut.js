@@ -74,7 +74,7 @@ function check(client) {
 function spaminterval(client) {
     setInterval(async function() {
         const guildusers = client.guilds.get(client.config.guildid).members;
-        const usersarray = guildusers.array();
+        const usersarray = guildusers.fetch();
         usersarray.forEach(u => {
             client.db.table('userData').get(u.id).update({ msgs: 0 }).run();
         });
