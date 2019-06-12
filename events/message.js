@@ -131,7 +131,8 @@ module.exports = {
                         
                     }
                     const muted = msg.guild.roles.find(role => role.name === 'Muted');
-                    msg.member.addRole(muted);                }
+                    msg.member.addRole(muted);                
+                }
             }
         }
     }
