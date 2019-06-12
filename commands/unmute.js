@@ -11,7 +11,7 @@ module.exports = {
             data = await client.db.table('userData').get(args[0]).run();
         } 
         if (!user && !data) return msg.channel.send(':x: Invalid user!');
-        const member = (await msg.guild.fetchMembers()).memebrs.get(user.id);
+        const member = (await msg.guild.fetchMembers()).members.get(user.id);
         if (member) {
             const muted = msg.guild.roles.find(role => role.name === 'Muted');
             if (!member.roles.has(muted.id)) return msg.channel.send(':x: User isn\'t muted!');
