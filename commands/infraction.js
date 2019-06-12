@@ -136,7 +136,7 @@ module.exports = {
     meta: {
         aliases: ['infraction', 'inf'],
         description: 'Do things with infractions',
-        permlvl: 2,
+        permlvl: 1,
         usage: ''     
     }
 }
