@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const client = new Discord.Client();
+const client = new Discord.Client({ disableEveryone: true, fetchAllMembers: true });
 const fs = require('fs');
 const pastebin = require('pastebin-js');
 const ytdl = require('ytdl-core');
