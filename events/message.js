@@ -67,9 +67,8 @@ module.exports = {
                 .setColor('#FF0000')
                 .setFooter(`Punished: ${datepunished}`);
                 user.send(embed).then(() => {
-                    const member = msg.guild.members.get(user.id);
                     const muted = msg.guild.roles.find(role => role.name === 'Muted');
-                    member.addRole(muted);
+                    msg.member.addRole(muted);
                 });
             }
 
@@ -116,9 +115,8 @@ module.exports = {
                     .setColor('#FF0000')
                     .setFooter(`Punished: ${datepunished}`);
                     user.send(embed).then(() => {
-                        const member = msg.guild.members.get(user.id);
-                        const muted = msg.guild.roles.get(client.config.muterole);
-                        member.addRole(muted);
+                        const muted = msg.guild.roles.find(role => role.name === 'Muted');
+                        msg.member.addRole(muted);
                     });
                 }
             }
