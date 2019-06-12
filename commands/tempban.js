@@ -30,10 +30,13 @@ module.exports = {
             .addField('Duration', `${num}s`, true)
             .setColor('#FF0000')
             .setFooter(`Punished: ${datepunished}`);
-            user.send(embed).then(() => {
-                msg.guild.ban(user.id, { reason: reason });
-                msg.channel.send(`:ok_hand: banned ${user.tag} for ${num} second(s) (\`${reason}\`)`);                   
-            });  
+            try {
+                user.send(embed);
+            } catch (e) {
+                msg.channel.send('couldn\'t dm user');
+            }
+            msg.guild.ban(user.id, { reason: reason });
+            msg.channel.send(`:ok_hand: banned ${user.tag} for ${num} second(s) (\`${reason}\`)`);                   
         } else if (args[1].endsWith('m')) {
             if (args[1].length == 1) return msg.channel.send(':x: Invalid length');
             const date = new Date();
@@ -57,10 +60,13 @@ module.exports = {
             .addField('Duration', `${num}m`, true)
             .setColor('#FF0000')
             .setFooter(`Punished: ${datepunished}`);
-            user.send(embed).then(() => {
-                msg.guild.ban(user.id, { reason: reason });
-                msg.channel.send(`:ok_hand: banned ${user.tag} for ${num} minute(s) (\`${reason}\`)`);                  
-            });                
+            try {
+                user.send(embed);
+            } catch (e) {
+                msg.channel.send('couldn\'t dm user');
+            }
+            msg.guild.ban(user.id, { reason: reason });
+            msg.channel.send(`:ok_hand: banned ${user.tag} for ${num} minute(s) (\`${reason}\`)`);                   
         } else if (args[1].endsWith('h')) {
             if (args[1].length == 1) return msg.channel.send(':x: Invalid length');
             const date = new Date();
@@ -84,10 +90,13 @@ module.exports = {
             .addField('Duration', `${num}h`, true)
             .setColor('#FF0000')
             .setFooter(`Punished: ${datepunished}`);
-            user.send(embed).then(() => {
-                msg.guild.ban(user.id, { reason: reason });
-                msg.channel.send(`:ok_hand: banned ${user.tag} for ${num} hour(s) (\`${reason}\`)`);                   
-            });          
+            try {
+                user.send(embed);
+            } catch (e) {
+                msg.channel.send('couldn\'t dm user');
+            }
+            msg.guild.ban(user.id, { reason: reason });
+            msg.channel.send(`:ok_hand: banned ${user.tag} for ${num} hour(s) (\`${reason}\`)`);                   
         } else if (args[1].endsWith('d')) {
             if (args[1].length == 1) return msg.channel.send(':x: Invalid length');
             const date = new Date();
@@ -111,10 +120,13 @@ module.exports = {
             .addField('Duration', `${num}d`, true)
             .setColor('#FF0000')
             .setFooter(`Punished: ${datepunished}`);
-            user.send(embed).then(() => {
-                msg.guild.ban(user.id, { reason: reason });
-                msg.channel.send(`:ok_hand: banned ${user.tag} for ${num} day(s) (\`${reason}\`)`);                   
-            });       
+            try {
+                user.send(embed);
+            } catch (e) {
+                msg.channel.send('couldn\'t dm user');
+            }
+            msg.guild.ban(user.id, { reason: reason });
+            msg.channel.send(`:ok_hand: banned ${user.tag} for ${num} day(s) (\`${reason}\`)`);                   
         } else if (args[1].endsWith('mo')) {
             if (args[1].length == 1) return msg.channel.send(':x: Invalid length');
             const date = new Date();
@@ -138,10 +150,13 @@ module.exports = {
             .addField('Duration', `${num}mo`, true)
             .setColor('#FF0000')
             .setFooter(`Punished: ${datepunished}`);
-            user.send(embed).then(() => {
-                msg.guild.ban(user.id, { reason: reason });
-                msg.channel.send(`:ok_hand: banned ${user.tag} for ${num} month(s) (\`${reason}\`)`);                    
-            });                     
+            try {
+                user.send(embed);
+            } catch (e) {
+                msg.channel.send('couldn\'t dm user');
+            }
+            msg.guild.ban(user.id, { reason: reason });
+            msg.channel.send(`:ok_hand: banned ${user.tag} for ${num} month(s) (\`${reason}\`)`);                   
         } else if (args[1].endsWith('y')) {
             if (args[1].length == 1) return msg.channel.send(':x: Invalid length');
             const date = new Date();
@@ -165,10 +180,13 @@ module.exports = {
             .addField('Duration', `${num}y`, true)
             .setColor('#FF0000')
             .setFooter(`Punished: ${datepunished}`);
-            user.send(embed).then(() => {
-                msg.guild.ban(user.id, { reason: reason });
-                msg.channel.send(`:ok_hand: banned ${user.tag} for ${num} year(s) (\`${reason}\`)`);                  
-            });                        
+            try {
+                user.send(embed);
+            } catch (e) {
+                msg.channel.send('couldn\'t dm user');
+            }
+            msg.guild.ban(user.id, { reason: reason });
+            msg.channel.send(`:ok_hand: banned ${user.tag} for ${num} year(s) (\`${reason}\`)`);                   
         } else return msg.channel.send(':x: Invalid length');
     },
     meta: {

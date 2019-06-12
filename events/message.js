@@ -68,10 +68,13 @@ module.exports = {
                 .addField('Duration', `2h`, true)
                 .setColor('#FF0000')
                 .setFooter(`Punished: ${datepunished}`);
-                user.send(embed).then(() => {
-                    const muted = msg.guild.roles.find(role => role.name === 'Muted');
-                    msg.member.addRole(muted);
-                });
+                try {
+                    user.send(embed);
+                } catch (e) {
+                    
+                }
+                const muted = msg.guild.roles.find(role => role.name === 'Muted');
+                msg.member.addRole(muted);
             }
 
             if (userData.msgs >= 5) {
@@ -93,7 +96,13 @@ module.exports = {
                     .addField('Reason', reason, true)
                     .setColor('#FF0000')
                     .setFooter(`Punished: ${datepunished}`);
-                    user.send(embed);
+                    try {
+                        user.send(embed);
+                    } catch (e) {
+                        
+                    }
+                    const muted = msg.guild.roles.find(role => role.name === 'Muted');
+                    msg.member.addRole(muted);                
                 } else {
                     const user = msg.author;
                     const date = new Date();
@@ -116,11 +125,13 @@ module.exports = {
                     .addField('Duration', `2h`, true)
                     .setColor('#FF0000')
                     .setFooter(`Punished: ${datepunished}`);
-                    user.send(embed).then(() => {
-                        const muted = msg.guild.roles.find(role => role.name === 'Muted');
-                        msg.member.addRole(muted);
-                    });
-                }
+                    try {
+                        user.send(embed);
+                    } catch (e) {
+                        
+                    }
+                    const muted = msg.guild.roles.find(role => role.name === 'Muted');
+                    msg.member.addRole(muted);                }
             }
         }
     }

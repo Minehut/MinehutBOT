@@ -24,10 +24,13 @@ module.exports = {
         .addField('Reason', reason, true)
         .setColor('#FF0000')
         .setFooter(`Punished: ${datepunished}`);
-        user.send(embed).then(() => {
-            msg.guild.ban(user.id, { days: 7, reason: reason });
-            msg.channel.send(`:ok_hand: soft-banned ${user.tag} (\`${reason}\`)`);  
-        });      
+        try {
+            user.send(embed);
+        } catch (e) {
+            msg.channel.send('couldn\'t dm user');
+        }
+        msg.guild.ban(user.id, { days: 7, reason: reason });
+        msg.channel.send(`:ok_hand: soft-banned ${user.tag} (\`${reason}\`)`);  
     },
     meta: {
         aliases: ['softban'],
