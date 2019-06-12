@@ -24,10 +24,13 @@ module.exports = {
         .addField('Reason', reason, true)
         .setColor('#FF0000')
         .setFooter(`Punished: ${datepunished}`);
-        user.send(embed).then(() => {
-            member.kick(reason);
-            msg.channel.send(`:ok_hand: kicked ${user.tag} (\`${reason}\`)`);  
-        });      
+        try {
+            user.send(embed);
+        } catch (e) {
+            msg.channel.send('couldn\'t dm user');
+        }
+        member.kick(reason);
+        msg.channel.send(`:ok_hand: kicked ${user.tag} (\`${reason}\`)`);  
     },
     meta: {
         aliases: ['kick'],

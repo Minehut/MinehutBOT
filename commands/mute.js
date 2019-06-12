@@ -25,11 +25,14 @@ module.exports = {
         .addField('Reason', reason, true)
         .setColor('#FF0000')
         .setFooter(`Punished: ${datepunished}`);
-        user.send(embed).then(() => {
-            const muted = msg.guild.roles.find(role => role.name === 'Muted');
-            member.addRole(muted);
-            msg.channel.send(`:ok_hand: muted ${user.tag} (\`${reason}\`)`);  
-        });      
+        try {
+            user.send(embed);
+        } catch (e) {
+            msg.channel.send('couldn\'t dm user');
+        }
+        const muted = msg.guild.roles.find(role => role.name === 'Muted');
+        member.addRole(muted);
+        msg.channel.send(`:ok_hand: muted ${user.tag} (\`${reason}\`)`);  
     },
     meta: {
         aliases: ['mute'],

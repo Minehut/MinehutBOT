@@ -24,7 +24,11 @@ module.exports = {
         .addField('Reason', reason, true)
         .setColor('#FF0000')
         .setFooter(`Punished: ${datepunished}`);
-        user.send(embed);
+        try {
+            user.send(embed);
+        } catch (e) {
+            msg.channel.send('couldn\'t dm user');
+        }
         msg.channel.send(`:ok_hand: warned ${user.tag} (\`${reason}\`)`);
     },
     meta: {
