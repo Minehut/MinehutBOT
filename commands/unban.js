@@ -6,7 +6,7 @@ module.exports = {
             const user = bans.find(user => user.id === args[0]);
             if (!user) return msg.channel.send(':x: The user isn\'t banned.');
             const punishment = await client.db.table('punishments').filter({ punished: { id: user.id }, active: true, type: 'BAN' }).run();
-            if (!punishment) {
+            if (punishment.length == 0) {
                 msg.guild.unban(user.id);
                 msg.channel.send(`:ok_hand: unbanned ${user.tag}`);
             } else {
