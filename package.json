@@ -12,6 +12,7 @@
     "cli-table2": "git+https://github.com/Sniped/cli-table.git",
     "discord.js": "^11.4.2",
     "ffmpeg-binaries": "^4.0.0",
+    "node-fetch": "^2.6.0",
     "node-opus": "^0.3.2",
     "pastebin-js": "^1.0.2",
     "rethinkdbdash": "^2.3.31",
