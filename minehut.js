@@ -127,3 +127,28 @@ client.getTime = () => {
 client.log = msg => {
     client.channels.get(client.config.logchannel).send(`\`${client.getTime()}\` ${msg}`);
 }
+
+client.replaceMentions = msg => {
+    let replace;
+    if (msg.mentions.users.size > 0) {
+        const splitmsg = msg.content.split(' ');
+        const arraymsg = [];
+        splitmsg.forEach(s => {
+            if (s.startsWith('<@')) {
+                let id;
+                const slicetest = s.slice(2, -1);
+                if (slicetest.startsWith('!')) {
+                    id = slicetest.slice(1);
+                } else id = slicetest;
+                const user = client.users.get(id);
+                arraymsg.push(s.replace(s, `@${user.tag}`));
+            } else {
+                arraymsg.push(s);
+            }
+        });
+        replace = arraymsg.join(' ');
+    } else {
+        replace = msg.content;
+    }
+    return replace;
+}
