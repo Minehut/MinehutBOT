@@ -99,8 +99,10 @@ client.elevation = msg => {
     if (mod && msg.member.roles.has(mod.id)) permlvl = 2;
     let srmod = msg.guild.roles.find(role => role.name === 'Senior Moderator');
     if (srmod && msg.member.roles.has(srmod.id)) permlvl = 3;
-    let admin = msg.guild.roles.find(role => role.name === 'Administrator');
+    let admin = msg.guild.roles.find(role => role.name === 'Admin');
     if (admin && msg.member.roles.has(admin.id)) permlvl = 4;
+    let slg = msg.guild.roles.find(role => role.name === 'Super League');
+    if (slg && msg.member.roles.has(slg.id)) permlvl = 4;
     if (client.config.devs.indexOf(msg.author.id) > -1) permlvl = 5;
     return permlvl;
 }
@@ -115,6 +117,8 @@ client.checkPerms = (msg, member) => {
     if (srmod && member.roles.has(srmod.id)) punishable = false;
     let admin = msg.guild.roles.find(role => role.name === 'Admin');
     if (admin && member.roles.has(admin.id)) punishable = false;
+    let slg = msg.guild.roles.find(role => role.name === 'Super League');
+    if (slg && msg.member.roles.has(slg.id)) punishable = false;
     return punishable; 
 }
 
