@@ -128,8 +128,9 @@ client.getTime = () => {
     return time;
 }
 
-client.log = msg => {
-    client.channels.get(client.config.logchannel).send(`\`${client.getTime()}\` ${msg}`);
+client.log = async msg => {
+    const logmsg = await client.channels.get(client.config.logchannel).send(`\`${client.getTime()}\` ${msg}`);
+    return logmsg;
 }
 
 client.replaceMentions = msg => {
@@ -155,4 +156,14 @@ client.replaceMentions = msg => {
         replace = msg.content;
     }
     return replace;
+}
+
+client.sendAttachments = async (msg1, msg2) => {
+    if (msg1.attachments.size > 0) {
+        const attachments = [];
+        msg1.attachments.forEach(attachment => {
+            attachments.push(attachment.proxyURL);
+        });
+        msg2.channel.send('', { files: attachments });
+    }
 }
