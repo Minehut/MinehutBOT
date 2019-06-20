@@ -16,22 +16,27 @@ module.exports = {
         if (msg.content.startsWith(client.config.prefix)) {
             const args = msg.content.slice(client.config.prefix.length).trim().split(/ +/g);
             const command = args.shift().toLowerCase();
-            try {
-                fs.readdir('commands', (err, files) => {
-                    if (err) return console.error(err);
-                    files.forEach(async file => {
-                        const meta = require('../commands/' + file).meta;
-                        const perms = client.elevation(msg);
-                        if (meta.aliases.includes(command)) {
-                            client.log(`:wrench: ${msg.author.tag} (\`${msg.author.id}\`) used command in **#${msg.channel.name}** \`${msg.content}\``);
-                            if (meta.permlvl > perms) return;
-                            return require('../commands/' + file).run(client, msg, args);    
-                        }
-                    });    
-                });
-            } catch (err) {
-                console.log(err);
-            }            
+            const tag = await client.db.table('tags').get(command).run();
+            if (!tag) {
+                try {
+                    fs.readdir('commands', (err, files) => {
+                        if (err) return console.error(err);
+                        files.forEach(async file => {
+                            const meta = require('../commands/' + file).meta;
+                            const perms = client.elevation(msg);
+                            if (meta.aliases.includes(command)) {
+                                client.log(`:wrench: ${msg.author.tag} (\`${msg.author.id}\`) used command in **#${msg.channel.name}** \`${msg.content}\``);
+                                if (meta.permlvl > perms) return;
+                                return require('../commands/' + file).run(client, msg, args);    
+                            }
+                        });    
+                    });
+                } catch (err) {
+                    console.log(err);
+                }                
+            } else {
+                msg.channel.send(tag.content)
+            }
         }
             if (msg.content.includes('discord.gg')) {
                 const msgarray = msg.content.split(" ");    
