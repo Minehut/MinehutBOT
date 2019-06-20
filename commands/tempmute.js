@@ -8,6 +8,7 @@ module.exports = {
         } else user = client.users.get(args[0]);
         if (!user) return msg.channel.send(':x: Invalid user');
         const member = (await msg.guild.fetchMembers()).members.get(user.id);
+        if (!member) return msg.channel.send(':x: Guild member not found! Could they have left the guild?');
         if (!args[1]) return msg.channel.send(`:x: Invalid length`);
         if (args[1].endsWith('s')) {
             if (args[1].length == 1) return msg.channel.send(':x: Invalid length');
