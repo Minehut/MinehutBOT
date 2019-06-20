@@ -29,7 +29,7 @@ module.exports = {
     meta: {
         aliases: ['tagset'],
         description: '',
-        permlvl: 4,
+        permlvl: 1,
         usage: ''          
     }
 }
