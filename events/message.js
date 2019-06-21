@@ -17,6 +17,15 @@ module.exports = {
             const args = msg.content.slice(client.config.prefix.length).trim().split(/ +/g);
             const command = args.shift().toLowerCase();
             const tag = await client.db.table('tags').get(command).run();
+            const tags = await client.db.table('tags').run();
+            tags.forEach(tag => {
+                const aliases = tag.aliases;
+                if (aliases) {
+                    if (aliases.includes(command)) {
+                        msg.channel.send(tag.content);
+                    }
+                }
+            });
             if (!tag) {
                 try {
                     fs.readdir('commands', (err, files) => {
@@ -40,7 +49,7 @@ module.exports = {
                     console.log(err);
                 }                
             } else {
-                msg.channel.send(tag.content)
+                msg.channel.send(tag.content);
             }
         }
             if (msg.content.includes('discord.gg')) {
