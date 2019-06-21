@@ -12,6 +12,7 @@ module.exports = {
         aliases: ['forceban'],
         description: 'Forcebans a user for a specified reason',
         permlvl: 2,
+        modCmd: true,
         usage: ''              
     }
 }

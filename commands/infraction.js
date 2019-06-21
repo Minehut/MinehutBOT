@@ -137,6 +137,7 @@ module.exports = {
         aliases: ['infraction', 'inf'],
         description: 'Do things with infractions',
         permlvl: 1,
+        modCmd: true,
         usage: ''     
     }
 }

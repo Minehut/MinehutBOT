@@ -31,6 +31,7 @@ module.exports = {
         aliases: ['tagset'],
         description: '',
         permlvl: 1,
+        modCmd: false,
         usage: ''          
     }
 }

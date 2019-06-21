@@ -161,6 +161,7 @@ module.exports = {
         aliases: ['archive'],
         description: '',
         permlvl: 3,
+        modCmd: true,
         usage: ''            
     }
 }

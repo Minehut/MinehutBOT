@@ -6,6 +6,7 @@ module.exports = {
         aliases: ['ping'],
         description: 'Pings the bot',
         permlvl: 0,
+        modCmd: false,
         usage: ''
     }
 }

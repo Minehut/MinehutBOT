@@ -37,6 +37,7 @@ module.exports = {
         aliases: ['kick'],
         description: 'Kicks a user for a specified reason',
         permlvl: 1,
+        modCmd: true,
         usage: ''              
     }
 }

@@ -37,6 +37,7 @@ module.exports = {
         aliases: ['ban'],
         description: 'Bans a user for a specified reason',
         permlvl: 2,
+        modCmd: true,
         usage: ''              
     }
 }

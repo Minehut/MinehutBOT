@@ -18,6 +18,7 @@ module.exports = {
         aliases: ['initialize'],
         description: '',
         permlvl: 5,
+        modCmd: false,
         usage: ''              
     }
 }

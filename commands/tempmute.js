@@ -232,6 +232,7 @@ module.exports = {
         aliases: ['tempmute'],
         description: 'Temporarily mute a user for a specified reason',
         permlvl: 1,
+        modCmd: true,
         usage: ''        
     }
 }
