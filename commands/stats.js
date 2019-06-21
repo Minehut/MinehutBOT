@@ -28,6 +28,5 @@ module.exports = {
         permlvl: 0,
         modCmd: false,
         usage: ''          
-
     }
 }
