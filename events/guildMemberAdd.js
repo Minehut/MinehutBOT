@@ -1,6 +1,10 @@
 module.exports = {
     run: async (client, member) => {
-        client.log(`:inbox_tray: ${member.user.tag} (\`${member.id}\`) joined`);
+        if (member.guild.id === client.config.staffguild) {
+            client.log(`\`[STAFF]\` :inbox_tray: ${member.user.tag} (\`${member.id}\`) joined`);
+        } else {
+            client.log(`:inbox_tray: ${member.user.tag} (\`${member.id}\`) joined`);
+        }
         const user = await client.db.table('userData').get(member.id).run();
         if (user) {
             if (user.muted == true) {
