@@ -4,7 +4,7 @@ module.exports = {
         const command = args[0].toLowerCase();
         const tag = await client.db.table('tags').get(command).run();
         if (!tag) return msg.channel.send(':x: There is no tag by that name!');
-        client.db.table('tags').delete(command).run();
+        client.db.table('tags').get(command).delete().run();
         msg.channel.send(`:ok_hand: deleted a tag (\`${command}\`)`);
     },
     meta: {
