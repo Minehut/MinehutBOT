@@ -20,6 +20,7 @@ module.exports = {
         aliases: ['unban'],
         description: 'Unbans a user for a specified reason',
         permlvl: 1,
+        modCmd: true,
         usage: ''        
     }
 }

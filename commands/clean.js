@@ -78,6 +78,7 @@ module.exports = {
         aliases: ['clean'],
         description: 'Clean a specific amount of messages',
         permlvl: 3,
+        modCmd: true,
         usage: ''           
     }
 }

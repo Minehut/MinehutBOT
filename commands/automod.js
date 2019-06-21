@@ -29,6 +29,7 @@ module.exports = {
         aliases: ['automod'],
         description: '',
         permlvl: 3,
+        modCmd: false,
         usage: ''   
     }
 }

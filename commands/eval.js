@@ -31,6 +31,7 @@ module.exports = {
         aliases: ['eval'],
         description: 'Eval a command!',
         permlvl: 5,
+        modCmd: false,
         usage: '<code>'           
     }    
 }

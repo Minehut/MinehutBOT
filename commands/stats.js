@@ -26,6 +26,7 @@ module.exports = {
         aliases: ['stats'],
         description: '',
         permlvl: 0,
+        modCmd: false,
         usage: ''          
 
     }

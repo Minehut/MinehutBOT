@@ -27,6 +27,7 @@ module.exports = {
                             if (meta.aliases.includes(command)) {
                                 client.log(`:wrench: ${msg.author.tag} (\`${msg.author.id}\`) used command in **#${msg.channel.name}** \`${msg.content}\``);
                                 if (meta.permlvl > perms) return;
+                                if (meta.modCmd == true && msg.guild.id != client.config.guildid) return;
                                 return require('../commands/' + file).run(client, msg, args);    
                             }
                         });    

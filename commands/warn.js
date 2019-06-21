@@ -36,6 +36,7 @@ module.exports = {
         aliases: ['warn'],
         description: 'Warns a user for a specified reason',
         permlvl: 1,
+        modCmd: true,
         usage: ''        
     }
 }

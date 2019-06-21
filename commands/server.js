@@ -46,6 +46,7 @@ module.exports = {
         aliases: ['server'],
         description: '',
         permlvl: 0,
+        modCmd: false,
         usage: ''          
     }
 }

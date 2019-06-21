@@ -195,6 +195,7 @@ module.exports = {
         aliases: ['tempban'],
         description: 'Temporarily ban a user for a specified reason',
         permlvl: 1,
+        modCmd: true,
         usage: ''        
     }
 }

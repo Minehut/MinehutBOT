@@ -23,6 +23,7 @@ module.exports = {
         aliases: ['set'],
         description: 'Set bot avatar and pfp',
         permlvl: 5,
+        modCmd: false,
         usage: ''         
     }
 }
