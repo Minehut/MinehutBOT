@@ -122,7 +122,7 @@ client.checkPerms = (msg, member) => {
     let slg = msg.guild.roles.find(role => role.name === 'Super League');
     if (slg && member.roles.has(slg.id)) punishable = false;
     let manager = msg.guild.roles.find(role => role.name === 'Manager');
-    if (manager && msg.member.roles.has(manager.id)) punishable = false;
+    if (manager && member.roles.has(manager.id)) punishable = false;
     return punishable; 
 }
 
