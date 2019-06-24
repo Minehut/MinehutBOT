@@ -8,7 +8,7 @@ module.exports = {
         if (newmsgs == NaN && userData) {
             client.db.table('userData').get(user.id).update({ msgs: 0 }).run();
         } else if (!userData) {
-            client.db.table('userData').insert({ id: user.id, muted: false, msgs: 0 }).run();
+            client.db.table('userData').insert({ id: user.id, user: { id: user.id, tag: user.tag, username: user.username, avatarURL: user.avatarURL }, muted: false, msgs: 0 }).run();
         } else {
             client.db.table('userData').get(msg.author.id).update({ msgs: newmsgs }).run();    
         }

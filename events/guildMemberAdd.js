@@ -12,7 +12,7 @@ module.exports = {
                 member.addRole(muted);
             } 
         } else {
-            client.db.table('userData').insert({ id: member.id, muted: false, msgs: 0 }).run();
+            client.db.table('userData').insert({ id: member.id, user: { id: member.id, tag: member.user.tag, username: member.user.username, avatarURL: member.user.avatarURL }, muted: false, msgs: 0 }).run();
         }
     }
 }
