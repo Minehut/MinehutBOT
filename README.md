@@ -28,4 +28,4 @@ Inside the config.json lies multiple options that can be configured. These are a
 
 2. Copy the ``config-example.json`` file into a new file called ``config.json`` and change settings accordingly.
 
-3. Start the bot by typing ``node app.js``
+3. Start the bot by typing ``node minehut.js``
