@@ -10,6 +10,8 @@ module.exports = {
         const member = (await msg.guild.fetchMembers()).members.get(user.id);
         if (!member) return msg.channel.send(':x: Guild member not found! Could they have left the guild?');
         if (!args[1]) return msg.channel.send(`:x: Invalid length`);
+        const activePuns = await client.db.table('punishments').filter({ punished: { id: member.id }, active: true }).run();
+        if (activePuns.length > 0) return msg.channel.send(':x: User already has active punishments! Unmute them before you give them another punishment.');
         if (args[1].endsWith('s')) {
             if (args[1].length == 1) return msg.channel.send(':x: Invalid length');
             const date = new Date();
