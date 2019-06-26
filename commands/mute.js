@@ -10,6 +10,8 @@ module.exports = {
         const member = (await msg.guild.fetchMembers()).members.get(user.id);
         if (!member) return msg.channel.send(':x: Guild member not found! Could they have left the guild?');
         if (client.checkPerms(msg, member) == false) return msg.channel.send(':x: Cannot punish this user as they are a staff!');
+        const activePuns = await client.db.table('punishments').filter({ punished: { id: member.id }, active: true }).run();
+        if (activePuns.length > 0) return msg.channel.send(':x: User already has active punishments! Unmute them before you give them another punishment.');
         const reason = args.slice(1).join(' ');
         if (!reason) return msg.channel.send(`:x: You must give a reason for why you want to mute ${user.tag}.`);
         const numData = await client.db.table('numData').get('punishments').run();
