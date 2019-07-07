@@ -18,7 +18,7 @@ module.exports = {
             if (!content) return msg.channel.send(':x: The tag must include content!');
             const tag = await client.db.table('tags').get(command).run();
             if (!tag) {
-                client.db.table('tags').insert({ id: command, content: content }).run();
+                client.db.table('tags').insert({ id: command, content: content, uses: 0 }).run();
                 msg.channel.send(`:ok_hand: created a tag (\`${command}\`)`);
             } else {
                 if (content == tag.content) return msg.channel.send(':x: Tag content is already equal to message content!');

@@ -22,6 +22,7 @@ module.exports = {
                 const aliases = tag.aliases;
                 if (aliases) {
                     if (aliases.includes(command)) {
+                        client.db.table('tags').get(tag.id).update({ uses: tag.uses + 1 }).run();
                         msg.channel.send(tag.content);
                     }
                 }
@@ -49,6 +50,7 @@ module.exports = {
                     console.log(err);
                 }                
             } else {
+                client.db.table('tags').get(tag.id).update({ uses: tag.uses + 1 }).run();
                 msg.channel.send(tag.content);
             }
         }
