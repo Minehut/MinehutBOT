@@ -38,7 +38,7 @@ module.exports = {
     meta: {
         aliases: ['tagaliases'],
         description: '',
-        permlvl: 1,
+        permlvl: 0.5,
         modCmd: false,
         usage: '' 
     }
