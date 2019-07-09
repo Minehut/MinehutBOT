@@ -160,7 +160,7 @@ module.exports = {
     meta: {
         aliases: ['archive'],
         description: '',
-        permlvl: 3,
+        permlvl: 4,
         modCmd: true,
         usage: ''            
     }

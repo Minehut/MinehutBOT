@@ -36,7 +36,7 @@ module.exports = {
     meta: {
         aliases: ['unmute'],
         description: 'Unmutes a user for a specified reason',
-        permlvl: 1,
+        permlvl: 2,
         modCmd: true,
         usage: ''           
     }

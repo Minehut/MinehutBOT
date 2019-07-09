@@ -94,20 +94,20 @@ updateStatus(client);
 client.elevation = msg => {
     let permlvl = 0;
     let support = msg.guild.roles.find(role => role.ename === 'Support');
-    if (support && msg.member.roles.has(support.id)) permlvl = 0.5;
+    if (support && msg.member.roles.has(support.id)) permlvl = 1;
     let jrmod = msg.guild.roles.find(role => role.name === 'Junior Moderator');
-    if (jrmod && msg.member.roles.has(jrmod.id)) permlvl = 1;
+    if (jrmod && msg.member.roles.has(jrmod.id)) permlvl = 2;
     let mod = msg.guild.roles.find(role => role.name === 'Moderator');
-    if (mod && msg.member.roles.has(mod.id)) permlvl = 2;
+    if (mod && msg.member.roles.has(mod.id)) permlvl = 3;
     let srmod = msg.guild.roles.find(role => role.name === 'Senior Moderator');
-    if (srmod && msg.member.roles.has(srmod.id)) permlvl = 3;
+    if (srmod && msg.member.roles.has(srmod.id)) permlvl = 4;
     let admin = msg.guild.roles.find(role => role.name === 'Admin');
-    if (admin && msg.member.roles.has(admin.id)) permlvl = 4;
+    if (admin && msg.member.roles.has(admin.id)) permlvl = 5;
     let slg = msg.guild.roles.find(role => role.name === 'Super League');
-    if (slg && msg.member.roles.has(slg.id)) permlvl = 4;
+    if (slg && msg.member.roles.has(slg.id)) permlvl = 5;
     let manager = msg.guild.roles.find(role => role.name === 'Manager');
-    if (manager && msg.member.roles.has(manager.id)) permlvl = 4;
-    if (client.config.devs.indexOf(msg.author.id) > -1) permlvl = 5;
+    if (manager && msg.member.roles.has(manager.id)) permlvl = 5;
+    if (client.config.devs.indexOf(msg.author.id) > -1) permlvl = 6;
     return permlvl;
 }
 

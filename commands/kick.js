@@ -36,7 +36,7 @@ module.exports = {
     meta: {
         aliases: ['kick'],
         description: 'Kicks a user for a specified reason',
-        permlvl: 1,
+        permlvl: 2,
         modCmd: true,
         usage: ''              
     }

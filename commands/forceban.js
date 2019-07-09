@@ -11,7 +11,7 @@ module.exports = {
     meta: {
         aliases: ['forceban'],
         description: 'Forcebans a user for a specified reason',
-        permlvl: 2,
+        permlvl: 3,
         modCmd: true,
         usage: ''              
     }

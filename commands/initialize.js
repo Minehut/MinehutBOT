@@ -17,7 +17,7 @@ module.exports = {
     meta: {
         aliases: ['initialize'],
         description: '',
-        permlvl: 5,
+        permlvl: 6,
         modCmd: false,
         usage: ''              
     }

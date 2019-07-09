@@ -30,7 +30,7 @@ module.exports = {
     meta: {
         aliases: ['eval'],
         description: 'Eval a command!',
-        permlvl: 5,
+        permlvl: 6,
         modCmd: false,
         usage: '<code>'           
     }    
