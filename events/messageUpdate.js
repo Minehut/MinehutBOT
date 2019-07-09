@@ -9,7 +9,7 @@ module.exports = {
                 const invite = await client.fetchInvite(invitestring);
                 const invwl = await client.db.table('automodData').get('whitelisted-invites').run();
                 if (!invwl.invites.includes(invite.guild.id)) {
-                    msg.delete();
+                    msga.delete();
                     client.log(`:no_entry_sign: censored message by ${msga.author.tag} (\`${msga.author.id}\`) in ${msga.channel.name} (\`${msga.channel.id}\`) invite \`${invite.code}\` to ${invite.guild.name}: \n${msga.content}`);
                 } else return;
             } else {
