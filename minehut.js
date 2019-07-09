@@ -93,7 +93,7 @@ updateStatus(client);
 
 client.elevation = msg => {
     let permlvl = 0;
-    let support = msg.guild.roles.find(role => role.ename === 'Support');
+    let support = msg.guild.roles.find(role => role.name === 'Support');
     if (support && msg.member.roles.has(support.id)) permlvl = 1;
     let jrmod = msg.guild.roles.find(role => role.name === 'Junior Moderator');
     if (jrmod && msg.member.roles.has(jrmod.id)) permlvl = 2;
