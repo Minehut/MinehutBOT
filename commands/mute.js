@@ -40,7 +40,7 @@ module.exports = {
     meta: {
         aliases: ['mute'],
         description: 'Mutes a user for a specified reason',
-        permlvl: 1,
+        permlvl: 2,
         modCmd: true,
         usage: ''              
     }

@@ -28,7 +28,7 @@ module.exports = {
     meta: {
         aliases: ['automod'],
         description: '',
-        permlvl: 3,
+        permlvl: 4,
         modCmd: false,
         usage: ''   
     }

@@ -10,7 +10,7 @@ module.exports = {
     meta: {
         aliases: ['tagdel'],
         description: '',
-        permlvl: 0.5,
+        permlvl: 1,
         modCmd: false,
         usage: ''          
     }
