@@ -2,7 +2,7 @@ const Table = require('cli-table2');
 const Discord = require('discord.js');
 module.exports = {
     run: async (client, msg, args) => {
-        if (!args[0]) return msg.channel.send('Invalid args! Usage: `!inf <search/info/duration> <snowflake/id> <time(if duration)>`');
+        if (!args[0]) return msg.channel.send('Invalid args! Usage: `!inf <search/info/duration/del> <snowflake/id> <time(if duration)>`');
         if (args[0] == 'search') {
             let user;
             if (msg.mentions.users.size > 0) {
@@ -131,6 +131,15 @@ module.exports = {
                 client.db.table('punishments').get(id).update({ dateExpired: expDate }).run();
                 msg.channel.send(`:ok_hand: updated duration of inf ${id}`);
             } else return msg.channel.send(':x: Invalid length');
+        } else if (args[0] == 'del') {
+            if (!args[1]) return msg.channel.send(':x: You must include the ID of the punishment you\'d like to remove!');
+            const id = parseInt(args[1]);
+            if (id == NaN) return msg.channel.send(':x: ID is not a number!');
+            const pun = await client.db.table('punishments').get(id).run();
+            if (!pun) return msg.channel.send(':x: A punishment with that ID doesn\'t exist!');
+            if (pun.active) return msg.channel.send(':x: This punishment is an active punishment! Pardon the user that this infraction affected before trying to remove the punishment.');
+            client.db.table('punishments').get(id).delete().run();
+            msg.channel.send(`:ok_hand: deleted an inf (\`${id}\`)`);    
         }
     },
     meta: {
