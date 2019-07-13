@@ -2,7 +2,7 @@ module.exports = {
     run: async (client, msgReaction, user) => {
         const emoji = msgReaction.emoji;
         const member = (await msgReaction.message.guild.fetchMembers()).members.get(user.id);
-        if (msgReaction.message.channel.id == client.config.rolechannel) {
+        if (msgReaction.message.id == client.config.rolechannel) {
             if (emoji.id == client.config.hpemojiid) {
                 const eventsrole = msgReaction.message.guild.roles.find(role => role.name === 'Events');
                 if (eventsrole) {
