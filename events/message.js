@@ -139,8 +139,6 @@ module.exports = {
                     } catch (e) {
                         
                     }
-                    const muted = msg.guild.roles.find(role => role.name === 'Muted');
-                    msg.member.addRole(muted);                
                 } else {
                     const user = msg.author;
                     const date = new Date();
