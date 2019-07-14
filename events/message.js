@@ -59,7 +59,6 @@ module.exports = {
                 const invitestring = msgarray.filter(element => {
                     return element.includes('discord.gg');
                 });    
-                console.log(invitestring);
                 const invite = await client.fetchInvite(invitestring);
                 const invwl = await client.db.table('automodData').get('whitelisted-invites').run();
                 if (!invwl.invites.includes(invite.guild.id)) {
