@@ -3,7 +3,8 @@ module.exports = {
         const emoji = msgReaction.emoji;
         const member = (await msgReaction.message.guild.fetchMembers()).members.get(user.id);
         if (msgReaction.message.id == client.config.rolechannel) {
-            if (emoji.id == client.config.hpemojiid) {
+            console.log(emoji.name);
+            if (emoji.name == 'HypeBadge') {
                 const eventsrole = msgReaction.message.guild.roles.find(role => role.name === 'Events');
                 if (eventsrole) {
                     member.addRole(eventsrole);
