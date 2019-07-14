@@ -59,6 +59,23 @@ module.exports = {
                 const invitestring = msgarray.filter(element => {
                     return element.includes('discord.gg');
                 });    
+                console.log(invitestring);
+                const invite = await client.fetchInvite(invitestring);
+                const invwl = await client.db.table('automodData').get('whitelisted-invites').run();
+                if (!invwl.invites.includes(invite.guild.id)) {
+                    msg.delete();
+                    client.log(`:no_entry_sign: censored message by ${msg.author.tag} (\`${msg.author.id}\`) in ${msg.channel.name} (\`${msg.channel.id}\`) invite \`${invite.code}\` to ${invite.guild.name}: \n${msg.content}`);
+                } else return;
+            }
+
+            if (msg.content.includes('discordapp.com/invite')) {
+                const msgarray = msg.content.split(' ');
+                const invitestring = msgarray.filter(element => {
+                    return element.includes('discordapp.com/invite');
+                });
+                const invchar = invitestring[0].split('');
+                const codearray = invchar.slice(30, 36);
+                const code = codearray.join(' ');
                 const invite = await client.fetchInvite(invitestring);
                 const invwl = await client.db.table('automodData').get('whitelisted-invites').run();
                 if (!invwl.invites.includes(invite.guild.id)) {
