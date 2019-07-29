@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 module.exports = {
     run: async (client, msg, args) => {
-        if (!args[0]) return msg.channel.send(':x: You must mention who you want to tempmute.');
+        if (!args[0]) return msg.channel.send(':x: You must mention who you want to tempban.');
         let user;
         if (msg.mentions.users.size > 0) {
             user = msg.mentions.users.first();
