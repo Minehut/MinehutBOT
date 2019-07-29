@@ -1,11 +1,12 @@
 {
     "token":"",
     "prefix":"!",
-    "devs":["535986058991501323", "535986058991501323"],
+    "devs":["", ""],
     "guildid":"",
     "logchannel":"",
     "rolechannel":"",
     "muterole":"",
     "hsemojiid":"",
-    "db": {"host": "155.138.229.220", "port": "28015", "user":"admin", "pass":"P@4T]*2;Db)!"} 
+    "eventschannel":"",
+    "db": {"host": "", "port": "", "user":"", "pass":""} 
 }
