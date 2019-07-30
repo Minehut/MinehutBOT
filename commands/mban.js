@@ -12,7 +12,7 @@ module.exports = {
         }
         const ids = args.slice(0, flagpos);
         if (!ids || ids.length == 1) return msg.channel.send(':x: You must include 2 or more ids to mass ban!');
-        const reason = args.slice(flagpos, flagpos + 2);
+        const reason = args.slice(flagpos, args.length);
         if (!reason) return msg.channel.send(':x: You must include a reason for banning these accounts! (No reason found after flag)');
         const msg2edit = await msg.channel.send(`:ok_hand: banning \`${ids.length}\` accounts...`);
         const couldntban = [];
