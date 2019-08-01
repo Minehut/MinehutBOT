@@ -13,15 +13,5 @@ module.exports = {
                 client.log(`:name_badge: ${membera.user.tag} (\`${membera.user.id}\`) removed nickname \`${membera.nickname}\``);
             }
         }
-
-        if (memberb.voiceChannel == null && membera.voiceChannel != null) {
-            const voicerole = client.guilds.get(client.config.guildid).roles.find(r => r.name === 'Voice');
-            membera.addRole(voicerole);
-        } else if (membera.voiceChannel == null && memberb.voiceChannel != null) {
-            const voicerole = client.guilds.get(client.config.guildid).roles.find(r => r.name === 'Voice');
-            if (membera.roles.has(voicerole.id)) {
-                membera.removeRole(voicerole);
-            }
-        }
     }
 }
