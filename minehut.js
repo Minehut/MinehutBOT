@@ -2,7 +2,6 @@ const Discord = require('discord.js');
 const client = new Discord.Client({ disableEveryone: true, fetchAllMembers: true });
 const fs = require('fs');
 const pastebin = require('pastebin-js');
-const ytdl = require('ytdl-core');
 client.config = require('./config.json');
 
 client.login(client.config.token);
@@ -71,16 +70,6 @@ function check(client) {
 }, 1000)
 }
 
-function spaminterval(client) {
-    setInterval(async function() {
-        const data = await client.db.table('userData').run();
-        const filter = data.filter(data => data.msgs > 0);
-        filter.forEach(u => {
-            client.db.table('userData').get(u.id).update({ msgs: 0 }).run();
-        });
-    }, 3000)
-}
-
 function updateStatus(client) {
     setInterval(function() {
         client.user.setActivity(`with ${client.guilds.get(client.config.guildid).memberCount} users`, { type: 'PLAYING' });
@@ -88,7 +77,6 @@ function updateStatus(client) {
 }
 
 check(client);
-spaminterval(client);
 updateStatus(client);
 
 client.elevation = msg => {
