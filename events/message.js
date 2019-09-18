@@ -49,6 +49,8 @@ module.exports = {
             }
         }
             if (msg.content.includes('discord.gg')) {
+                const perms = client.elevation(msg);
+                if (perms >= 3) return;
                 const msgarray = msg.content.split(" ");    
                 const invitestring = msgarray.filter(element => {
                     return element.includes('discord.gg');
@@ -62,13 +64,12 @@ module.exports = {
             }
 
             if (msg.content.includes('discordapp.com/invite')) {
+                const perms = client.elevation(msg);
+                if (perms >= 3) return;
                 const msgarray = msg.content.split(' ');
                 const invitestring = msgarray.filter(element => {
                     return element.includes('discordapp.com/invite');
                 });
-                const invchar = invitestring[0].split('');
-                const codearray = invchar.slice(30, 36);
-                const code = codearray.join(' ');
                 const invite = await client.fetchInvite(invitestring);
                 const invwl = await client.db.table('automodData').get('whitelisted-invites').run();
                 if (!invwl.invites.includes(invite.guild.id)) {
