@@ -5,10 +5,10 @@ module.exports = {
         if (tags.length == 0) return msg.channel.send(':x: There are no tags!');
         const tagnames = [];
         tags.forEach(tag => {
-            tagnames.push(tag.id);
+            tagnames.push(`\`${tag.id}\``);
         });
         const embed = new Discord.RichEmbed()
-        .setDescription(`${tagnames.join('\n')}`)
+        .setDescription(`${tagnames.join(', ')}`)
         .setColor('BLUE');
         msg.channel.send(embed);
     },
