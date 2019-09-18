@@ -50,7 +50,7 @@ module.exports = {
         }
             if (msg.content.includes('discord.gg')) {
                 const perms = client.elevation(msg);
-                if (perms >= 3) return;
+                if (perms >= 4) return;
                 const msgarray = msg.content.split(" ");    
                 const invitestring = msgarray.filter(element => {
                     return element.includes('discord.gg');
@@ -65,7 +65,7 @@ module.exports = {
 
             if (msg.content.includes('discordapp.com/invite')) {
                 const perms = client.elevation(msg);
-                if (perms >= 3) return;
+                if (perms >= 4) return;
                 const msgarray = msg.content.split(' ');
                 const invitestring = msgarray.filter(element => {
                     return element.includes('discordapp.com/invite');
