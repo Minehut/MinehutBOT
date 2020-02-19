@@ -25,7 +25,7 @@ module.exports = {
     meta: {
         aliases: ['events'],
         description: 'Announce an event',
-        permlvl: 3,
+        permlvl: 4,
         modCmd: false,
         usage: ''              
     }
