@@ -15,7 +15,7 @@ module.exports = {
     meta: {
         aliases: ['tags'],
         description: '',
-        permlvl: 1,
+        permlvl: 0,
         modCmd: false,
         usage: ''  
     }
