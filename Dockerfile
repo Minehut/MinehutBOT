@@ -6,7 +6,7 @@ RUN chmod +x /app/tini
 ENTRYPOINT ["/app/tini", "--"]
 
 RUN apk add python make gcc g++ git bzip2
-RUN mkdir /app
+RUN mkdir -p /app
 WORKDIR /app
 
 ADD . .
