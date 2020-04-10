@@ -3,9 +3,11 @@ const Discord = require('discord.js');
 module.exports = {
     run: async (client, msg) => {
         if (msg.author.bot) return;
-        const userData = await client.db.table('userData').get(msg.author.id).run()
+        let userData = await client.db.table('userData').get(msg.author.id).run()
         if (!userData) {
-            client.db.table('userData').insert({ id: user.id, user: { id: user.id, tag: user.tag, username: user.username, avatarURL: user.avatarURL }, muted: false, msgs: 0 }).run();
+            const user = msg.author;
+            userData = { id: user.id, user: { id: user.id, tag: user.tag, username: user.username, avatarURL: user.avatarURL }, muted: false, msgs: 0 };
+            client.db.table('userData').insert(userData).run();
         }
         if (msg.content.startsWith(client.config.prefix)) {
             const args = msg.content.slice(client.config.prefix.length).trim().split(/ +/g);
