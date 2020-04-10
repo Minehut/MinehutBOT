@@ -1,4 +1,4 @@
-FROM node:12-alpine
+FROM node:10-alpine
 
 RUN apk add python make gcc g++ git bzip2
 RUN mkdir /app
