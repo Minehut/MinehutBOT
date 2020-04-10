@@ -32,7 +32,7 @@ module.exports = {
                 return newDate;
            }
            punishments.forEach(inf => {
-               inftable.push([ inf.id, inf.punished.name, inf.moderator.name, rewriteCreated(inf.date), inf.type, inf.active, inf.reason ]);
+               inftable.push([ inf.id, inf.punished.name, inf.moderator.name, rewriteCreated(new Date(inf.date)), inf.type, inf.active, inf.reason ]);
            });
            msg.channel.send(`\`\`\`${inftable.toString()}\`\`\``);      
         } else if (args[0] == 'info') {
