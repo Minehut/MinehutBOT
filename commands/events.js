@@ -14,7 +14,7 @@ module.exports = {
         if (m.first().content.toLowerCase() == 'y') {
             await eventsrole.setMentionable(true);
             await events.send(`${message}\n\n<@&${eventsrole.id}>`);
-            await eventsrole.setMentionable(false);    
+            await eventsrole.setMentionable(false);
         } else if (m.first().content.toLowerCase() == 'n') {
             await events.send(`${message}`);
         } else {
@@ -25,8 +25,8 @@ module.exports = {
     meta: {
         aliases: ['events'],
         description: 'Announce an event',
-        permlvl: 4,
+        permlvl: 3,
         modCmd: false,
-        usage: ''              
+        usage: ''
     }
 }
