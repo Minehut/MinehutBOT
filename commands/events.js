@@ -1,6 +1,6 @@
 module.exports = {
     run: async (client, msg, args) => {
-        if (args.length < 1) return msg.channel.send(':x: Correct usage: `events <yes/no> <message>');
+        if (args.length < 1) return msg.channel.send(':x: Correct usage: `events <yes/no> <message>`');
         const mentionArg = args[0];
         args.shift();
         if (!['yes', 'y', 'no', 'n'].includes(mentionArg.toLowerCase())) return msg.reply('First argument must be `yes/no` -- do you want to mention the Events role?');
