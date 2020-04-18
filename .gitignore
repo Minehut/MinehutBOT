@@ -3,3 +3,5 @@ config.json
 package-lock.json
 .idea/
 *.iml
+TODO
+.env
