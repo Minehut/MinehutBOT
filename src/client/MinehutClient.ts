@@ -5,6 +5,8 @@ export default class MinehutClient extends AkairoClient {
 	commandHandler: CommandHandler;
 	listenerHandler: ListenerHandler;
 
+	ownerIds: string[] | undefined;
+
 	constructor(options: MinehutClientOptions) {
 		// TODO: validate options
 
@@ -16,6 +18,8 @@ export default class MinehutClient extends AkairoClient {
 				disableMentions: 'everyone',
 			}
 		);
+
+		this.ownerIds = options.ownerIds;
 
 		this.commandHandler = new CommandHandler(this, {
 			directory: './src/commands/',
@@ -32,5 +36,13 @@ export default class MinehutClient extends AkairoClient {
 
 		this.listenerHandler.loadAll();
 		this.commandHandler.loadAll();
+	}
+}
+
+declare module 'discord-akairo' {
+	interface AkairoClient {
+		commandHandler: CommandHandler;
+		listenerHandler: ListenerHandler;
+		ownerIds: string[] | undefined;
 	}
 }
