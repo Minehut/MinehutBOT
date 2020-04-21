@@ -1,4 +1,4 @@
-export default interface MinehutClientOptions {
+export interface MinehutClientOptions {
   ownerIds?: string[];
   prefix?: string;
 }

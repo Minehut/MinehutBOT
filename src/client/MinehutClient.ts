@@ -1,7 +1,7 @@
 import { AkairoClient, CommandHandler, ListenerHandler } from 'discord-akairo';
-import MinehutClientOptions from './MinehutClientOptions';
+import { MinehutClientOptions } from './MinehutClientOptions';
 
-export default class MinehutClient extends AkairoClient {
+export class MinehutClient extends AkairoClient {
 	commandHandler: CommandHandler;
 	listenerHandler: ListenerHandler;
 
@@ -23,9 +23,9 @@ export default class MinehutClient extends AkairoClient {
 
 		this.commandHandler = new CommandHandler(this, {
 			directory: './src/commands/',
-      prefix: options.prefix,
-      commandUtil: true,
-      allowMention: true
+			prefix: options.prefix,
+			commandUtil: true,
+			allowMention: true,
 		});
 		this.listenerHandler = new ListenerHandler(this, {
 			directory: './src/listeners/',
