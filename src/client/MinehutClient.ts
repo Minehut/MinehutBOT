@@ -23,7 +23,9 @@ export default class MinehutClient extends AkairoClient {
 
 		this.commandHandler = new CommandHandler(this, {
 			directory: './src/commands/',
-			prefix: options.prefix,
+      prefix: options.prefix,
+      commandUtil: true,
+      allowMention: true
 		});
 		this.listenerHandler = new ListenerHandler(this, {
 			directory: './src/listeners/',
