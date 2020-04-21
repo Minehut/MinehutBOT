@@ -1,4 +1,4 @@
-import { MinehutClient } from './client/MinehutClient';
+import { MinehutClient } from './client/minehutClient';
 
 require('dotenv').config();
 

@@ -1,5 +1,5 @@
 import { AkairoClient, CommandHandler, ListenerHandler } from 'discord-akairo';
-import { MinehutClientOptions } from './MinehutClientOptions';
+import { MinehutClientOptions } from './minehutClientOptions';
 
 export class MinehutClient extends AkairoClient {
 	commandHandler: CommandHandler;

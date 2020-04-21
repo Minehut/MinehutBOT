@@ -1,8 +1,8 @@
 import { GuildMember } from 'discord.js';
-import { MinehutClient } from '../../client/MinehutClient';
-import { MainDiscordRole } from './role/MainDiscordRole';
-import { PermissionLevel } from './PermissionLevel';
-import { StaffDiscordRole } from './role/StaffDiscordRole';
+import { MinehutClient } from '../../client/minehutClient';
+import { MainDiscordRole } from './role/mainDiscordRole';
+import { PermissionLevel } from './permissionLevel';
+import { StaffDiscordRole } from './role/staffDiscordRole';
 
 export function getPermissionLevel(
 	member: GuildMember,
