@@ -1,9 +1,27 @@
 const fs = require('fs');
 const Discord = require('discord.js');
+const filters = require('../filter.json');
 module.exports = {
     run: async (client, msg) => {
-        if (msg.author.bot) return;
-        let userData = await client.db.table('userData').get(msg.author.id).run()
+				if (msg.author.bot) return;
+				if (msg.guild.id === client.config.guildid && (msg.channel.id !== '585753135742582786') && msg.channel.id !== '676533595648688149') {
+					// Chat filter
+					const matches = filters.filter(f => f.enabled && new RegExp(f.rule).test(msg.content.toLowerCase()));
+					if (matches.length > 0) {
+						const match = matches[0];
+						msg.delete();
+						switch (match.type.toLowerCase()) {
+							case 'swear':
+								msg.channel.send(`${msg.author}, please do not swear on the Minehut discord. Thanks! ^_^`);
+								break;
+							case 'spam':
+								msg.channel.send(`${msg.author}, please do not spam on the Minehut discord. Thanks! ^_^`);
+								break;
+						}
+						return;
+					}
+				}
+        let userData = await client.db.table('userData').get(msg.author.id).run();
         if (!userData) {
             const user = msg.author;
             userData = { id: user.id, user: { id: user.id, tag: user.tag, username: user.username, avatarURL: user.avatarURL }, muted: false, msgs: 0 };
