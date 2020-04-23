@@ -21,7 +21,6 @@ module.exports = {
         const embed = new Discord.RichEmbed()
         .setDescription('You have been kicked from Minehut!')
         .addField('ID', id, true)
-        .addField('Moderator', msg.author.tag, true)
         .addField('Reason', reason, true)
         .setColor('#FF0000')
         .setFooter(`Punished: ${datepunished}`);

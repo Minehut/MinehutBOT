@@ -27,7 +27,6 @@ module.exports = {
             const embed = new Discord.RichEmbed()
             .setDescription('You have been temporarily banned on Minehut!')
             .addField('ID', id, true)
-            .addField('Moderator', msg.author.tag, true)
             .addField('Reason', reason, true)
             .addField('Duration', `${num}s`, true)
             .setColor('#FF0000')
