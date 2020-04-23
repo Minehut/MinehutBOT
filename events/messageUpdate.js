@@ -2,7 +2,7 @@ const filters = require('../filter.json');
 module.exports = {
     run: async (client, msgb, msga) => {
         if (msgb.embeds.length == 0 && msgb.content != msga.content && msga.channel.id && !msga.author.bot) {
-					if (msga.guild.id === client.config.guildid && (msga.channel.id !== '585753135742582786') && msga.channel.id !== '676533595648688149' &&  client.elevation(msga) < 4) {
+					if (msga.guild.id === client.config.guildid && (msga.channel.id !== '585753135742582786') && msga.channel.id !== '676533595648688149' &&  client.elevation(msga) < 2) {
 						// Chat filter
 						const matches = filters.filter(f => f.enabled && new RegExp(f.rule).test(msga.content.toLowerCase()));
 						if (matches.length > 0) {
