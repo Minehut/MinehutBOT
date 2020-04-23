@@ -8,13 +8,14 @@ module.exports = {
 						if (matches.length > 0) {
 							const match = matches[0];
 							msga.delete();
+							let m;
 							switch (match.type.toLowerCase()) {
 								case 'swear':
-									let m = await msga.channel.send(`${msga.author}, please do not swear on the Minehut discord. Thanks! ^_^`);
+									m = await msga.channel.send(`${msga.author}, please do not swear on the Minehut discord. Thanks! ^_^`);
 									setTimeout(() => m.delete(), 5000);
 									break;
 								case 'spam':
-									let m = await msga.channel.send(`${msga.author}, please do not spam on the Minehut discord. Thanks! ^_^`);
+									m = await msga.channel.send(`${msga.author}, please do not spam on the Minehut discord. Thanks! ^_^`);
 									setTimeout(() => m.delete(), 5000);
 									break;
 							}
