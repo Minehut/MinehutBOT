@@ -1,6 +1,7 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { messages } from '../../util/constants/messages';
+import { TagModel, Tag } from '../../models/Tag';
 
 export default class TagSetCommand extends Command {
 	constructor() {
@@ -39,6 +40,24 @@ export default class TagSetCommand extends Command {
 		{ name, content }: { name: string; content: string }
 	) {
 		name = name.replace(/\s+/g, '-').toLowerCase();
-		msg.reply(`You want to set \`${name}\` to \`\`\`${content}\`\`\`?`);
+		const tag = {
+			name,
+			content,
+		} as Tag;
+		const conflictingTag = await TagModel.findOne({
+			aliases: { $all: [tag.name] },
+		});
+		if (conflictingTag)
+			return msg.channel.send(
+				messages.commands.tag.set.conflictingAliases(
+					process.env.DISCORD_PREFIX!,
+					conflictingTag.name
+				)
+			);
+		if (!(await TagModel.exists({ name }))) {
+			TagModel.create(tag);
+			return msg.channel.send(messages.commands.tag.set.tagCreated(tag.name));
+		} else await TagModel.updateOne({ name }, tag);
+		return msg.channel.send(messages.commands.tag.set.tagUpdated(tag.name));
 	}
 }
