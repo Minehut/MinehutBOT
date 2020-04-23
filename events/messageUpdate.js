@@ -10,12 +10,12 @@ module.exports = {
 							msga.delete();
 							switch (match.type.toLowerCase()) {
 								case 'swear':
-									msga.channel.send(`${msga.author}, please do not swear on the Minehut discord. Thanks! ^_^`);
-									setTimeout(() => msg.delete(), 5000);
+									const m = await msga.channel.send(`${msga.author}, please do not swear on the Minehut discord. Thanks! ^_^`);
+									setTimeout(() => m.delete(), 5000);
 									break;
 								case 'spam':
-									msga.channel.send(`${msga.author}, please do not spam on the Minehut discord. Thanks! ^_^`);
-									setTimeout(() => msg.delete(), 5000);
+									const m = await msga.channel.send(`${msga.author}, please do not spam on the Minehut discord. Thanks! ^_^`);
+									setTimeout(() => m.delete(), 5000);
 									break;
 							}
 							return;
