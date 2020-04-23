@@ -5,11 +5,11 @@ import { messages } from '../../util/constants/messages';
 export default class PingCommand extends Command {
 	constructor() {
 		super('ping', {
-      aliases: ['ping'],
-      category: 'utility',
-      description: {
-        content: messages.commands.ping.description
-      }
+			aliases: ['ping'],
+			category: 'utility',
+			description: {
+				content: messages.commands.ping.description,
+			},
 		});
 	}
 
