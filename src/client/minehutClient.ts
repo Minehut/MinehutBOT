@@ -1,11 +1,13 @@
 import { AkairoClient, CommandHandler, ListenerHandler } from 'discord-akairo';
 import { MinehutClientOptions } from './minehutClientOptions';
+import { Mongoose } from 'mongoose';
 
 export class MinehutClient extends AkairoClient {
 	commandHandler: CommandHandler;
 	listenerHandler: ListenerHandler;
 
 	ownerIds: string[] | undefined;
+	mongo?: Mongoose;
 
 	constructor(options: MinehutClientOptions) {
 		// TODO: validate options
@@ -20,6 +22,7 @@ export class MinehutClient extends AkairoClient {
 		);
 
 		this.ownerIds = options.ownerIds;
+		this.mongo = options.mongo;
 
 		this.commandHandler = new CommandHandler(this, {
 			directory: './src/commands/',
