@@ -10,15 +10,15 @@ export default class TagCommand extends Command {
 				usage: '<method> <...arguments>',
 			},
 			category: 'tag',
-			channel: 'guild'
+			channel: 'guild',
 		});
 	}
 
 	*args() {
 		const method = yield {
 			type: [
-        ['tag-set', 'set'],
-        ['tag-delete', 'delete']
+				['tag-set', 'set'],
+				['tag-delete', 'delete'],
 			],
 			otherwise: (_msg: Message) => {
 				return 'todo: this message';
