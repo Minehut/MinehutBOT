@@ -4,7 +4,7 @@ const filters = require('../filter.json');
 module.exports = {
     run: async (client, msg) => {
 				if (msg.author.bot) return;
-				if (msg.guild.id === client.config.guildid && (msg.channel.id !== '585753135742582786') && msg.channel.id !== '676533595648688149') {
+				if (msg.guild.id === client.config.guildid && (msg.channel.id !== '585753135742582786') && msg.channel.id !== '676533595648688149' && client.elevation(msg) < 4) {
 					// Chat filter
 					const matches = filters.filter(f => f.enabled && new RegExp(f.rule).test(msg.content.toLowerCase()));
 					if (matches.length > 0) {
