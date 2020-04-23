@@ -1,3 +1,5 @@
+import { User } from 'discord.js';
+
 export const messages = {
 	commands: {
 		ping: {
@@ -10,6 +12,17 @@ export const messages = {
 			description: 'Show your permission level',
 			response: (permLevel: Number, permLevelName: string) =>
 				`Your permission level is ${permLevel} (${permLevelName})`,
+		},
+		tag: {
+			set: {
+				namePrompt: {
+					start: (author: User) => `${author}, what should the tag be called? (spaces allowed)`,
+				},
+				contentPrompt: {
+					start: (author: User) =>
+						`${author}, what should the tag's content be?`,
+				},
+			},
 		},
 	},
 };
