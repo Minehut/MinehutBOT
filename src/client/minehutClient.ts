@@ -1,10 +1,13 @@
 import { AkairoClient, CommandHandler, ListenerHandler } from 'discord-akairo';
 import { MinehutClientOptions } from './minehutClientOptions';
 import { Mongoose } from 'mongoose';
+import { Message } from 'discord.js';
+import { InhibitorHandler } from 'discord-akairo';
 
 export class MinehutClient extends AkairoClient {
 	commandHandler: CommandHandler;
 	listenerHandler: ListenerHandler;
+	inhibitorHandler: InhibitorHandler;
 
 	ownerIds: string[] | undefined;
 	mongo?: Mongoose;
@@ -33,6 +36,9 @@ export class MinehutClient extends AkairoClient {
 		this.listenerHandler = new ListenerHandler(this, {
 			directory: './src/listeners/',
 		});
+		this.inhibitorHandler = new InhibitorHandler(this, {
+			directory: './inhibitors/'
+	});
 		this.listenerHandler.setEmitters({
 			commandHandler: this.commandHandler,
 			listenerHandler: this.listenerHandler,
@@ -41,6 +47,25 @@ export class MinehutClient extends AkairoClient {
 
 		this.listenerHandler.loadAll();
 		this.commandHandler.loadAll();
+
+		this.commandHandler.resolver.addType('handler', (_msg: Message, phrase) => {
+			if (!phrase) return null;
+			switch (phrase.toLowerCase()) {
+				case 'cmd':
+				case 'command':
+					return this.commandHandler;
+				
+				case 'listener':
+				case 'event':
+					return this.listenerHandler;
+				
+				case 'inhibitor':
+					return this.inhibitorHandler;
+
+				default:
+					return null;
+			}
+		});
 	}
 }
 
@@ -48,6 +73,7 @@ declare module 'discord-akairo' {
 	interface AkairoClient {
 		commandHandler: CommandHandler;
 		listenerHandler: ListenerHandler;
+		inhibitorHandler: InhibitorHandler;
 		ownerIds: string[] | undefined;
 	}
 }

@@ -19,6 +19,7 @@ export default class TagCommand extends Command {
 			type: [
 				['tag-set', 'set'],
 				['tag-delete', 'delete'],
+				['tag-show', 'show']
 			],
 			otherwise: (_msg: Message) => {
 				return 'todo: this message';
