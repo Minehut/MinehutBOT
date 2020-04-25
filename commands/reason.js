@@ -13,7 +13,7 @@ module.exports = {
     meta: {
         aliases: ['reason'],
         description: 'Updates a reason for an infraction',
-        permlvl: 4,
+        permlvl: 3,
         modCmd: true,
         usage: ''          
     }
