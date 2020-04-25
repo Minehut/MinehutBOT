@@ -45,7 +45,7 @@ export default class TagSetCommand extends Command {
 			content,
 		} as Tag;
 		const conflictingTag = await TagModel.findOne({
-			aliases: { $all: [tag.name] },
+			aliases: { $in: [tag.name] },
 		});
 		if (conflictingTag)
 			return msg.channel.send(

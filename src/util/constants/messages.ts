@@ -2,7 +2,7 @@ import { User } from 'discord.js';
 
 export const emoji = {
 	cross: '<:jcross:548390154381950976>',
-	check: '<:jcheck:548390154294001674>'
+	check: '<:jcheck:548390154294001674>',
 };
 
 export const messages = {
@@ -31,7 +31,13 @@ export const messages = {
 				conflictingAliases: (prefix: string, conflictingTag: string) =>
 					`${emoji.cross} tag name conflicts with \`${conflictingTag}\`'s aliases (use ${prefix}tag info ${conflictingTag})`,
 				tagCreated: (name: string) => `${emoji.check} tag \`${name}\` created`,
-				tagUpdated: (name: string) => `${emoji.check} tag \`${name}\` updated`
+				tagUpdated: (name: string) => `${emoji.check} tag \`${name}\` updated`,
+			},
+			show: {
+				namePrompt: {
+					start: (author: User) => `${author}, which tag do you want to show?`,
+				},
+				unknownTag: (prefix: string) => `${emoji.cross} tag does not exist, check \`${prefix}tags\``
 			},
 		},
 	},
