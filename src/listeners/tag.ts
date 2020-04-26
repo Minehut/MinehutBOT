@@ -4,7 +4,7 @@ import { TagModel } from '../models/Tag';
 
 export default class TagListener extends Listener {
 	public constructor() {
-		super('messageInvalid', {
+		super('tag', {
 			emitter: 'commandHandler',
 			event: 'messageInvalid',
 			category: 'commandHandler',
