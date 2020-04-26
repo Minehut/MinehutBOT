@@ -1,12 +1,19 @@
 import { User } from 'discord.js';
 
 export const emoji = {
-	cross: '<:jcross:548390154381950976>',
-	check: '<:jcheck:548390154294001674>',
+	cross: '<:mhcross:548390154381950976>',
+	check: '<:mhdottick:610799592589623306>',
+	warning: '<:mhdotwarning:610801144914247690>',
+	ahh: '<:mhnotthis:703852468756283395>',
 };
 
 export const messages = {
 	commands: {
+		common: {
+			useHelp: (prefix: string, commandName: string) =>
+				`${emoji.ahh} I can help you more if you use \`${prefix}help ${commandName}\``,
+			error: (error: string) => `${emoji.warning} ${error}`,
+		},
 		ping: {
 			description: 'Ping, pong',
 			responseLoading: ':ping_pong: Ping?',
@@ -37,7 +44,8 @@ export const messages = {
 				namePrompt: {
 					start: (author: User) => `${author}, which tag do you want to show?`,
 				},
-				unknownTag: (prefix: string) => `${emoji.cross} tag does not exist, check \`${prefix}tags\``
+				unknownTag: (prefix: string) =>
+					`${emoji.cross} tag does not exist, check \`${prefix}tags\``,
 			},
 		},
 	},
