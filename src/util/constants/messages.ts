@@ -46,6 +46,7 @@ export const messages = {
 				},
 				unknownTag: (prefix: string) =>
 					`${emoji.cross} tag does not exist, check \`${prefix}tags\``,
+				showTag: (content: string) => content
 			},
 		},
 	},
