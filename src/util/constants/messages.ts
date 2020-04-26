@@ -14,6 +14,9 @@ export const messages = {
 				`${emoji.ahh} I can help you more if you use \`${prefix}help ${commandName}\``,
 			error: (error: string) => `${emoji.warning} ${error}`,
 		},
+		eval: {
+			outputTooLong: `${emoji.warning} length of output exceeds character limit`
+		},
 		ping: {
 			description: 'Ping, pong',
 			responseLoading: ':ping_pong: Ping?',
