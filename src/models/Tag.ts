@@ -7,8 +7,13 @@ export class Tag {
 	@prop({ required: true })
 	content!: string;
 
+	@prop({ required: true })
+	author!: string;
+
 	@prop({ default: [] })
-	aliases?: string[]
+	aliases?: string[];
 }
 
-export const TagModel = getModelForClass(Tag);
+export const TagModel = getModelForClass(Tag, {
+	schemaOptions: { timestamps: true },
+});
