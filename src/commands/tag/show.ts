@@ -31,7 +31,10 @@ export default class TagShowCommand extends Command {
 		const tag = await TagModel.findOne({
 			$or: [{ name }, { aliases: { $in: [name] } }],
 		});
-		if (tag) return msg.channel.send(messages.commands.tag.show.showTag(tag.content));
-		else msg.channel.send(messages.commands.tag.show.unknownTag(process.env.DISCORD_PREFIX!));
+		if (!tag)
+			return msg.channel.send(
+				messages.commands.tag.show.unknownTag(process.env.DISCORD_PREFIX!, name)
+			);
+		msg.channel.send(messages.commands.tag.show.showTag(tag.content));
 	}
 }
