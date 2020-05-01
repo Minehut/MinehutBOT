@@ -15,7 +15,7 @@ export const messages = {
 			error: (error: string) => `${emoji.warning} ${error}`,
 		},
 		eval: {
-			outputTooLong: `${emoji.warning} length of output exceeds character limit`
+			outputTooLong: `${emoji.warning} length of output exceeds character limit`,
 		},
 		ping: {
 			description: 'Ping, pong',
@@ -47,9 +47,21 @@ export const messages = {
 				namePrompt: {
 					start: (author: User) => `${author}, which tag do you want to show?`,
 				},
-				unknownTag: (prefix: string) =>
-					`${emoji.cross} tag does not exist, check \`${prefix}tags\``,
-				showTag: (content: string) => content
+				unknownTag: (prefix: string, name: string) =>
+					`${emoji.cross} tag \`${name}\` does not exist, check \`${prefix}tags\``,
+				showTag: (content: string) => content,
+			},
+			delete: {
+				unknownTag: (prefix: string, name: string) =>
+					`${emoji.cross} tag \`${name}\` does not exist, check \`${prefix}tags\``,
+				namePrompt: {
+					start: (author: User) =>
+						`${author}, which tag do you want to delete?`,
+				},
+				tagDeleted: (name: string, aliases: string[]) =>
+					`:wastebasket: tag \`${name}\` deleted ${
+						aliases.length > 0 ? `(aliases: ${aliases.join(', ')}` : ''
+					})`,
 			},
 		},
 	},
