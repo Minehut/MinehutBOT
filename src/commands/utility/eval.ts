@@ -1,6 +1,6 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
-import { messages } from '../../util/constants/messages';
+import { messages } from '../../util/constant/messages';
 import { inspect } from 'util';
 
 export default class EvalCommand extends Command {
