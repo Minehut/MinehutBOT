@@ -43,6 +43,7 @@ export default class TagSetCommand extends Command {
 		const tag = {
 			name,
 			content,
+			author: msg.author.id
 		} as Tag;
 		const conflictingTag = await TagModel.findOne({
 			aliases: { $in: [tag.name] },
