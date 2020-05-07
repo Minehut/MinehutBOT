@@ -1,6 +1,6 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
-import { TagModel } from '../../models/Tag';
+import { TagModel } from '../../model/Tag';
 import { messages } from '../../util/constant/messages';
 
 export default class TagDeleteCommand extends Command {
@@ -27,10 +27,10 @@ export default class TagDeleteCommand extends Command {
 	}
 
 	async exec(msg: Message, { name }: { name: string }) {
+		name = name.replace(/\s+/g, '-').toLowerCase();
+
 		// Find tag with that name or alias
-		const tag = await TagModel.findOne({
-			$or: [{ name }, { aliases: { $in: [name] } }],
-		});
+		const tag = await TagModel.findByNameOrAlias(name);
 		if (!tag)
 			return msg.channel.send(
 				messages.commands.tag.delete.unknownTag(

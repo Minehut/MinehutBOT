@@ -1,7 +1,7 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { messages } from '../../util/constant/messages';
-import { TagModel, Tag } from '../../models/Tag';
+import { TagModel, Tag } from '../../model/Tag';
 
 export default class TagSetCommand extends Command {
 	constructor() {
@@ -16,7 +16,7 @@ export default class TagSetCommand extends Command {
 			args: [
 				{
 					id: 'name',
-					type: 'tagName',
+					type: 'string',
 					prompt: {
 						start: (msg: Message) =>
 							messages.commands.tag.set.namePrompt.start(msg.author),

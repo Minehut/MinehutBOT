@@ -19,7 +19,11 @@ export default class TagCommand extends Command {
 			type: [
 				['tag-set', 'set'],
 				['tag-delete', 'delete'],
-				['tag-show', 'show']
+				['tag-show', 'show'],
+
+				['tag-setalias', 'setalias'],
+				['tag-deletealias', 'deletealias'],
+				['tag-deletealias', 'delalias'],
 			],
 			otherwise: (_msg: Message) => {
 				return 'todo: this message';
