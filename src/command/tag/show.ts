@@ -1,7 +1,7 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { messages } from '../../util/constant/messages';
-import { TagModel } from '../../models/Tag';
+import { TagModel } from '../../model/Tag';
 
 export default class TagShowCommand extends Command {
 	constructor() {
@@ -28,9 +28,8 @@ export default class TagShowCommand extends Command {
 
 	async exec(msg: Message, { name }: { name: string }) {
 		// Find tag with that name or alias
-		const tag = await TagModel.findOne({
-			$or: [{ name }, { aliases: { $in: [name] } }],
-		});
+		name = name.replace(/\s+/g, '-').toLowerCase();
+		const tag = await TagModel.findByNameOrAlias(name);
 		if (!tag)
 			return msg.channel.send(
 				messages.commands.tag.show.unknownTag(process.env.DISCORD_PREFIX!, name)

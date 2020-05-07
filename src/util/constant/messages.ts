@@ -63,6 +63,28 @@ export const messages = {
 						aliases.length > 0 ? `(aliases: ${aliases.join(', ')}` : ''
 					})`,
 			},
+			aliases: {
+				set: {
+					aliasPrompt: {
+						start: (author: User) =>
+							`${author}, what do you want the alias to be?`,
+					},
+					namePrompt: {
+						start: (author: User) =>
+							`${author}, which tag do you want this alias to be added to?`,
+					},
+					nothingChanged: ':o: nothing changed',
+					unknownTarget: (name: string) =>
+						`${emoji.cross} unknown target \`${name}\``,
+					aliasesUpdated: (target: string, newAlias: string, all: string[]) =>
+						`${emoji.check} \`${newAlias}\` now points to \`${target}\` (aliases: ${all.join(', ')})`,
+				},
+				delete: {
+					aliasIsName: (alias: string) => `${emoji.cross} \`${alias}\` is a name, not an alias`,
+					unknownAlias: (alias: string) => `${emoji.cross} unknown alias \`${alias}\``,
+					deletedAlias: (alias: string) => `${emoji.check} deleted alias \`${alias}\``
+				}
+			},
 		},
 	},
 };

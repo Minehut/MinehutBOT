@@ -28,16 +28,16 @@ export class MinehutClient extends AkairoClient {
 		this.mongo = options.mongo;
 
 		this.commandHandler = new CommandHandler(this, {
-			directory: './src/commands/',
+			directory: './src/command/',
 			prefix: options.prefix,
 			commandUtil: true,
 			allowMention: true,
 		});
 		this.listenerHandler = new ListenerHandler(this, {
-			directory: './src/listeners/',
+			directory: './src/listener/',
 		});
 		this.inhibitorHandler = new InhibitorHandler(this, {
-			directory: './inhibitors/'
+			directory: './src/inhibitor/'
 	});
 		this.listenerHandler.setEmitters({
 			commandHandler: this.commandHandler,

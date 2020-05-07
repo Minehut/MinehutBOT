@@ -1,6 +1,6 @@
 import { Listener } from 'discord-akairo';
 import { Message } from 'discord.js';
-import { TagModel } from '../models/Tag';
+import { TagModel } from '../model/Tag';
 
 export default class TagListener extends Listener {
 	public constructor() {
@@ -15,9 +15,7 @@ export default class TagListener extends Listener {
 		if (msg.guild && msg.util?.parsed?.prefix) {
 			if (!msg.util?.parsed?.alias || !msg.util?.parsed?.afterPrefix) return;
 			const name = msg.util?.parsed?.afterPrefix.split(' ')[0];
-			const tag = await TagModel.findOne({
-				$or: [{ name }, { aliases: { $in: [name] } }],
-			});
+			const tag = await TagModel.findByNameOrAlias(name.toLowerCase());
 			if (!tag) return;
 			const command = this.client.commandHandler.modules.get('tag-show')!;
 			return this.client.commandHandler.runCommand(
