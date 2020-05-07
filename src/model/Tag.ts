@@ -26,6 +26,12 @@ export class Tag {
 			$or: [{ name }, { aliases: { $in: [name] } }],
 		});
 	}
+
+	static async findByAlias(this: ModelType<Tag>, name: string) {
+		return this.findOne({
+			aliases: { $in: [name] },
+		});
+	}
 }
 
 export const TagModel = getModelForClass(Tag, {
