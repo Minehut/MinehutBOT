@@ -58,7 +58,7 @@ export default class ReloadCommand extends Command {
 			);
 		} catch (err) {
 			const e = err as Error;
-			msg.channel.send(messages.commands.common.error(e.message.toLowerCase()));
+			msg.channel.send(messages.commands.common.warn(e.message.toLowerCase()));
 		}
 	}
 }

@@ -12,7 +12,7 @@ export const messages = {
 		common: {
 			useHelp: (prefix: string, commandName: string) =>
 				`${emoji.ahh} I can help you more if you use \`${prefix}help ${commandName}\``,
-			error: (error: string) => `${emoji.warning} ${error}`,
+			warn: (error: string) => `${emoji.warning} ${error}`,
 		},
 		eval: {
 			outputTooLong: `${emoji.warning} length of output exceeds character limit`,
