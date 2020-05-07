@@ -1,5 +1,6 @@
 import { Command, Flag } from 'discord-akairo';
 import { Message } from 'discord.js';
+import { messages } from '../../util/constant/messages';
 
 export default class TagCommand extends Command {
 	constructor() {
@@ -26,7 +27,7 @@ export default class TagCommand extends Command {
 				['tag-deletealias', 'delalias'],
 			],
 			otherwise: (_msg: Message) => {
-				return 'todo: this message';
+				return messages.commands.common.useHelp(process.env.DISCORD_PREFIX!, this.aliases[0]);
 			},
 		};
 
