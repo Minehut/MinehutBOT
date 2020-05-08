@@ -21,13 +21,17 @@ export default class TagCommand extends Command {
 				['tag-set', 'set'],
 				['tag-delete', 'delete'],
 				['tag-show', 'show'],
+				['tag-list', 'list'],
 
 				['tag-setalias', 'setalias'],
 				['tag-deletealias', 'deletealias'],
 				['tag-deletealias', 'delalias'],
 			],
 			otherwise: (_msg: Message) => {
-				return messages.commands.common.useHelp(process.env.DISCORD_PREFIX!, this.aliases[0]);
+				return messages.commands.common.useHelp(
+					process.env.DISCORD_PREFIX!,
+					this.aliases[0]
+				);
 			},
 		};
 
