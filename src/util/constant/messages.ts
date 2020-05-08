@@ -15,7 +15,8 @@ export const messages = {
 			warn: (error: string) => `${emoji.warning} ${error}`,
 		},
 		eval: {
-			outputTooLong: `${emoji.warning} length of output exceeds character limit`,
+			outputTooLong: (length: number) =>
+				`${emoji.warning} length of output exceeds character limit, logged output to console (${length}/2000)`,
 		},
 		ping: {
 			description: 'Ping, pong',
@@ -63,6 +64,14 @@ export const messages = {
 						aliases.length > 0 ? `(aliases: ${aliases.join(', ')}` : ''
 					})`,
 			},
+			info: {
+				namePrompt: {
+					start: (author: User) =>
+						`${author}, which tag do you want to lookup?`,
+				},
+				unknownTag: (prefix: string, name: string) =>
+					`${emoji.cross} tag \`${name}\` does not exist, check \`${prefix}tags\``,
+			},
 			aliases: {
 				set: {
 					aliasPrompt: {
@@ -77,13 +86,20 @@ export const messages = {
 					unknownTarget: (name: string) =>
 						`${emoji.cross} unknown target \`${name}\``,
 					aliasesUpdated: (target: string, newAlias: string, all: string[]) =>
-						`${emoji.check} \`${newAlias}\` now points to \`${target}\` (aliases: ${all.join(', ')})`,
+						`${
+							emoji.check
+						} \`${newAlias}\` now points to \`${target}\` (aliases: ${all.join(
+							', '
+						)})`,
 				},
 				delete: {
-					aliasIsName: (alias: string) => `${emoji.cross} \`${alias}\` is a name, not an alias`,
-					unknownAlias: (alias: string) => `${emoji.cross} unknown alias \`${alias}\``,
-					deletedAlias: (alias: string) => `${emoji.check} deleted alias \`${alias}\``
-				}
+					aliasIsName: (alias: string) =>
+						`${emoji.cross} \`${alias}\` is a name, not an alias`,
+					unknownAlias: (alias: string) =>
+						`${emoji.cross} unknown alias \`${alias}\``,
+					deletedAlias: (alias: string) =>
+						`${emoji.check} deleted alias \`${alias}\``,
+				},
 			},
 		},
 	},

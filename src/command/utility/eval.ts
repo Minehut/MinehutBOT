@@ -45,10 +45,10 @@ export default class EvalCommand extends Command {
 		} catch (err) {
 			content = `\`ERROR\` \`\`\`xl\n${this.clean(err.toString())}\n\`\`\``;
 		}
-		if (content.length > 2000)
-			msg.channel.send(
-				messages.commands.eval.outputTooLong
-			);
+		if (content.length > 2000) {
+			console.log(content);
+			return msg.channel.send(messages.commands.eval.outputTooLong(content.length));
+		}
 		msg.channel.send(content);
 	}
 
