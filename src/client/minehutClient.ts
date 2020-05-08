@@ -37,8 +37,8 @@ export class MinehutClient extends AkairoClient {
 			directory: './src/listener/',
 		});
 		this.inhibitorHandler = new InhibitorHandler(this, {
-			directory: './src/inhibitor/'
-	});
+			directory: './src/inhibitor/',
+		});
 		this.listenerHandler.setEmitters({
 			commandHandler: this.commandHandler,
 			listenerHandler: this.listenerHandler,
@@ -54,17 +54,23 @@ export class MinehutClient extends AkairoClient {
 				case 'cmd':
 				case 'command':
 					return this.commandHandler;
-				
+
 				case 'listener':
 				case 'event':
 					return this.listenerHandler;
-				
+
 				case 'inhibitor':
 					return this.inhibitorHandler;
 
 				default:
 					return null;
 			}
+		});
+
+		this.commandHandler.on('error', (err, msg, _command) => {
+			msg.channel.send(
+				'an error occurred (error event): ' + err.name + ' ' + err.message
+			);
 		});
 	}
 }
