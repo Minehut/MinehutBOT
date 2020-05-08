@@ -27,8 +27,8 @@ export default class TagShowCommand extends Command {
 	}
 
 	async exec(msg: Message, { name }: { name: string }) {
-		// Find tag with that name or alias
 		name = name.replace(/\s+/g, '-').toLowerCase();
+		// Find tag with that name or alias
 		const tag = await TagModel.findByNameOrAlias(name);
 		if (!tag)
 			return msg.channel.send(
