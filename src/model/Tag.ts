@@ -16,10 +16,10 @@ export class Tag {
 
 	// These are automatically filled by Mongoose, they are just here for typings
 	@prop({ required: false })
-	createdAt?: Date;
+	createdAt!: Date;
 
 	@prop({ required: false })
-	updatedAt?: Date;
+	updatedAt!: Date;
 
 	static async findByNameOrAlias(this: ModelType<Tag>, name: string) {
 		return this.findOne({
