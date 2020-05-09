@@ -36,5 +36,6 @@ export default class TagShowCommand extends Command {
 				messages.commands.tag.show.unknownTag(process.env.DISCORD_PREFIX!, name)
 			);
 		msg.channel.send(truncate(messages.commands.tag.show.showTag(tag.content), 1900));
+		await tag.updateOne({ uses: tag.uses + 1 });
 	}
 }
