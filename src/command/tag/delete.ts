@@ -38,6 +38,10 @@ export default class TagDeleteCommand extends Command {
 					name
 				)
 			);
+		if (tag.aliases.includes(name))
+			return msg.channel.send(
+				messages.commands.tag.delete.useNameNotAlias(process.env.DISCORD_PREFIX!, name, tag.name)
+			);
 		await tag.remove();
 		msg.channel.send(
 			messages.commands.tag.delete.tagDeleted(tag.name, tag.aliases!)
