@@ -23,6 +23,7 @@ export default class TagCommand extends Command {
 				['tag-show', 'show'],
 				['tag-list', 'list'],
 				['tag-info', 'info'],
+				['tag-rename', 'rename'],
 
 				['tag-setalias', 'setalias'],
 				['tag-deletealias', 'deletealias'],

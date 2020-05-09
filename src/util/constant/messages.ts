@@ -72,6 +72,21 @@ export const messages = {
 				unknownTag: (prefix: string, name: string) =>
 					`${emoji.cross} tag \`${name}\` does not exist, check \`${prefix}tags\``,
 			},
+			rename: {
+				oldNamePrompt: {
+					start: (author: User) =>
+						`${author}, which tag do you want to rename?`,
+				},
+				newNamePrompt: {
+					start: (author: User) =>
+						`${author}, what should the tag's new name be?`,
+				},
+				conflictingName: `${emoji.cross} a tag with the new name/alias already exists`,
+				tagUpdated: (old: string, newName: string) =>
+					`${emoji.check} tag \`${old}\` is now \`${newName}\``,
+				unknownTag: (prefix: string, name: string) =>
+					`${emoji.cross} tag \`${name}\` does not exist, check \`${prefix}tags\``,
+			},
 			aliases: {
 				set: {
 					aliasPrompt: {
