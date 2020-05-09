@@ -2,6 +2,7 @@ import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { messages } from '../../util/constant/messages';
 import { TagModel } from '../../model/Tag';
+import truncate from 'truncate';
 
 export default class TagShowCommand extends Command {
 	constructor() {
@@ -34,6 +35,6 @@ export default class TagShowCommand extends Command {
 			return msg.channel.send(
 				messages.commands.tag.show.unknownTag(process.env.DISCORD_PREFIX!, name)
 			);
-		msg.channel.send(messages.commands.tag.show.showTag(tag.content));
+		msg.channel.send(truncate(messages.commands.tag.show.showTag(tag.content), 1900));
 	}
 }
