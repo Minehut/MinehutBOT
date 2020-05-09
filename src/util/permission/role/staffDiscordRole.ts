@@ -14,7 +14,6 @@ export enum StaffDiscordRole {
   Moderator = '391351349893136394',
   SeniorModerator = '396139742368104457',
   Developer = '391351204187340821',
-  // Developer = '616658929837146124', TESTING GUILD
   Manager = '591669127819821067',
   Admin = '391351275805081600'
 }
