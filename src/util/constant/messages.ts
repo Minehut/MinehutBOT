@@ -63,6 +63,8 @@ export const messages = {
 					`:wastebasket: tag \`${name}\` deleted ${
 						aliases.length > 0 ? `(aliases: ${aliases.join(', ')}` : ''
 					})`,
+				useNameNotAlias: (prefix: string, alias: string, name: string) =>
+					`${emoji.cross} \`${alias}\` is an alias of \`${name}\` -- you can delete the alias with \`${prefix}tag deletealias ${alias}\`, or delete the entire tag with \`${prefix}tag delete ${name}\``,
 			},
 			info: {
 				namePrompt: {
