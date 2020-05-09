@@ -14,6 +14,9 @@ export class Tag {
 	@prop({ default: [] })
 	aliases!: string[];
 
+	@prop({ default: 0 })
+	uses!: number;
+
 	// These are automatically filled by Mongoose, they are just here for typings
 	@prop({ required: false })
 	createdAt!: Date;
