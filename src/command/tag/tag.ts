@@ -25,6 +25,7 @@ export default class TagCommand extends Command {
 				['tag-info', 'info'],
 				['tag-rename', 'rename'],
 
+				['tag-listaliases', 'listaliases'],
 				['tag-setalias', 'setalias'],
 				['tag-deletealias', 'deletealias'],
 				['tag-deletealias', 'delalias'],
