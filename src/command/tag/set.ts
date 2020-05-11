@@ -2,6 +2,7 @@ import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { messages } from '../../util/messages';
 import { TagModel, Tag } from '../../model/Tag';
+import { PrefixSupplier } from 'discord-akairo';
 
 export default class TagSetCommand extends Command {
 	constructor() {
@@ -40,16 +41,17 @@ export default class TagSetCommand extends Command {
 		{ name, content }: { name: string; content: string }
 	) {
 		name = name.replace(/\s+/g, '-').toLowerCase();
+		const prefix = (this.handler.prefix as PrefixSupplier)(msg) as string;
 		const tag = {
 			name,
 			content,
-			author: msg.author.id
+			author: msg.author.id,
 		} as Tag;
 		const conflictingTag = await TagModel.findByAlias(tag.name);
 		if (conflictingTag)
 			return msg.channel.send(
 				messages.commands.tag.set.conflictingAliases(
-					process.env.DISCORD_PREFIX!,
+					prefix,
 					conflictingTag.name
 				)
 			);

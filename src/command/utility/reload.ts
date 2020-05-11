@@ -6,6 +6,7 @@ import {
 	ListenerHandler,
 } from 'discord-akairo';
 import { messages } from '../../util/messages';
+import { PrefixSupplier } from 'discord-akairo';
 
 export default class ReloadCommand extends Command {
 	constructor() {
@@ -41,13 +42,11 @@ export default class ReloadCommand extends Command {
 			module: string;
 		}
 	) {
+		const prefix = (this.handler.prefix as PrefixSupplier)(msg) as string;
 		try {
 			if (!handler || !module)
 				return msg.channel.send(
-					messages.commands.common.useHelp(
-						process.env.DISCORD_PREFIX!,
-						this.aliases[0]
-					)
+					messages.commands.common.useHelp(prefix, this.aliases[0])
 				);
 			const mod = handler.reload(module.toLowerCase());
 			const proto = Object.getPrototypeOf(mod.constructor);

@@ -1,6 +1,7 @@
 import { Command, Flag } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { messages } from '../../util/messages';
+import { PrefixSupplier } from 'discord-akairo';
 
 export default class TagCommand extends Command {
 	constructor() {
@@ -30,11 +31,9 @@ export default class TagCommand extends Command {
 				['tag-deletealias', 'deletealias'],
 				['tag-deletealias', 'delalias'],
 			],
-			otherwise: (_msg: Message) => {
-				return messages.commands.common.useHelp(
-					process.env.DISCORD_PREFIX!,
-					this.aliases[0]
-				);
+			otherwise: (msg: Message) => {
+				const prefix = (this.handler.prefix as PrefixSupplier)(msg) as string;
+				return messages.commands.common.useHelp(prefix, this.aliases[0]);
 			},
 		};
 

@@ -4,4 +4,5 @@ import { RoleList } from "./roleList";
 export interface GuildConfiguration {
 	id: string;
 	roles: RoleList;
+	prefix?: string;
 }

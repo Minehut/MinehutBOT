@@ -3,6 +3,7 @@ import { MinehutClientOptions } from './minehutClientOptions';
 import { Mongoose } from 'mongoose';
 import { Message } from 'discord.js';
 import { InhibitorHandler } from 'discord-akairo';
+import { guildConfigs } from '../util/config/guild/guildConfigs';
 
 export class MinehutClient extends AkairoClient {
 	commandHandler: CommandHandler;
@@ -29,7 +30,11 @@ export class MinehutClient extends AkairoClient {
 
 		this.commandHandler = new CommandHandler(this, {
 			directory: './src/command/',
-			prefix: options.prefix,
+			prefix: (msg: Message) => {
+				if (!msg.guild) return options.prefix!;
+				const config = guildConfigs.find(g => msg.guild?.id === g.id);
+				return config ? config.prefix || options.prefix! : options.prefix!;
+			},
 			commandUtil: true,
 			allowMention: true,
 		});
