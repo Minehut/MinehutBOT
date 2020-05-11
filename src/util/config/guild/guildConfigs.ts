@@ -4,6 +4,7 @@ export const guildConfigs: GuildConfiguration[] = [
 	{
 		// bot testing
 		id: '608978588976283660',
+		prefix: 'test!',
 		roles: {
 			juniorModerator: '701854457331187763',
 			admin: '701854509164527707',

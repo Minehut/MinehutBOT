@@ -3,6 +3,7 @@ import { Message } from 'discord.js';
 import { messages } from '../../util/messages';
 import { TagModel } from '../../model/Tag';
 import { MessageEmbed } from 'discord.js';
+import { PrefixSupplier } from 'discord-akairo';
 
 export default class TagInfoCommand extends Command {
 	constructor() {
@@ -29,11 +30,13 @@ export default class TagInfoCommand extends Command {
 
 	async exec(msg: Message, { name }: { name: string }) {
 		name = name.replace(/\s+/g, '-').toLowerCase();
+		const prefix = (this.handler.prefix as PrefixSupplier)(msg) as string;
+
 		// Find tag with that name or alias
 		const tag = await TagModel.findByNameOrAlias(name);
 		if (!tag)
 			return msg.channel.send(
-				messages.commands.tag.info.unknownTag(process.env.DISCORD_PREFIX!, name)
+				messages.commands.tag.info.unknownTag(prefix, name)
 			);
 		// send embed of tag info here
 		const embed = new MessageEmbed();

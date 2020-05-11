@@ -2,6 +2,7 @@ import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { messages } from '../../util/messages';
 import { inspect } from 'util';
+import { PrefixSupplier } from 'discord-akairo';
 
 export default class EvalCommand extends Command {
 	constructor() {
@@ -30,12 +31,11 @@ export default class EvalCommand extends Command {
 			expression: string;
 		}
 	) {
+		const prefix = (this.handler.prefix as PrefixSupplier)(msg) as string;
+
 		if (!expression)
 			return msg.channel.send(
-				messages.commands.common.useHelp(
-					process.env.DISCORD_PREFIX!,
-					this.aliases[0]
-				)
+				messages.commands.common.useHelp(prefix, this.aliases[0])
 			);
 		let content: string;
 		try {
@@ -47,7 +47,9 @@ export default class EvalCommand extends Command {
 		}
 		if (content.length > 2000) {
 			console.log(content);
-			return msg.channel.send(messages.commands.eval.outputTooLong(content.length));
+			return msg.channel.send(
+				messages.commands.eval.outputTooLong(content.length)
+			);
 		}
 		msg.channel.send(content);
 	}

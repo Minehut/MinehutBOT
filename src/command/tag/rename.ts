@@ -2,6 +2,7 @@ import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { messages } from '../../util/messages';
 import { TagModel } from '../../model/Tag';
+import { PrefixSupplier } from 'discord-akairo';
 
 export default class TagRenameCommand extends Command {
 	constructor() {
@@ -41,15 +42,14 @@ export default class TagRenameCommand extends Command {
 		oldName = oldName.replace(/\s+/g, '-').toLowerCase();
 		newName = newName.replace(/\s+/g, '-').toLowerCase();
 
+		const prefix = (this.handler.prefix as PrefixSupplier)(msg) as string;
+
 		// check if name tag exists
 		// check if newName is already a name or alias
 		const tag = await TagModel.findByNameOrAlias(oldName);
 		if (!tag)
 			return msg.channel.send(
-				messages.commands.tag.rename.unknownTag(
-					process.env.DISCORD_PREFIX!,
-					oldName
-				)
+				messages.commands.tag.rename.unknownTag(prefix, oldName)
 			);
 		oldName = tag.name;
 		const tagWithNewName = await TagModel.findByNameOrAlias(newName);
