@@ -1,6 +1,6 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
-import { messages } from '../../util/constant/messages';
+import { messages } from '../../util/messages';
 
 export default class PingCommand extends Command {
 	constructor() {

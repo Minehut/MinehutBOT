@@ -1,6 +1,6 @@
 import { Command, Flag } from 'discord-akairo';
 import { Message } from 'discord.js';
-import { messages } from '../../util/constant/messages';
+import { messages } from '../../util/messages';
 
 export default class TagCommand extends Command {
 	constructor() {

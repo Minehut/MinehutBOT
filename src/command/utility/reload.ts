@@ -5,7 +5,7 @@ import {
 	CommandHandler,
 	ListenerHandler,
 } from 'discord-akairo';
-import { messages } from '../../util/constant/messages';
+import { messages } from '../../util/messages';
 
 export default class ReloadCommand extends Command {
 	constructor() {
