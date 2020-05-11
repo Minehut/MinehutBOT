@@ -2,7 +2,7 @@ import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { getPermissionLevel } from '../../util/permission/getPermissionLevel';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
-import { messages } from '../../util/constant/messages';
+import { messages } from '../../util/messages';
 
 export default class PingCommand extends Command {
 	constructor() {
