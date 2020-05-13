@@ -69,6 +69,8 @@ export class MinehutClient extends AkairoClient {
 				case 'event':
 					return this.listenerHandler;
 
+				case 'block':
+				case 'check':
 				case 'inhibitor':
 					return this.inhibitorHandler;
 
