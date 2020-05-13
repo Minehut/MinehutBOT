@@ -32,7 +32,7 @@ export class MinehutClient extends AkairoClient {
 			directory: './src/command/',
 			prefix: (msg: Message) => {
 				if (!msg.guild) return options.prefix!;
-				const config = guildConfigs.find(g => msg.guild?.id === g.id);
+				const config = guildConfigs.get(msg.guild.id);
 				return config ? config.prefix || options.prefix! : options.prefix!;
 			},
 			commandUtil: true,
