@@ -3,7 +3,7 @@ import { MinehutClientOptions } from './minehutClientOptions';
 import { Mongoose } from 'mongoose';
 import { Message } from 'discord.js';
 import { InhibitorHandler } from 'discord-akairo';
-import { guildConfigs } from '../util/config/guild/guildConfigs';
+import { guildConfigs } from '../guild/guildConfigs';
 
 export class MinehutClient extends AkairoClient {
 	commandHandler: CommandHandler;
