@@ -38,20 +38,25 @@ export class MinehutClient extends AkairoClient {
 			commandUtil: true,
 			allowMention: true,
 		});
+
 		this.listenerHandler = new ListenerHandler(this, {
 			directory: './src/listener/',
 		});
+
 		this.inhibitorHandler = new InhibitorHandler(this, {
 			directory: './src/inhibitor/',
 		});
+
 		this.listenerHandler.setEmitters({
 			commandHandler: this.commandHandler,
 			listenerHandler: this.listenerHandler,
 		});
+
 		this.commandHandler.useListenerHandler(this.listenerHandler);
 
 		this.listenerHandler.loadAll();
 		this.commandHandler.loadAll();
+		// this.inhibitorHandler.loadAll();
 
 		this.commandHandler.resolver.addType('handler', (_msg: Message, phrase) => {
 			if (!phrase) return null;
