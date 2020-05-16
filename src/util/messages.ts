@@ -44,6 +44,7 @@ export const messages = {
 		},
 		tag: {
 			set: {
+				description: 'Set/edit a tag',
 				namePrompt: {
 					start: (author: User) =>
 						`${author}, what should the tag be called? (spaces allowed)`,
@@ -58,6 +59,7 @@ export const messages = {
 				tagUpdated: (name: string) => `${emoji.check} tag \`${name}\` updated`,
 			},
 			show: {
+				description: 'Show specific tag',
 				namePrompt: {
 					start: (author: User) => `${author}, which tag do you want to show?`,
 				},
@@ -66,6 +68,7 @@ export const messages = {
 				showTag: (content: string) => content,
 			},
 			delete: {
+				description: 'Delete a tag',
 				unknownTag: (prefix: string, name: string) =>
 					`${emoji.cross} tag \`${name}\` does not exist, check \`${prefix}tags\``,
 				namePrompt: {
@@ -80,6 +83,7 @@ export const messages = {
 					`${emoji.cross} \`${alias}\` is an alias of \`${name}\` -- you can delete the alias with \`${prefix}tag deletealias ${alias}\`, or delete the entire tag with \`${prefix}tag delete ${name}\``,
 			},
 			info: {
+				description: 'Lookup a tag',
 				namePrompt: {
 					start: (author: User) =>
 						`${author}, which tag do you want to lookup?`,
@@ -88,6 +92,7 @@ export const messages = {
 					`${emoji.cross} tag \`${name}\` does not exist, check \`${prefix}tags\``,
 			},
 			rename: {
+				description: 'Rename a tag',
 				oldNamePrompt: {
 					start: (author: User) =>
 						`${author}, which tag do you want to rename?`,
@@ -102,8 +107,12 @@ export const messages = {
 				unknownTag: (prefix: string, name: string) =>
 					`${emoji.cross} tag \`${name}\` does not exist, check \`${prefix}tags\``,
 			},
+			list: {
+				description: 'List the tags',
+			},
 			aliases: {
 				set: {
+					description: 'Set a tag alias',
 					aliasPrompt: {
 						start: (author: User) =>
 							`${author}, what do you want the alias to be?`,
@@ -123,12 +132,16 @@ export const messages = {
 						)})`,
 				},
 				delete: {
+					description: 'Delete a tag alias',
 					aliasIsName: (alias: string) =>
 						`${emoji.cross} \`${alias}\` is a name, not an alias`,
 					unknownAlias: (alias: string) =>
 						`${emoji.cross} unknown alias \`${alias}\``,
 					deletedAlias: (alias: string) =>
 						`${emoji.check} deleted alias \`${alias}\``,
+				},
+				list: {
+					description: 'List all tag aliases',
 				},
 			},
 		},

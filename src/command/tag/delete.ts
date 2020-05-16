@@ -13,7 +13,7 @@ export default class TagDeleteCommand extends MinehutCommand {
 			category: 'tag',
 			channel: 'guild',
 			description: {
-				content: 'Delete a tag',
+				content: messages.commands.tag.delete.description,
 				usage: '<name/alias>',
 			},
 			args: [

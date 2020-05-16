@@ -12,7 +12,7 @@ export default class TagShowCommand extends MinehutCommand {
 			category: 'tag',
 			channel: 'guild',
 			description: {
-				content: 'Show specific tag',
+				content: messages.commands.tag.show.description,
 				usage: '<name/alias>',
 			},
 			args: [
