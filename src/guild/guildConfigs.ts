@@ -5,7 +5,7 @@ export const guildConfigs: Map<string, GuildConfiguration> = new Map();
 guildConfigs.set('608978588976283660', {
 	// bot testing
 	id: '608978588976283660',
-	prefix: 'test!',
+	prefix: '!',
 	roles: {
 		juniorModerator: '701854457331187763',
 		admin: '701854509164527707',
