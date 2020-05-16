@@ -1,7 +1,7 @@
 import { Message } from 'discord.js';
 import { messages } from '../../../util/messages';
 import { TagModel } from '../../../model/tag';
-import { MinehutCommand } from '../../../structure/minehutCommand';
+import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
 
 export default class TagSetAliasCommand extends MinehutCommand {
