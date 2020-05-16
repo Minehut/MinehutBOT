@@ -11,9 +11,9 @@ require('dotenv').config();
 	});
 
 	const client = new MinehutClient({
-		ownerIds: process.env.OWNER_IDS?.split(' '),
+		ownerIds: process.env.OWNER_IDS?.split(','),
 		prefix: process.env.DISCORD_PREFIX || '!',
 		mongo: connection,
 	});
-	client.login(process.env.DISCORD_TOKEN);
+	client.start(process.env.DISCORD_TOKEN!);
 })();

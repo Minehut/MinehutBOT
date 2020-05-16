@@ -85,6 +85,10 @@ export class MinehutClient extends AkairoClient {
 			);
 		});
 	}
+
+	start(token: string) {
+		super.login(token);
+	}
 }
 
 declare module 'discord-akairo' {
@@ -93,5 +97,6 @@ declare module 'discord-akairo' {
 		listenerHandler: ListenerHandler;
 		inhibitorHandler: InhibitorHandler;
 		ownerIds: string[] | undefined;
+		start(token: string): void;
 	}
 }
