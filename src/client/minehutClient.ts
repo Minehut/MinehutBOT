@@ -4,6 +4,7 @@ import { Mongoose } from 'mongoose';
 import { Message } from 'discord.js';
 import { InhibitorHandler } from 'discord-akairo';
 import { guildConfigs } from '../guild/guildConfigs';
+import { messages } from '../util/messages';
 
 export class MinehutClient extends AkairoClient {
 	commandHandler: CommandHandler;
@@ -34,6 +35,17 @@ export class MinehutClient extends AkairoClient {
 				if (!msg.guild) return options.prefix!;
 				const config = guildConfigs.get(msg.guild.id);
 				return config ? config.prefix || options.prefix! : options.prefix!;
+			},
+			argumentDefaults: {
+				prompt: {
+					modifyRetry: (_, str) => messages.commandHandler.prompt.modifyRetry(str),
+					modifyStart: (_, str) => messages.commandHandler.prompt.modifyStart(str),
+					timeout: messages.commandHandler.prompt.timeout,
+					ended: messages.commandHandler.prompt.ended,
+					cancel: messages.commandHandler.prompt.cancel,
+					retries: 3,
+					time: 30000
+				}
 			},
 			commandUtil: true,
 			allowMention: true,

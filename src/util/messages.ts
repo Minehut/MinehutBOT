@@ -9,6 +9,17 @@ export const emoji = {
 };
 
 export const messages = {
+	commandHandler: {
+		prompt: {
+			modifyStart: (str: string) =>
+				`${str}\n\nType \`cancel\` to cancel the command.`,
+			modifyRetry: (str: string) =>
+				`${str}\n\nType \`cancel\` to cancel the command.`,
+			timeout: 'You took too long so the command has been cancelled.',
+			ended: 'Be prepared next time. The command has been cancelled.',
+			cancel: 'The command has been cancelled.',
+		},
+	},
 	events: {
 		commandHandler: {
 			missingPermissions: {
@@ -24,6 +35,14 @@ export const messages = {
 			useHelp: (prefix: string, commandName: string) =>
 				`${emoji.ahh} I can help you more if you use \`${prefix}help ${commandName}\``,
 			warn: (error: string) => `${emoji.warning} ${error}`,
+		},
+		punishment: {
+			kick: {
+				description: 'Kick a member',
+				memberPrompt: {
+					start: (author: User) => `${author}, who do you want to kick?`,
+				},
+			},
 		},
 		utility: {
 			eval: {
