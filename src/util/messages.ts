@@ -1,4 +1,5 @@
 import { User } from 'discord.js';
+import { PermissionLevel } from './permission/permissionLevel';
 
 export const emoji = {
 	cross: '<:mhcross:548390154381950976>',
@@ -8,6 +9,15 @@ export const emoji = {
 };
 
 export const messages = {
+	events: {
+		commandHandler: {
+			missingPermissions: {
+				user: (required: PermissionLevel) =>
+					`:no_entry: you don't have the required permission level (${required.toString()})`,
+				client: (missing: string) => `${emoji.cross} bot is missing permission ${missing}`
+			},
+		},
+	},
 	commands: {
 		common: {
 			useHelp: (prefix: string, commandName: string) =>

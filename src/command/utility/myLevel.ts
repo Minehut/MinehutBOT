@@ -1,10 +1,10 @@
-import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { getPermissionLevel } from '../../util/permission/getPermissionLevel';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
 import { messages } from '../../util/messages';
+import { MinehutCommand } from '../../structure/minehutCommand';
 
-export default class PingCommand extends Command {
+export default class PingCommand extends MinehutCommand {
 	constructor() {
 		super('mylevel', {
 			aliases: ['mylevel'],

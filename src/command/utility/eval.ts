@@ -1,15 +1,16 @@
-import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { messages } from '../../util/messages';
 import { inspect } from 'util';
 import { PrefixSupplier } from 'discord-akairo';
+import { MinehutCommand } from '../../structure/minehutCommand';
+import { PermissionLevel } from '../../util/permission/permissionLevel';
 
-export default class EvalCommand extends Command {
+export default class EvalCommand extends MinehutCommand {
 	constructor() {
 		super('eval', {
 			aliases: ['eval'],
+			permissionLevel: PermissionLevel.BotDeveloper,
 			category: 'utility',
-			ownerOnly: true,
 			description: {
 				content: 'Evaluate JavaScript code',
 				usage: '<expression>',

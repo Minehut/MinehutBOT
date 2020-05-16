@@ -1,11 +1,11 @@
-import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { messages } from '../../util/messages';
 import { TagModel } from '../../model/tag';
 import truncate from 'truncate';
 import { PrefixSupplier } from 'discord-akairo';
+import { MinehutCommand } from '../../structure/minehutCommand';
 
-export default class TagShowCommand extends Command {
+export default class TagShowCommand extends MinehutCommand {
 	constructor() {
 		super('tag-show', {
 			aliases: ['tag-show'],

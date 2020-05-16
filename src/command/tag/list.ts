@@ -1,12 +1,13 @@
-import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { TagModel } from '../../model/tag';
 import { MessageEmbed } from 'discord.js';
+import { MinehutCommand } from '../../structure/minehutCommand';
 
-export default class TagListCommand extends Command {
+export default class TagListCommand extends MinehutCommand {
 	constructor() {
 		super('tag-list', {
 			aliases: ['tag-list', 'tags'],
+			clientPermissions: ['EMBED_LINKS'],
 			category: 'tag',
 			channel: 'guild',
 			description: {

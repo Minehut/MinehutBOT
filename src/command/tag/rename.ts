@@ -1,13 +1,15 @@
-import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { messages } from '../../util/messages';
 import { TagModel } from '../../model/tag';
 import { PrefixSupplier } from 'discord-akairo';
+import { MinehutCommand } from '../../structure/minehutCommand';
+import { PermissionLevel } from '../../util/permission/permissionLevel';
 
-export default class TagRenameCommand extends Command {
+export default class TagRenameCommand extends MinehutCommand {
 	constructor() {
 		super('tag-rename', {
 			aliases: ['tag-rename'],
+			permissionLevel: PermissionLevel.Moderator,
 			category: 'tag',
 			channel: 'guild',
 			description: {
@@ -52,7 +54,10 @@ export default class TagRenameCommand extends Command {
 				messages.commands.tag.rename.unknownTag(prefix, oldName)
 			);
 		oldName = tag.name;
-		const tagWithNewName = await TagModel.findByNameOrAlias(newName, msg.guild!.id);
+		const tagWithNewName = await TagModel.findByNameOrAlias(
+			newName,
+			msg.guild!.id
+		);
 		if (tagWithNewName)
 			return msg.channel.send(messages.commands.tag.rename.conflictingName);
 		await tag.updateOne({ name: newName });
