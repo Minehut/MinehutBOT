@@ -13,7 +13,7 @@ export default class TagInfoCommand extends MinehutCommand {
 			category: 'tag',
 			channel: 'guild',
 			description: {
-				content: 'Lookup a tag',
+				content: messages.commands.tag.info.description,
 				usage: '<name/alias>',
 			},
 			args: [

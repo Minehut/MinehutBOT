@@ -13,7 +13,7 @@ export default class TagRenameCommand extends MinehutCommand {
 			category: 'tag',
 			channel: 'guild',
 			description: {
-				content: 'Rename a tag',
+				content: messages.commands.tag.rename.description,
 				usage: '<old> <new>',
 			},
 			args: [
