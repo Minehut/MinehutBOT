@@ -3,7 +3,7 @@ import { messages } from '../../util/messages';
 import { TagModel } from '../../model/tag';
 import { MessageEmbed } from 'discord.js';
 import { PrefixSupplier } from 'discord-akairo';
-import { MinehutCommand } from '../../structure/minehutCommand';
+import { MinehutCommand } from '../../structure/command/minehutCommand';
 
 export default class TagInfoCommand extends MinehutCommand {
 	constructor() {

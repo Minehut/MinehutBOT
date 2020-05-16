@@ -3,7 +3,7 @@ import { messages } from '../../util/messages';
 import { TagModel } from '../../model/tag';
 import truncate from 'truncate';
 import { PrefixSupplier } from 'discord-akairo';
-import { MinehutCommand } from '../../structure/minehutCommand';
+import { MinehutCommand } from '../../structure/command/minehutCommand';
 
 export default class TagShowCommand extends MinehutCommand {
 	constructor() {

@@ -2,7 +2,7 @@ import { Message } from 'discord.js';
 import { TagModel } from '../../../model/tag';
 import { MessageEmbed } from 'discord.js';
 import truncate from 'truncate';
-import { MinehutCommand } from '../../../structure/minehutCommand';
+import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
 
 interface TagAlias {

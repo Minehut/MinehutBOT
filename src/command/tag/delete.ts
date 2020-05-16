@@ -2,7 +2,7 @@ import { Message } from 'discord.js';
 import { TagModel } from '../../model/tag';
 import { messages } from '../../util/messages';
 import { PrefixSupplier } from 'discord-akairo';
-import { MinehutCommand } from '../../structure/minehutCommand';
+import { MinehutCommand } from '../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
 
 export default class TagDeleteCommand extends MinehutCommand {

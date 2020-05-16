@@ -2,7 +2,7 @@ import { Flag } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { messages } from '../../util/messages';
 import { PrefixSupplier } from 'discord-akairo';
-import { MinehutCommand } from '../../structure/minehutCommand';
+import { MinehutCommand } from '../../structure/command/minehutCommand';
 
 export default class TagCommand extends MinehutCommand {
 	constructor() {

@@ -1,6 +1,6 @@
 import { Message } from 'discord.js';
 import { messages } from '../../util/messages';
-import { MinehutCommand } from '../../structure/minehutCommand';
+import { MinehutCommand } from '../../structure/command/minehutCommand';
 
 export default class PingCommand extends MinehutCommand {
 	constructor() {

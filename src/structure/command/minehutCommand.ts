@@ -1,8 +1,8 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { MinehutCommandOptions } from './minehutCommandOptions';
-import { PermissionLevel } from '../util/permission/permissionLevel';
-import { getPermissionLevel } from '../util/permission/getPermissionLevel';
+import { PermissionLevel } from '../../util/permission/permissionLevel';
+import { getPermissionLevel } from '../../util/permission/getPermissionLevel';
 
 export class MinehutCommand extends Command {
 	permissionLevel: PermissionLevel;

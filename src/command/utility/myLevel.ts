@@ -2,7 +2,7 @@ import { Message } from 'discord.js';
 import { getPermissionLevel } from '../../util/permission/getPermissionLevel';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
 import { messages } from '../../util/messages';
-import { MinehutCommand } from '../../structure/minehutCommand';
+import { MinehutCommand } from '../../structure/command/minehutCommand';
 
 export default class PingCommand extends MinehutCommand {
 	constructor() {
