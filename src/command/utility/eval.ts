@@ -49,7 +49,7 @@ export default class EvalCommand extends MinehutCommand {
 		if (content.length > 2000) {
 			console.log(content);
 			return msg.channel.send(
-				messages.commands.eval.outputTooLong(content.length)
+				messages.commands.utility.eval.outputTooLong(content.length)
 			);
 		}
 		msg.channel.send(content);

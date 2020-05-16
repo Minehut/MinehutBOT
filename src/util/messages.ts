@@ -14,7 +14,8 @@ export const messages = {
 			missingPermissions: {
 				user: (required: PermissionLevel) =>
 					`:no_entry: you don't have the required permission level (${required.toString()})`,
-				client: (missing: string) => `${emoji.cross} bot is missing permission ${missing}`
+				client: (missing: string) =>
+					`${emoji.cross} bot is missing permission ${missing}`,
 			},
 		},
 	},
@@ -24,20 +25,22 @@ export const messages = {
 				`${emoji.ahh} I can help you more if you use \`${prefix}help ${commandName}\``,
 			warn: (error: string) => `${emoji.warning} ${error}`,
 		},
-		eval: {
-			outputTooLong: (length: number) =>
-				`${emoji.warning} length of output exceeds character limit, logged output to console (${length}/2000)`,
-		},
-		ping: {
-			description: 'Ping, pong',
-			responseLoading: ':ping_pong: Ping?',
-			responseFinished: (roundtrip: Number, wsPing: Number) =>
-				`:ping_pong: Pong! (Roundtrip: ${roundtrip}ms | One-way: ${wsPing}ms)`,
-		},
-		myLevel: {
-			description: 'Show your permission level',
-			response: (permLevel: Number, permLevelName: string) =>
-				`Your permission level is ${permLevel} (${permLevelName})`,
+		utility: {
+			eval: {
+				outputTooLong: (length: number) =>
+					`${emoji.warning} length of output exceeds character limit, logged output to console (${length}/2000)`,
+			},
+			ping: {
+				description: 'Ping, pong',
+				responseLoading: ':ping_pong: Ping?',
+				responseFinished: (roundtrip: Number, wsPing: Number) =>
+					`:ping_pong: Pong! (Roundtrip: ${roundtrip}ms | One-way: ${wsPing}ms)`,
+			},
+			myLevel: {
+				description: 'Show your permission level',
+				response: (permLevel: Number, permLevelName: string) =>
+					`Your permission level is ${permLevel} (${permLevelName})`,
+			},
 		},
 		tag: {
 			set: {
