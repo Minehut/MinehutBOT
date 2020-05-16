@@ -10,7 +10,7 @@ export default class PingCommand extends MinehutCommand {
 			aliases: ['mylevel'],
 			channel: 'guild',
 			description: {
-				content: messages.commands.myLevel.description,
+				content: messages.commands.utility.myLevel.description,
 			},
 		});
 	}
@@ -18,7 +18,7 @@ export default class PingCommand extends MinehutCommand {
 	async exec(msg: Message) {
 		const permLevel = getPermissionLevel(msg.member!, this.client);
 		msg.channel.send(
-			messages.commands.myLevel.response(permLevel, PermissionLevel[permLevel])
+			messages.commands.utility.myLevel.response(permLevel, PermissionLevel[permLevel])
 		);
 	}
 }

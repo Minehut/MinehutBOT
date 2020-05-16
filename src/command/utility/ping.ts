@@ -8,15 +8,15 @@ export default class PingCommand extends MinehutCommand {
 			aliases: ['ping'],
 			category: 'utility',
 			description: {
-				content: messages.commands.ping.description,
+				content: messages.commands.utility.ping.description,
 			},
 		});
 	}
 
 	async exec(msg: Message) {
-		const m = await msg.channel.send(messages.commands.ping.responseLoading);
+		const m = await msg.channel.send(messages.commands.utility.ping.responseLoading);
 		m.edit(
-			messages.commands.ping.responseFinished(
+			messages.commands.utility.ping.responseFinished(
 				m.createdTimestamp - msg.createdTimestamp,
 				~~this.client.ws.ping
 			)
