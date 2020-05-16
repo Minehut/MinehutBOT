@@ -1,6 +1,6 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
-import { TagModel } from '../../../model/Tag';
+import { TagModel } from '../../../model/tag';
 import { MessageEmbed } from 'discord.js';
 import truncate from 'truncate';
 

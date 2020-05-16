@@ -1,6 +1,6 @@
 import { Listener } from 'discord-akairo';
 import { Message } from 'discord.js';
-import { TagModel } from '../model/Tag';
+import { TagModel } from '../model/tag';
 
 export default class TagListener extends Listener {
 	public constructor() {

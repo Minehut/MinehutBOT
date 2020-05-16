@@ -1,7 +1,7 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { messages } from '../../../util/messages';
-import { TagModel } from '../../../model/Tag';
+import { TagModel } from '../../../model/tag';
 
 export default class TagSetAliasCommand extends Command {
 	constructor() {

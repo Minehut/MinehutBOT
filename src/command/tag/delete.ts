@@ -1,6 +1,6 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
-import { TagModel } from '../../model/Tag';
+import { TagModel } from '../../model/tag';
 import { messages } from '../../util/messages';
 import { PrefixSupplier } from 'discord-akairo';
 
