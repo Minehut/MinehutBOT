@@ -1,13 +1,15 @@
-import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { messages } from '../../util/messages';
 import { TagModel, Tag } from '../../model/tag';
 import { PrefixSupplier } from 'discord-akairo';
+import { MinehutCommand } from '../../structure/minehutCommand';
+import { PermissionLevel } from '../../util/permission/permissionLevel';
 
-export default class TagSetCommand extends Command {
+export default class TagSetCommand extends MinehutCommand {
 	constructor() {
 		super('tag-set', {
 			aliases: ['tag-set'],
+			permissionLevel: PermissionLevel.Moderator,
 			category: 'tag',
 			channel: 'guild',
 			description: {
@@ -46,7 +48,7 @@ export default class TagSetCommand extends Command {
 			name,
 			content,
 			author: msg.author.id,
-			guild: msg.guild!.id
+			guild: msg.guild!.id,
 		} as Tag;
 		const conflictingTag = await TagModel.findByAlias(tag.name, msg.guild!.id);
 		if (conflictingTag)

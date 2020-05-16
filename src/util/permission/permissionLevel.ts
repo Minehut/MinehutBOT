@@ -1,24 +1,26 @@
 export enum PermissionLevel {
-  Muted = -1,
+	Muted = -1,
 
-  Everyone = 0,
-  DJ = 1,
-  Verified = 2,
-  BoostersPass = 3,
-  NitroBooster = 4,
+	Everyone = 0,
+	Verified = 1,
+	BoostersPass = 2,
+	NitroBooster = 3,
 
-  Advisor = 5,
-  SuperLeague = 6,
-  YouTube = 7,
-  BuildTeam = 8,
-  Robot = 9,
+	YouTube = 4,
 
-  JuniorModerator = 10,
-  Moderator = 11,
-  SeniorModerator = 12,
-  Manager = 13,
-  Developer = 13,
-  Admin = 13,
+	DJ = 5,
 
-  BotDeveloper = 100
+	BuildTeam = 6,
+	Advisor = 7,
+	Robot = 8,
+
+	JuniorModerator = 9,
+	Moderator = 10,
+	SeniorModerator = 11,
+	Manager = 12,
+	SuperLeague = 12,
+	Developer = 13,
+	Admin = 13,
+
+	BotDeveloper = 100,
 }

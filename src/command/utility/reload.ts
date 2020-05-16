@@ -1,4 +1,3 @@
-import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import {
 	InhibitorHandler,
@@ -7,14 +6,16 @@ import {
 } from 'discord-akairo';
 import { messages } from '../../util/messages';
 import { PrefixSupplier } from 'discord-akairo';
+import { MinehutCommand } from '../../structure/minehutCommand';
+import { PermissionLevel } from '../../util/permission/permissionLevel';
 
-export default class ReloadCommand extends Command {
+export default class ReloadCommand extends MinehutCommand {
 	constructor() {
 		super('reload', {
 			aliases: ['reload'],
 			category: 'utility',
 			channel: 'guild',
-			ownerOnly: true,
+			permissionLevel: PermissionLevel.BotDeveloper,
 			description: {
 				content: 'Reload a module',
 				usage: '<handler> <moduleid>',

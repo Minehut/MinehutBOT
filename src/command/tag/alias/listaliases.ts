@@ -1,18 +1,20 @@
-import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { TagModel } from '../../../model/tag';
 import { MessageEmbed } from 'discord.js';
 import truncate from 'truncate';
+import { MinehutCommand } from '../../../structure/minehutCommand';
+import { PermissionLevel } from '../../../util/permission/permissionLevel';
 
 interface TagAlias {
 	name: string;
 	alias: string;
 }
 
-export default class TagListAliasesCommand extends Command {
+export default class TagListAliasesCommand extends MinehutCommand {
 	constructor() {
 		super('tag-listaliases', {
 			aliases: ['tag-listaliases'],
+			permissionLevel: PermissionLevel.Verified,
 			category: 'tag',
 			channel: 'guild',
 			description: {

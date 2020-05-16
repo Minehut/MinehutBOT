@@ -1,13 +1,15 @@
-import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { TagModel } from '../../model/tag';
 import { messages } from '../../util/messages';
 import { PrefixSupplier } from 'discord-akairo';
+import { MinehutCommand } from '../../structure/minehutCommand';
+import { PermissionLevel } from '../../util/permission/permissionLevel';
 
-export default class TagDeleteCommand extends Command {
+export default class TagDeleteCommand extends MinehutCommand {
 	constructor() {
 		super('tag-delete', {
 			aliases: ['tag-delete'],
+			permissionLevel: PermissionLevel.Moderator,
 			category: 'tag',
 			channel: 'guild',
 			description: {

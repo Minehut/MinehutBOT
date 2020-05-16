@@ -1,9 +1,10 @@
-import { Command, Flag } from 'discord-akairo';
+import { Flag } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { messages } from '../../util/messages';
 import { PrefixSupplier } from 'discord-akairo';
+import { MinehutCommand } from '../../structure/minehutCommand';
 
-export default class TagCommand extends Command {
+export default class TagCommand extends MinehutCommand {
 	constructor() {
 		super('tag', {
 			aliases: ['tag'],

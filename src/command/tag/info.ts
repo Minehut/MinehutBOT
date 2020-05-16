@@ -1,14 +1,15 @@
-import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { messages } from '../../util/messages';
 import { TagModel } from '../../model/tag';
 import { MessageEmbed } from 'discord.js';
 import { PrefixSupplier } from 'discord-akairo';
+import { MinehutCommand } from '../../structure/minehutCommand';
 
-export default class TagInfoCommand extends Command {
+export default class TagInfoCommand extends MinehutCommand {
 	constructor() {
 		super('tag-info', {
 			aliases: ['tag-info'],
+			clientPermissions: ['EMBED_LINKS'],
 			category: 'tag',
 			channel: 'guild',
 			description: {

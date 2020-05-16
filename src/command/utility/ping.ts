@@ -1,8 +1,8 @@
-import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { messages } from '../../util/messages';
+import { MinehutCommand } from '../../structure/minehutCommand';
 
-export default class PingCommand extends Command {
+export default class PingCommand extends MinehutCommand {
 	constructor() {
 		super('ping', {
 			aliases: ['ping'],
