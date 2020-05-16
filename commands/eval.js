@@ -1,6 +1,3 @@
-// Eval command given by Riley (https://github.com/RileyDatLord)
-
-const Discord = require('discord.js');
 module.exports = {
     run: async (client, msg, args) => {
         try {
@@ -9,22 +6,9 @@ module.exports = {
       
             if (typeof evaled !== "string")
               evaled = require("util").inspect(evaled);
-            var embed = new Discord.RichEmbed()
-            .setTitle('Eval - Success')
-            .addField('Input', `\`\`\`js\n${code}\`\`\``)
-            .addField('Output', `\`\`\`js\n${clean(evaled)}\`\`\``)
-            .setColor('GREEN')
-            .setTimestamp()
-            msg.channel.send(embed);
+            msg.channel.send(`\`\`\`js\n${clean(evaled)}\`\`\``);
           } catch (err) {
-            const code = args.join(" ");
-            var embed = new Discord.RichEmbed()
-            .setTitle('Eval - Error')
-            .addField('Input', `\`\`\`js\n${code}\`\`\``)
-            .addField('Error', `\`\`\`xl\n${clean(err)}\`\`\``)
-            .setColor('RED')
-            .setTimestamp()
-            msg.channel.send(embed);
+            msg.channel.send(`\`\`xl\n${clean(err)}\`\`\``);
           }    
     },
     meta: {
