@@ -38,7 +38,7 @@ export default class TagSetAliasCommand extends Command {
 		alias = alias.replace(/\s+/g, '-').toLowerCase();
 		name = name.replace(/\s+/g, '-').toLowerCase();
 
-		const existingTarget = await TagModel.findByNameOrAlias(alias);
+		const existingTarget = await TagModel.findByNameOrAlias(alias, msg.guild!.id);
 
 		// If alias already points to something, remove it from that something
 		// OR if the alias already points to it and the user wanted to do that, say nothing changed
@@ -52,7 +52,7 @@ export default class TagSetAliasCommand extends Command {
 			});
 		}
 
-		const target = await TagModel.findByNameOrAlias(name);
+		const target = await TagModel.findByNameOrAlias(name, msg.guild!.id);
 		if (!target)
 			return msg.channel.send(
 				messages.commands.tag.aliases.set.unknownTarget(name)

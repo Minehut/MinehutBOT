@@ -46,13 +46,13 @@ export default class TagRenameCommand extends Command {
 
 		// check if name tag exists
 		// check if newName is already a name or alias
-		const tag = await TagModel.findByNameOrAlias(oldName);
+		const tag = await TagModel.findByNameOrAlias(oldName, msg.guild!.id);
 		if (!tag)
 			return msg.channel.send(
 				messages.commands.tag.rename.unknownTag(prefix, oldName)
 			);
 		oldName = tag.name;
-		const tagWithNewName = await TagModel.findByNameOrAlias(newName);
+		const tagWithNewName = await TagModel.findByNameOrAlias(newName, msg.guild!.id);
 		if (tagWithNewName)
 			return msg.channel.send(messages.commands.tag.rename.conflictingName);
 		await tag.updateOne({ name: newName });

@@ -12,6 +12,12 @@ guildConfigs.set('608978588976283660', {
 	},
 });
 
+guildConfigs.set('395189137981964288', {
+	id: '395189137981964288',
+	prefix: 'jungle!',
+	roles: {},
+});
+
 guildConfigs.set('minehut staff guild id', {
 	// Minehut Staff
 	id: 'minehut staff guild id',

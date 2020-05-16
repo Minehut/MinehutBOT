@@ -29,7 +29,7 @@ export default class TagSetAliasCommand extends Command {
 	async exec(msg: Message, { alias }: { alias: string }) {
 		alias = alias.replace(/\s+/g, '-').toLowerCase();
 
-		const tag = await TagModel.findByNameOrAlias(alias);
+		const tag = await TagModel.findByNameOrAlias(alias, msg.guild!.id);
 
 		if (tag) {
 			if (tag.name === alias)
