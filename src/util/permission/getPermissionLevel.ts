@@ -16,7 +16,7 @@ const getRoleTypeById = (id: string): string | null => {
 
 export function getPermissionLevel(member: GuildMember, client: MinehutClient) {
 	// They have BotDeveloper perm level if they are in the bot owner list
-	if (client.ownerIds?.includes(member.id)) {} //return PermissionLevel.BotDeveloper;
+	if (client.ownerIds?.includes(member.id)) return PermissionLevel.BotDeveloper;
 	// We want to get a list of every significant role id from every guild
 	let allRoles: string[] = [];
 	guildConfigs.forEach(
