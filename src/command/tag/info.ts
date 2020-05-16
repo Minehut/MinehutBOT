@@ -33,7 +33,7 @@ export default class TagInfoCommand extends Command {
 		const prefix = (this.handler.prefix as PrefixSupplier)(msg) as string;
 
 		// Find tag with that name or alias
-		const tag = await TagModel.findByNameOrAlias(name);
+		const tag = await TagModel.findByNameOrAlias(name, msg.guild!.id);
 		if (!tag)
 			return msg.channel.send(
 				messages.commands.tag.info.unknownTag(prefix, name)

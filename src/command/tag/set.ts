@@ -46,8 +46,9 @@ export default class TagSetCommand extends Command {
 			name,
 			content,
 			author: msg.author.id,
+			guild: msg.guild!.id
 		} as Tag;
-		const conflictingTag = await TagModel.findByAlias(tag.name);
+		const conflictingTag = await TagModel.findByAlias(tag.name, msg.guild!.id);
 		if (conflictingTag)
 			return msg.channel.send(
 				messages.commands.tag.set.conflictingAliases(
@@ -55,7 +56,7 @@ export default class TagSetCommand extends Command {
 					conflictingTag.name
 				)
 			);
-		if (!(await TagModel.exists({ name }))) {
+		if (!(await TagModel.exists({ name, guild: msg.guild!.id }))) {
 			TagModel.create(tag);
 			return msg.channel.send(messages.commands.tag.set.tagCreated(tag.name));
 		} else await TagModel.updateOne({ name }, tag);

@@ -11,6 +11,9 @@ export class Tag {
 	@prop({ required: true })
 	author!: string;
 
+	@prop({ required: true })
+	guild!: string;
+
 	@prop({ default: [] })
 	aliases!: string[];
 
@@ -24,15 +27,21 @@ export class Tag {
 	@prop({ required: false })
 	updatedAt!: Date;
 
-	static async findByNameOrAlias(this: ModelType<Tag>, name: string) {
+	static async findByNameOrAlias(
+		this: ModelType<Tag>,
+		name: string,
+		guild: string
+	) {
 		return this.findOne({
 			$or: [{ name }, { aliases: { $in: [name] } }],
+			guild,
 		});
 	}
 
-	static async findByAlias(this: ModelType<Tag>, name: string) {
+	static async findByAlias(this: ModelType<Tag>, name: string, guild: string) {
 		return this.findOne({
 			aliases: { $in: [name] },
+			guild,
 		});
 	}
 }

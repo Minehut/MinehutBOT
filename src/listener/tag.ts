@@ -15,7 +15,7 @@ export default class TagListener extends Listener {
 		if (msg.guild && msg.util?.parsed?.prefix) {
 			if (!msg.util?.parsed?.alias || !msg.util?.parsed?.afterPrefix) return;
 			const name = msg.util?.parsed?.afterPrefix.split(' ')[0];
-			const tag = await TagModel.findByNameOrAlias(name.toLowerCase());
+			const tag = await TagModel.findByNameOrAlias(name.toLowerCase(), msg.guild.id);
 			if (!tag) return;
 			const command = this.client.commandHandler.modules.get('tag-show')!;
 			return this.client.commandHandler.runCommand(
