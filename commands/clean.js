@@ -63,6 +63,7 @@ module.exports = {
                             array.pop();
                         }
                         channel.bulkDelete(array).then(() => {
+                            msg.delete();
                             msg.channel.send(`:ok_hand: cleared ${array.length} messages`).then(smsg => {
                                 setTimeout(function() {
                                     smsg.delete();
