@@ -1,11 +1,14 @@
 import { User } from 'discord.js';
 import { PermissionLevel } from './permission/permissionLevel';
+import { GuildMember } from 'discord.js';
 
 export const emoji = {
 	cross: '<:mhcross:548390154381950976>',
 	check: '<:mhdottick:610799592589623306>',
 	warning: '<:mhdotwarning:610801144914247690>',
 	ahh: '<:mhnotthis:703852468756283395>',
+	loading: '<a:dotloading:610799582812700673>',
+	dab: '<:mhdab:713449873776574505>'
 };
 
 export const messages = {
@@ -41,7 +44,23 @@ export const messages = {
 				description: 'Kick a member',
 				memberPrompt: {
 					start: (author: User) => `${author}, who do you want to kick?`,
+					retry: (author: User) => `${author}, please mention a member.`,
 				},
+				notKickable: `${emoji.cross} I cannot kick that member`,
+				kicked: (target: GuildMember, reason: string) =>
+					`:boot: kicked ${target.user.tag} (\`${reason}\`)`,
+			},
+		},
+		case: {
+			search: {
+				description: `Lookup cases where specific user is target`,
+				loading: (target: string) =>
+					`${emoji.loading} Searching for cases where target is **${target}**`,
+				targetPrompt: {
+					start: (author: User) => `${author}, who do you want to lookup?`,
+					retry: (author: User) => `${author}, please mention a user.`,
+				},
+				emptyHistory: `${emoji.dab} No cases found for this user`
 			},
 		},
 		utility: {
