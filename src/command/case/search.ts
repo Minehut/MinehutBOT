@@ -1,36 +1,13 @@
 import { Message } from 'discord.js';
-import { messages } from '../../util/messages';
+import { messages, emoji } from '../../util/messages';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
 import { User } from 'discord.js';
 import { Argument } from 'discord-akairo';
 import { CaseModel } from '../../model/case';
-import Table from 'cli-table3';
 import truncate from 'truncate';
-
-const tableOptions: Table.TableConstructorOptions = {
-	head: ['#', 'Active', 'Date', 'Target', 'Moderator', 'Type', 'Reason'],
-	chars: {
-		top: '═',
-		'top-mid': '╤',
-		'top-left': '╔',
-		'top-right': '╗',
-		bottom: '═',
-		'bottom-mid': '╧',
-		'bottom-left': '╚',
-		'bottom-right': '╝',
-		left: '║',
-		'left-mid': '╟',
-		mid: '─',
-		'mid-mid': '┼',
-		right: '║',
-		'right-mid': '╢',
-		middle: '│',
-	},
-	style: {
-		head: [], //disable colors in header cells
-		border: [], //disable colors for the border
-	},
-};
+import { humanReadableCaseType } from '../../util/util';
+import humanize from 'humanize-duration';
+import { MessageEmbed } from 'discord.js';
 
 export default class CaseSearchCommand extends MinehutCommand {
 	constructor() {
@@ -73,20 +50,35 @@ export default class CaseSearchCommand extends MinehutCommand {
 		);
 		if (cases.length < 1)
 			return m.edit(messages.commands.case.search.emptyHistory);
-		const table = new Table(tableOptions);
-		cases.forEach(c => {
-			table.push([
-				c.id,
-				c.active ? 'Yes' : 'No',
-				`${c.createdAt.getDate()}/${
+		const historyItems = cases.map(c =>
+			[
+				`\`${c.id}\` ${
+					c.active ? emoji.active : emoji.inactive
+				} ${humanReadableCaseType(c.type)} by **${c.moderatorTag}** (${
+					c.moderatorId
+				})`,
+				`\\↪ **__Reason:__** ${truncate(c.reason, 50)}`,
+				new Date(c.expiresAt).getTime() !== -1
+					? `\\↪ **__Duration:__** ${humanize(
+							new Date(c.expiresAt).getTime() - new Date(c.createdAt).getTime()
+					  )}`
+					: null,
+				`\\↪ **__Date:__** ${c.createdAt.getDate()}/${
 					c.createdAt.getMonth() + 1
 				}/${c.createdAt.getFullYear()} ${c.createdAt.toLocaleTimeString()}`,
-				`${c.targetTag} (${c.targetId})`,
-				`${c.moderatorTag} (${c.moderatorId})`,
-				c.type,
-				truncate(c.reason, 24),
-			]);
-		});
-		m.edit(table.toString(), { code: true });
+			]
+				.filter(i => i !== null)
+				.join('\n')
+		);
+		const embed = new MessageEmbed()
+			.setDescription(
+				truncate(historyItems.join('\n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n'), 2000)
+			)
+			.setColor('LUMINOUS_VIVID_PINK')
+			.setAuthor(
+				`${target.username} (${target.id})`,
+				target.displayAvatarURL()
+			);
+		m.edit(embed);
 	}
 }
