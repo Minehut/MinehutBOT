@@ -8,6 +8,6 @@ export enum CaseType {
 	Unban = 'UNBAN',
 	UnMute = 'UNMUTE',
 	UnVoiceMute = 'UNVOICEMUTE',
-	Softban = 'SOFTBAN',
-	Forceban = 'FORCEBAN',
+	SoftBan = 'SOFTBAN',
+	ForceBan = 'FORCEBAN',
 }
