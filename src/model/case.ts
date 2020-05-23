@@ -3,7 +3,7 @@ import { CaseType } from '../util/constants';
 
 export class Case {
 	@prop({ required: true })
-	id!: number;
+	_id!: number;
 
 	@prop({ required: true })
 	active!: boolean;

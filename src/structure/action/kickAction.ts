@@ -40,7 +40,7 @@ export class KickAction {
 		const id = this.id;
 		await this.target.kick(`[#${id}] ${this.reason}`);
 		this.document = await CaseModel.create({
-			id,
+			_id: id,
 			active: false,
 			moderatorId: this.moderator.id,
 			moderatorTag: this.moderator.user.tag,
