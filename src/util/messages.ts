@@ -8,7 +8,9 @@ export const emoji = {
 	warning: '<:mhdotwarning:610801144914247690>',
 	ahh: '<:mhnotthis:703852468756283395>',
 	loading: '<a:dotloading:610799582812700673>',
-	dab: '<:mhdab:713449873776574505>'
+	dab: '<:mhdab:713449873776574505>',
+	active: '<:jonline:548390154956570645>',
+	inactive: '<:jdnd:548390154319036439>'
 };
 
 export const messages = {
