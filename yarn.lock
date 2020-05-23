@@ -188,6 +188,11 @@ event-target-shim@^5.0.0:
   resolved "https://registry.yarnpkg.com/event-target-shim/-/event-target-shim-5.0.1.tgz#5d4d3ebdf9583d63a5333ce2deb7480ab2b05789"
   integrity sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ==
 
+humanize-duration@^3.23.0:
+  version "3.23.0"
+  resolved "https://registry.yarnpkg.com/humanize-duration/-/humanize-duration-3.23.0.tgz#db401c53435223d37b2bad6030b30faaab0ee9be"
+  integrity sha512-ToVp8+w3PkP/iL5OklJn9+uW1WRuJVa0PvC6DfWlY769+UpTw5Hjr/6FP1QK/DeUklzOlvYs3faBnGUEDUXeRA==
+
 inherits@~2.0.3:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.4.tgz#0fa2c64f932917c3433a0ded55363aae37416b7c"
