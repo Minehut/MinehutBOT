@@ -3,6 +3,7 @@ import { CaseModel, Case } from '../../model/case';
 import { DocumentType } from '@typegoose/typegoose';
 import { CaseType } from '../../util/constants';
 import { MessageEmbed } from 'discord.js';
+import truncate from 'truncate';
 
 interface KickActionData {
 	target: GuildMember;
@@ -28,7 +29,7 @@ export class KickAction {
 	}
 
 	get reason() {
-		return this._reason || 'No reason provided';
+		return truncate(this._reason || 'No reason provided', 2000);
 	}
 
 	async commit() {
@@ -47,7 +48,7 @@ export class KickAction {
 			targetTag: this.target.user.tag,
 			expiresAt: new Date(-1),
 			reason: this.reason,
-			type: CaseType.Kick
+			type: CaseType.Kick,
 		} as Case);
 		await this.after();
 	}
@@ -67,11 +68,11 @@ export class KickAction {
 
 	async sendTargetDm() {
 		const embed = new MessageEmbed()
-		.setColor('RED')
-		.setDescription('**You have been kicked from Minehut!**')
-		.addField('ID', this.id)
-		.addField('Reason', this.reason)
-		.setTimestamp()
+			.setColor('RED')
+			.setDescription('**You have been kicked from Minehut!**')
+			.addField('ID', this.id)
+			.addField('Reason', this.reason)
+			.setTimestamp();
 		await this.target.send(embed);
 	}
 }
