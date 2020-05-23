@@ -54,7 +54,7 @@ export default class CaseSearchCommand extends MinehutCommand {
 			return m.edit(messages.commands.case.search.emptyHistory);
 		const historyItems = cases.map(c =>
 			[
-				`\`${c.id}\` ${
+				`\`${c._id}\` ${
 					c.active ? emoji.active : emoji.inactive
 				} ${humanReadableCaseType(c.type)} by **${c.moderatorTag}** (${
 					c.moderatorId
