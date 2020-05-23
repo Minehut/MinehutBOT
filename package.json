@@ -12,6 +12,7 @@
 		"discord-akairo": "^8.0.0",
 		"discord.js": "^12.2.0",
 		"dotenv": "^8.2.0",
+		"humanize-duration": "^3.23.0",
 		"mongoose": "^5.9.10",
 		"truncate": "^2.1.0"
 	},
