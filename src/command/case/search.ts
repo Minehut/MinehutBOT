@@ -8,6 +8,7 @@ import truncate from 'truncate';
 import { humanReadableCaseType } from '../../util/util';
 import humanize from 'humanize-duration';
 import { MessageEmbed } from 'discord.js';
+import { PermissionLevel } from '../../util/permission/permissionLevel';
 
 export default class CaseSearchCommand extends MinehutCommand {
 	constructor() {
@@ -16,6 +17,7 @@ export default class CaseSearchCommand extends MinehutCommand {
 			clientPermissions: ['EMBED_LINKS'],
 			category: 'case',
 			channel: 'guild',
+			permissionLevel: PermissionLevel.JuniorModerator,
 			description: {
 				content: messages.commands.case.search.description,
 				usage: '<target>',

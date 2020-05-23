@@ -3,6 +3,7 @@ import { Message } from 'discord.js';
 import { messages } from '../../util/messages';
 import { PrefixSupplier } from 'discord-akairo';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
+import { PermissionLevel } from '../../util/permission/permissionLevel';
 
 export default class CaseCommand extends MinehutCommand {
 	constructor() {
@@ -12,6 +13,7 @@ export default class CaseCommand extends MinehutCommand {
 				content: 'Manage cases',
 				usage: '<method> <...arguments>',
 			},
+			permissionLevel: PermissionLevel.JuniorModerator,
 			category: 'case',
 			channel: 'guild',
 		});
