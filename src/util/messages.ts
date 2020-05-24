@@ -116,6 +116,14 @@ export const messages = {
 				caseUpdated: (id: number, reason: string) =>
 					`${emoji.check} updated reason for case **${id}** (\`${reason}\`)`,
 			},
+			info: {
+				description: 'Lookup a specific case',
+				casePrompt: {
+					start: (author: User) =>
+						`${author}, which case do you want to lookup?`,
+					retry: (author: User) => `${author}, please specify a valid case ID.`,
+				},
+			},
 		},
 		utility: {
 			eval: {
