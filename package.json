@@ -12,11 +12,13 @@
 		"discord.js": "^12.2.0",
 		"dotenv": "^8.2.0",
 		"humanize-duration": "^3.23.0",
+		"javascript-time-ago": "^2.0.7",
 		"mongoose": "^5.9.10",
 		"truncate": "^2.1.0"
 	},
 	"devDependencies": {
 		"@types/humanize-duration": "^3.18.0",
+		"@types/javascript-time-ago": "^2.0.1",
 		"@types/mongoose": "^5.7.12",
 		"@types/node": "^13.13.0",
 		"ts-node": "^8.8.2",
