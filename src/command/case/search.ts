@@ -13,7 +13,7 @@ import { PermissionLevel } from '../../util/permission/permissionLevel';
 export default class CaseSearchCommand extends MinehutCommand {
 	constructor() {
 		super('case-search', {
-			aliases: ['case-search'],
+			aliases: ['case-search', 'punishments', 'puns'],
 			clientPermissions: ['EMBED_LINKS'],
 			category: 'case',
 			channel: 'guild',
