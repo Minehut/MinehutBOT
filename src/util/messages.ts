@@ -52,6 +52,20 @@ export const messages = {
 				kicked: (target: GuildMember, reason: string) =>
 					`:boot: kicked ${target.user.tag} (\`${reason}\`)`,
 			},
+			warn: {
+				description: 'Warn a member',
+				memberPrompt: {
+					start: (author: User) => `${author}, who do you want to warn?`,
+					retry: (author: User) => `${author}, please mention a member.`,
+				},
+				reasonPrompt: {
+					start: (author: User) =>
+						`${author}, what is the reason for the warning?`,
+					retry: (author: User) => `${author}, please include a reason.`,
+				},
+				warned: (target: GuildMember, reason: string) =>
+					`${emoji.warning} warned ${target.user.tag} for \`${reason}\``,
+			},
 		},
 		case: {
 			search: {
