@@ -65,8 +65,8 @@ export class KickAction {
 		const embed = new MessageEmbed()
 			.setColor('RED')
 			.setDescription('**You have been kicked from Minehut!**')
-			.addField('ID', this.id)
-			.addField('Reason', this.reason)
+			.addField('ID', this.id, true)
+			.addField('Reason', this.reason, true)
 			.setTimestamp();
 		await this.target.send(embed);
 	}
