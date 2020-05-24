@@ -1,5 +1,6 @@
 import { CaseType } from './constants';
 
+// todo: Maybe move this to a base Action class? OOP FTW
 export function humanReadableCaseType(
 	type: CaseType,
 	startUppercase: boolean = true
