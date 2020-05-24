@@ -113,6 +113,7 @@ export const messages = {
 			},
 		},
 		tag: {
+			description: 'Manage tags (todo: add methods)',
 			set: {
 				description: 'Set/edit a tag',
 				namePrompt: {
