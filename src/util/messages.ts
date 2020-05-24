@@ -10,7 +10,7 @@ export const emoji = {
 	loading: '<a:dotloading:610799582812700673>',
 	dab: '<:mhdab:713449873776574505>',
 	active: '<:jonline:548390154956570645>',
-	inactive: '<:jdnd:548390154319036439>'
+	inactive: '<:jdnd:548390154319036439>',
 };
 
 export const messages = {
@@ -62,7 +62,22 @@ export const messages = {
 					start: (author: User) => `${author}, who do you want to lookup?`,
 					retry: (author: User) => `${author}, please mention a user.`,
 				},
-				emptyHistory: `${emoji.dab} No cases found for this user`
+				emptyHistory: `${emoji.dab} No cases found for this user`,
+			},
+			reason: {
+				description: `Set a case reason`,
+				casePrompt: {
+					start: (author: User) =>
+						`${author}, which case's reason do you want to change?`,
+					retry: (author: User) => `${author}, please specify a valid case ID.`,
+				},
+				reasonPrompt: {
+					start: (author: User) =>
+						`${author}, what do you want the case reason to be?`,
+					retry: (author: User) => `${author}, please specify a case reason.`,
+				},
+				caseUpdated: (id: number, reason: string) =>
+					`${emoji.check} updated reason for case **${id}** (\`${reason}\`)`,
 			},
 		},
 		utility: {

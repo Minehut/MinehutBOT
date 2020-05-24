@@ -21,7 +21,10 @@ export default class CaseCommand extends MinehutCommand {
 
 	*args() {
 		const method = yield {
-			type: [['case-search', 'search']],
+			type: [
+				['case-search', 'search'],
+				['case-reason', 'reason'],
+			],
 			otherwise: (msg: Message) => {
 				const prefix = (this.handler.prefix as PrefixSupplier)(msg) as string;
 				return messages.commands.common.useHelp(prefix, this.aliases[0]);

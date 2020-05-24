@@ -5,6 +5,7 @@ import { Message } from 'discord.js';
 import { InhibitorHandler } from 'discord-akairo';
 import { guildConfigs } from '../guild/guildConfigs';
 import { messages } from '../util/messages';
+import { CaseModel } from '../model/case';
 
 export class MinehutClient extends AkairoClient {
 	commandHandler: CommandHandler;
@@ -89,6 +90,14 @@ export class MinehutClient extends AkairoClient {
 				default:
 					return null;
 			}
+		});
+
+		this.commandHandler.resolver.addType('caseId', async (_msg: Message, phrase) => {
+			if (!phrase) return null;
+			
+			const c = await CaseModel.findOne({ _id: phrase });
+			if (!c) return null;
+			return c;
 		});
 
 		this.commandHandler.on('error', (err, msg, _command) => {
