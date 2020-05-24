@@ -12,7 +12,7 @@ export default class TagSetAliasCommand extends MinehutCommand {
 			category: 'tag',
 			channel: 'guild',
 			description: {
-				content: messages.commands.tag.delete.description,
+				content: messages.commands.tag.aliases.delete.description,
 				usage: '<alias>',
 			},
 			args: [
