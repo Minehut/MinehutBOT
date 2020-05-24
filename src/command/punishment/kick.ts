@@ -12,6 +12,7 @@ export default class KickCommand extends MinehutCommand {
 			permissionLevel: PermissionLevel.JuniorModerator,
 			category: 'punishment',
 			channel: 'guild',
+			clientPermissions: ['KICK_MEMBERS'],
 			description: {
 				content: messages.commands.punishment.kick.description,
 				usage: '<member> [...reason]',
