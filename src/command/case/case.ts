@@ -10,7 +10,7 @@ export default class CaseCommand extends MinehutCommand {
 		super('case', {
 			aliases: ['case', 'infractions', 'infraction', 'inf', 'cases'],
 			description: {
-				content: 'Manage cases',
+				content: messages.commands.case.description,
 				usage: '<method> <...arguments>',
 			},
 			permissionLevel: PermissionLevel.JuniorModerator,
