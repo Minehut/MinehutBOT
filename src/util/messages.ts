@@ -68,6 +68,7 @@ export const messages = {
 			},
 		},
 		case: {
+			description: 'Manage cases (todo: add methods)',
 			search: {
 				description: `Lookup cases where specific user is target`,
 				loading: (target: string) =>
