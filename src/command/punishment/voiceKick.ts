@@ -3,7 +3,7 @@ import { messages } from '../../util/messages';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
 import { GuildMember } from 'discord.js';
-import { VoiceKickAction } from '../../structure/action/voiceKickAction';
+import { VoiceKickAction } from '../../structure/action/voiceKick';
 
 export default class VoiceKickCommand extends MinehutCommand {
 	constructor() {
