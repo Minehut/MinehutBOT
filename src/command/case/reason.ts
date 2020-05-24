@@ -1,7 +1,6 @@
 import { Message } from 'discord.js';
 import { messages } from '../../util/messages';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
-// import { CaseModel } from '../../model/case';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
 import { DocumentType } from '@typegoose/typegoose';
 import { Case } from '../../model/case';
