@@ -39,14 +39,16 @@ export class MinehutClient extends AkairoClient {
 			},
 			argumentDefaults: {
 				prompt: {
-					modifyRetry: (_, str) => messages.commandHandler.prompt.modifyRetry(str),
-					modifyStart: (_, str) => messages.commandHandler.prompt.modifyStart(str),
+					modifyRetry: (_, str) =>
+						messages.commandHandler.prompt.modifyRetry(str),
+					modifyStart: (_, str) =>
+						messages.commandHandler.prompt.modifyStart(str),
 					timeout: messages.commandHandler.prompt.timeout,
 					ended: messages.commandHandler.prompt.ended,
 					cancel: messages.commandHandler.prompt.cancel,
 					retries: 3,
-					time: 30000
-				}
+					time: 30000,
+				},
 			},
 			commandUtil: true,
 			allowMention: true,
@@ -66,6 +68,7 @@ export class MinehutClient extends AkairoClient {
 		});
 
 		this.commandHandler.useListenerHandler(this.listenerHandler);
+		// this.commandHandler.useInhibitorHandler(this.inhibitorHandler);
 
 		this.listenerHandler.loadAll();
 		this.commandHandler.loadAll();
@@ -92,13 +95,16 @@ export class MinehutClient extends AkairoClient {
 			}
 		});
 
-		this.commandHandler.resolver.addType('caseId', async (_msg: Message, phrase) => {
-			if (!phrase) return null;
-			
-			const c = await CaseModel.findOne({ _id: phrase });
-			if (!c) return null;
-			return c;
-		});
+		this.commandHandler.resolver.addType(
+			'caseId',
+			async (_msg: Message, phrase) => {
+				if (!phrase) return null;
+
+				const c = await CaseModel.findOne({ _id: phrase });
+				if (!c) return null;
+				return c;
+			}
+		);
 
 		this.commandHandler.on('error', (err, msg, _command) => {
 			msg.channel.send(
