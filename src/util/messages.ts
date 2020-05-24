@@ -77,6 +77,17 @@ export const messages = {
 					`:boot: kicked ${target.user.tag} from their voice channel (\`${reason}\`)`,
 				notInVoice: `${emoji.cross} user is not in a voice channel`,
 			},
+			softBan: {
+				description:
+					'Bans a member, then immediately unbans them, deleting all of their messages up to 7 days old (TL;DR: kick with message deletion)',
+				notBannable: `${emoji.cross} I cannot ban that member`,
+				softBanned: (target: GuildMember, reason: string) =>
+					`:hammer: softbanned ${target.user.tag} (\`${reason}\`)`,
+				memberPrompt: {
+					start: (author: User) => `${author}, who do you want to softban?`,
+					retry: (author: User) => `${author}, please mention a member.`,
+				},
+			},
 		},
 		case: {
 			description: 'Manage cases (todo: add methods)',
