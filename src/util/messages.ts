@@ -66,6 +66,17 @@ export const messages = {
 				warned: (target: GuildMember, reason: string) =>
 					`${emoji.warning} warned ${target.user.tag} for \`${reason}\``,
 			},
+			voiceKick: {
+				description:
+					"Kick a member from their voice channel (shows on record as opposed to 'Disconnect' button)",
+				memberPrompt: {
+					start: (author: User) => `${author}, who do you want to voicekick?`,
+					retry: (author: User) => `${author}, please mention a member.`,
+				},
+				kicked: (target: GuildMember, reason: string) =>
+					`:boot: kicked ${target.user.tag} from their voice channel (\`${reason}\`)`,
+				notInVoice: `${emoji.cross} user is not in a voice channel`,
+			},
 		},
 		case: {
 			description: 'Manage cases (todo: add methods)',
