@@ -9,7 +9,7 @@ export default class TagCommand extends MinehutCommand {
 		super('tag', {
 			aliases: ['tag'],
 			description: {
-				content: 'Manage tags',
+				content: messages.commands.tag.description,
 				usage: '<method> <...arguments>',
 			},
 			category: 'tag',
