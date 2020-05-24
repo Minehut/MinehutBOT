@@ -16,20 +16,15 @@ export class KickAction {
 	target: GuildMember;
 	moderator: GuildMember;
 	message: Message;
+	reason: string;
 	document?: DocumentType<Case>;
 	id?: number;
-
-	private _reason?: string;
 
 	constructor(data: KickActionData) {
 		this.target = data.target;
 		this.moderator = data.moderator;
 		this.message = data.message;
-		this._reason = data.reason;
-	}
-
-	get reason() {
-		return truncate(this._reason || 'No reason provided', 2000);
+		this.reason = truncate(data.reason || 'No reason provided', 2000);
 	}
 
 	async commit() {
