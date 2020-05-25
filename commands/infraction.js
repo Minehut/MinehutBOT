@@ -17,7 +17,7 @@ module.exports = {
                 } else id = data.id;
                 return id;
             }
-            const punishments = await client.db.table('punishments').filter({ punished: { id: getID(user, data) } }).orderBy(client.db.desc('date')).limit(10).run();
+            const punishments = await client.db.table('punishments').filter({ punished: { id: getID(user, data) } }).run();
             if (punishments.length == 0) return msg.channel.send(':x: User has no punishments');
             const inftable = new Table({
                 head: [ 'ID', 'User', 'Moderator', 'Created', 'Type', 'Active', 'Reason' ],
@@ -31,7 +31,9 @@ module.exports = {
                 newDate = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}T${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}.${date.getMilliseconds()}`
                 return newDate;
            }
-           punishments.forEach(inf => {
+           punishments.sort((a, b) => new Date(b.date) - new Date(a.date));
+           const limitedPuns = punishments.slice(0, 10);
+           limitedPuns.forEach(inf => {
                inftable.push([ inf.id, inf.punished.name, inf.moderator.name, rewriteCreated(new Date(inf.date)), inf.type, inf.active, inf.reason ]);
            });
            msg.channel.send(`\`\`\`${inftable.toString()}\`\`\``);      
