@@ -34,13 +34,10 @@ module.exports = {
             .addField('Duration', `${num}s`, true)
             .setColor('#FF0000')
             .setFooter(`Punished: ${datepunished}`);
-            try {
-                user.send(embed);
-            } catch (e) {
-                msg.channel.send('couldn\'t dm user');
-            }
+            user.send(embed).catch();
             const muted = msg.guild.roles.find(role => role.name === 'Muted');
             member.addRole(muted);
+            if (member.voiceChannel) member.setVoiceChannel(null);
             msg.channel.send(`:ok_hand: muted ${user.tag} for ${num} second(s) (\`${reason}\`)`);        
         } else if (args[1].endsWith('m')) {
             if (args[1].length == 1) return msg.channel.send(':x: Invalid length');
@@ -65,13 +62,10 @@ module.exports = {
             .addField('Duration', `${num}m`, true)
             .setColor('#FF0000')
             .setFooter(`Punished: ${datepunished}`);
-            try {
-                user.send(embed);
-            } catch (e) {
-                msg.channel.send('couldn\'t dm user');
-            }
+            user.send(embed).catch();
             const muted = msg.guild.roles.find(role => role.name === 'Muted');
             member.addRole(muted);
+            if (member.voiceChannel) member.setVoiceChannel(null);
             msg.channel.send(`:ok_hand: muted ${user.tag} for ${num} minute(s) (\`${reason}\`)`);        
         } else if (args[1].endsWith('h')) {
             if (args[1].length == 1) return msg.channel.send(':x: Invalid length');
@@ -96,13 +90,10 @@ module.exports = {
             .addField('Duration', `${num}h`, true)
             .setColor('#FF0000')
             .setFooter(`Punished: ${datepunished}`);
-            try {
-                user.send(embed);
-            } catch (e) {
-                msg.channel.send('couldn\'t dm user');
-            }
+            user.send(embed).catch();
             const muted = msg.guild.roles.find(role => role.name === 'Muted');
             member.addRole(muted);
+            if (member.voiceChannel) member.setVoiceChannel(null);
             msg.channel.send(`:ok_hand: muted ${user.tag} for ${num} hour(s) (\`${reason}\`)`);        
         } else if (args[1].endsWith('d')) {
             if (args[1].length == 1) return msg.channel.send(':x: Invalid length');
@@ -127,13 +118,10 @@ module.exports = {
             .addField('Duration', `${num}d`, true)
             .setColor('#FF0000')
             .setFooter(`Punished: ${datepunished}`);
-            try {
-                user.send(embed);
-            } catch (e) {
-                msg.channel.send('couldn\'t dm user');
-            }
+            user.send(embed).catch();
             const muted = msg.guild.roles.find(role => role.name === 'Muted');
             member.addRole(muted);
+            if (member.voiceChannel) member.setVoiceChannel(null);
             msg.channel.send(`:ok_hand: muted ${user.tag} for ${num} day(s) (\`${reason}\`)`);        
         } else if (args[1].endsWith('w')) {
             if (args[1].length == 1) return msg.channel.send(':x: Invalid length');
@@ -158,13 +146,10 @@ module.exports = {
             .addField('Duration', `${num}w`, true)
             .setColor('#FF0000')
             .setFooter(`Punished: ${datepunished}`);
-            try {
-                user.send(embed);
-            } catch (e) {
-                msg.channel.send('couldn\'t dm user');
-            }
+            user.send(embed).catch();
             const muted = msg.guild.roles.find(role => role.name === 'Muted');
             member.addRole(muted);
+            if (member.voiceChannel) member.setVoiceChannel(null);
             msg.channel.send(`:ok_hand: muted ${user.tag} for ${num} week(s) (\`${reason}\`)`);        
         } else if (args[1].endsWith('mo')) {
             if (args[1].length == 1) return msg.channel.send(':x: Invalid length');
@@ -189,13 +174,10 @@ module.exports = {
             .addField('Duration', `${num}mo`, true)
             .setColor('#FF0000')
             .setFooter(`Punished: ${datepunished}`);
-            try {
-                user.send(embed);
-            } catch (e) {
-                msg.channel.send('couldn\'t dm user');
-            }
+            user.send(embed).catch();
             const muted = msg.guild.roles.find(role => role.name === 'Muted');
             member.addRole(muted);
+            if (member.voiceChannel) member.setVoiceChannel(null);
             msg.channel.send(`:ok_hand: muted ${user.tag} for ${num} month(s) (\`${reason}\`)`);        
         } else if (args[1].endsWith('y')) {
             if (args[1].length == 1) return msg.channel.send(':x: Invalid length');
@@ -220,13 +202,10 @@ module.exports = {
             .addField('Duration', `${num}y`, true)
             .setColor('#FF0000')
             .setFooter(`Punished: ${datepunished}`);
-            try {
-                user.send(embed);
-            } catch (e) {
-                msg.channel.send('couldn\'t dm user');
-            }
+            user.send(embed).catch();
             const muted = msg.guild.roles.find(role => role.name === 'Muted');
             member.addRole(muted);
+            if (member.voiceChannel) member.setVoiceChannel(null);
             msg.channel.send(`:ok_hand: muted ${user.tag} for ${num} year(s) (\`${reason}\`)`);        
         } else return msg.channel.send(':x: Invalid length');
     },
