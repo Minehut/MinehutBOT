@@ -29,6 +29,9 @@ export class Case {
 	@prop({ required: true, enum: CaseType })
 	type!: CaseType;
 
+	@prop({ required: true })
+	guildId!: string;
+
 	// These are automatically filled by Mongoose, they are just here for typings
 	@prop({ required: false })
 	createdAt!: Date;

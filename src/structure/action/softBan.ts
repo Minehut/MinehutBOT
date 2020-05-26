@@ -44,6 +44,7 @@ export class SoftBanAction {
 			targetTag: this.target.user.tag,
 			expiresAt: new Date(-1),
 			reason: this.reason,
+			guildId: this.target.guild.id,
 			type: CaseType.SoftBan,
 		} as Case);
 		await this.after();

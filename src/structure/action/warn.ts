@@ -40,6 +40,7 @@ export class WarnAction {
 			targetTag: this.target.user.tag,
 			expiresAt: new Date(-1),
 			reason: this.reason,
+			guildId: this.target.guild.id,
 			type: CaseType.Warn,
 		} as Case);
 		await this.after();

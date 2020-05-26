@@ -43,6 +43,7 @@ export class VoiceKickAction {
 			targetTag: this.target.user.tag,
 			expiresAt: new Date(-1),
 			reason: this.reason,
+			guildId: this.target.guild.id,
 			type: CaseType.VoiceKick,
 		} as Case);
 		await this.after();

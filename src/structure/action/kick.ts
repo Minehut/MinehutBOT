@@ -43,6 +43,7 @@ export class KickAction {
 			targetTag: this.target.user.tag,
 			expiresAt: new Date(-1),
 			reason: this.reason,
+			guildId: this.target.guild.id,
 			type: CaseType.Kick,
 		} as Case);
 		await this.after();
