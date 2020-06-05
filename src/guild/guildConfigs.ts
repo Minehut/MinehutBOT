@@ -18,9 +18,9 @@ guildConfigs.set('395189137981964288', {
 	roles: {},
 });
 
-guildConfigs.set('minehut staff guild id', {
+guildConfigs.set('370014721556086794', {
 	// Minehut Staff
-	id: 'minehut staff guild id',
+	id: '370014721556086794',
 	roles: {
 		nitroBooster: '626966014520852520',
 		advisor: '550144265850716160',
