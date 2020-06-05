@@ -1,5 +1,10 @@
 import { CaseType } from './constants';
 
+import TimeAgo from 'javascript-time-ago';
+import en from 'javascript-time-ago/locale/en';
+TimeAgo.addLocale(en);
+export const ago = new TimeAgo('en-US');
+
 // todo: Maybe move this to a base Action class? OOP FTW
 export function humanReadableCaseType(
 	type: CaseType,

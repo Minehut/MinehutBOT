@@ -5,12 +5,8 @@ import { CaseType } from '../../util/constants';
 import { MessageEmbed } from 'discord.js';
 import truncate from 'truncate';
 import humanizeDuration from 'humanize-duration';
-import TimeAgo from 'javascript-time-ago';
-import en from 'javascript-time-ago/locale/en';
 import { MinehutClient } from '../../client/minehutClient';
-
-TimeAgo.addLocale(en);
-const ago = new TimeAgo('en-US');
+import { ago } from '../../util/util';
 
 interface BanActionData {
 	target: GuildMember;
