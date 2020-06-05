@@ -6,11 +6,15 @@ import { InhibitorHandler } from 'discord-akairo';
 import { guildConfigs } from '../guild/guildConfigs';
 import { messages } from '../util/messages';
 import { CaseModel } from '../model/case';
+import parseDuration from 'parse-duration';
+import { BanScheduler } from '../structure/scheduler/banScheduler';
 
 export class MinehutClient extends AkairoClient {
 	commandHandler: CommandHandler;
 	listenerHandler: ListenerHandler;
 	inhibitorHandler: InhibitorHandler;
+
+	banScheduler: BanScheduler;
 
 	ownerIds: string[] | undefined;
 	mongo?: Mongoose;
@@ -74,6 +78,8 @@ export class MinehutClient extends AkairoClient {
 		this.commandHandler.loadAll();
 		// this.inhibitorHandler.loadAll();
 
+		this.banScheduler = new BanScheduler(this);
+
 		this.commandHandler.resolver.addType('handler', (_msg: Message, phrase) => {
 			if (!phrase) return null;
 			switch (phrase.toLowerCase()) {
@@ -106,6 +112,15 @@ export class MinehutClient extends AkairoClient {
 			}
 		);
 
+		this.commandHandler.resolver.addType(
+			'duration',
+			(_msg: Message, phrase) => {
+				const parsed = parseDuration(phrase);
+				console.log(phrase, parsed);
+				return parsed;
+			}
+		);
+
 		this.commandHandler.on('error', (err, msg, _command) => {
 			msg.channel.send(
 				'an error occurred (error event): ' + err.name + ' ' + err.message
@@ -124,6 +139,7 @@ declare module 'discord-akairo' {
 		listenerHandler: ListenerHandler;
 		inhibitorHandler: InhibitorHandler;
 		ownerIds: string[] | undefined;
+		banScheduler: BanScheduler;
 		start(token: string): void;
 	}
 }

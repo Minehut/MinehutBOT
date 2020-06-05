@@ -9,12 +9,14 @@ export default class ReadyListener extends Listener {
 		});
 	}
 
-	exec() {
+	async exec() {
 		console.log(`Logged in as ${this.client.user?.tag}`);
 
 		this.client.guilds.cache.forEach(g => {
 			if (!guildConfigs.has(g.id!))
 				throw `Missing guild configuration for ${g.name} (${g.id})`;
 		});
+
+		await this.client.banScheduler.refresh();
 	}
 }

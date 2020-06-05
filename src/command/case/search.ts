@@ -7,8 +7,13 @@ import { CaseModel } from '../../model/case';
 import truncate from 'truncate';
 import { humanReadableCaseType } from '../../util/util';
 import humanize from 'humanize-duration';
+import TimeAgo from 'javascript-time-ago';
+import en from 'javascript-time-ago/locale/en';
 import { MessageEmbed } from 'discord.js';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
+
+TimeAgo.addLocale(en);
+const timeAgo = new TimeAgo('en-US');
 
 export default class CaseSearchCommand extends MinehutCommand {
 	constructor() {
@@ -60,14 +65,24 @@ export default class CaseSearchCommand extends MinehutCommand {
 					c.moderatorId
 				})`,
 				`\\↪ **__Reason:__** ${truncate(c.reason, 50)}`,
-				new Date(c.expiresAt).getTime() !== -1
+				c.expiresAt.getTime() !== -1
 					? `\\↪ **__Duration:__** ${humanize(
-							new Date(c.expiresAt).getTime() - new Date(c.createdAt).getTime()
+							c.expiresAt.getTime() - new Date(c.createdAt).getTime(),
+							{ round: true, largest: 3 }
 					  )}`
 					: null,
 				`\\↪ **__Date:__** ${c.createdAt.getDate()}/${
 					c.createdAt.getMonth() + 1
-				}/${c.createdAt.getFullYear()} ${c.createdAt.toLocaleTimeString()}`,
+				}/${c.createdAt.getFullYear()} ${c.createdAt.toLocaleTimeString()} (${timeAgo.format(
+					c.createdAt
+				)})`,
+				c.expiresAt.getTime() !== -1
+					? `\\↪ **__Expires:__** ${c.expiresAt.getDate()}/${
+							c.expiresAt.getMonth() + 1
+					  }/${c.expiresAt.getFullYear()} ${c.expiresAt.toLocaleTimeString()} (${timeAgo.format(
+							c.expiresAt
+					  )})`
+					: null,
 			]
 				.filter(i => i !== null)
 				.join('\n')

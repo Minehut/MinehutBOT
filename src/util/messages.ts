@@ -88,6 +88,19 @@ export const messages = {
 					retry: (author: User) => `${author}, please mention a member.`,
 				},
 			},
+			ban: {
+				description:
+					'Ban a member for specified duration (defaults to permanent)',
+				memberPrompt: {
+					start: (author: User) => `${author}, who do you want to ban?`,
+					retry: (author: User) => `${author}, please mention a member.`,
+				},
+				notBannable: `${emoji.cross} I cannot ban that member`,
+				banned: (target: GuildMember, reason: string, duration: string) =>
+					`:hammer: banned ${target.user.tag}${
+						duration !== 'permanent' ? ` for **${duration}** ` : ' '
+					}(\`${reason}\`)`,
+			},
 		},
 		case: {
 			description: 'Manage cases (todo: add methods)',
