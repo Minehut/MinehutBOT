@@ -14,6 +14,7 @@
 		"humanize-duration": "^3.23.0",
 		"javascript-time-ago": "^2.0.7",
 		"mongoose": "^5.9.10",
+		"parse-duration": "^0.4.4",
 		"truncate": "^2.1.0"
 	},
 	"devDependencies": {
