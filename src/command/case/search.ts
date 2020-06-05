@@ -5,15 +5,10 @@ import { User } from 'discord.js';
 import { Argument } from 'discord-akairo';
 import { CaseModel } from '../../model/case';
 import truncate from 'truncate';
-import { humanReadableCaseType } from '../../util/util';
+import { humanReadableCaseType, ago } from '../../util/util';
 import humanize from 'humanize-duration';
-import TimeAgo from 'javascript-time-ago';
-import en from 'javascript-time-ago/locale/en';
 import { MessageEmbed } from 'discord.js';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
-
-TimeAgo.addLocale(en);
-const timeAgo = new TimeAgo('en-US');
 
 export default class CaseSearchCommand extends MinehutCommand {
 	constructor() {
@@ -73,13 +68,13 @@ export default class CaseSearchCommand extends MinehutCommand {
 					: null,
 				`\\↪ **__Date:__** ${c.createdAt.getDate()}/${
 					c.createdAt.getMonth() + 1
-				}/${c.createdAt.getFullYear()} ${c.createdAt.toLocaleTimeString()} (${timeAgo.format(
+				}/${c.createdAt.getFullYear()} ${c.createdAt.toLocaleTimeString()} (${ago.format(
 					c.createdAt
 				)})`,
 				c.expiresAt.getTime() !== -1
 					? `\\↪ **__Expires:__** ${c.expiresAt.getDate()}/${
 							c.expiresAt.getMonth() + 1
-					  }/${c.expiresAt.getFullYear()} ${c.expiresAt.toLocaleTimeString()} (${timeAgo.format(
+					  }/${c.expiresAt.getFullYear()} ${c.expiresAt.toLocaleTimeString()} (${ago.format(
 							c.expiresAt
 					  )})`
 					: null,

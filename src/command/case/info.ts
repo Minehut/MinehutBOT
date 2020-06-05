@@ -5,11 +5,7 @@ import { PermissionLevel } from '../../util/permission/permissionLevel';
 import { DocumentType } from '@typegoose/typegoose';
 import { Case } from '../../model/case';
 import { MessageEmbed } from 'discord.js';
-import TimeAgo from 'javascript-time-ago';
-import en from 'javascript-time-ago/locale/en';
-
-TimeAgo.addLocale(en);
-const ago = new TimeAgo('en-US');
+import { ago } from '../../util/util';
 
 export default class CaseInfoCommand extends MinehutCommand {
 	constructor() {
