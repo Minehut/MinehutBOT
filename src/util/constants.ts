@@ -11,3 +11,5 @@ export enum CaseType {
 	SoftBan = 'SOFTBAN',
 	ForceBan = 'FORCEBAN',
 }
+
+export const FOREVER_MS = 3.154e13; // This equals 100 decades
