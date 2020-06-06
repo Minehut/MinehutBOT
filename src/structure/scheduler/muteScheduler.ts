@@ -2,7 +2,7 @@ import { CaseModel, Case } from '../../model/case';
 import { CaseType } from '../../util/constants';
 import { DocumentType } from '@typegoose/typegoose';
 import { MinehutClient } from '../../client/minehutClient';
-import { guildConfigs } from '../../guild/guildConfigs';
+import { UnMuteAction } from '../action/unMute';
 
 const EXPIRING_SOON_MS = 2.592e8; // 3 days
 const REFRESH_MS = 4.32e7; // 12 hours
@@ -35,18 +35,19 @@ export class MuteScheduler {
 	}
 
 	async unmute(c: DocumentType<Case>) {
-		// unmute user here
-		console.log('UNMUTE', c.targetTag);
 		const guild = this.client.guilds.cache.get(c.guildId);
-		if (!guild)
-			return console.log(
-				`on mute scheduler unmute, could not find guild ${c.guildId}`
-			);
+		if (!guild) return;
 		const member = guild.member(c.targetId);
-		if (!member)
-			return console.log(`on mute scheduler unmute, member is not in guild`);
-		if (c.type === CaseType.Mute) member.roles.remove(guildConfigs.get(c.guildId)!.roles.muted!);
-		else if (c.type === CaseType.VoiceMute) member.voice.setMute(false);
-		await c.updateOne({ active: false });
+		if (!member) return;
+		if (c.type === CaseType.Mute) {
+			const action = new UnMuteAction({
+				target: member,
+				moderator: guild.member(this.client.user!)!,
+				reason: `Automatic unmute (#${c.id})`,
+			});
+			action.commit();
+		} else if (c.type === CaseType.VoiceMute) {
+			// unvoicemute
+		}
 	}
 }
