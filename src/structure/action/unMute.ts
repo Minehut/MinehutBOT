@@ -5,14 +5,14 @@ import { CaseType } from '../../util/constants';
 import { MessageEmbed } from 'discord.js';
 import truncate from 'truncate';
 
-interface WarnActionData {
+interface UnMuteActionData {
 	target: GuildMember;
 	moderator: GuildMember;
-	reason: string;
+	reason?: string;
 	message: Message;
 }
 
-export class WarnAction {
+export class UnMuteAction {
 	target: GuildMember;
 	moderator: GuildMember;
 	message: Message;
@@ -20,19 +20,22 @@ export class WarnAction {
 	document?: DocumentType<Case>;
 	id?: number;
 
-	constructor(data: WarnActionData) {
+	constructor(data: UnMuteActionData) {
 		this.target = data.target;
 		this.moderator = data.moderator;
 		this.message = data.message;
-		this.reason = truncate(data.reason, 2000);
+		this.reason = truncate(data.reason || 'No reason provided', 2000);
 	}
 
 	async commit() {
 		// To execute the action and the after method
+		if (!this.target.manageable) return;
 		await this.getId();
 		await this.sendTargetDm();
+		const id = this.id;
+		await this.target.kick(`[#${id}] ${this.reason}`);
 		this.document = await CaseModel.create({
-			_id: this.id,
+			_id: id,
 			active: false,
 			moderatorId: this.moderator.id,
 			moderatorTag: this.moderator.user.tag,
@@ -41,7 +44,7 @@ export class WarnAction {
 			expiresAt: new Date(-1),
 			reason: this.reason,
 			guildId: this.target.guild.id,
-			type: CaseType.Warn,
+			type: CaseType.Kick,
 		} as Case);
 		await this.after();
 	}
@@ -63,9 +66,7 @@ export class WarnAction {
 		if (this.target.id === this.target.client.user?.id) return; // The bot can't message itself
 		const embed = new MessageEmbed()
 			.setColor('RED')
-			.setDescription(
-				'**You have been warned on Minehut!**\nFuture infractions may lead to a more serious punishment.'
-			)
+			.setDescription('**You have been kicked from Minehut!**')
 			.addField('ID', this.id, true)
 			.addField('Reason', this.reason, true)
 			.setTimestamp();

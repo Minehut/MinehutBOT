@@ -63,7 +63,7 @@ export class VoiceKickAction {
 	}
 
 	async sendTargetDm() {
-		if (this.target.id === this.message.client.user?.id) return; // The bot can't message itself
+		if (this.target.id === this.target.client.user?.id) return; // The bot can't message itself
 		const embed = new MessageEmbed()
 			.setColor('RED')
 			.setDescription(
