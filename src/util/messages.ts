@@ -101,6 +101,20 @@ export const messages = {
 						duration !== 'permanent' ? ` for **${duration}** ` : ' '
 					}(\`${reason}\`)`,
 			},
+			mute: {
+				description:
+					'Mute a member for specified duration (defaults to permanent)',
+				memberPrompt: {
+					start: (author: User) => `${author}, who do you want to mute?`,
+					retry: (author: User) => `${author}, please mention a member.`,
+				},
+				notMutable: `${emoji.cross} I cannot mute that member`,
+				noMuteRole: `${emoji.cross} no mute role set in config, please contact a bot developer`,
+				muted: (target: GuildMember, reason: string, duration: string) =>
+					`:hammer: muted ${target.user.tag}${
+						duration !== 'permanent' ? ` for **${duration}** ` : ' '
+					}(\`${reason}\`)`,
+			},
 		},
 		case: {
 			description: 'Manage cases (todo: add methods)',

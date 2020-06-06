@@ -8,6 +8,7 @@ import { messages } from '../util/messages';
 import { CaseModel } from '../model/case';
 import parseDuration from 'parse-duration';
 import { BanScheduler } from '../structure/scheduler/banScheduler';
+import { MuteScheduler } from '../structure/scheduler/muteScheduler';
 
 export class MinehutClient extends AkairoClient {
 	commandHandler: CommandHandler;
@@ -15,6 +16,7 @@ export class MinehutClient extends AkairoClient {
 	inhibitorHandler: InhibitorHandler;
 
 	banScheduler: BanScheduler;
+	muteScheduler: MuteScheduler;
 
 	ownerIds: string[] | undefined;
 	mongo?: Mongoose;
@@ -79,6 +81,7 @@ export class MinehutClient extends AkairoClient {
 		// this.inhibitorHandler.loadAll();
 
 		this.banScheduler = new BanScheduler(this);
+		this.muteScheduler = new MuteScheduler(this);
 
 		this.commandHandler.resolver.addType('handler', (_msg: Message, phrase) => {
 			if (!phrase) return null;
@@ -140,6 +143,7 @@ declare module 'discord-akairo' {
 		inhibitorHandler: InhibitorHandler;
 		ownerIds: string[] | undefined;
 		banScheduler: BanScheduler;
+		muteScheduler: MuteScheduler;
 		start(token: string): void;
 	}
 }
