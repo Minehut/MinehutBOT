@@ -111,7 +111,7 @@ export const messages = {
 				notMutable: `${emoji.cross} I cannot mute that member`,
 				noMuteRole: `${emoji.cross} no mute role set in config, please contact a bot developer`,
 				muted: (target: GuildMember, reason: string, duration: string) =>
-					`:hammer: muted ${target.user.tag}${
+					`:zipper_mouth: muted ${target.user.tag}${
 						duration !== 'permanent' ? ` for **${duration}** ` : ' '
 					}(\`${reason}\`)`,
 			},
