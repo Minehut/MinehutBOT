@@ -57,7 +57,6 @@ export class MuteAction {
 		await this.getId();
 		await this.sendTargetDm();
 		const id = this.id;
-		await this.target.roles.add(muteRole, `[#${id}] ${this.reason}`);
 		this.document = await CaseModel.create({
 			_id: id,
 			active: true,
@@ -70,6 +69,7 @@ export class MuteAction {
 			guildId: this.target.guild.id,
 			type: CaseType.Mute,
 		} as Case);
+		await this.target.roles.add(muteRole, `[#${id}] ${this.reason}`);
 		await this.after();
 	}
 

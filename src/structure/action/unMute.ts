@@ -36,17 +36,19 @@ export class UnMuteAction {
 		const id = this.id;
 		const muteRole = guildConfigs.get(this.target.guild!.id)?.roles.muted;
 		if (!muteRole) return;
-		await this.target.roles.remove(muteRole, `[#${id}] ${this.reason}`);
-		// Make all old mutes inactive
-		await CaseModel.updateMany(
-			{
-				guildId: this.target.guild!.id,
-				active: true,
-				type: CaseType.Mute,
-				targetId: this.target.id,
-			},
-			{ active: false }
-		);
+		try {
+			await this.target.roles.remove(muteRole, `[#${id}] ${this.reason}`);
+			// Make all old mutes inactive
+			await CaseModel.updateMany(
+				{
+					guildId: this.target.guild!.id,
+					active: true,
+					type: CaseType.Mute,
+					targetId: this.target.id,
+				},
+				{ active: false }
+			);
+		} catch (err) {}
 		this.document = await CaseModel.create({
 			_id: id,
 			active: false,
