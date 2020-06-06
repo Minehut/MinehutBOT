@@ -19,7 +19,7 @@ export class KickAction {
 	reason: string;
 	document?: DocumentType<Case>;
 	id?: number;
-
+	
 	constructor(data: KickActionData) {
 		this.target = data.target;
 		this.moderator = data.moderator;

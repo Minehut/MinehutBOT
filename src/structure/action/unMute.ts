@@ -4,18 +4,19 @@ import { DocumentType } from '@typegoose/typegoose';
 import { CaseType } from '../../util/constants';
 import { MessageEmbed } from 'discord.js';
 import truncate from 'truncate';
+import { guildConfigs } from '../../guild/guildConfigs';
 
 interface UnMuteActionData {
 	target: GuildMember;
 	moderator: GuildMember;
 	reason?: string;
-	message: Message;
+	message?: Message;
 }
 
 export class UnMuteAction {
 	target: GuildMember;
 	moderator: GuildMember;
-	message: Message;
+	message?: Message;
 	reason: string;
 	document?: DocumentType<Case>;
 	id?: number;
@@ -33,7 +34,19 @@ export class UnMuteAction {
 		await this.getId();
 		await this.sendTargetDm();
 		const id = this.id;
-		await this.target.kick(`[#${id}] ${this.reason}`);
+		const muteRole = guildConfigs.get(this.target.guild!.id)?.roles.muted;
+		if (!muteRole) return;
+		await this.target.roles.remove(muteRole, `[#${id}] ${this.reason}`);
+		// Make all old mutes inactive
+		await CaseModel.updateMany(
+			{
+				guildId: this.target.guild!.id,
+				active: true,
+				type: CaseType.Mute,
+				targetId: this.target.id,
+			},
+			{ active: false }
+		);
 		this.document = await CaseModel.create({
 			_id: id,
 			active: false,
@@ -44,7 +57,7 @@ export class UnMuteAction {
 			expiresAt: new Date(-1),
 			reason: this.reason,
 			guildId: this.target.guild.id,
-			type: CaseType.Kick,
+			type: CaseType.UnMute,
 		} as Case);
 		await this.after();
 	}
@@ -66,7 +79,7 @@ export class UnMuteAction {
 		if (this.target.id === this.target.client.user?.id) return; // The bot can't message itself
 		const embed = new MessageEmbed()
 			.setColor('RED')
-			.setDescription('**You have been kicked from Minehut!**')
+			.setDescription('**You have been unmuted on Minehut**')
 			.addField('ID', this.id, true)
 			.addField('Reason', this.reason, true)
 			.setTimestamp();

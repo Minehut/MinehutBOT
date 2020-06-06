@@ -115,6 +115,17 @@ export const messages = {
 						duration !== 'permanent' ? ` for **${duration}** ` : ' '
 					}(\`${reason}\`)`,
 			},
+			unMute: {
+				description: 'Unmute a member',
+				memberPrompt: {
+					start: (author: User) => `${author}, who do you want to unmute?`,
+					retry: (author: User) => `${author}, please mention a member.`,
+				},
+				notUnMutable: `${emoji.cross} I cannot unmute that member`,
+				unMuted: (target: GuildMember, reason: string) =>
+					`:ok_hand: unmuted ${target.user.tag} (\`${reason}\`)`,
+				notMuted: `${emoji.cross} this member is not currently muted`,
+			},
 		},
 		case: {
 			description: 'Manage cases (todo: add methods)',
