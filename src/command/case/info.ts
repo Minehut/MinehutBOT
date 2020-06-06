@@ -5,7 +5,7 @@ import { PermissionLevel } from '../../util/permission/permissionLevel';
 import { DocumentType } from '@typegoose/typegoose';
 import { Case } from '../../model/case';
 import { MessageEmbed } from 'discord.js';
-import { ago } from '../../util/util';
+import { prettyDate } from '../../util/util';
 
 export default class CaseInfoCommand extends MinehutCommand {
 	constructor() {
@@ -52,27 +52,8 @@ export default class CaseInfoCommand extends MinehutCommand {
 				c.type.toLowerCase().slice(1),
 			true
 		);
-		const expiresTime = new Date(c.expiresAt).getTime();
-		embed.addField(
-			'Expires',
-			expiresTime === -1
-				? 'N/A'
-				: `${c.expiresAt.getDate()}/${
-						c.expiresAt.getMonth() + 1
-				  }/${c.expiresAt.getFullYear()} ${c.expiresAt.toLocaleTimeString()} (${ago.format(
-						c.expiresAt
-				  )})`,
-			true
-		);
-		embed.addField(
-			'Date',
-			`${c.createdAt.getDate()}/${
-				c.createdAt.getMonth() + 1
-			}/${c.createdAt.getFullYear()} ${c.createdAt.toLocaleTimeString()} (${ago.format(
-				c.createdAt
-			)})`,
-			true
-		);
+		embed.addField('Expires', prettyDate(c.expiresAt), true);
+		embed.addField('Date', prettyDate(c.createdAt), true);
 		msg.channel.send(embed);
 	}
 }

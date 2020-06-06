@@ -5,7 +5,7 @@ import { User } from 'discord.js';
 import { Argument } from 'discord-akairo';
 import { CaseModel } from '../../model/case';
 import truncate from 'truncate';
-import { humanReadableCaseType, ago } from '../../util/util';
+import { humanReadableCaseType, prettyDate } from '../../util/util';
 import humanize from 'humanize-duration';
 import { MessageEmbed } from 'discord.js';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
@@ -66,18 +66,7 @@ export default class CaseSearchCommand extends MinehutCommand {
 							{ round: true, largest: 3 }
 					  )}`
 					: null,
-				`\\↪ **__Date:__** ${c.createdAt.getDate()}/${
-					c.createdAt.getMonth() + 1
-				}/${c.createdAt.getFullYear()} ${c.createdAt.toLocaleTimeString()} (${ago.format(
-					c.createdAt
-				)})`,
-				c.expiresAt.getTime() !== -1
-					? `\\↪ **__Expires:__** ${c.expiresAt.getDate()}/${
-							c.expiresAt.getMonth() + 1
-					  }/${c.expiresAt.getFullYear()} ${c.expiresAt.toLocaleTimeString()} (${ago.format(
-							c.expiresAt
-					  )})`
-					: null,
+				`\\↪ **__Date:__** ${prettyDate(c.createdAt)}`,
 			]
 				.filter(i => i !== null)
 				.join('\n')

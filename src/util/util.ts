@@ -52,3 +52,25 @@ export function humanReadableCaseType(
 		? readable.charAt(0).toUpperCase() + readable.slice(1)
 		: readable;
 }
+
+// This function will format a Date object to a string like DD/MM/YYYY HH:MM:SS and optionally (x time ago), by default if the Date is -1 it will return "N/A"
+// I wrote it in util so I don't need to copy this in every command that needs nice dates
+export function prettyDate(
+	date: Date,
+	relative: boolean = true,
+	prettyInvalid: boolean = true
+) {
+	return prettyInvalid
+		? date.getTime() === -1
+			? 'N/A'
+			: `${date.getDate()}/${
+					date.getMonth() + 1
+			  }/${date.getFullYear()} ${date.toLocaleTimeString()}${
+					relative ? ` (${ago.format(date)})` : ''
+			  }`
+		: `${date.getDate()}/${
+				date.getMonth() + 1
+		  }/${date.getFullYear()} ${date.toLocaleTimeString()}${
+				relative ? ` (${ago.format(date)})` : ''
+		  }`;
+}

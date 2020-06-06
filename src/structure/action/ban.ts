@@ -6,7 +6,7 @@ import { MessageEmbed } from 'discord.js';
 import truncate from 'truncate';
 import humanizeDuration from 'humanize-duration';
 import { MinehutClient } from '../../client/minehutClient';
-import { ago } from '../../util/util';
+import { prettyDate } from '../../util/util';
 
 interface BanActionData {
 	target: GuildMember;
@@ -82,14 +82,7 @@ export class BanAction {
 			.addField('ID', this.id, true)
 			.addField('Reason', this.reason, true)
 			.addField('Duration', humanizeDuration(this.duration, { largest: 3 }))
-			.addField(
-				'Expires',
-				`${this.expiresAt.getDate()}/${
-					this.expiresAt.getMonth() + 1
-				}/${this.expiresAt.getFullYear()} ${this.expiresAt.toLocaleTimeString()} (${ago.format(
-					this.expiresAt
-				)})`
-			)
+			.addField('Expires', prettyDate(this.expiresAt))
 			.setTimestamp();
 		await this.target.send(embed);
 	}
