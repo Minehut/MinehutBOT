@@ -12,7 +12,7 @@ interface BanActionData {
 	target: GuildMember;
 	moderator: GuildMember;
 	reason?: string;
-	message: Message;
+	message?: Message;
 	duration: number;
 	client: MinehutClient;
 }
@@ -20,7 +20,7 @@ interface BanActionData {
 export class BanAction {
 	target: GuildMember;
 	moderator: GuildMember;
-	message: Message;
+	message?: Message;
 	reason: string;
 	duration: number;
 	expiresAt: Date;

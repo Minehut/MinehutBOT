@@ -9,13 +9,13 @@ interface WarnActionData {
 	target: GuildMember;
 	moderator: GuildMember;
 	reason: string;
-	message: Message;
+	message?: Message;
 }
 
 export class WarnAction {
 	target: GuildMember;
 	moderator: GuildMember;
-	message: Message;
+	message?: Message;
 	reason: string;
 	document?: DocumentType<Case>;
 	id?: number;
