@@ -4,6 +4,7 @@ import { TagModel } from '../../model/tag';
 import { MessageEmbed } from 'discord.js';
 import { PrefixSupplier } from 'discord-akairo';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
+import { prettyDate } from '../../util/util';
 
 export default class TagInfoCommand extends MinehutCommand {
 	constructor() {
@@ -52,20 +53,8 @@ export default class TagInfoCommand extends MinehutCommand {
 		if (tag.aliases.length > 0)
 			embed.addField('Aliases', tag.aliases.map(a => `\`${a}\``).join(', '));
 		// embed.addField('Uses', 'coming soon tm');
-		embed.addField(
-			'Created at',
-			`${tag.createdAt.getDate()}/${
-				tag.createdAt.getMonth() + 1
-			}/${tag.createdAt.getFullYear()} ${tag.createdAt.toLocaleTimeString()}`,
-			true
-		);
-		embed.addField(
-			'Updated at',
-			`${tag.updatedAt.getDate()}/${
-				tag.updatedAt.getMonth() + 1
-			}/${tag.updatedAt.getFullYear()} ${tag.updatedAt.toLocaleTimeString()}`,
-			true
-		);
+		embed.addField('Created at', prettyDate(tag.createdAt), true);
+		embed.addField('Updated at', prettyDate(tag.updatedAt), true);
 		msg.channel.send(embed);
 	}
 }
