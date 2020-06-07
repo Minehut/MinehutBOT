@@ -2,6 +2,7 @@ import { CaseModel, Case } from '../../model/case';
 import { CaseType } from '../../util/constants';
 import { DocumentType } from '@typegoose/typegoose';
 import { MinehutClient } from '../../client/minehutClient';
+import { UnBanAction } from '../action/unBan';
 
 const EXPIRING_SOON_MS = 2.592e8; // 3 days
 const REFRESH_MS = 4.32e7; // 12 hours
@@ -37,11 +38,14 @@ export class BanScheduler {
 		// unban user here
 		console.log('UNBAN', c.targetTag);
 		const guild = this.client.guilds.cache.get(c.guildId);
-		if (!guild)
-			return console.log(
-				`on ban scheduler unban, could not find guild ${c.guildId}`
-			);
-		await guild.members.unban(c.targetId);
-		await c.updateOne({ active: false });
+		if (!guild) return;
+		const user = await this.client.users.fetch(c.targetId);
+		if (!user) return;
+		const action = new UnBanAction({
+			target: user,
+			moderator: guild.member(this.client.user!)!,
+			reason: `Automatic unban (#${c.id})`,
+		});
+		action.commit();
 	}
 }
