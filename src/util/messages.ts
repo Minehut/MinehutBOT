@@ -126,6 +126,16 @@ export const messages = {
 					`:ok_hand: unmuted ${target.user.tag} (\`${reason}\`)`,
 				notMuted: `${emoji.cross} this member is not currently muted`,
 			},
+			unBan: {
+				description: 'Unban a user',
+				targetPrompt: {
+					start: (author: User) => `${author}, who do you want to unban?`,
+					retry: (author: User) => `${author}, please mention a user.`,
+				},
+				unBanned: (target: User, reason: string) =>
+					`:ok_hand: unbanned ${target.tag} (\`${reason}\`)`,
+				notBanned: `${emoji.cross} this user is not currently banned`,
+			},
 		},
 		case: {
 			description: 'Manage cases (todo: add methods)',

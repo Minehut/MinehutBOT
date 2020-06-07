@@ -33,7 +33,7 @@ export function humanReadableCaseType(
 		case CaseType.UnVoiceMute:
 			readable = 'unvoicemuted';
 			break;
-		case CaseType.Unban:
+		case CaseType.UnBan:
 			readable = 'unbanned';
 			break;
 		case CaseType.VoiceKick:
