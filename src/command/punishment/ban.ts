@@ -10,7 +10,7 @@ import { BanAction } from '../../structure/action/ban';
 export default class BanCommand extends MinehutCommand {
 	constructor() {
 		super('ban', {
-			aliases: ['ban'],
+			aliases: ['ban', 'tempban'],
 			permissionLevel: PermissionLevel.JuniorModerator,
 			category: 'punishment',
 			channel: 'guild',

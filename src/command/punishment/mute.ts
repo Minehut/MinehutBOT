@@ -11,7 +11,7 @@ import { guildConfigs } from '../../guild/guildConfigs';
 export default class MuteCommand extends MinehutCommand {
 	constructor() {
 		super('mute', {
-			aliases: ['mute'],
+			aliases: ['mute', 'tempmute'],
 			permissionLevel: PermissionLevel.JuniorModerator,
 			category: 'punishment',
 			channel: 'guild',
