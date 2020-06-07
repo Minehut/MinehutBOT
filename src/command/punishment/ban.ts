@@ -33,6 +33,8 @@ export default class BanCommand extends MinehutCommand {
 				{
 					id: 'duration',
 					type: 'duration',
+					match: 'option',
+					flag: ['duration', 'd', 'l'],
 					default: FOREVER_MS,
 				},
 				{

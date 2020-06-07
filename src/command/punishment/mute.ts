@@ -34,6 +34,8 @@ export default class MuteCommand extends MinehutCommand {
 				{
 					id: 'duration',
 					type: 'duration',
+					match: 'option',
+					flag: ['duration', 'd', 'l'],
 					default: FOREVER_MS,
 				},
 				{
@@ -55,7 +57,8 @@ export default class MuteCommand extends MinehutCommand {
 	) {
 		if (!member.manageable)
 			return msg.channel.send(messages.commands.punishment.mute.notMutable);
-		if (!guildConfigs.get(msg.guild!.id)?.roles.muted) return msg.channel.send(messages.commands.punishment.mute.noMuteRole);
+		if (!guildConfigs.get(msg.guild!.id)?.roles.muted)
+			return msg.channel.send(messages.commands.punishment.mute.noMuteRole);
 		const humanReadable =
 			duration === FOREVER_MS
 				? 'permanent'
