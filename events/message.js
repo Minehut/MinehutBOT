@@ -12,7 +12,14 @@ module.exports = {
 		) {
 			// Chat filter
 			const matches = filters.filter(
-				f => f.enabled && new RegExp(f.rule).test(msg.content.toLowerCase())
+				f =>
+					f.enabled &&
+					new RegExp(f.rule).test(
+						msg.content
+							.trim()
+							.toLowerCase()
+							.replace(/[\u200B-\u200D\uFEFF]/g, '')
+					)
 			);
 			if (matches.length > 0) {
 				const match = matches[0];
