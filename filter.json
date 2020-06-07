@@ -1,7 +1,7 @@
 [
 { "_id" : { "$oid" : "5e3cec6ca2d76009e5dd04f5" }, "rule" : "\\b(horny)", "type" : "SWEAR", "block" : true, "enabled" : true },
 { "_id" : { "$oid" : "5e3cec6ca2d76009e5dd04fa" }, "rule" : "\\b(boobs?)", "type" : "SWEAR", "enabled" : true, "block" : true },
-{ "_id" : { "$oid" : "5e3cec6ca2d76009e5dd050b" }, "rule" : "\\b(anal(?!ysis))", "type" : "SWEAR", "enabled" : true, "block" : true },
+{ "_id" : { "$oid" : "5e3cec6ca2d76009e5dd050b" }, "rule" : "\\b(anal(?!(ysis|y(s|z)e)))", "type" : "SWEAR", "enabled" : true, "block" : true },
 { "_id" : { "$oid" : "5e3cec6ca2d76009e5dd0517" }, "rule" : "\\b(a(ss|\\$\\$)+(es)?(?![a-z]))", "type" : "SWEAR", "block" : false, "enabled" : true },
 { "_id" : { "$oid" : "5e3cec6ca2d76009e5dd04f8" }, "rule" : "\\b(sl(u|e)t)", "type" : "SWEAR", "block" : false, "enabled" : true },
 { "_id" : { "$oid" : "5e3cec6ca2d76009e5dd050a" }, "rule" : "\\b(jerks)", "type" : "SWEAR", "block" : false, "enabled" : true },
@@ -18,8 +18,8 @@
 { "_id" : { "$oid" : "5e3cec6ca2d76009e5dd051f" }, "rule" : "\\b(testicles?)", "type" : "SWEAR", "enabled" : true, "block" : true },
 { "_id" : { "$oid" : "5e3cec6ca2d76009e5dd04fb" }, "rule" : "\\b(p\\.?ussy)", "type" : "SWEAR", "enabled" : true, "block" : false },
 { "_id" : { "$oid" : "5e3cec6ca2d76009e5dd04f7" }, "rule" : "\\b(hentai)", "type" : "SWEAR", "enabled" : true, "block" : true },
-{ "_id" : { "$oid" : "5e3cec6ca2d76009e5dd0506" }, "rule" : "\\b((n|/\\\\/)(1|i|!|e|3|[o0]{1,2})(g|gg|bb|qq)(?!(h|at))(a|3r|er)?)", "type" : "SWEAR", "enabled" : true, "block" : true },
-{ "_id" : { "$oid" : "5e3cec6ca2d76009e5dd0513" }, "rule" : "\\b(c(o|0)ck(head|sucker)?)", "type" : "SWEAR", "enabled" : true, "block" : false },
+{ "_id" : { "$oid" : "5e3cec6ca2d76009e5dd0506" }, "rule" : "\\b((n|/\\\\/)(1|i|!|e|3)(g|gg|bb|qq)(?!(otiate|otiation|otiator))(?!(h|at))(a|3r|er)?)", "type" : "SWEAR", "enabled" : true, "block" : true },
+{ "_id" : { "$oid" : "5e3cec6ca2d76009e5dd0513" }, "rule" : "\\b(c(o|0)ck(?!roach)(head|sucker)?)", "type" : "SWEAR", "enabled" : true, "block" : false },
 { "_id" : { "$oid" : "5e3cec6ca2d76009e5dd0519" }, "rule" : "\\b(tit(ties|s))", "type" : "SWEAR", "enabled" : true, "block" : true },
 { "_id" : { "$oid" : "5e3cec6ca2d76009e5dd052a" }, "rule" : "(.)(?=([a-z\\.]){17})", "type" : "SPAM", "block" : true, "enabled" : false },
 { "_id" : { "$oid" : "5e3cec6ca2d76009e5dd04f4" }, "rule" : "\\b(f(\\.)?((uc|[uc]|vc)(k|q)|(uk|uc|\\.ck|(\\.|,)uck)))", "type" : "SWEAR", "enabled" : true, "block" : false },
@@ -68,7 +68,7 @@
 { "_id" : { "$oid" : "5e56f433fcabd01e77e731c5" }, "rule" : "\\b((bull?|horse)shit)", "type" : "SWEAR", "block" : false, "enabled" : true },
 { "_id" : { "$oid" : "5e56f545fcabd01e77e731cd" }, "rule" : "\\b(kanker)", "type" : "SWEAR", "block" : false, "enabled" : true },
 { "_id" : { "$oid" : "5e56f679fcabd01e77e731d6" }, "rule" : "\\b((dip)?sh(\\.|,)?(i|1|!)t)", "type" : "SWEAR", "block" : false, "enabled" : true },
-{ "_id" : { "$oid" : "5e56f90e69ed3904c0b8aca8" }, "rule" : "\\b(naked)", "type" : "SWEAR", "block" : false, "enabled" : true },
+{ "_id" : { "$oid" : "5e56f90e69ed3904c0b8aca8" }, "rule" : "\\b(naked)", "type" : "SWEAR", "block" : false, "enabled" : false },
 { "_id" : { "$oid" : "5e56faf069ed3904c0b8acb9" }, "rule" : "\\b(cancer)", "type" : "SWEAR", "block" : false, "enabled" : true },
 { "_id" : { "$oid" : "5e57109d69ed3904c0b8acd7" }, "rule" : "\\b(pp(?![a-z]))", "type" : "SWEAR", "block" : false, "enabled" : true },
 { "_id" : { "$oid" : "5e57147569ed3904c0b8acdf" }, "rule" : "\\b(chupa mi polla|sut min pik)", "type" : "SWEAR", "block" : true, "enabled" : true },
@@ -79,5 +79,5 @@
 { "_id" : { "$oid" : "5e598de9ba746838c3340eed" }, "type" : "SWEAR", "block" : true, "enabled" : true, "rule" : "\\b(LiquidBounce|Sigma|MoonX)" },
 { "_id" : { "$oid" : "5e599272ba746838c3340ef7" }, "rule" : "\\b(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])", "type" : "SWEAR", "block" : true, "enabled" : true },
 { "_id" : { "$oid" : "5e62dc25a131f52bf91b05cb" }, "rule" : "\\b(n ?i ?g ?g ?e ?r|n ?i ?g ?g ?a|f ? u? c? k|s ?h ?i ?t|b ?i ?t ?c ?h ?(e ?)?s?|(?<!s)k ?y ?s)", "type" : "SWEAR", "block" : true, "enabled" : true },
-{ "_id" : { "$oid" : "5e62dcbea131f52bf91b05d0" }, "rule" : "\\b(fk( off+)?)", "type" : "SWEAR", "block" : true, "enabled" : true }
+{ "_id" : { "$oid" : "5e62dcbea131f52bf91b05d0" }, "rule" : "\\b(fk(?!dr)( off+)?)", "type" : "SWEAR", "block" : true, "enabled" : true }
 ]
