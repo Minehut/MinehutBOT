@@ -16,7 +16,7 @@ export default class BanCommand extends MinehutCommand {
 			channel: 'guild',
 			clientPermissions: ['BAN_MEMBERS'],
 			description: {
-				content: messages.commands.punishment.kick.description,
+				content: messages.commands.punishment.ban.description,
 				usage: '<member> [duration] [...reason]',
 			},
 			args: [
