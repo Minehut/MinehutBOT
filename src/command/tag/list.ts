@@ -18,7 +18,7 @@ export default class TagListCommand extends MinehutCommand {
 	}
 
 	async exec(msg: Message) {
-		const tags = await TagModel.find({ guild: msg.guild!.id });
+		const tags = await TagModel.find({ guild: msg.guild!.id }).sort('name');
 		const embed = new MessageEmbed();
 		embed.setColor('ORANGE');
 		embed.setTitle(`Showing ${tags.length} tags`);
