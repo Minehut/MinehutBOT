@@ -19,7 +19,7 @@ export class KickAction {
 	reason: string;
 	document?: DocumentType<Case>;
 	id?: number;
-	
+
 	constructor(data: KickActionData) {
 		this.target = data.target;
 		this.moderator = data.moderator;
@@ -63,13 +63,15 @@ export class KickAction {
 	}
 
 	async sendTargetDm() {
-		if (this.target.id === this.target.client.user?.id) return; // The bot can't message itself
-		const embed = new MessageEmbed()
-			.setColor('RED')
-			.setDescription('**You have been kicked from Minehut!**')
-			.addField('ID', this.id, true)
-			.addField('Reason', this.reason, true)
-			.setTimestamp();
-		await this.target.send(embed);
+		try {
+			if (this.target.id === this.target.client.user?.id) return; // The bot can't message itself
+			const embed = new MessageEmbed()
+				.setColor('RED')
+				.setDescription('**You have been kicked from Minehut!**')
+				.addField('ID', this.id, true)
+				.addField('Reason', this.reason, true)
+				.setTimestamp();
+			await this.target.send(embed);
+		} catch (err) {}
 	}
 }

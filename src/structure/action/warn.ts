@@ -60,15 +60,17 @@ export class WarnAction {
 	}
 
 	async sendTargetDm() {
-		if (this.target.id === this.target.client.user?.id) return; // The bot can't message itself
-		const embed = new MessageEmbed()
-			.setColor('RED')
-			.setDescription(
-				'**You have been warned on Minehut!**\nFuture infractions may lead to a more serious punishment.'
-			)
-			.addField('ID', this.id, true)
-			.addField('Reason', this.reason, true)
-			.setTimestamp();
-		await this.target.send(embed);
+		try {
+			if (this.target.id === this.target.client.user?.id) return; // The bot can't message itself
+			const embed = new MessageEmbed()
+				.setColor('RED')
+				.setDescription(
+					'**You have been warned on Minehut!**\nFuture infractions may lead to a more serious punishment.'
+				)
+				.addField('ID', this.id, true)
+				.addField('Reason', this.reason, true)
+				.setTimestamp();
+			await this.target.send(embed);
+		} catch (err) {}
 	}
 }
