@@ -2,10 +2,11 @@ import { Message } from 'discord.js';
 import { messages } from '../../util/messages';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
-import { GuildMember } from 'discord.js';
 import { FOREVER_MS } from '../../util/constants';
 import humanizeDuration from 'humanize-duration';
 import { BanAction } from '../../structure/action/ban';
+import { Argument } from 'discord-akairo';
+import { User } from 'discord.js';
 
 export default class MultiBanCommand extends MinehutCommand {
 	constructor() {
@@ -25,14 +26,20 @@ export default class MultiBanCommand extends MinehutCommand {
 					type: 'string',
 				},
 				{
-					id: 'members',
-					type: 'member',
+					id: 'targets',
+					type: Argument.union('user', async (msg, phrase) => {
+						try {
+							return await msg.client.users.fetch(phrase);
+						} catch {
+							return null;
+						}
+					}),
 					match: 'separate',
 					prompt: {
 						start: (msg: Message) =>
-							messages.commands.punishment.ban.memberPrompt.start(msg.author),
+							messages.commands.punishment.ban.targetPrompt.start(msg.author),
 						retry: (msg: Message) =>
-							messages.commands.punishment.ban.memberPrompt.retry(msg.author),
+							messages.commands.punishment.ban.targetPrompt.retry(msg.author),
 					},
 				},
 				{
@@ -49,10 +56,10 @@ export default class MultiBanCommand extends MinehutCommand {
 	async exec(
 		msg: Message,
 		{
-			members,
+			targets,
 			reason,
 			duration,
-		}: { members: GuildMember[]; reason: string; duration: number }
+		}: { targets: User[]; reason: string; duration: number }
 	) {
 		const humanReadable =
 			duration === FOREVER_MS
@@ -65,25 +72,23 @@ export default class MultiBanCommand extends MinehutCommand {
 			success: [],
 			fail: [],
 		};
-		members.forEach(member => {
-			if (!member.bannable) return banned.fail.push(member.id);
+		targets.forEach(target => {
+			const member = msg.guild!.member(target);
+			if (member && member.bannable) return banned.fail.push(target.id);
 			const action = new BanAction({
-				target: member,
+				target,
 				moderator: msg.member!,
 				message: msg,
 				reason: `(Multiban) ${reason}`,
 				duration,
 				client: this.client,
+				guild: msg.guild!,
 			});
 			action.commit();
-			banned.success.push(member.id);
+			banned.success.push(target.id);
 		});
 		m.edit(
-			messages.commands.punishment.multiBan.done(
-				banned,
-				humanReadable,
-				reason
-			)
+			messages.commands.punishment.multiBan.done(banned, humanReadable, reason)
 		);
 	}
 }

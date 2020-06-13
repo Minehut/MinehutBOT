@@ -90,14 +90,14 @@ export const messages = {
 			},
 			ban: {
 				description:
-					'Ban a member for specified duration (defaults to permanent)',
-				memberPrompt: {
+					'Ban a user for specified duration (defaults to permanent)',
+				targetPrompt: {
 					start: (author: User) => `${author}, who do you want to ban?`,
-					retry: (author: User) => `${author}, please mention a member.`,
+					retry: (author: User) => `${author}, please mention a user.`,
 				},
-				notBannable: `${emoji.cross} I cannot ban that member`,
-				banned: (target: GuildMember, reason: string, duration: string) =>
-					`:hammer: banned ${target.user.tag}${
+				notBannable: `${emoji.cross} I cannot ban that user`,
+				banned: (target: User, reason: string, duration: string) =>
+					`:hammer: banned ${target.tag}${
 						duration !== 'permanent' ? ` for **${duration}** ` : ' '
 					}(\`${reason}\`)`,
 			},
@@ -147,7 +147,7 @@ export const messages = {
 					`${emoji.check} banned ${banned.success.length} members ${
 						duration !== 'permanent' ? `for **${duration}** ` : ' '
 					}(\`${reason}\`) [=> skipped ${banned.fail.length} members]`,
-			},
+			}
 		},
 		case: {
 			description: 'Manage cases (todo: add methods)',

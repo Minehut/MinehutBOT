@@ -2,10 +2,11 @@ import { Message } from 'discord.js';
 import { messages } from '../../util/messages';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
-import { GuildMember } from 'discord.js';
 import humanizeDuration from 'humanize-duration';
 import { FOREVER_MS } from '../../util/constants';
 import { BanAction } from '../../structure/action/ban';
+import { Argument } from 'discord-akairo';
+import { User } from 'discord.js';
 
 export default class BanCommand extends MinehutCommand {
 	constructor() {
@@ -17,17 +18,23 @@ export default class BanCommand extends MinehutCommand {
 			clientPermissions: ['BAN_MEMBERS'],
 			description: {
 				content: messages.commands.punishment.ban.description,
-				usage: '<member> [duration] [...reason]',
+				usage: '<user> [duration] [...reason]',
 			},
 			args: [
 				{
-					id: 'member',
-					type: 'member',
+					id: 'target',
+					type: Argument.union('user', async (msg, phrase) => {
+						try {
+							return await msg.client.users.fetch(phrase);
+						} catch {
+							return null;
+						}
+					}),
 					prompt: {
 						start: (msg: Message) =>
-							messages.commands.punishment.ban.memberPrompt.start(msg.author),
+							messages.commands.punishment.ban.targetPrompt.start(msg.author),
 						retry: (msg: Message) =>
-							messages.commands.punishment.ban.memberPrompt.retry(msg.author),
+							messages.commands.punishment.ban.targetPrompt.retry(msg.author),
 					},
 				},
 				{
@@ -49,24 +56,26 @@ export default class BanCommand extends MinehutCommand {
 	async exec(
 		msg: Message,
 		{
-			member,
+			target,
 			reason,
 			duration,
-		}: { member: GuildMember; reason: string; duration: number }
+		}: { target: User; reason: string; duration: number }
 	) {
-		if (!member.bannable)
+		const member = msg.guild!.member(target);
+		if (member && !member.bannable)
 			return msg.channel.send(messages.commands.punishment.ban.notBannable);
 		const humanReadable =
 			duration === FOREVER_MS
 				? 'permanent'
 				: humanizeDuration(duration, { largest: 3 });
 		const action = new BanAction({
-			target: member,
+			target,
 			moderator: msg.member!,
 			message: msg,
 			reason,
 			duration,
 			client: this.client,
+			guild: msg.guild!
 		});
 		action.commit();
 		msg.channel.send(

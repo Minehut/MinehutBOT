@@ -7,18 +7,21 @@ import truncate from 'truncate';
 import humanizeDuration from 'humanize-duration';
 import { MinehutClient } from '../../client/minehutClient';
 import { prettyDate } from '../../util/util';
+import { User } from 'discord.js';
+import { Guild } from 'discord.js';
 
 interface BanActionData {
-	target: GuildMember;
+	target: User;
 	moderator: GuildMember;
 	reason?: string;
 	message?: Message;
 	duration: number;
 	client: MinehutClient;
+	guild: Guild;
 }
 
 export class BanAction {
-	target: GuildMember;
+	target: User;
 	moderator: GuildMember;
 	message?: Message;
 	reason: string;
@@ -27,6 +30,7 @@ export class BanAction {
 	document?: DocumentType<Case>;
 	id?: number;
 	client: MinehutClient;
+	guild: Guild;
 
 	constructor(data: BanActionData) {
 		this.target = data.target;
@@ -36,25 +40,30 @@ export class BanAction {
 		this.duration = data.duration;
 		this.expiresAt = new Date(Date.now() + this.duration);
 		this.client = data.client;
+		this.guild = data.guild;
 	}
 
 	async commit() {
 		// To execute the action and the after method
-		if (!this.target.bannable) return;
+		const member = this.guild.member(this.target);
+		if (member && !member.bannable) return;
+
 		await this.getId();
 		await this.sendTargetDm();
 		const id = this.id;
-		await this.target.ban({ reason: `[#${id}] ${this.reason}` }); // todo: add days option
+		await this.guild.members.ban(this.target, {
+			reason: `[#${id}] ${this.reason}`,
+		}); // todo: add days option
 		this.document = await CaseModel.create({
 			_id: id,
 			active: true,
 			moderatorId: this.moderator.id,
 			moderatorTag: this.moderator.user.tag,
 			targetId: this.target.id,
-			targetTag: this.target.user.tag,
+			targetTag: this.target.tag,
 			expiresAt: this.expiresAt,
 			reason: this.reason,
-			guildId: this.target.guild.id,
+			guildId: this.guild.id,
 			type: CaseType.Ban,
 		} as Case);
 		await this.after();
@@ -75,15 +84,17 @@ export class BanAction {
 	}
 
 	async sendTargetDm() {
-		if (this.target.id === this.target.client.user?.id) return; // The bot can't message itself
-		const embed = new MessageEmbed()
-			.setColor('RED')
-			.setDescription('**You have been banned from Minehut!**')
-			.addField('ID', this.id, true)
-			.addField('Reason', this.reason, true)
-			.addField('Duration', humanizeDuration(this.duration, { largest: 3 }))
-			.addField('Expires', prettyDate(this.expiresAt))
-			.setTimestamp();
-		await this.target.send(embed);
+		try {
+			if (this.target.id === this.target.client.user?.id) return; // The bot can't message itself
+			const embed = new MessageEmbed()
+				.setColor('RED')
+				.setDescription('**You have been banned from Minehut!**')
+				.addField('ID', this.id, true)
+				.addField('Reason', this.reason, true)
+				.addField('Duration', humanizeDuration(this.duration, { largest: 3 }))
+				.addField('Expires', prettyDate(this.expiresAt))
+				.setTimestamp();
+			await this.target.send(embed);
+		} catch (err) {}
 	}
 }
