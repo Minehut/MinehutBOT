@@ -48,6 +48,17 @@ export class BanAction {
 		const member = this.guild.member(this.target);
 		if (member && !member.bannable) return;
 
+		// Make previous bans inactive
+		await CaseModel.updateMany(
+			{
+				guildId: this.guild.id,
+				active: true,
+				$or: [{ type: CaseType.Ban }, { type: CaseType.ForceBan }],
+				targetId: this.target.id,
+			},
+			{ active: false }
+		);
+
 		await this.getId();
 		await this.sendTargetDm();
 		const id = this.id;
