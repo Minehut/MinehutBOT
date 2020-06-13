@@ -136,6 +136,18 @@ export const messages = {
 					`:ok_hand: unbanned ${target.tag} (\`${reason}\`)`,
 				notBanned: `${emoji.cross} this user is not currently banned`,
 			},
+			multiBan: {
+				description: 'Ban multiple members at once',
+				processing: `${emoji.loading}`,
+				done: (
+					banned: { success: string[]; fail: string[] },
+					duration: string,
+					reason: string
+				) =>
+					`${emoji.check} banned ${banned.success.length} members ${
+						duration !== 'permanent' ? `for **${duration}** ` : ' '
+					}(\`${reason}\`) [=> skipped ${banned.fail.length} members]`,
+			},
 		},
 		case: {
 			description: 'Manage cases (todo: add methods)',
