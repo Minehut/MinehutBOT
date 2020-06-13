@@ -18,7 +18,7 @@ export default class MuteCommand extends MinehutCommand {
 			clientPermissions: ['MANAGE_ROLES'],
 			description: {
 				content: messages.commands.punishment.kick.description,
-				usage: '<member> [duration] [...reason]',
+				usage: '<user> [...reason] [d:duration]',
 			},
 			args: [
 				{
