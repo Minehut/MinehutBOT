@@ -147,7 +147,7 @@ export const messages = {
 					`${emoji.check} banned ${banned.success.length} members ${
 						duration !== 'permanent' ? `for **${duration}** ` : ' '
 					}(\`${reason}\`) [=> skipped ${banned.fail.length} members]`,
-			}
+			},
 		},
 		case: {
 			description: 'Manage cases (todo: add methods)',
@@ -184,6 +184,14 @@ export const messages = {
 					retry: (author: User) => `${author}, please specify a valid case ID.`,
 				},
 			},
+			// delete: {
+			// 	description: 'Delete a specific case',
+			// 	casePrompt: {
+			// 		start: (author: User) =>
+			// 			`${author}, which case do you want to lookup?`,
+			// 		retry: (author: User) => `${author}, please specify a valid case ID.`,
+			// 	},
+			// },
 		},
 		utility: {
 			eval: {
