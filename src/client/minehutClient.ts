@@ -119,7 +119,7 @@ export class MinehutClient extends AkairoClient {
 			'duration',
 			(_msg: Message, phrase) => {
 				const parsed = parseDuration(phrase);
-				console.log(phrase, parsed);
+				// console.log(phrase, parsed);
 				return parsed;
 			}
 		);
