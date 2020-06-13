@@ -1,9 +1,9 @@
 import { Listener } from 'discord-akairo';
 import { GuildMember } from 'discord.js';
-import { guildConfigs } from '../../guild/guildConfigs';
-import { CaseModel } from '../../model/case';
-import { CaseType, FOREVER_MS } from '../../util/constants';
-import { MuteAction } from '../../structure/action/mute';
+import { guildConfigs } from '../../../guild/guildConfigs';
+import { CaseModel } from '../../../model/case';
+import { CaseType, FOREVER_MS } from '../../../util/constants';
+import { MuteAction } from '../../../structure/action/mute';
 
 export default class MuteByRoleAdditionListener extends Listener {
 	constructor() {

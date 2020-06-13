@@ -1,9 +1,9 @@
 import { Listener } from 'discord-akairo';
 import { GuildMember } from 'discord.js';
-import { guildConfigs } from '../../guild/guildConfigs';
-import { UnMuteAction } from '../../structure/action/unMute';
-import { CaseModel } from '../../model/case';
-import { CaseType } from '../../util/constants';
+import { guildConfigs } from '../../../guild/guildConfigs';
+import { UnMuteAction } from '../../../structure/action/unMute';
+import { CaseModel } from '../../../model/case';
+import { CaseType } from '../../../util/constants';
 
 export default class UnMuteByRoleRemovalListener extends Listener {
 	constructor() {

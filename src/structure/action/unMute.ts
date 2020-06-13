@@ -37,7 +37,6 @@ export class UnMuteAction {
 		const muteRole = guildConfigs.get(this.target.guild!.id)?.roles.muted;
 		if (!muteRole) return;
 		try {
-			await this.target.roles.remove(muteRole, `[#${id}] ${this.reason}`);
 			// Make all old mutes inactive
 			await CaseModel.updateMany(
 				{
@@ -48,6 +47,7 @@ export class UnMuteAction {
 				},
 				{ active: false }
 			);
+			await this.target.roles.remove(muteRole, `[#${id}] ${this.reason}`);
 		} catch (err) {}
 		this.document = await CaseModel.create({
 			_id: id,
@@ -78,13 +78,15 @@ export class UnMuteAction {
 	}
 
 	async sendTargetDm() {
-		if (this.target.id === this.target.client.user?.id) return; // The bot can't message itself
-		const embed = new MessageEmbed()
-			.setColor('RED')
-			.setDescription('**You have been unmuted on Minehut**')
-			.addField('ID', this.id, true)
-			.addField('Reason', this.reason, true)
-			.setTimestamp();
-		await this.target.send(embed);
+		try {
+			if (this.target.id === this.target.client.user?.id) return; // The bot can't message itself
+			const embed = new MessageEmbed()
+				.setColor('RED')
+				.setDescription('**You have been unmuted on Minehut**')
+				.addField('ID', this.id, true)
+				.addField('Reason', this.reason, true)
+				.setTimestamp();
+			await this.target.send(embed);
+		} catch (err) {}
 	}
 }

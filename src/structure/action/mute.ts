@@ -88,15 +88,17 @@ export class MuteAction {
 	}
 
 	async sendTargetDm() {
-		if (this.target.id === this.target.client.user?.id) return; // The bot can't message itself
-		const embed = new MessageEmbed()
-			.setColor('RED')
-			.setDescription('**You have been muted on Minehut!**')
-			.addField('ID', this.id, true)
-			.addField('Reason', this.reason, true)
-			.addField('Duration', humanizeDuration(this.duration, { largest: 3 }))
-			.addField('Expires', prettyDate(this.expiresAt))
-			.setTimestamp();
-		await this.target.send(embed);
+		try {
+			if (this.target.id === this.target.client.user?.id) return; // The bot can't message itself
+			const embed = new MessageEmbed()
+				.setColor('RED')
+				.setDescription('**You have been muted on Minehut!**')
+				.addField('ID', this.id, true)
+				.addField('Reason', this.reason, true)
+				.addField('Duration', humanizeDuration(this.duration, { largest: 3 }))
+				.addField('Expires', prettyDate(this.expiresAt))
+				.setTimestamp();
+			await this.target.send(embed);
+		} catch (err) {}
 	}
 }

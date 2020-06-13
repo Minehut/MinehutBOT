@@ -34,7 +34,6 @@ export class UnBanAction {
 		// await this.sendTargetDm(); // Bot can't message users who aren't in the guild
 		const id = this.id;
 		try {
-			await this.moderator.guild.members.unban(this.target.id);
 			// Make all old bans inactive
 			await CaseModel.updateMany(
 				{
@@ -45,6 +44,7 @@ export class UnBanAction {
 				},
 				{ active: false }
 			);
+			await this.moderator.guild.members.unban(this.target.id);
 		} catch (err) {}
 		this.document = await CaseModel.create({
 			_id: id,
