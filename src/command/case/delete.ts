@@ -35,9 +35,7 @@ export default class CaseDeleteCommand extends MinehutCommand {
 	async exec(msg: Message, { c }: { c: DocumentType<Case> }) {
 		const prefix = (this.handler.prefix as PrefixSupplier)(msg) as string;
 		if (c.deleted)
-			return msg.channel.send(
-				messages.commands.case.delete.alreadyDeleted(prefix, c.id)
-			);
+			return msg.channel.send(messages.commands.case.delete.alreadyDeleted);
 		await c.updateOne({
 			deleted: true,
 			deletedBy: msg.author.id,
