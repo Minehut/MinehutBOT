@@ -4,7 +4,6 @@ import { MinehutCommand } from '../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
 import { DocumentType } from '@typegoose/typegoose';
 import { Case } from '../../model/case';
-import { PrefixSupplier } from 'discord-akairo';
 
 export default class CaseDeleteCommand extends MinehutCommand {
 	constructor() {
@@ -33,7 +32,6 @@ export default class CaseDeleteCommand extends MinehutCommand {
 	}
 
 	async exec(msg: Message, { c }: { c: DocumentType<Case> }) {
-		const prefix = (this.handler.prefix as PrefixSupplier)(msg) as string;
 		if (c.deleted)
 			return msg.channel.send(messages.commands.case.delete.alreadyDeleted);
 		await c.updateOne({
