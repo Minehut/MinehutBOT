@@ -24,8 +24,12 @@ export default class CaseCommand extends MinehutCommand {
 			type: [
 				['case-search', 'search'],
 				['case-reason', 'reason'],
+				
 				['case-info', 'info'],
 				['case-info', 'lookup'],
+
+				['case-delete', 'delete'],
+				['case-delete', 'del'],
 			],
 			otherwise: (msg: Message) => {
 				const prefix = (this.handler.prefix as PrefixSupplier)(msg) as string;

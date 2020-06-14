@@ -184,14 +184,17 @@ export const messages = {
 					retry: (author: User) => `${author}, please specify a valid case ID.`,
 				},
 			},
-			// delete: {
-			// 	description: 'Delete a specific case',
-			// 	casePrompt: {
-			// 		start: (author: User) =>
-			// 			`${author}, which case do you want to lookup?`,
-			// 		retry: (author: User) => `${author}, please specify a valid case ID.`,
-			// 	},
-			// },
+			delete: {
+				description: 'Delete a case',
+				casePrompt: {
+					start: (author: User) =>
+						`${author}, which case do you want to delete?`,
+					retry: (author: User) => `${author}, please specify a valid case ID.`,
+				},
+				alreadyDeleted: (prefix: string, id: number) =>
+					`${emoji.cross} this case was already deleted, you can use \`${prefix}case restore ${id}\` to restore it`,
+				caseDeleted: (id: number) => `${emoji.check} deleted case #${id}`,
+			},
 		},
 		utility: {
 			eval: {
