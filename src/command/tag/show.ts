@@ -37,9 +37,16 @@ export default class TagShowCommand extends MinehutCommand {
 			return msg.channel.send(
 				messages.commands.tag.show.unknownTag(prefix, name)
 			);
+		if (
+			this.client.tagCooldownManager.isOnCooldown(
+				`t-${tag.name}-${msg.channel.id}`
+			)
+		)
+			return msg.react('⏲️');
 		msg.channel.send(
 			truncate(messages.commands.tag.show.showTag(tag.content), 1900)
 		);
+		this.client.tagCooldownManager.add(`t-${tag.name}-${msg.channel.id}`);
 		await tag.updateOne({ uses: tag.uses + 1 });
 	}
 }

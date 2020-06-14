@@ -9,6 +9,7 @@ import { CaseModel } from '../model/case';
 import parseDuration from 'parse-duration';
 import { BanScheduler } from '../structure/scheduler/banScheduler';
 import { MuteScheduler } from '../structure/scheduler/muteScheduler';
+import { CooldownManager } from '../structure/cooldownManager';
 
 export class MinehutClient extends AkairoClient {
 	commandHandler: CommandHandler;
@@ -17,6 +18,8 @@ export class MinehutClient extends AkairoClient {
 
 	banScheduler: BanScheduler;
 	muteScheduler: MuteScheduler;
+
+	tagCooldownManager: CooldownManager;
 
 	ownerIds: string[] | undefined;
 	mongo?: Mongoose;
@@ -83,6 +86,8 @@ export class MinehutClient extends AkairoClient {
 		this.banScheduler = new BanScheduler(this);
 		this.muteScheduler = new MuteScheduler(this);
 
+		this.tagCooldownManager = new CooldownManager(10000);
+
 		this.commandHandler.resolver.addType('handler', (_msg: Message, phrase) => {
 			if (!phrase) return null;
 			switch (phrase.toLowerCase()) {
@@ -144,6 +149,7 @@ declare module 'discord-akairo' {
 		ownerIds: string[] | undefined;
 		banScheduler: BanScheduler;
 		muteScheduler: MuteScheduler;
+		tagCooldownManager: CooldownManager;
 		start(token: string): void;
 	}
 }
