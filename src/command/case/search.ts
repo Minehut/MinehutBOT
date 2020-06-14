@@ -38,12 +38,15 @@ export default class CaseSearchCommand extends MinehutCommand {
 						retry: (msg: Message) =>
 							messages.commands.case.search.targetPrompt.retry(msg.author),
 					},
-				},
+				}
 			],
 		});
 	}
 
-	async exec(msg: Message, { target }: { target: User }) {
+	async exec(
+		msg: Message,
+		{ target }: { target: User; }
+	) {
 		const m = await msg.channel.send(
 			messages.commands.case.search.loading(target.tag)
 		);
@@ -59,14 +62,14 @@ export default class CaseSearchCommand extends MinehutCommand {
 				} ${humanReadableCaseType(c.type)} by **${c.moderatorTag}** (${
 					c.moderatorId
 				})`,
-				`\\↪ **__Reason:__** ${truncate(c.reason, 50)}`,
+				`- **__Reason:__** ${truncate(c.reason, 50)}`,
 				c.expiresAt.getTime() !== -1
-					? `\\↪ **__Duration:__** ${humanize(
+					? `- **__Duration:__** ${humanize(
 							c.expiresAt.getTime() - new Date(c.createdAt).getTime(),
 							{ round: true, largest: 3 }
 					  )}`
 					: null,
-				`\\↪ **__Date:__** ${prettyDate(c.createdAt)}`,
+				`- **__Date:__** ${prettyDate(c.createdAt)}`,
 			]
 				.filter(i => i !== null)
 				.join('\n')
