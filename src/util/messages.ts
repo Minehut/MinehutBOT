@@ -191,8 +191,7 @@ export const messages = {
 						`${author}, which case do you want to delete?`,
 					retry: (author: User) => `${author}, please specify a valid case ID.`,
 				},
-				alreadyDeleted: (prefix: string, id: number) =>
-					`${emoji.cross} this case was already deleted, you can use \`${prefix}case restore ${id}\` to restore it`,
+				alreadyDeleted: `${emoji.cross} unknown case`,
 				caseDeleted: (id: number) => `${emoji.check} deleted case #${id}`,
 			},
 		},
