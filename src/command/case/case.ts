@@ -25,6 +25,9 @@ export default class CaseCommand extends MinehutCommand {
 				['case-search', 'search'],
 				['case-search', 'history'],
 
+				['case-clear', 'clear'],
+				['case-clear', 'wipe'],
+
 				['case-reason', 'reason'],
 
 				['case-info', 'info'],

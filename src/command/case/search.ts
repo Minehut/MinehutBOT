@@ -59,32 +59,31 @@ export default class CaseSearchCommand extends MinehutCommand {
 		const m = await msg.channel.send(
 			messages.commands.case.search.loading(target.tag)
 		);
-		const cases = await CaseModel.find({ targetId: target.id }).sort(
+		let cases = await CaseModel.find({ targetId: target.id, guildId: msg.guild!.id }).sort(
 			'-createdAt'
 		);
+		cases = cases.filter(c => showDeleted || !c.deleted);
 		if (cases.length < 1)
 			return m.edit(messages.commands.case.search.emptyHistory);
-		const historyItems = cases
-			.filter(c => showDeleted || !c.deleted)
-			.map(c =>
-				[
-					`${c.deleted ? '~~' : ''}\`${c._id}\` ${
-						c.active ? emoji.active : emoji.inactive
-					} ${humanReadableCaseType(c.type)} by **${c.moderatorTag}** (${
-						c.moderatorId
-					})`,
-					`- **__Reason:__** ${truncate(escapeMarkdown(c.reason), 50)}`,
-					c.expiresAt.getTime() !== -1
-						? `- **__Duration:__** ${humanize(
-								c.expiresAt.getTime() - new Date(c.createdAt).getTime(),
-								{ round: true, largest: 3 }
-						  )}`
-						: null,
-					`- **__Date:__** ${prettyDate(c.createdAt)}${c.deleted ? '~~' : ''}`,
-				]
-					.filter(i => i !== null)
-					.join('\n')
-			);
+		const historyItems = cases.map(c =>
+			[
+				`${c.deleted ? '~~' : ''}\`${c._id}\` ${
+					c.active ? emoji.active : emoji.inactive
+				} ${humanReadableCaseType(c.type)} by **${c.moderatorTag}** (${
+					c.moderatorId
+				})`,
+				`- **__Reason:__** ${truncate(escapeMarkdown(c.reason), 50)}`,
+				c.expiresAt.getTime() !== -1
+					? `- **__Duration:__** ${humanize(
+							c.expiresAt.getTime() - new Date(c.createdAt).getTime(),
+							{ round: true, largest: 3 }
+					  )}`
+					: null,
+				`- **__Date:__** ${prettyDate(c.createdAt)}${c.deleted ? '~~' : ''}`,
+			]
+				.filter(i => i !== null)
+				.join('\n')
+		);
 		const embed = new MessageEmbed()
 			.setDescription(
 				truncate(historyItems.join('\n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n'), 2000)

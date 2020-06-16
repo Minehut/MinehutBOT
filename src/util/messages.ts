@@ -194,6 +194,16 @@ export const messages = {
 				alreadyDeleted: `${emoji.cross} unknown case`,
 				caseDeleted: (id: number) => `${emoji.check} deleted case #${id}`,
 			},
+			clear: {
+				description: "Clear a user's punishment history",
+				targetPrompt: {
+					start: (author: User) =>
+						`${author}, whose history do you want to clear?`,
+					retry: (author: User) => `${author}, please mention a user.`,
+				},
+				clearedHistory: (target: User) =>
+					`${emoji.check} cleared ${target.tag}'s case history`,
+			},
 		},
 		utility: {
 			eval: {
