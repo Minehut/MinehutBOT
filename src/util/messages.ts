@@ -193,6 +193,7 @@ export const messages = {
 				},
 				alreadyDeleted: `${emoji.cross} unknown case`,
 				caseDeleted: (id: number) => `${emoji.check} deleted case #${id}`,
+				caseActive: `${emoji.cross} cannot delete an active case`
 			},
 			clear: {
 				description: "Clear a user's punishment history",
