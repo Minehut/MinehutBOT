@@ -74,7 +74,7 @@ export default class MultiBanCommand extends MinehutCommand {
 		};
 		targets.forEach(target => {
 			const member = msg.guild!.member(target);
-			if (member && member.bannable) return banned.fail.push(target.id);
+			if (member && !member.bannable) return banned.fail.push(target.id);
 			const action = new BanAction({
 				target,
 				moderator: msg.member!,
