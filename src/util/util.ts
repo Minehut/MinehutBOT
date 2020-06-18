@@ -2,6 +2,7 @@ import { CaseType } from './constants';
 
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
+import { PersistentDataModel } from '../model/persistentData';
 TimeAgo.addLocale(en);
 export const ago = new TimeAgo('en-US');
 
@@ -96,4 +97,15 @@ export function escapeMarkdown(content: string, skips: string[] = []) {
 			? string
 			: string.replace(replacement[0], replacement[1] as string);
 	}, content);
+}
+
+export async function getNextCaseId() {
+	const c = await PersistentDataModel.findById('totalCases');
+	if (!c) {
+		await PersistentDataModel.create({ _id: 'totalCases', value: 1 });
+		return 1;
+	}
+	const id = parseInt(c.value) + 1;
+	await PersistentDataModel.updateOne({ _id: 'totalCases' }, { value: id });
+	return id;
 }

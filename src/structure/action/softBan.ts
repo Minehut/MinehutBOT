@@ -4,6 +4,7 @@ import { DocumentType } from '@typegoose/typegoose';
 import { CaseType } from '../../util/constants';
 import { MessageEmbed } from 'discord.js';
 import truncate from 'truncate';
+import { getNextCaseId } from '../../util/util';
 
 interface SoftBanActionData {
 	target: GuildMember;
@@ -59,7 +60,7 @@ export class SoftBanAction {
 
 	async getId() {
 		if (this.id) return this.id;
-		this.id = (await CaseModel.countDocuments()) + 1;
+		this.id = await getNextCaseId();
 		return this.id;
 	}
 

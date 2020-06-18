@@ -32,13 +32,7 @@ export default class CaseDeleteCommand extends MinehutCommand {
 	}
 
 	async exec(msg: Message, { c }: { c: DocumentType<Case> }) {
-		if (c.deleted)
-			return msg.channel.send(messages.commands.case.delete.alreadyDeleted);
-		await c.updateOne({
-			deleted: true,
-			deletedBy: msg.author.id,
-			active: false,
-		});
+		await c.remove();
 		msg.channel.send(messages.commands.case.delete.caseDeleted(c.id));
 	}
 }

@@ -6,7 +6,7 @@ import { MessageEmbed } from 'discord.js';
 import truncate from 'truncate';
 import humanizeDuration from 'humanize-duration';
 import { MinehutClient } from '../../client/minehutClient';
-import { prettyDate } from '../../util/util';
+import { prettyDate, getNextCaseId } from '../../util/util';
 import { guildConfigs } from '../../guild/guildConfigs';
 
 interface MuteActionData {
@@ -83,7 +83,7 @@ export class MuteAction {
 
 	async getId() {
 		if (this.id) return this.id;
-		this.id = (await CaseModel.countDocuments()) + 1;
+		this.id = await getNextCaseId();
 		return this.id;
 	}
 

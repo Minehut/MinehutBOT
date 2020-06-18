@@ -43,31 +43,23 @@ export default class CaseSearchCommand extends MinehutCommand {
 							messages.commands.case.search.targetPrompt.retry(msg.author),
 					},
 				},
-				{
-					id: 'showDeleted',
-					match: 'flag',
-					flag: ['-d', '--show-deleted'],
-				},
 			],
 		});
 	}
 
-	async exec(
-		msg: Message,
-		{ target, showDeleted }: { target: User; showDeleted: boolean }
-	) {
+	async exec(msg: Message, { target }: { target: User; }) {
 		const m = await msg.channel.send(
 			messages.commands.case.search.loading(target.tag)
 		);
-		let cases = await CaseModel.find({ targetId: target.id, guildId: msg.guild!.id }).sort(
-			'-createdAt'
-		);
-		cases = cases.filter(c => showDeleted || !c.deleted);
+		let cases = await CaseModel.find({
+			targetId: target.id,
+			guildId: msg.guild!.id,
+		}).sort('-createdAt');
 		if (cases.length < 1)
 			return m.edit(messages.commands.case.search.emptyHistory);
 		const historyItems = cases.map(c =>
 			[
-				`${c.deleted ? '~~' : ''}\`${c._id}\` ${
+				`\`${c._id}\` ${
 					c.active ? emoji.active : emoji.inactive
 				} ${humanReadableCaseType(c.type)} by **${c.moderatorTag}** (${
 					c.moderatorId
@@ -79,7 +71,7 @@ export default class CaseSearchCommand extends MinehutCommand {
 							{ round: true, largest: 3 }
 					  )}`
 					: null,
-				`- **__Date:__** ${prettyDate(c.createdAt)}${c.deleted ? '~~' : ''}`,
+				`- **__Date:__** ${prettyDate(c.createdAt)}`,
 			]
 				.filter(i => i !== null)
 				.join('\n')

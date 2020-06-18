@@ -38,13 +38,6 @@ export class Case {
 
 	@prop({ required: false })
 	updatedAt!: Date;
-
-	// Deletions
-	@prop({ required: false, default: false })
-	deleted!: boolean;
-
-	@prop({ required: false, default: null })
-	deletedBy!: string;
 }
 
 export const CaseModel = getModelForClass(Case, {

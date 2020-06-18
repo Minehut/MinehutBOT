@@ -5,6 +5,7 @@ import { CaseType } from '../../util/constants';
 import { MessageEmbed } from 'discord.js';
 import truncate from 'truncate';
 import { guildConfigs } from '../../guild/guildConfigs';
+import { getNextCaseId } from '../../util/util';
 
 interface UnMuteActionData {
 	target: GuildMember;
@@ -73,7 +74,7 @@ export class UnMuteAction {
 
 	async getId() {
 		if (this.id) return this.id;
-		this.id = (await CaseModel.countDocuments()) + 1;
+		this.id = await getNextCaseId();
 		return this.id;
 	}
 

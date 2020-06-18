@@ -5,6 +5,7 @@ import { CaseType } from '../../util/constants';
 import { MessageEmbed } from 'discord.js';
 import truncate from 'truncate';
 import { User } from 'discord.js';
+import { getNextCaseId } from '../../util/util';
 
 interface UnBanActionData {
 	target: User;
@@ -70,7 +71,7 @@ export class UnBanAction {
 
 	async getId() {
 		if (this.id) return this.id;
-		this.id = (await CaseModel.countDocuments()) + 1;
+		this.id = await getNextCaseId();
 		return this.id;
 	}
 

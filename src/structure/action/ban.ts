@@ -6,7 +6,7 @@ import { MessageEmbed } from 'discord.js';
 import truncate from 'truncate';
 import humanizeDuration from 'humanize-duration';
 import { MinehutClient } from '../../client/minehutClient';
-import { prettyDate } from '../../util/util';
+import { prettyDate, getNextCaseId } from '../../util/util';
 import { User } from 'discord.js';
 import { Guild } from 'discord.js';
 
@@ -90,7 +90,7 @@ export class BanAction {
 
 	async getId() {
 		if (this.id) return this.id;
-		this.id = (await CaseModel.countDocuments()) + 1;
+		this.id = await getNextCaseId();
 		return this.id;
 	}
 
