@@ -33,6 +33,8 @@ export default class CaseCommand extends MinehutCommand {
 				['case-info', 'info'],
 				['case-info', 'lookup'],
 
+				['case-duration', 'duration'],
+
 				['case-delete', 'delete'],
 				['case-delete', 'del'],
 			],

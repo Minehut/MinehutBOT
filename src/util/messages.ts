@@ -204,6 +204,22 @@ export const messages = {
 				clearedHistory: (target: User) =>
 					`${emoji.check} cleared ${target.tag}'s case history`,
 			},
+			duration: {
+				description: `Set a case duration`,
+				casePrompt: {
+					start: (author: User) =>
+						`${author}, which case's duration do you want to change?`,
+					retry: (author: User) => `${author}, please specify a valid case ID.`,
+				},
+				alreadyExpired: `${emoji.cross} case has already expired`,
+				durationPrompt: {
+					start: (author: User) =>
+						`${author}, what do you want the case duration to be?`,
+					retry: (author: User) => `${author}, please specify a case duration.`,
+				},
+				caseUpdated: (id: number, duration: string, expires: string) =>
+					`${emoji.check} case **${id}** is now ${duration === 'permanent' ? 'permanent' : `${duration} long`} (expires: ${expires})`,
+			},
 		},
 		utility: {
 			eval: {
