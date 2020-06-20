@@ -30,7 +30,7 @@
 { "_id" : { "$oid" : "5e3cec6ca2d76009e5dd0520" }, "rule" : "\\b(retar(d(?!ant)|ted))", "type" : "SWEAR", "enabled" : true, "block" : false },
 { "_id" : { "$oid" : "5e3cec6ca2d76009e5dd0527" }, "rule" : "\\b(blowjob)", "type" : "SWEAR", "enabled" : true, "block" : true },
 { "_id" : { "$oid" : "5e3cec6ca2d76009e5dd04fd" }, "rule" : "\\b(p(e|3)nn?is)", "type" : "SWEAR", "enabled" : true, "block" : false },
-{ "_id" : { "$oid" : "5e3cec6ca2d76009e5dd051a" }, "rule" : "\\b(piss)", "type" : "SWEAR", "enabled" : true, "block" : false },
+{ "_id" : { "$oid" : "5e3cec6ca2d76009e5dd051a" }, "rule" : "\\b(piss)", "type" : "SWEAR", "enabled" : false, "block" : false },
 { "_id" : { "$oid" : "5e3cec6ca2d76009e5dd0500" }, "rule" : "\\b(c(u)nt)", "type" : "SWEAR", "enabled" : true, "block" : false },
 { "_id" : { "$oid" : "5e3cec6ca2d76009e5dd0514" }, "rule" : "\\b(whore)", "type" : "SWEAR", "enabled" : true, "block" : true },
 { "_id" : { "$oid" : "5e3cec6ca2d76009e5dd0515" }, "rule" : "\\b(b(i|\\*)t?ch)", "type" : "SWEAR", "enabled" : true, "block" : false },
