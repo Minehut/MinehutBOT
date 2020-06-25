@@ -1,11 +1,13 @@
 import { Message } from 'discord.js';
-import { messages, emoji } from '../../util/messages';
+import { messages } from '../../util/messages';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
 import { DocumentType } from '@typegoose/typegoose';
 import { Case } from '../../model/case';
 import { MessageEmbed } from 'discord.js';
 import { prettyDate } from '../../util/util';
+import { FOREVER_MS } from '../../util/constants';
+import humanizeDuration from 'humanize-duration';
 
 export default class CaseInfoCommand extends MinehutCommand {
 	constructor() {
@@ -39,10 +41,11 @@ export default class CaseInfoCommand extends MinehutCommand {
 		const embed = new MessageEmbed();
 		embed.setTitle(`Information for case #${c.id}`);
 		embed.setColor(c.active ? 'GREEN' : 'RED');
-		embed.addField(
-			'Active?',
-			`${!c.active ? `${emoji.inactive} Inactive` : `${emoji.active} Active`}`
-		);
+		// embed.addField(
+		// 	'Active?',
+		// 	`${!c.active ? `${emoji.inactive} Inactive` : `${emoji.active} Active`}`,
+		// 	true
+		// );
 		embed.addField('Moderator', `${c.moderatorTag} (${c.moderatorId})`, true);
 		embed.addField('Target', `${c.targetTag} (${c.targetId})`, true);
 		embed.addField('Reason', c.reason, true);
@@ -53,6 +56,18 @@ export default class CaseInfoCommand extends MinehutCommand {
 			true
 		);
 		embed.addField('Expires', prettyDate(c.expiresAt), true);
+		if (c.expiresAt.getTime() > -1) {
+			const duration = c.expiresAt.getTime() - c.createdAt.getTime();
+			embed.addField(
+				'Duration',
+				`${
+					duration === FOREVER_MS
+						? 'Forever'
+						: humanizeDuration(duration, { largest: 3, round: true })
+				}`,
+				true
+			);
+		}
 		embed.addField('Date', prettyDate(c.createdAt), true);
 		msg.channel.send(embed);
 	}

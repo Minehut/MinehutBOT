@@ -55,7 +55,7 @@ export default class CaseDurationCommand extends MinehutCommand {
 		const humanReadable =
 			duration === FOREVER_MS
 				? 'permanent'
-				: humanizeDuration(duration, { largest: 3 });
+				: humanizeDuration(duration, { largest: 3, round: true });
 		this.client.banScheduler.refresh();
 		this.client.muteScheduler.refresh();
 		return msg.channel.send(

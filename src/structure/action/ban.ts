@@ -95,7 +95,10 @@ export class BanAction extends Action {
 				.setDescription('**You have been banned from Minehut!**')
 				.addField('ID', this.id, true)
 				.addField('Reason', this.reason, true)
-				.addField('Duration', humanizeDuration(this.duration, { largest: 3 }))
+				.addField(
+					'Duration',
+					humanizeDuration(this.duration, { largest: 3, round: true })
+				)
 				.addField('Expires', prettyDate(this.expiresAt))
 				.setTimestamp();
 			await this.target.send(embed);

@@ -64,7 +64,7 @@ export default class MultiBanCommand extends MinehutCommand {
 		const humanReadable =
 			duration === FOREVER_MS
 				? 'permanent'
-				: humanizeDuration(duration, { largest: 3 });
+				: humanizeDuration(duration, { largest: 3, round: true });
 		const m = await msg.channel.send(
 			messages.commands.punishment.multiBan.processing
 		);

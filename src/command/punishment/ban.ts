@@ -67,7 +67,7 @@ export default class BanCommand extends MinehutCommand {
 		const humanReadable =
 			duration === FOREVER_MS
 				? 'permanent'
-				: humanizeDuration(duration, { largest: 3 });
+				: humanizeDuration(duration, { largest: 3, round: true });
 		const action = new BanAction({
 			target,
 			moderator: msg.member!,
@@ -75,7 +75,7 @@ export default class BanCommand extends MinehutCommand {
 			reason,
 			duration,
 			client: this.client,
-			guild: msg.guild!
+			guild: msg.guild!,
 		});
 		action.commit();
 		msg.channel.send(
