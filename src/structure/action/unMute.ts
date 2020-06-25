@@ -5,7 +5,7 @@ import { CaseType } from '../../util/constants';
 import { MessageEmbed } from 'discord.js';
 import truncate from 'truncate';
 import { guildConfigs } from '../../guild/guildConfigs';
-import { getNextCaseId } from '../../util/util';
+import { Action } from './action';
 
 interface UnMuteActionData {
 	target: GuildMember;
@@ -14,15 +14,15 @@ interface UnMuteActionData {
 	message?: Message;
 }
 
-export class UnMuteAction {
+export class UnMuteAction extends Action {
 	target: GuildMember;
 	moderator: GuildMember;
 	message?: Message;
 	reason: string;
 	document?: DocumentType<Case>;
-	id?: number;
 
 	constructor(data: UnMuteActionData) {
+		super();
 		this.target = data.target;
 		this.moderator = data.moderator;
 		this.message = data.message;
@@ -32,9 +32,7 @@ export class UnMuteAction {
 	async commit() {
 		// To execute the action and the after method
 		if (!this.target.manageable) return;
-		await this.getId();
 		await this.sendTargetDm();
-		const id = this.id;
 		const muteRole = guildConfigs.get(this.target.guild!.id)?.roles.muted;
 		if (!muteRole) return;
 		try {
@@ -48,10 +46,10 @@ export class UnMuteAction {
 				},
 				{ active: false }
 			);
-			await this.target.roles.remove(muteRole, `[#${id}] ${this.reason}`);
+			await this.target.roles.remove(muteRole, `[#${this.id}] ${this.reason}`);
 		} catch (err) {}
 		this.document = await CaseModel.create({
-			_id: id,
+			_id: this.id,
 			active: false,
 			moderatorId: this.moderator.id,
 			moderatorTag: this.moderator.user.tag,
@@ -70,12 +68,6 @@ export class UnMuteAction {
 		if (!this.document) return;
 		// TODO: add mod log thingy
 		console.log(`mod log stuff, ${this.document.toString()}`);
-	}
-
-	async getId() {
-		if (this.id) return this.id;
-		this.id = await getNextCaseId();
-		return this.id;
 	}
 
 	async sendTargetDm() {

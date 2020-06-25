@@ -6,8 +6,9 @@ import { MessageEmbed } from 'discord.js';
 import truncate from 'truncate';
 import humanizeDuration from 'humanize-duration';
 import { MinehutClient } from '../../client/minehutClient';
-import { prettyDate, getNextCaseId } from '../../util/util';
+import { prettyDate } from '../../util/util';
 import { guildConfigs } from '../../guild/guildConfigs';
+import { Action } from './action';
 
 interface MuteActionData {
 	target: GuildMember;
@@ -18,7 +19,7 @@ interface MuteActionData {
 	client: MinehutClient;
 }
 
-export class MuteAction {
+export class MuteAction extends Action {
 	target: GuildMember;
 	moderator: GuildMember;
 	message?: Message;
@@ -26,10 +27,10 @@ export class MuteAction {
 	duration: number;
 	expiresAt: Date;
 	document?: DocumentType<Case>;
-	id?: number;
 	client: MinehutClient;
 
 	constructor(data: MuteActionData) {
+		super();
 		this.target = data.target;
 		this.moderator = data.moderator;
 		this.message = data.message;
@@ -54,11 +55,9 @@ export class MuteAction {
 		);
 		const muteRole = guildConfigs.get(this.target.guild!.id)?.roles.muted;
 		if (!muteRole) return;
-		await this.getId();
 		await this.sendTargetDm();
-		const id = this.id;
 		this.document = await CaseModel.create({
-			_id: id,
+			_id: this.id,
 			active: true,
 			moderatorId: this.moderator.id,
 			moderatorTag: this.moderator.user.tag,
@@ -69,7 +68,7 @@ export class MuteAction {
 			guildId: this.target.guild.id,
 			type: CaseType.Mute,
 		} as Case);
-		await this.target.roles.add(muteRole, `[#${id}] ${this.reason}`);
+		await this.target.roles.add(muteRole, `[#${this.id}] ${this.reason}`);
 		await this.after();
 	}
 
@@ -79,12 +78,6 @@ export class MuteAction {
 		// TODO: add mod log thingy
 		console.log(`mod log stuff, ${this.document.toString()}`);
 		await this.client.muteScheduler.refresh();
-	}
-
-	async getId() {
-		if (this.id) return this.id;
-		this.id = await getNextCaseId();
-		return this.id;
 	}
 
 	async sendTargetDm() {

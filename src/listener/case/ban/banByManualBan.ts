@@ -15,6 +15,9 @@ export default class BanByManualBan extends Listener {
 
 	async exec(guild: Guild, user: User) {
 		setTimeout(async () => {
+			// Stop flow if user is not banned anymore (probably softban)
+			const bans = await guild.fetchBans();
+			if (!bans.has(user.id)) return;
 			// Stop the flow if the member has a ban case
 			if (
 				await CaseModel.exists({

@@ -6,9 +6,10 @@ import { MessageEmbed } from 'discord.js';
 import truncate from 'truncate';
 import humanizeDuration from 'humanize-duration';
 import { MinehutClient } from '../../client/minehutClient';
-import { prettyDate, getNextCaseId } from '../../util/util';
+import { prettyDate } from '../../util/util';
 import { User } from 'discord.js';
 import { Guild } from 'discord.js';
+import { Action } from './action';
 
 interface BanActionData {
 	target: User;
@@ -20,7 +21,7 @@ interface BanActionData {
 	guild: Guild;
 }
 
-export class BanAction {
+export class BanAction extends Action {
 	target: User;
 	moderator: GuildMember;
 	message?: Message;
@@ -28,11 +29,11 @@ export class BanAction {
 	duration: number;
 	expiresAt: Date;
 	document?: DocumentType<Case>;
-	id?: number;
 	client: MinehutClient;
 	guild: Guild;
 
 	constructor(data: BanActionData) {
+		super();
 		this.target = data.target;
 		this.moderator = data.moderator;
 		this.message = data.message;
@@ -59,14 +60,12 @@ export class BanAction {
 			{ active: false }
 		);
 
-		await this.getId();
 		await this.sendTargetDm();
-		const id = this.id;
 		await this.guild.members.ban(this.target, {
-			reason: `[#${id}] ${this.reason}`,
+			reason: `[#${this.id}] ${this.reason}`,
 		}); // todo: add days option
 		this.document = await CaseModel.create({
-			_id: id,
+			_id: this.id,
 			active: true,
 			moderatorId: this.moderator.id,
 			moderatorTag: this.moderator.user.tag,
@@ -86,12 +85,6 @@ export class BanAction {
 		// TODO: add mod log thingy
 		console.log(`mod log stuff, ${this.document.toString()}`);
 		await this.client.banScheduler.refresh();
-	}
-
-	async getId() {
-		if (this.id) return this.id;
-		this.id = await getNextCaseId();
-		return this.id;
 	}
 
 	async sendTargetDm() {

@@ -4,7 +4,7 @@ import { DocumentType } from '@typegoose/typegoose';
 import { CaseType } from '../../util/constants';
 import { MessageEmbed } from 'discord.js';
 import truncate from 'truncate';
-import { getNextCaseId } from '../../util/util';
+import { Action } from './action';
 
 interface KickActionData {
 	target: GuildMember;
@@ -13,15 +13,15 @@ interface KickActionData {
 	message?: Message;
 }
 
-export class KickAction {
+export class KickAction extends Action {
 	target: GuildMember;
 	moderator: GuildMember;
 	message?: Message;
 	reason: string;
 	document?: DocumentType<Case>;
-	id?: number;
 
 	constructor(data: KickActionData) {
+		super();
 		this.target = data.target;
 		this.moderator = data.moderator;
 		this.message = data.message;
@@ -31,12 +31,10 @@ export class KickAction {
 	async commit() {
 		// To execute the action and the after method
 		if (!this.target.kickable) return;
-		await this.getId();
 		await this.sendTargetDm();
-		const id = this.id;
-		await this.target.kick(`[#${id}] ${this.reason}`);
+		await this.target.kick(`[#${this.id}] ${this.reason}`);
 		this.document = await CaseModel.create({
-			_id: id,
+			_id: this.id,
 			active: false,
 			moderatorId: this.moderator.id,
 			moderatorTag: this.moderator.user.tag,
@@ -55,12 +53,6 @@ export class KickAction {
 		if (!this.document) return;
 		// TODO: add mod log thingy
 		console.log(`mod log stuff, ${this.document.toString()}`);
-	}
-
-	async getId() {
-		if (this.id) return this.id;
-		this.id = await getNextCaseId();
-		return this.id;
 	}
 
 	async sendTargetDm() {

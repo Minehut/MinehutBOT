@@ -4,7 +4,7 @@ import { DocumentType } from '@typegoose/typegoose';
 import { CaseType } from '../../util/constants';
 import { MessageEmbed } from 'discord.js';
 import truncate from 'truncate';
-import { getNextCaseId } from '../../util/util';
+import { Action } from './action';
 
 interface SoftBanActionData {
 	target: GuildMember;
@@ -13,15 +13,15 @@ interface SoftBanActionData {
 	message?: Message;
 }
 
-export class SoftBanAction {
+export class SoftBanAction extends Action {
 	target: GuildMember;
 	moderator: GuildMember;
 	message?: Message;
 	reason: string;
 	document?: DocumentType<Case>;
-	id?: number;
 
 	constructor(data: SoftBanActionData) {
+		super();
 		this.target = data.target;
 		this.moderator = data.moderator;
 		this.message = data.message;
@@ -31,13 +31,11 @@ export class SoftBanAction {
 	async commit() {
 		// To execute the action and the after method
 		if (!this.target.bannable) return;
-		await this.getId();
 		await this.sendTargetDm();
-		const id = this.id;
-		await this.target.ban({ reason: `[#${id}] ${this.reason}`, days: 7 });
+		await this.target.ban({ reason: `[#${this.id}] ${this.reason}`, days: 7 });
 		await this.target.guild.members.unban(this.target.id);
 		this.document = await CaseModel.create({
-			_id: id,
+			_id: this.id,
 			active: false,
 			moderatorId: this.moderator.id,
 			moderatorTag: this.moderator.user.tag,
@@ -58,19 +56,13 @@ export class SoftBanAction {
 		console.log(`mod log stuff, ${this.document.toString()}`);
 	}
 
-	async getId() {
-		if (this.id) return this.id;
-		this.id = await getNextCaseId();
-		return this.id;
-	}
-
 	async sendTargetDm() {
 		try {
 			if (this.target.id === this.target.client.user?.id) return; // The bot can't message itself
 			const embed = new MessageEmbed()
 				.setColor('RED')
 				.setDescription(
-					'**You have been softbanned from Minehut!**\nYou can rejoin the server immediately, but your old messages were deleted.\nFuture infractions may lead to a more serious punishment.'
+					'**You have been softbanned from Minehut!**\nYou can rejoin the server immediately, but your previous messages were deleted.\nFuture infractions may lead to a more serious punishment.'
 				)
 				.addField('ID', this.id, true)
 				.addField('Reason', this.reason, true)

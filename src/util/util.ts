@@ -2,7 +2,6 @@ import { CaseType } from './constants';
 
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
-import { PersistentDataModel } from '../model/persistentData';
 TimeAgo.addLocale(en);
 export const ago = new TimeAgo('en-US');
 
@@ -99,13 +98,13 @@ export function escapeMarkdown(content: string, skips: string[] = []) {
 	}, content);
 }
 
-export async function getNextCaseId() {
-	const c = await PersistentDataModel.findById('totalCases');
-	if (!c) {
-		await PersistentDataModel.create({ _id: 'totalCases', value: 1 });
-		return 1;
+// Thanks to https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
+export function randomAlphanumericString(length: number) {
+	let result = '';
+	const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+	const charactersLength = characters.length;
+	for (let i = 0; i < length; i++) {
+		result += characters.charAt(Math.floor(Math.random() * charactersLength));
 	}
-	const id = parseInt(c.value) + 1;
-	await PersistentDataModel.updateOne({ _id: 'totalCases' }, { value: id });
-	return id;
+	return result;
 }

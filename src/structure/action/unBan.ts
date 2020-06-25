@@ -5,7 +5,7 @@ import { CaseType } from '../../util/constants';
 import { MessageEmbed } from 'discord.js';
 import truncate from 'truncate';
 import { User } from 'discord.js';
-import { getNextCaseId } from '../../util/util';
+import { Action } from './action';
 
 interface UnBanActionData {
 	target: User;
@@ -14,15 +14,15 @@ interface UnBanActionData {
 	message?: Message;
 }
 
-export class UnBanAction {
+export class UnBanAction extends Action {
 	target: User;
 	moderator: GuildMember;
 	message?: Message;
 	reason: string;
 	document?: DocumentType<Case>;
-	id?: number;
 
 	constructor(data: UnBanActionData) {
+		super();
 		this.target = data.target;
 		this.moderator = data.moderator;
 		this.message = data.message;
@@ -31,9 +31,7 @@ export class UnBanAction {
 
 	async commit() {
 		// To execute the action and the after method
-		await this.getId();
 		// await this.sendTargetDm(); // Bot can't message users who aren't in the guild
-		const id = this.id;
 		try {
 			// Make all old bans inactive
 			await CaseModel.updateMany(
@@ -48,7 +46,7 @@ export class UnBanAction {
 			await this.moderator.guild.members.unban(this.target.id);
 		} catch (err) {}
 		this.document = await CaseModel.create({
-			_id: id,
+			_id: this.id,
 			active: false,
 			moderatorId: this.moderator.id,
 			moderatorTag: this.moderator.user.tag,
@@ -67,12 +65,6 @@ export class UnBanAction {
 		if (!this.document) return;
 		// TODO: add mod log thingy
 		console.log(`mod log stuff, ${this.document.toString()}`);
-	}
-
-	async getId() {
-		if (this.id) return this.id;
-		this.id = await getNextCaseId();
-		return this.id;
 	}
 
 	async sendTargetDm() {
