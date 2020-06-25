@@ -18,7 +18,7 @@ export default class BanCommand extends MinehutCommand {
 			clientPermissions: ['BAN_MEMBERS'],
 			description: {
 				content: messages.commands.punishment.ban.description,
-				usage: '<user> [...reason] [d:duration]',
+				usage: '<user> [...reason] [d:duration] [days:number]',
 			},
 			args: [
 				{
@@ -45,6 +45,13 @@ export default class BanCommand extends MinehutCommand {
 					default: FOREVER_MS,
 				},
 				{
+					id: 'days',
+					type: 'number',
+					match: 'option',
+					flag: 'days:',
+					default: 0,
+				},
+				{
 					id: 'reason',
 					type: 'string',
 					match: 'rest',
@@ -59,8 +66,10 @@ export default class BanCommand extends MinehutCommand {
 			target,
 			reason,
 			duration,
-		}: { target: User; reason: string; duration: number }
+			days,
+		}: { target: User; reason: string; duration: number; days: number }
 	) {
+		console.log(days);
 		const member = msg.guild!.member(target);
 		if (member && !member.bannable)
 			return msg.channel.send(messages.commands.punishment.ban.notBannable);
@@ -76,6 +85,7 @@ export default class BanCommand extends MinehutCommand {
 			duration,
 			client: this.client,
 			guild: msg.guild!,
+			days,
 		});
 		action.commit();
 		msg.channel.send(

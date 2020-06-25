@@ -19,6 +19,7 @@ interface BanActionData {
 	duration: number;
 	client: MinehutClient;
 	guild: Guild;
+	days?: number;
 }
 
 export class BanAction extends Action {
@@ -31,6 +32,7 @@ export class BanAction extends Action {
 	document?: DocumentType<Case>;
 	client: MinehutClient;
 	guild: Guild;
+	days: number;
 
 	constructor(data: BanActionData) {
 		super();
@@ -42,6 +44,7 @@ export class BanAction extends Action {
 		this.expiresAt = new Date(Date.now() + this.duration);
 		this.client = data.client;
 		this.guild = data.guild;
+		this.days = data.days || 0;
 	}
 
 	async commit() {
@@ -63,7 +66,8 @@ export class BanAction extends Action {
 		await this.sendTargetDm();
 		await this.guild.members.ban(this.target, {
 			reason: `[#${this.id}] ${this.reason}`,
-		}); // todo: add days option
+			days: this.days
+		});
 		this.document = await CaseModel.create({
 			_id: this.id,
 			active: true,

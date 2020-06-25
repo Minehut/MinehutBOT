@@ -18,7 +18,7 @@ export default class MultiBanCommand extends MinehutCommand {
 			clientPermissions: ['BAN_MEMBERS'],
 			description: {
 				content: messages.commands.punishment.kick.description,
-				usage: '"reason" <...members> [d:duration]',
+				usage: '"reason" <...members> [d:duration] [days:number]',
 			},
 			args: [
 				{
@@ -49,6 +49,13 @@ export default class MultiBanCommand extends MinehutCommand {
 					flag: ['duration', 'd', 'l'],
 					default: FOREVER_MS,
 				},
+				{
+					id: 'days',
+					type: 'number',
+					match: 'option',
+					flag: 'days:',
+					default: 0,
+				},
 			],
 		});
 	}
@@ -59,7 +66,8 @@ export default class MultiBanCommand extends MinehutCommand {
 			targets,
 			reason,
 			duration,
-		}: { targets: User[]; reason: string; duration: number }
+			days,
+		}: { targets: User[]; reason: string; duration: number; days: number }
 	) {
 		const humanReadable =
 			duration === FOREVER_MS
@@ -83,6 +91,7 @@ export default class MultiBanCommand extends MinehutCommand {
 				duration,
 				client: this.client,
 				guild: msg.guild!,
+				days,
 			});
 			action.commit();
 			banned.success.push(target.id);
