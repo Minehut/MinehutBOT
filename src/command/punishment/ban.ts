@@ -11,7 +11,7 @@ import { User } from 'discord.js';
 export default class BanCommand extends MinehutCommand {
 	constructor() {
 		super('ban', {
-			aliases: ['ban', 'tempban'],
+			aliases: ['ban'],
 			permissionLevel: PermissionLevel.JuniorModerator,
 			category: 'punishment',
 			channel: 'guild',
