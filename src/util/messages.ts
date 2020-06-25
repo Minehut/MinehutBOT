@@ -146,7 +146,11 @@ export const messages = {
 				) =>
 					`${emoji.check} banned ${banned.success.length} members ${
 						duration !== 'permanent' ? `for **${duration}** ` : ' '
-					}(\`${reason}\`) [=> skipped ${banned.fail.length} members]`,
+					}(\`${reason}\`) ${
+						banned.fail.length > 0
+							? `[=> skipped ${banned.fail.length} members]`
+							: ''
+					}`,
 			},
 		},
 		case: {
@@ -193,7 +197,7 @@ export const messages = {
 				},
 				alreadyDeleted: `${emoji.cross} unknown case`,
 				caseDeleted: (id: number) => `${emoji.check} deleted case #${id}`,
-				caseActive: `${emoji.cross} cannot delete an active case`
+				caseActive: `${emoji.cross} cannot delete an active case`,
 			},
 			clear: {
 				description: "Clear a user's punishment history",
@@ -219,7 +223,9 @@ export const messages = {
 					retry: (author: User) => `${author}, please specify a case duration.`,
 				},
 				caseUpdated: (id: number, duration: string, expires: string) =>
-					`${emoji.check} case **${id}** is now ${duration === 'permanent' ? 'permanent' : `${duration} long`} (expires: ${expires})`,
+					`${emoji.check} case **${id}** is now ${
+						duration === 'permanent' ? 'permanent' : `${duration} long`
+					} (expires: ${expires})`,
 			},
 		},
 		utility: {
