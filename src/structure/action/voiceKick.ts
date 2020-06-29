@@ -47,7 +47,7 @@ export class VoiceKickAction extends Action {
 			const embed = new MessageEmbed()
 				.setColor('RED')
 				.setDescription(
-					'**You have been kicked from a Minehut voice channel!**\nFuture infractions may lead to a more serious punishment.'
+					`**You have been kicked from a ${this.guild.name} voice channel!**\nFuture infractions may lead to a more serious punishment.`
 				)
 				.addField('ID', this.id, true)
 				.addField('Reason', this.reason, true)

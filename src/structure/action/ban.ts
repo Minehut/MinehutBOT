@@ -73,7 +73,7 @@ export class BanAction extends Action {
 			if (this.target.id === this.target.client.user?.id) return; // The bot can't message itself
 			const embed = new MessageEmbed()
 				.setColor('RED')
-				.setDescription('**You have been banned from Minehut!**')
+				.setDescription(`**You have been banned from ${this.guild.name}!**`)
 				.addField('ID', this.id, true)
 				.addField('Reason', this.reason, true)
 				.addField(

@@ -46,7 +46,7 @@ export class KickAction extends Action {
 			if (this.target.id === this.target.client.user?.id) return; // The bot can't message itself
 			const embed = new MessageEmbed()
 				.setColor('RED')
-				.setDescription('**You have been kicked from Minehut!**')
+				.setDescription(`**You have been kicked from ${this.guild.name}!**`)
 				.addField('ID', this.id, true)
 				.addField('Reason', this.reason, true)
 				.setTimestamp();

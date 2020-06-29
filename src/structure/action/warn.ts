@@ -2,7 +2,6 @@ import { GuildMember } from 'discord.js';
 import { CaseModel, Case } from '../../model/case';
 import { CaseType } from '../../util/constants';
 import { MessageEmbed } from 'discord.js';
-import truncate from 'truncate';
 import { Action, ActionData } from './action';
 
 type WarnActionData = {
@@ -46,7 +45,7 @@ export class WarnAction extends Action {
 			const embed = new MessageEmbed()
 				.setColor('RED')
 				.setDescription(
-					'**You have been warned on Minehut!**\nFuture infractions may lead to a more serious punishment.'
+					`**You have been warned on ${this.guild.name}!**\nFuture infractions may lead to a more serious punishment.`
 				)
 				.addField('ID', this.id, true)
 				.addField('Reason', this.reason, true)

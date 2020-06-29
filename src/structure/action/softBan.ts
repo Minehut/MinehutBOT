@@ -48,7 +48,7 @@ export class SoftBanAction extends Action {
 			const embed = new MessageEmbed()
 				.setColor('RED')
 				.setDescription(
-					'**You have been softbanned from Minehut!**\nYou can rejoin the server immediately, but your previous messages were deleted.\nFuture infractions may lead to a more serious punishment.'
+					`**You have been softbanned from ${this.guild.name}!**\nYou can rejoin the server immediately, but your previous messages were deleted.\nFuture infractions may lead to a more serious punishment.`
 				)
 				.addField('ID', this.id, true)
 				.addField('Reason', this.reason, true)
