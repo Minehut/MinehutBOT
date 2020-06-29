@@ -34,6 +34,8 @@ export default class UnMuteByRoleRemovalListener extends Listener {
 				target: newMember,
 				moderator: newMember.guild.member(this.client.user!)!,
 				reason: `Manual role removal`,
+				client: this.client,
+				guild: newMember.guild,
 			});
 			action.commit();
 		}

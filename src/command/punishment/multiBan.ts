@@ -86,7 +86,6 @@ export default class MultiBanCommand extends MinehutCommand {
 			const action = new BanAction({
 				target,
 				moderator: msg.member!,
-				message: msg,
 				reason: `(Multiban) ${reason}`,
 				duration,
 				client: this.client,

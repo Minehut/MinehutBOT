@@ -49,7 +49,8 @@ export default class WarnCommand extends MinehutCommand {
 		const action = new WarnAction({
 			target: member,
 			moderator: msg.member!,
-			message: msg,
+			guild: msg.guild!,
+			client: this.client,
 			reason,
 		});
 		action.commit();

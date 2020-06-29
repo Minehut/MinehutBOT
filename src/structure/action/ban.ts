@@ -1,50 +1,34 @@
-import { GuildMember, Message } from 'discord.js';
 import { CaseModel, Case } from '../../model/case';
-import { DocumentType } from '@typegoose/typegoose';
 import { CaseType } from '../../util/constants';
 import { MessageEmbed } from 'discord.js';
-import truncate from 'truncate';
 import humanizeDuration from 'humanize-duration';
-import { MinehutClient } from '../../client/minehutClient';
 import { prettyDate } from '../../util/util';
+import { Action, ActionData } from './action';
 import { User } from 'discord.js';
-import { Guild } from 'discord.js';
-import { Action } from './action';
 
-interface BanActionData {
-	target: User;
-	moderator: GuildMember;
-	reason?: string;
-	message?: Message;
-	duration: number;
-	client: MinehutClient;
-	guild: Guild;
+type BanActionData = {
 	days?: number;
-}
+	target: User;
+	duration: number;
+} & ActionData;
 
 export class BanAction extends Action {
 	target: User;
-	moderator: GuildMember;
-	message?: Message;
-	reason: string;
+	days: number;
 	duration: number;
 	expiresAt: Date;
-	document?: DocumentType<Case>;
-	client: MinehutClient;
-	guild: Guild;
-	days: number;
 
 	constructor(data: BanActionData) {
-		super();
+		super({
+			guild: data.guild,
+			reason: data.reason,
+			client: data.client,
+			moderator: data.moderator,
+		});
 		this.target = data.target;
-		this.moderator = data.moderator;
-		this.message = data.message;
-		this.reason = truncate(data.reason || 'No reason provided', 2000);
+		this.days = data.days || 0;
 		this.duration = data.duration;
 		this.expiresAt = new Date(Date.now() + this.duration);
-		this.client = data.client;
-		this.guild = data.guild;
-		this.days = data.days || 0;
 	}
 
 	async commit() {
@@ -66,7 +50,7 @@ export class BanAction extends Action {
 		await this.sendTargetDm();
 		await this.guild.members.ban(this.target, {
 			reason: `[#${this.id}] ${this.reason}`,
-			days: this.days
+			days: this.days,
 		});
 		this.document = await CaseModel.create({
 			_id: this.id,
@@ -80,15 +64,8 @@ export class BanAction extends Action {
 			guildId: this.guild.id,
 			type: CaseType.Ban,
 		} as Case);
-		await this.after();
-	}
-
-	async after() {
-		// To log the action
-		if (!this.document) return;
-		// TODO: add mod log thingy
-		console.log(`mod log stuff, ${this.document.toString()}`);
 		await this.client.banScheduler.refresh();
+		await this.after();
 	}
 
 	async sendTargetDm() {

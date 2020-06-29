@@ -45,6 +45,8 @@ export class BanScheduler {
 			target: user,
 			moderator: guild.member(this.client.user!)!,
 			reason: `Automatic unban (#${c.id})`,
+			guild,
+			client: this.client,
 		});
 		action.commit();
 	}

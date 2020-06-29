@@ -62,8 +62,9 @@ export default class UnBanCommand extends MinehutCommand {
 		const action = new UnBanAction({
 			target: target,
 			moderator: msg.member!,
-			message: msg,
 			reason,
+			client: this.client,
+			guild: msg.guild!,
 		});
 		action.commit();
 		msg.channel.send(

@@ -28,6 +28,8 @@ export default class UnBanByRevokeListener extends Listener {
 			target: user,
 			moderator: guild.member(this.client.user!)!,
 			reason: `Manual ban revoke`,
+			client: this.client,
+			guild,
 		});
 		action.commit();
 	}

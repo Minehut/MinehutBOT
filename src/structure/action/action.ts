@@ -1,13 +1,43 @@
-import { randomAlphanumericString } from "../../util/util";
+import { randomAlphanumericString } from '../../util/util';
+// import { DocumentType } from '@typegoose/typegoose';
+// import { Case } from '../../model/case';
+import { Guild } from 'discord.js';
+import { MinehutClient } from '../../client/minehutClient';
+import truncate from 'truncate';
+import { GuildMember } from 'discord.js';
+import { DocumentType } from '@typegoose/typegoose';
+import { Case } from '../../model/case';
+
+export interface ActionData {
+	guild: Guild;
+	reason?: string;
+
+	moderator: GuildMember;
+	client: MinehutClient;
+}
 
 export class Action {
-	private _id: string;
-	
-	constructor() {
-		this._id = randomAlphanumericString(4);
+	id: string;
+	guild: Guild;
+	reason: string;
+	moderator: GuildMember;
+
+	document?: DocumentType<Case>;
+
+	client: MinehutClient;
+	constructor(data: ActionData) {
+		this.client = data.client;
+
+		this.id = randomAlphanumericString(4);
+
+		this.guild = data.guild;
+		this.moderator = data.moderator;
+
+		this.reason = truncate(data.reason || 'No reason provided', 2000);
 	}
 
-	get id() {
-		return this._id;
+	async after() {
+		if (!this.document) return;
+		this.client.emit('caseCreate', this.document);
 	}
 }

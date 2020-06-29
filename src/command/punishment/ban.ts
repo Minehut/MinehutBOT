@@ -80,7 +80,6 @@ export default class BanCommand extends MinehutCommand {
 		const action = new BanAction({
 			target,
 			moderator: msg.member!,
-			message: msg,
 			reason,
 			duration,
 			client: this.client,

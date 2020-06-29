@@ -52,7 +52,8 @@ export default class VoiceKickCommand extends MinehutCommand {
 		const action = new VoiceKickAction({
 			target: member,
 			moderator: msg.member!,
-			message: msg,
+			client: this.client,
+			guild: msg.guild!,
 			reason,
 		});
 		action.commit();

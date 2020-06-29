@@ -4,6 +4,7 @@ import { MinehutCommand } from '../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
 import { DocumentType } from '@typegoose/typegoose';
 import { Case } from '../../model/case';
+import { cloneDeep } from 'lodash';
 
 export default class CaseSearchCommand extends MinehutCommand {
 	constructor() {
@@ -46,7 +47,11 @@ export default class CaseSearchCommand extends MinehutCommand {
 		msg: Message,
 		{ c, reason }: { c: DocumentType<Case>; reason: string }
 	) {
-		await c.updateOne({ reason: reason.trim() });
+		const oldCase = cloneDeep(c);
+		c.reason = reason.trim();
+		const newCase = c;
+		await c.updateOne({ reason: c.reason });
+		this.client.emit('caseUpdate', oldCase, newCase, msg.member!);
 		msg.channel.send(
 			messages.commands.case.reason.caseUpdated(c.id, reason.trim())
 		);

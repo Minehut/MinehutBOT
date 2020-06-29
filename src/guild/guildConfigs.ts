@@ -2,6 +2,29 @@ import { GuildConfiguration } from './guildConfiguration';
 
 export const guildConfigs: Map<string, GuildConfiguration> = new Map();
 
+const allEvents = [
+	'memberJoin', //added
+	'memberLeave', //added
+	'memberUserNameUpdate', //added
+	'memberNickNameUpdate', //added
+	'messageDelete', //added
+	'messageEdit', //added
+	'messageCensor',
+	'caseCreate',
+	'caseDelete', //added
+	'caseReasonUpdate', //added
+	'caseDurationUpdate', //added
+	'memberRolesUpdate', //added
+	'command', //added
+];
+
+guildConfigs.set('395189137981964288', {
+	id: '395189137981964288',
+	prefix: '!',
+	roles: {},
+	features: {},
+});
+
 guildConfigs.set('608978588976283660', {
 	// bot testing
 	id: '608978588976283660',
@@ -11,12 +34,14 @@ guildConfigs.set('608978588976283660', {
 		admin: '701854509164527707',
 		muted: '615630839438508062',
 	},
-});
-
-guildConfigs.set('395189137981964288', {
-	id: '395189137981964288',
-	prefix: 'jungle!',
-	roles: {},
+	features: {
+		modLog: {
+			channel: '726598891759468554',
+			events: allEvents,
+			prefix: '',
+			ignoredChannels: [],
+		},
+	},
 });
 
 guildConfigs.set('370014721556086794', {
@@ -37,6 +62,7 @@ guildConfigs.set('370014721556086794', {
 		manager: '591669127819821067',
 		admin: '391351275805081600',
 	},
+	features: {},
 });
 
 guildConfigs.set('239599059415859200', {
@@ -59,4 +85,5 @@ guildConfigs.set('239599059415859200', {
 		manager: '591722355273760825',
 		admin: '240228183985618954',
 	},
+	features: {},
 });

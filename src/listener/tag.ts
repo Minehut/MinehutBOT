@@ -3,7 +3,7 @@ import { Message } from 'discord.js';
 import { TagModel } from '../model/tag';
 
 export default class TagListener extends Listener {
-	public constructor() {
+	constructor() {
 		super('tag', {
 			emitter: 'commandHandler',
 			event: 'messageInvalid',
@@ -11,7 +11,7 @@ export default class TagListener extends Listener {
 		});
 	}
 
-	public async exec(msg: Message) {
+	async exec(msg: Message) {
 		if (msg.guild && msg.util?.parsed?.prefix) {
 			if (!msg.util?.parsed?.alias || !msg.util?.parsed?.afterPrefix) return;
 			const name = msg.util?.parsed?.afterPrefix.split(' ')[0];

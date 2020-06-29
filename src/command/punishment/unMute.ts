@@ -66,8 +66,9 @@ export default class UnMuteCommand extends MinehutCommand {
 		const action = new UnMuteAction({
 			target: member,
 			moderator: msg.member!,
-			message: msg,
 			reason,
+			client: this.client,
+			guild: msg.guild!,
 		});
 		action.commit();
 		msg.channel.send(

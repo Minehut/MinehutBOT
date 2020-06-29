@@ -46,8 +46,9 @@ export default class KickCommand extends MinehutCommand {
 		const action = new KickAction({
 			target: member,
 			moderator: msg.member!,
-			message: msg,
 			reason,
+			guild: msg.guild!,
+			client: this.client,
 		});
 		action.commit();
 		msg.channel.send(

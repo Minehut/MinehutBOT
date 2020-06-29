@@ -23,9 +23,13 @@ export default class SoftBanCommand extends MinehutCommand {
 					type: 'member',
 					prompt: {
 						start: (msg: Message) =>
-							messages.commands.punishment.softBan.memberPrompt.start(msg.author),
+							messages.commands.punishment.softBan.memberPrompt.start(
+								msg.author
+							),
 						retry: (msg: Message) =>
-							messages.commands.punishment.softBan.memberPrompt.retry(msg.author),
+							messages.commands.punishment.softBan.memberPrompt.retry(
+								msg.author
+							),
 					},
 				},
 				{
@@ -46,12 +50,16 @@ export default class SoftBanCommand extends MinehutCommand {
 		const action = new SoftBanAction({
 			target: member,
 			moderator: msg.member!,
-			message: msg,
 			reason,
+			guild: msg.guild!,
+			client: this.client,
 		});
 		action.commit();
 		msg.channel.send(
-			messages.commands.punishment.softBan.softBanned(action.target, action.reason)
+			messages.commands.punishment.softBan.softBanned(
+				action.target,
+				action.reason
+			)
 		);
 	}
 }

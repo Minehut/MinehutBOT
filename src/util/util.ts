@@ -2,6 +2,8 @@ import { CaseType } from './constants';
 
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
+import { guildConfigs } from '../guild/guildConfigs';
+import { TextChannel, Util, Guild, Message } from 'discord.js';
 TimeAgo.addLocale(en);
 export const ago = new TimeAgo('en-US');
 
@@ -75,29 +77,6 @@ export function prettyDate(
 		  }`;
 }
 
-const replacements = [
-	[/\*/g, '\\*', 'asterisks'],
-	[/#/g, '\\#', 'number signs'],
-	[/\//g, '\\/', 'slashes'],
-	[/\(/g, '\\(', 'parentheses'],
-	[/\)/g, '\\)', 'parentheses'],
-	[/\[/g, '\\[', 'square brackets'],
-	[/\]/g, '\\]', 'square brackets'],
-	[/</g, '&lt;', 'angle brackets'],
-	[/>/g, '&gt;', 'angle brackets'],
-	[/_/g, '\\_', 'underscores'],
-	[/~~/g, '\\~\\~', 'tildas'],
-];
-
-export function escapeMarkdown(content: string, skips: string[] = []) {
-	return replacements.reduce((string, replacement) => {
-		const name = replacement[2] as string;
-		return name && skips.indexOf(name) !== -1
-			? string
-			: string.replace(replacement[0], replacement[1] as string);
-	}, content);
-}
-
 // Thanks to https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
 export function randomAlphanumericString(length: number) {
 	let result = '';
@@ -107,4 +86,35 @@ export function randomAlphanumericString(length: number) {
 		result += characters.charAt(Math.floor(Math.random() * charactersLength));
 	}
 	return result;
+}
+
+export function removeMarkdownAndMentions(content: string, msg?: Message) {
+	return Util.escapeMarkdown(
+		msg ? Util.cleanContent(content, msg) : Util.removeMentions(content)
+	);
+}
+
+export async function sendModLogMessage(guild: Guild, content: string) {
+	const config = guildConfigs.get(guild.id);
+	if (!config || !config.features.modLog) return;
+	const channel = guild.channels.cache.get(
+		config.features.modLog.channel
+	) as TextChannel;
+	const date = new Date();
+	channel.send(
+		`**\`${prettyDate(date, false, false)}\`** ${
+			config.features.modLog.prefix
+		} ${content}`
+	);
+}
+
+// Thanks draem
+export function arrayDiff(aArray: any[], bArray: any[]) {
+	const added = bArray.filter(e => !aArray.includes(e));
+	const removed = aArray.filter(e => !bArray.includes(e));
+
+	return {
+		added,
+		removed,
+	};
 }

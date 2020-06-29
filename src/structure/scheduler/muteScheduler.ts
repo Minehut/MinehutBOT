@@ -44,6 +44,8 @@ export class MuteScheduler {
 				target: member,
 				moderator: guild.member(this.client.user!)!,
 				reason: `Automatic unmute (#${c.id})`,
+				client: this.client,
+				guild,
 			});
 			action.commit();
 		} else if (c.type === CaseType.VoiceMute) {

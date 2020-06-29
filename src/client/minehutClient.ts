@@ -10,6 +10,7 @@ import parseDuration from 'parse-duration';
 import { BanScheduler } from '../structure/scheduler/banScheduler';
 import { MuteScheduler } from '../structure/scheduler/muteScheduler';
 import { CooldownManager } from '../structure/cooldownManager';
+import MinehutClientEvents from './minehutClientEvents';
 
 export class MinehutClient extends AkairoClient {
 	commandHandler: CommandHandler;
@@ -151,5 +152,20 @@ declare module 'discord-akairo' {
 		muteScheduler: MuteScheduler;
 		tagCooldownManager: CooldownManager;
 		start(token: string): void;
+
+		on<K extends keyof MinehutClientEvents>(
+			event: K,
+			listener: (...args: MinehutClientEvents[K]) => void
+		): this;
+
+		once<K extends keyof MinehutClientEvents>(
+			event: K,
+			listener: (...args: MinehutClientEvents[K]) => void
+		): this;
+
+		emit<K extends keyof MinehutClientEvents>(
+			event: K,
+			...args: MinehutClientEvents[K]
+		): boolean;
 	}
 }

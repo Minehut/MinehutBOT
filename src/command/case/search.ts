@@ -5,14 +5,11 @@ import { User } from 'discord.js';
 import { Argument } from 'discord-akairo';
 import { CaseModel } from '../../model/case';
 import truncate from 'truncate';
-import {
-	humanReadableCaseType,
-	prettyDate,
-	escapeMarkdown,
-} from '../../util/util';
+import { humanReadableCaseType, prettyDate } from '../../util/util';
 import humanize from 'humanize-duration';
 import { MessageEmbed } from 'discord.js';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
+import { Util } from 'discord.js';
 
 export default class CaseSearchCommand extends MinehutCommand {
 	constructor() {
@@ -47,7 +44,7 @@ export default class CaseSearchCommand extends MinehutCommand {
 		});
 	}
 
-	async exec(msg: Message, { target }: { target: User; }) {
+	async exec(msg: Message, { target }: { target: User }) {
 		const m = await msg.channel.send(
 			messages.commands.case.search.loading(target.tag)
 		);
@@ -64,7 +61,7 @@ export default class CaseSearchCommand extends MinehutCommand {
 				} ${humanReadableCaseType(c.type)} by **${c.moderatorTag}** (${
 					c.moderatorId
 				})`,
-				`- **__Reason:__** ${truncate(escapeMarkdown(c.reason), 50)}`,
+				`- **__Reason:__** ${truncate(Util.escapeMarkdown(c.reason), 50)}`,
 				c.expiresAt.getTime() !== -1
 					? `- **__Duration:__** ${humanize(
 							c.expiresAt.getTime() - new Date(c.createdAt).getTime(),
@@ -82,7 +79,7 @@ export default class CaseSearchCommand extends MinehutCommand {
 			)
 			.setColor('LUMINOUS_VIVID_PINK')
 			.setAuthor(
-				`${target.username} (${target.id})`,
+				`${target.tag} (${target.id})`,
 				target.displayAvatarURL()
 			);
 		m.edit(embed);

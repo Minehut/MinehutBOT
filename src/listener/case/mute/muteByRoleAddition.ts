@@ -37,6 +37,7 @@ export default class MuteByRoleAdditionListener extends Listener {
 					reason: `Manual role addition`,
 					duration: FOREVER_MS,
 					client: this.client,
+					guild: newMember.guild,
 				});
 				action.commit();
 			}, 3000);

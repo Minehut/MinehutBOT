@@ -66,7 +66,7 @@ export default class MuteCommand extends MinehutCommand {
 		const action = new MuteAction({
 			target: member,
 			moderator: msg.member!,
-			message: msg,
+			guild: msg.guild!,
 			reason,
 			duration,
 			client: this.client,
