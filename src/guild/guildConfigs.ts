@@ -10,7 +10,7 @@ const allEvents = [
 	'messageDelete', //added
 	'messageEdit', //added
 	'messageCensor',
-	'caseCreate',
+	'caseCreate', //added
 	'caseDelete', //added
 	'caseReasonUpdate', //added
 	'caseDurationUpdate', //added
