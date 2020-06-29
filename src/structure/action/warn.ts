@@ -20,8 +20,6 @@ export class WarnAction extends Action {
 			moderator: data.moderator,
 		});
 		this.target = data.target;
-		this.moderator = data.moderator;
-		this.reason = truncate(this.reason, 2000);
 	}
 
 	async commit() {
