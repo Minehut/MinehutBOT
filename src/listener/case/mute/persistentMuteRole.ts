@@ -3,6 +3,7 @@ import { GuildMember } from 'discord.js';
 import { guildConfigs } from '../../../guild/guildConfigs';
 import { CaseModel } from '../../../model/case';
 import { CaseType } from '../../../util/constants';
+import { sendModLogMessage } from '../../../util/util';
 
 // TODO: add mod-log here
 export default class PersistentMuteRole extends Listener {
@@ -24,7 +25,12 @@ export default class PersistentMuteRole extends Listener {
 				active: true,
 				guildId: member.guild.id,
 			})
-		)
+		) {
 			member.roles.add(mutedRole);
+			await sendModLogMessage(
+				member.guild,
+				`:newspaper: applied muted role to ${member.user.tag} (\`${member.id}\`) because they left/rejoined while muted`
+			);
+		}
 	}
 }
