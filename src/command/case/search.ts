@@ -10,6 +10,8 @@ import humanize from 'humanize-duration';
 import { MessageEmbed } from 'discord.js';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
 import { Util } from 'discord.js';
+import { chunk } from 'lodash';
+import { editMessageWithPaginatedEmbeds } from 'discord.js-pagination-ts';
 
 export default class CaseSearchCommand extends MinehutCommand {
 	constructor() {
@@ -73,15 +75,20 @@ export default class CaseSearchCommand extends MinehutCommand {
 				.filter(i => i !== null)
 				.join('\n')
 		);
-		const embed = new MessageEmbed()
-			.setDescription(
-				truncate(historyItems.join('\n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n'), 2000)
-			)
-			.setColor('LUMINOUS_VIVID_PINK')
-			.setAuthor(
-				`${target.tag} (${target.id})`,
-				target.displayAvatarURL()
+		const itemChunks = chunk(historyItems, 7);
+		const embeds = [];
+		for (let i = 0; i < itemChunks.length; i++) {
+			const pageNum = i + 1;
+			embeds.push(
+				new MessageEmbed()
+					.setDescription(
+						truncate(itemChunks[i].join('\n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n'), 2000)
+					)
+					.setColor('LUMINOUS_VIVID_PINK')
+					.setAuthor(`${target.tag} (${target.id})`, target.displayAvatarURL())
+					.setFooter(`**__Showing page ${pageNum} of ${itemChunks.length}**__`)
 			);
-		m.edit(embed);
+		}
+		editMessageWithPaginatedEmbeds(m, embeds, { owner: msg.author });
 	}
 }
