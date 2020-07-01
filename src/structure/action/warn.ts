@@ -37,6 +37,7 @@ export class WarnAction extends Action {
 			type: CaseType.Warn,
 		} as Case);
 		await this.after();
+		return this.document;
 	}
 
 	async sendTargetDm() {

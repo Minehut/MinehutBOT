@@ -1,4 +1,4 @@
-import { CaseModel, Case } from '../../model/case';
+import { CaseModel } from '../../model/case';
 import { CaseType } from '../../util/constants';
 import { MessageEmbed } from 'discord.js';
 import humanizeDuration from 'humanize-duration';
@@ -63,9 +63,10 @@ export class BanAction extends Action {
 			reason: this.reason,
 			guildId: this.guild.id,
 			type: CaseType.Ban,
-		} as Case);
+		});
 		await this.client.banScheduler.refresh();
 		await this.after();
+		return this.document;
 	}
 
 	async sendTargetDm() {

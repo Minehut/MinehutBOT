@@ -49,8 +49,8 @@ export const messages = {
 					retry: (author: User) => `${author}, please mention a member.`,
 				},
 				notKickable: `${emoji.cross} I cannot kick that member`,
-				kicked: (target: GuildMember, reason: string) =>
-					`:boot: kicked ${target.user.tag} (\`${reason}\`)`,
+				kicked: (target: GuildMember, reason: string, id: string) =>
+					`:boot: kicked ${target.user.tag} (\`${reason}\`) [${id}]`,
 			},
 			warn: {
 				description: 'Warn a member',
@@ -63,8 +63,8 @@ export const messages = {
 						`${author}, what is the reason for the warning?`,
 					retry: (author: User) => `${author}, please include a reason.`,
 				},
-				warned: (target: GuildMember, reason: string) =>
-					`${emoji.warning} warned ${target.user.tag} for \`${reason}\``,
+				warned: (target: GuildMember, reason: string, id: string) =>
+					`${emoji.warning} warned ${target.user.tag} for \`${reason}\` [${id}]`,
 			},
 			voiceKick: {
 				description:
@@ -73,16 +73,16 @@ export const messages = {
 					start: (author: User) => `${author}, who do you want to voicekick?`,
 					retry: (author: User) => `${author}, please mention a member.`,
 				},
-				kicked: (target: GuildMember, reason: string) =>
-					`:boot: kicked ${target.user.tag} from their voice channel (\`${reason}\`)`,
+				kicked: (target: GuildMember, reason: string, id: string) =>
+					`:boot: kicked ${target.user.tag} from their voice channel (\`${reason}\`) [${id}]`,
 				notInVoice: `${emoji.cross} user is not in a voice channel`,
 			},
 			softBan: {
 				description:
 					'Bans a member, then immediately unbans them, deleting all of their messages up to 7 days old (TL;DR: kick with message deletion)',
 				notBannable: `${emoji.cross} I cannot ban that member`,
-				softBanned: (target: GuildMember, reason: string) =>
-					`:hammer: softbanned ${target.user.tag} (\`${reason}\`)`,
+				softBanned: (target: GuildMember, reason: string, id: string) =>
+					`:hammer: softbanned ${target.user.tag} (\`${reason}\`) [${id}]`,
 				memberPrompt: {
 					start: (author: User) => `${author}, who do you want to softban?`,
 					retry: (author: User) => `${author}, please mention a member.`,
@@ -96,10 +96,10 @@ export const messages = {
 					retry: (author: User) => `${author}, please mention a user.`,
 				},
 				notBannable: `${emoji.cross} I cannot ban that user`,
-				banned: (target: User, reason: string, duration: string) =>
+				banned: (target: User, reason: string, duration: string, id: string) =>
 					`:hammer: banned ${target.tag}${
 						duration !== 'permanent' ? ` for **${duration}** ` : ' '
-					}(\`${reason}\`)`,
+					}(\`${reason}\`) [${id}]`,
 			},
 			mute: {
 				description:
@@ -110,10 +110,15 @@ export const messages = {
 				},
 				notMutable: `${emoji.cross} I cannot mute that member`,
 				noMuteRole: `${emoji.cross} no mute role set in config, please contact a bot developer`,
-				muted: (target: GuildMember, reason: string, duration: string) =>
+				muted: (
+					target: GuildMember,
+					reason: string,
+					duration: string,
+					id: string
+				) =>
 					`:zipper_mouth: muted ${target.user.tag}${
 						duration !== 'permanent' ? ` for **${duration}** ` : ' '
-					}(\`${reason}\`)`,
+					}(\`${reason}\`) [${id}]`,
 			},
 			unMute: {
 				description: 'Unmute a member',
@@ -122,8 +127,8 @@ export const messages = {
 					retry: (author: User) => `${author}, please mention a member.`,
 				},
 				notUnMutable: `${emoji.cross} I cannot unmute that member`,
-				unMuted: (target: GuildMember, reason: string) =>
-					`:ok_hand: unmuted ${target.user.tag} (\`${reason}\`)`,
+				unMuted: (target: GuildMember, reason: string, id: string) =>
+					`:ok_hand: unmuted ${target.user.tag} (\`${reason}\`) [${id}]`,
 				notMuted: `${emoji.cross} this member is not currently muted`,
 			},
 			unBan: {
@@ -132,8 +137,8 @@ export const messages = {
 					start: (author: User) => `${author}, who do you want to unban?`,
 					retry: (author: User) => `${author}, please mention a user.`,
 				},
-				unBanned: (target: User, reason: string) =>
-					`:ok_hand: unbanned ${target.tag} (\`${reason}\`)`,
+				unBanned: (target: User, reason: string, id: string) =>
+					`:ok_hand: unbanned ${target.tag} (\`${reason}\`) [${id}]`,
 				notBanned: `${emoji.cross} this user is not currently banned`,
 			},
 			multiBan: {

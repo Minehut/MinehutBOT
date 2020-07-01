@@ -56,11 +56,12 @@ export default class VoiceKickCommand extends MinehutCommand {
 			guild: msg.guild!,
 			reason,
 		});
-		action.commit();
+		const c = await action.commit();
 		msg.channel.send(
 			messages.commands.punishment.voiceKick.kicked(
 				action.target,
-				action.reason
+				action.reason,
+				c?.id
 			)
 		);
 	}

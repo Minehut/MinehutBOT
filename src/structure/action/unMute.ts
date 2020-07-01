@@ -54,6 +54,7 @@ export class UnMuteAction extends Action {
 			type: CaseType.UnMute,
 		} as Case);
 		await this.after();
+		return this.document;
 	}
 
 	async sendTargetDm() {

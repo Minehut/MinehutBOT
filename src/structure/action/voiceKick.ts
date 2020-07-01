@@ -39,6 +39,7 @@ export class VoiceKickAction extends Action {
 			type: CaseType.VoiceKick,
 		} as Case);
 		await this.after();
+		return this.document;
 	}
 
 	async sendTargetDm() {

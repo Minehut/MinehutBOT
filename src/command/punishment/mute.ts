@@ -71,12 +71,13 @@ export default class MuteCommand extends MinehutCommand {
 			duration,
 			client: this.client,
 		});
-		action.commit();
+		const c = await action.commit();
 		msg.channel.send(
 			messages.commands.punishment.mute.muted(
 				action.target,
 				action.reason,
-				humanReadable
+				humanReadable,
+				c?.id
 			)
 		);
 	}

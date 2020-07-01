@@ -54,11 +54,12 @@ export default class SoftBanCommand extends MinehutCommand {
 			guild: msg.guild!,
 			client: this.client,
 		});
-		action.commit();
+		const c = await action.commit();
 		msg.channel.send(
 			messages.commands.punishment.softBan.softBanned(
 				action.target,
-				action.reason
+				action.reason,
+				c?.id
 			)
 		);
 	}

@@ -50,9 +50,13 @@ export default class KickCommand extends MinehutCommand {
 			guild: msg.guild!,
 			client: this.client,
 		});
-		action.commit();
+		const c = await action.commit();
 		msg.channel.send(
-			messages.commands.punishment.kick.kicked(action.target, action.reason)
+			messages.commands.punishment.kick.kicked(
+				action.target,
+				action.reason,
+				c?.id
+			)
 		);
 	}
 }

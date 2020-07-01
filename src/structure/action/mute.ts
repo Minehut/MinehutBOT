@@ -1,5 +1,5 @@
 import { GuildMember } from 'discord.js';
-import { CaseModel, Case } from '../../model/case';
+import { CaseModel } from '../../model/case';
 import { CaseType } from '../../util/constants';
 import { MessageEmbed } from 'discord.js';
 import humanizeDuration from 'humanize-duration';
@@ -57,10 +57,11 @@ export class MuteAction extends Action {
 			reason: this.reason,
 			guildId: this.guild.id,
 			type: CaseType.Mute,
-		} as Case);
+		});
 		await this.target.roles.add(muteRole, `[#${this.id}] ${this.reason}`);
 		await this.client.muteScheduler.refresh();
 		await this.after();
+		return this.document;
 	}
 
 	async sendTargetDm() {

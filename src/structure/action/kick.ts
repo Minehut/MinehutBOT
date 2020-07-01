@@ -1,5 +1,5 @@
 import { GuildMember } from 'discord.js';
-import { CaseModel, Case } from '../../model/case';
+import { CaseModel } from '../../model/case';
 import { CaseType } from '../../util/constants';
 import { MessageEmbed } from 'discord.js';
 import { Action, ActionData } from './action';
@@ -37,8 +37,9 @@ export class KickAction extends Action {
 			reason: this.reason,
 			guildId: this.target.guild.id,
 			type: CaseType.Kick,
-		} as Case);
+		});
 		await this.after();
+		return this.document;
 	}
 
 	async sendTargetDm() {

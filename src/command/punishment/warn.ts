@@ -53,9 +53,13 @@ export default class WarnCommand extends MinehutCommand {
 			client: this.client,
 			reason,
 		});
-		action.commit();
+		const c = await action.commit();
 		msg.channel.send(
-			messages.commands.punishment.warn.warned(action.target, action.reason)
+			messages.commands.punishment.warn.warned(
+				action.target,
+				action.reason,
+				c?.id
+			)
 		);
 	}
 }

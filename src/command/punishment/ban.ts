@@ -86,12 +86,13 @@ export default class BanCommand extends MinehutCommand {
 			guild: msg.guild!,
 			days,
 		});
-		action.commit();
+		const c = await action.commit();
 		msg.channel.send(
 			messages.commands.punishment.ban.banned(
 				action.target,
 				action.reason,
-				humanReadable
+				humanReadable,
+				c?.id
 			)
 		);
 	}

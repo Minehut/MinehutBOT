@@ -70,9 +70,13 @@ export default class UnMuteCommand extends MinehutCommand {
 			client: this.client,
 			guild: msg.guild!,
 		});
-		action.commit();
+		const c = await action.commit();
 		msg.channel.send(
-			messages.commands.punishment.unMute.unMuted(action.target, action.reason)
+			messages.commands.punishment.unMute.unMuted(
+				action.target,
+				action.reason,
+				c?.id
+			)
 		);
 	}
 }
