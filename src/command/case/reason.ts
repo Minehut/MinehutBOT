@@ -9,8 +9,7 @@ import { cloneDeep } from 'lodash';
 export default class CaseSearchCommand extends MinehutCommand {
 	constructor() {
 		super('case-reason', {
-			aliases: ['case-reason'],
-			category: 'case',
+			category: 'mod',
 			channel: 'guild',
 			permissionLevel: PermissionLevel.JuniorModerator,
 			description: {

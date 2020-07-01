@@ -9,8 +9,7 @@ import { PermissionLevel } from '../../util/permission/permissionLevel';
 export default class CaseClearCommand extends MinehutCommand {
 	constructor() {
 		super('case-clear', {
-			aliases: ['case-clear'],
-			category: 'case',
+			category: 'mod',
 			channel: 'guild',
 			permissionLevel: PermissionLevel.SeniorModerator,
 			description: {

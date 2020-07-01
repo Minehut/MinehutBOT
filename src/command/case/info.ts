@@ -12,8 +12,7 @@ import humanizeDuration from 'humanize-duration';
 export default class CaseInfoCommand extends MinehutCommand {
 	constructor() {
 		super('case-info', {
-			aliases: ['case-info'],
-			category: 'case',
+			category: 'mod',
 			channel: 'guild',
 			clientPermissions: ['EMBED_LINKS'],
 			permissionLevel: PermissionLevel.JuniorModerator,

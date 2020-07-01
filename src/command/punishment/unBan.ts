@@ -13,12 +13,12 @@ export default class UnBanCommand extends MinehutCommand {
 		super('unBan', {
 			aliases: ['unban'],
 			permissionLevel: PermissionLevel.JuniorModerator,
-			category: 'punishment',
+			category: 'mod',
 			channel: 'guild',
 			clientPermissions: ['BAN_MEMBERS'],
 			description: {
-				content: messages.commands.punishment.kick.description,
-				usage: '<member> [...reason]',
+				content: messages.commands.punishment.unBan.description,
+				usage: '<user> [...reason]',
 			},
 			args: [
 				{

@@ -10,7 +10,7 @@ export default class VoiceKickCommand extends MinehutCommand {
 		super('voiceKick', {
 			aliases: ['voicekick', 'vckick', 'vkick'],
 			permissionLevel: PermissionLevel.JuniorModerator,
-			category: 'punishment',
+			category: 'mod',
 			channel: 'guild',
 			clientPermissions: ['MOVE_MEMBERS'],
 			description: {

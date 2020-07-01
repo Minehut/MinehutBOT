@@ -8,7 +8,6 @@ export default class TagSetAliasCommand extends MinehutCommand {
 	constructor() {
 		super('tag-deletealias', {
 			permissionLevel: PermissionLevel.Moderator,
-			aliases: ['tag-deletealias'],
 			category: 'tag',
 			channel: 'guild',
 			description: {

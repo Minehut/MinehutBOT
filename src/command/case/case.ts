@@ -14,7 +14,7 @@ export default class CaseCommand extends MinehutCommand {
 				usage: '<method> <...arguments>',
 			},
 			permissionLevel: PermissionLevel.JuniorModerator,
-			category: 'case',
+			category: 'mod',
 			channel: 'guild',
 		});
 	}

@@ -9,7 +9,6 @@ import { prettyDate } from '../../util/util';
 export default class TagInfoCommand extends MinehutCommand {
 	constructor() {
 		super('tag-info', {
-			aliases: ['tag-info'],
 			clientPermissions: ['EMBED_LINKS'],
 			category: 'tag',
 			channel: 'guild',

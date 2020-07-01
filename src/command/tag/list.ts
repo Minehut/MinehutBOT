@@ -7,7 +7,7 @@ import { messages } from '../../util/messages';
 export default class TagListCommand extends MinehutCommand {
 	constructor() {
 		super('tag-list', {
-			aliases: ['tag-list', 'tags'],
+			aliases: ['tags'],
 			clientPermissions: ['EMBED_LINKS'],
 			category: 'tag',
 			channel: 'guild',

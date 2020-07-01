@@ -13,11 +13,11 @@ export default class MultiBanCommand extends MinehutCommand {
 		super('multiBan', {
 			aliases: ['multiban', 'mban', 'bulkban'],
 			permissionLevel: PermissionLevel.Moderator,
-			category: 'punishment',
+			category: 'mod',
 			channel: 'guild',
 			clientPermissions: ['BAN_MEMBERS'],
 			description: {
-				content: messages.commands.punishment.kick.description,
+				content: messages.commands.punishment.multiBan.description,
 				usage: '"reason" <...members> [d:duration] [days:number]',
 			},
 			args: [

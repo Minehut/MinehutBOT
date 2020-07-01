@@ -8,8 +8,7 @@ import { Case } from '../../model/case';
 export default class CaseDeleteCommand extends MinehutCommand {
 	constructor() {
 		super('case-delete', {
-			aliases: ['case-delete'],
-			category: 'case',
+			category: 'mod',
 			channel: 'guild',
 			permissionLevel: PermissionLevel.Moderator,
 			description: {

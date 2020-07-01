@@ -14,7 +14,6 @@ interface TagAlias {
 export default class TagListAliasesCommand extends MinehutCommand {
 	constructor() {
 		super('tag-listaliases', {
-			aliases: ['tag-listaliases'],
 			permissionLevel: PermissionLevel.Verified,
 			category: 'tag',
 			channel: 'guild',

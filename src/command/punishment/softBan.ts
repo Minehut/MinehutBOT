@@ -10,7 +10,7 @@ export default class SoftBanCommand extends MinehutCommand {
 		super('softban', {
 			aliases: ['softban', 'sban'],
 			permissionLevel: PermissionLevel.JuniorModerator,
-			category: 'punishment',
+			category: 'mod',
 			channel: 'guild',
 			clientPermissions: ['BAN_MEMBERS'],
 			description: {

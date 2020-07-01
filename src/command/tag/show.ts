@@ -8,7 +8,6 @@ import { MinehutCommand } from '../../structure/command/minehutCommand';
 export default class TagShowCommand extends MinehutCommand {
 	constructor() {
 		super('tag-show', {
-			aliases: ['tag-show'],
 			category: 'tag',
 			channel: 'guild',
 			description: {

@@ -10,7 +10,7 @@ export default class WarnCommand extends MinehutCommand {
 		super('warn', {
 			aliases: ['warn'],
 			permissionLevel: PermissionLevel.JuniorModerator,
-			category: 'punishment',
+			category: 'mod',
 			channel: 'guild',
 			description: {
 				content: messages.commands.punishment.warn.description,

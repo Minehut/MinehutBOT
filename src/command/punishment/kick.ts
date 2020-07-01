@@ -10,7 +10,7 @@ export default class KickCommand extends MinehutCommand {
 		super('kick', {
 			aliases: ['kick'],
 			permissionLevel: PermissionLevel.JuniorModerator,
-			category: 'punishment',
+			category: 'mod',
 			channel: 'guild',
 			clientPermissions: ['KICK_MEMBERS'],
 			description: {

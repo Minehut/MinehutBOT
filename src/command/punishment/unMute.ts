@@ -15,11 +15,11 @@ export default class UnMuteCommand extends MinehutCommand {
 		super('unMute', {
 			aliases: ['unmute'],
 			permissionLevel: PermissionLevel.JuniorModerator,
-			category: 'punishment',
+			category: 'mod',
 			channel: 'guild',
 			clientPermissions: ['MANAGE_ROLES'],
 			description: {
-				content: messages.commands.punishment.kick.description,
+				content: messages.commands.punishment.unMute.description,
 				usage: '<member> [...reason]',
 			},
 			args: [

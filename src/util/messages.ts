@@ -41,6 +41,10 @@ export const messages = {
 				`${emoji.ahh} I can help you more if you use \`${prefix}help ${commandName}\``,
 			warn: (error: string) => `${emoji.warning} ${error}`,
 		},
+		help: {
+			description:
+				'Lists available commands or displays detailed information for a specific command',
+		},
 		punishment: {
 			kick: {
 				description: 'Kick a member',

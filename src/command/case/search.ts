@@ -16,9 +16,9 @@ import { editMessageWithPaginatedEmbeds } from 'discord.js-pagination-ts';
 export default class CaseSearchCommand extends MinehutCommand {
 	constructor() {
 		super('case-search', {
-			aliases: ['case-search', 'punishments', 'puns'],
+			aliases: ['punishments', 'puns'],
 			clientPermissions: ['EMBED_LINKS'],
-			category: 'case',
+			category: 'mod',
 			channel: 'guild',
 			permissionLevel: PermissionLevel.JuniorModerator,
 			description: {

@@ -13,11 +13,11 @@ export default class MuteCommand extends MinehutCommand {
 		super('mute', {
 			aliases: ['mute'],
 			permissionLevel: PermissionLevel.JuniorModerator,
-			category: 'punishment',
+			category: 'mod',
 			channel: 'guild',
 			clientPermissions: ['MANAGE_ROLES'],
 			description: {
-				content: messages.commands.punishment.kick.description,
+				content: messages.commands.punishment.mute.description,
 				usage: '<user> [...reason] [d:duration]',
 			},
 			args: [
