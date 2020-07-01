@@ -14,7 +14,7 @@ export default class CaseSearchCommand extends MinehutCommand {
 			permissionLevel: PermissionLevel.JuniorModerator,
 			description: {
 				content: messages.commands.case.reason.description,
-				usage: '<case> <...reason>',
+				usage: '<case> <...new reason>',
 			},
 			args: [
 				{

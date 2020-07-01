@@ -23,7 +23,7 @@ export default class CaseSearchCommand extends MinehutCommand {
 			permissionLevel: PermissionLevel.JuniorModerator,
 			description: {
 				content: messages.commands.case.search.description,
-				usage: '<target>',
+				usage: '<user>',
 			},
 			args: [
 				{

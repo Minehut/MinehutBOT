@@ -17,7 +17,7 @@ export default class CaseDurationCommand extends MinehutCommand {
 			permissionLevel: PermissionLevel.JuniorModerator,
 			description: {
 				content: messages.commands.case.duration.description,
-				usage: '<case> <duration>',
+				usage: '<case> <new duration>',
 			},
 			args: [
 				{

@@ -163,7 +163,15 @@ export const messages = {
 			},
 		},
 		case: {
-			description: 'Manage cases (todo: add methods)',
+			description: `Manage cases.
+			Available subcommands:
+			• **clear** \`<user>\`
+			• **delete** \`<case>\`
+			• **duration** \`<case> <new duration>\`
+			• **info** \`<case>\`
+			• **search** \`<user>\`
+			• **reason** \`<case> <...new reason>\`
+			`,
 			search: {
 				description: `Lookup cases where specific user is target`,
 				loading: (target: string) =>
@@ -255,7 +263,18 @@ export const messages = {
 			},
 		},
 		tag: {
-			description: 'Manage tags (todo: add methods)',
+			description: `Manage tags.
+			Available subcommands:
+			• **show** \`<name/alias>\`
+			• **set** \`<name> <content>\`
+			• **setalias** \`<alias> <target>\`
+			• **listaliases**
+			• **deletealias** \`<alias>\`
+			• **info** \`<name/alias>\`
+			• **list**
+			• **rename** \`<old name> <new name>\`
+			• **delete** \`<name>\`
+			`,
 			set: {
 				description: 'Set/edit a tag',
 				namePrompt: {

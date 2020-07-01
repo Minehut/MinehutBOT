@@ -14,7 +14,7 @@ export default class CaseClearCommand extends MinehutCommand {
 			permissionLevel: PermissionLevel.SeniorModerator,
 			description: {
 				content: messages.commands.case.clear.description,
-				usage: '<target>',
+				usage: '<user>',
 			},
 			args: [
 				{
