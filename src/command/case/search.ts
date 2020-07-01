@@ -64,13 +64,16 @@ export default class CaseSearchCommand extends MinehutCommand {
 					c.moderatorId
 				})`,
 				`- **__Reason:__** ${truncate(Util.escapeMarkdown(c.reason), 50)}`,
-				c.expiresAt.getTime() !== -1
+				c.expiresAt.getTime() > -1
 					? `- **__Duration:__** ${humanize(
-							c.expiresAt.getTime() - new Date(c.createdAt).getTime(),
+							c.expiresAt.getTime() - c.createdAt.getTime(),
 							{ round: true, largest: 3 }
 					  )}`
 					: null,
 				`- **__Date:__** ${prettyDate(c.createdAt)}`,
+				c.expiresAt.getTime() > -1
+					? `- **__Expires:__** ${prettyDate(c.expiresAt)}`
+					: null,
 			]
 				.filter(i => i !== null)
 				.join('\n')
