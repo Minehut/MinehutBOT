@@ -1,12 +1,12 @@
 import { Message } from 'discord.js';
-import { messages } from '../../util/messages';
-import { MinehutCommand } from '../../structure/command/minehutCommand';
-import { PermissionLevel } from '../../util/permission/permissionLevel';
+import { messages } from '../../../util/messages';
+import { MinehutCommand } from '../../../structure/command/minehutCommand';
+import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import { DocumentType } from '@typegoose/typegoose';
-import { Case } from '../../model/case';
+import { Case } from '../../../model/case';
 import { MessageEmbed } from 'discord.js';
-import { prettyDate } from '../../util/util';
-import { FOREVER_MS } from '../../util/constants';
+import { prettyDate } from '../../../util/util';
+import { FOREVER_MS } from '../../../util/constants';
 import humanizeDuration from 'humanize-duration';
 
 export default class CaseInfoCommand extends MinehutCommand {

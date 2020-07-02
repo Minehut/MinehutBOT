@@ -1,10 +1,10 @@
 import { Message } from 'discord.js';
-import { messages, emoji } from '../../util/messages';
-import { MinehutCommand } from '../../structure/command/minehutCommand';
+import { messages, emoji } from '../../../util/messages';
+import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { User } from 'discord.js';
 import { Argument } from 'discord-akairo';
-import { CaseModel } from '../../model/case';
-import { PermissionLevel } from '../../util/permission/permissionLevel';
+import { CaseModel } from '../../../model/case';
+import { PermissionLevel } from '../../../util/permission/permissionLevel';
 
 export default class CaseClearCommand extends MinehutCommand {
 	constructor() {

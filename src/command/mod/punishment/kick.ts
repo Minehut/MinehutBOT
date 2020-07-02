@@ -1,9 +1,9 @@
 import { Message } from 'discord.js';
-import { messages } from '../../util/messages';
-import { MinehutCommand } from '../../structure/command/minehutCommand';
-import { PermissionLevel } from '../../util/permission/permissionLevel';
+import { messages } from '../../../util/messages';
+import { MinehutCommand } from '../../../structure/command/minehutCommand';
+import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import { GuildMember } from 'discord.js';
-import { KickAction } from '../../structure/action/kick';
+import { KickAction } from '../../../structure/action/kick';
 
 export default class KickCommand extends MinehutCommand {
 	constructor() {

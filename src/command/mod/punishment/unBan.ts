@@ -1,12 +1,12 @@
 import { Message } from 'discord.js';
-import { messages } from '../../util/messages';
-import { MinehutCommand } from '../../structure/command/minehutCommand';
-import { PermissionLevel } from '../../util/permission/permissionLevel';
-import { CaseModel } from '../../model/case';
-import { CaseType } from '../../util/constants';
+import { messages } from '../../../util/messages';
+import { MinehutCommand } from '../../../structure/command/minehutCommand';
+import { PermissionLevel } from '../../../util/permission/permissionLevel';
+import { CaseModel } from '../../../model/case';
+import { CaseType } from '../../../util/constants';
 import { Argument } from 'discord-akairo';
 import { User } from 'discord.js';
-import { UnBanAction } from '../../structure/action/unBan';
+import { UnBanAction } from '../../../structure/action/unBan';
 
 export default class UnBanCommand extends MinehutCommand {
 	constructor() {

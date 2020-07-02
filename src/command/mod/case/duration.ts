@@ -1,11 +1,11 @@
 import { Message } from 'discord.js';
-import { messages } from '../../util/messages';
-import { MinehutCommand } from '../../structure/command/minehutCommand';
-import { PermissionLevel } from '../../util/permission/permissionLevel';
+import { messages } from '../../../util/messages';
+import { MinehutCommand } from '../../../structure/command/minehutCommand';
+import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import { DocumentType } from '@typegoose/typegoose';
-import { Case } from '../../model/case';
-import { prettyDate } from '../../util/util';
-import { FOREVER_MS } from '../../util/constants';
+import { Case } from '../../../model/case';
+import { prettyDate } from '../../../util/util';
+import { FOREVER_MS } from '../../../util/constants';
 import humanizeDuration from 'humanize-duration';
 import { cloneDeep } from 'lodash';
 

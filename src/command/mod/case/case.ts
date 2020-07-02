@@ -1,9 +1,9 @@
 import { Flag } from 'discord-akairo';
 import { Message } from 'discord.js';
-import { messages } from '../../util/messages';
+import { messages } from '../../../util/messages';
 import { PrefixSupplier } from 'discord-akairo';
-import { MinehutCommand } from '../../structure/command/minehutCommand';
-import { PermissionLevel } from '../../util/permission/permissionLevel';
+import { MinehutCommand } from '../../../structure/command/minehutCommand';
+import { PermissionLevel } from '../../../util/permission/permissionLevel';
 
 export default class CaseCommand extends MinehutCommand {
 	constructor() {

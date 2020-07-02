@@ -1,9 +1,9 @@
 import { Message } from 'discord.js';
-import { messages } from '../../util/messages';
-import { MinehutCommand } from '../../structure/command/minehutCommand';
-import { PermissionLevel } from '../../util/permission/permissionLevel';
+import { messages } from '../../../util/messages';
+import { MinehutCommand } from '../../../structure/command/minehutCommand';
+import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import { DocumentType } from '@typegoose/typegoose';
-import { Case } from '../../model/case';
+import { Case } from '../../../model/case';
 
 export default class CaseDeleteCommand extends MinehutCommand {
 	constructor() {

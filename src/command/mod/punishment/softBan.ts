@@ -1,9 +1,9 @@
 import { Message } from 'discord.js';
-import { messages } from '../../util/messages';
-import { MinehutCommand } from '../../structure/command/minehutCommand';
-import { PermissionLevel } from '../../util/permission/permissionLevel';
+import { messages } from '../../../util/messages';
+import { MinehutCommand } from '../../../structure/command/minehutCommand';
+import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import { GuildMember } from 'discord.js';
-import { SoftBanAction } from '../../structure/action/softBan';
+import { SoftBanAction } from '../../../structure/action/softBan';
 
 export default class SoftBanCommand extends MinehutCommand {
 	constructor() {

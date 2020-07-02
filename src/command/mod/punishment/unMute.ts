@@ -1,14 +1,14 @@
 // check if they're muted first
 
 import { Message } from 'discord.js';
-import { messages } from '../../util/messages';
-import { MinehutCommand } from '../../structure/command/minehutCommand';
-import { PermissionLevel } from '../../util/permission/permissionLevel';
+import { messages } from '../../../util/messages';
+import { MinehutCommand } from '../../../structure/command/minehutCommand';
+import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import { GuildMember } from 'discord.js';
-import { guildConfigs } from '../../guild/guildConfigs';
-import { UnMuteAction } from '../../structure/action/unMute';
-import { CaseModel } from '../../model/case';
-import { CaseType } from '../../util/constants';
+import { guildConfigs } from '../../../guild/guildConfigs';
+import { UnMuteAction } from '../../../structure/action/unMute';
+import { CaseModel } from '../../../model/case';
+import { CaseType } from '../../../util/constants';
 
 export default class UnMuteCommand extends MinehutCommand {
 	constructor() {

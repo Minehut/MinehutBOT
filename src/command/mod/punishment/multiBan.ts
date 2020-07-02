@@ -1,10 +1,10 @@
 import { Message } from 'discord.js';
-import { messages } from '../../util/messages';
-import { MinehutCommand } from '../../structure/command/minehutCommand';
-import { PermissionLevel } from '../../util/permission/permissionLevel';
-import { FOREVER_MS } from '../../util/constants';
+import { messages } from '../../../util/messages';
+import { MinehutCommand } from '../../../structure/command/minehutCommand';
+import { PermissionLevel } from '../../../util/permission/permissionLevel';
+import { FOREVER_MS } from '../../../util/constants';
 import humanizeDuration from 'humanize-duration';
-import { BanAction } from '../../structure/action/ban';
+import { BanAction } from '../../../structure/action/ban';
 import { Argument } from 'discord-akairo';
 import { User } from 'discord.js';
 
