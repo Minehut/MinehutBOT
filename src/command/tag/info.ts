@@ -43,15 +43,18 @@ export default class TagInfoCommand extends MinehutCommand {
 		const embed = new MessageEmbed();
 		embed.setColor('YELLOW');
 		embed.addField('Name', tag.name);
+		if (tag.aliases.length > 0)
+			embed.addField(
+				'Aliases',
+				tag.aliases.map(a => `\`${a}\``).join(', '),
+				true
+			);
+		embed.addField('Uses', tag.uses, true);
 		const author = await this.client.users.fetch(tag.author);
 		embed.addField(
 			'Author',
 			author ? `${author.tag} (${author.id})` : `<@${tag.author}>`
 		);
-		// embed.addField('Guild', 'coming soon tm');
-		if (tag.aliases.length > 0)
-			embed.addField('Aliases', tag.aliases.map(a => `\`${a}\``).join(', '));
-		// embed.addField('Uses', 'coming soon tm');
 		embed.addField('Created at', prettyDate(tag.createdAt), true);
 		embed.addField('Updated at', prettyDate(tag.updatedAt), true);
 		msg.channel.send(embed);
