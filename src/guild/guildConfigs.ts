@@ -48,6 +48,15 @@ guildConfigs.set('608978588976283660', {
 				{ roleId: '728202547944357958', emoji: 'PepeClown' },
 			],
 		},
+		announcements: {
+			announcers: [
+				{
+					role: '701854509164527707',
+					channel: '728201493555052641',
+					name: 'event',
+				},
+			],
+		},
 	},
 });
 

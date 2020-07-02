@@ -6,7 +6,7 @@ import { MinehutCommand } from '../../structure/command/minehutCommand';
 
 export default class PingCommand extends MinehutCommand {
 	constructor() {
-		super('mylevel', {
+		super('myLevel', {
 			aliases: ['mylevel'],
 			channel: 'guild',
 			category: 'utility',

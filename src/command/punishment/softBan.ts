@@ -7,7 +7,7 @@ import { SoftBanAction } from '../../structure/action/softBan';
 
 export default class SoftBanCommand extends MinehutCommand {
 	constructor() {
-		super('softban', {
+		super('softBan', {
 			aliases: ['softban', 'sban'],
 			permissionLevel: PermissionLevel.JuniorModerator,
 			category: 'mod',
