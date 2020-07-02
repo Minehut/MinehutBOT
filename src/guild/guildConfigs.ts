@@ -41,6 +41,13 @@ guildConfigs.set('608978588976283660', {
 			prefix: '',
 			ignoredChannels: [],
 		},
+		reactionRole: {
+			channel: '728201493555052641',
+			roles: [
+				{ roleId: '728202487672078368', emoji: '🤔' },
+				{ roleId: '728202547944357958', emoji: 'PepeClown' },
+			],
+		},
 	},
 });
 
