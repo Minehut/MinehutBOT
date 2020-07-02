@@ -23,7 +23,6 @@ export default class ReactionRoleJoinListener extends Listener {
 			return;
 
 		const emoji = reaction.emoji;
-		console.log(emoji);
 		const member = message.guild.member(user.id);
 		if (!member) return;
 
