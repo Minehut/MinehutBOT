@@ -26,6 +26,7 @@ export default class TagCommand extends MinehutCommand {
 				['tag-list', 'list'],
 				['tag-info', 'info'],
 				['tag-rename', 'rename'],
+				['tag-source', 'source'],
 
 				['tag-listaliases', 'listaliases'],
 				['tag-setalias', 'setalias'],

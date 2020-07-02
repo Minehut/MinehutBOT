@@ -271,6 +271,7 @@ export const messages = {
 			• **listaliases**
 			• **deletealias** \`<alias>\`
 			• **info** \`<name/alias>\`
+			• **source** \`<name/alias>\`
 			• **list**
 			• **rename** \`<old name> <new name>\`
 			• **delete** \`<name>\`
@@ -322,6 +323,13 @@ export const messages = {
 				},
 				unknownTag: (prefix: string, name: string) =>
 					`${emoji.cross} tag \`${name}\` does not exist, check \`${prefix}tags\``,
+			},
+			source: {
+				description: 'Get tag source',
+				namePrompt: {
+					start: (author: User) =>
+						`${author}, which tag's source do you want to get?`,
+				},
 			},
 			rename: {
 				description: 'Rename a tag',
