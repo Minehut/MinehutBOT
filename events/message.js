@@ -3,7 +3,10 @@ const Discord = require('discord.js');
 const filters = require('../filter.json');
 module.exports = {
 	run: async (client, msg) => {
-		if (msg.author.bot) return;
+		if (
+			msg.author.bot ||
+			!msg.guild
+		) return;
 		if (
 			msg.guild.id === client.config.guildid &&
 			msg.channel.id !== '585753135742582786' &&
