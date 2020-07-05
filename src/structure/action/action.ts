@@ -1,4 +1,4 @@
-import { randomAlphanumericString } from '../../util/util';
+import { randomAlphanumericString } from '../../util/functions';
 // import { DocumentType } from '@typegoose/typegoose';
 // import { Case } from '../../model/case';
 import { Guild } from 'discord.js';

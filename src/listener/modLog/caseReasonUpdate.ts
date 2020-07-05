@@ -2,8 +2,8 @@ import { Listener } from 'discord-akairo';
 import { DocumentType } from '@typegoose/typegoose';
 import { Case } from '../../model/case';
 import { GuildMember } from 'discord.js';
-import { guildConfigs } from '../../guild/guildConfigs';
-import { sendModLogMessage } from '../../util/util';
+import { guildConfigs } from '../../guild/config/guildConfigs';
+import { sendModLogMessage } from '../../util/functions';
 
 export default class ModLogCaseReasonUpdateListener extends Listener {
 	constructor() {

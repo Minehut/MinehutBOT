@@ -2,7 +2,7 @@ import { GuildMember } from 'discord.js';
 import { CaseModel, Case } from '../../model/case';
 import { CaseType } from '../../util/constants';
 import { MessageEmbed } from 'discord.js';
-import { guildConfigs } from '../../guild/guildConfigs';
+import { guildConfigs } from '../../guild/config/guildConfigs';
 import { Action, ActionData } from './action';
 
 type UnMuteActionData = {

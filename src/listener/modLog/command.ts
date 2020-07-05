@@ -1,7 +1,7 @@
 import { Listener } from 'discord-akairo';
-import { guildConfigs } from '../../guild/guildConfigs';
+import { guildConfigs } from '../../guild/config/guildConfigs';
 import { Message } from 'discord.js';
-import { sendModLogMessage } from '../../util/util';
+import { sendModLogMessage } from '../../util/functions';
 import { Command } from 'discord-akairo';
 import { TextChannel } from 'discord.js';
 import { Util } from 'discord.js';

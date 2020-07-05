@@ -3,7 +3,7 @@ import { MinehutClientOptions } from './minehutClientOptions';
 import { Mongoose } from 'mongoose';
 import { Message } from 'discord.js';
 import { InhibitorHandler } from 'discord-akairo';
-import { guildConfigs } from '../guild/guildConfigs';
+import { guildConfigs } from '../guild/config/guildConfigs';
 import { messages } from '../util/messages';
 import { CaseModel } from '../model/case';
 import parseDuration from 'parse-duration';

@@ -1,6 +1,6 @@
 import { Listener } from 'discord-akairo';
-import { guildConfigs } from '../../guild/guildConfigs';
-import { sendModLogMessage, arrayDiff } from '../../util/util';
+import { guildConfigs } from '../../guild/config/guildConfigs';
+import { sendModLogMessage, arrayDiff } from '../../util/functions';
 import { GuildMember } from 'discord.js';
 import { Role } from 'discord.js';
 

@@ -3,8 +3,8 @@ import { CaseModel } from '../../model/case';
 import { CaseType } from '../../util/constants';
 import { MessageEmbed } from 'discord.js';
 import humanizeDuration from 'humanize-duration';
-import { prettyDate } from '../../util/util';
-import { guildConfigs } from '../../guild/guildConfigs';
+import { prettyDate } from '../../util/functions';
+import { guildConfigs } from '../../guild/config/guildConfigs';
 import { Action, ActionData } from './action';
 
 type MuteActionData = {

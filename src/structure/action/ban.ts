@@ -2,7 +2,7 @@ import { CaseModel } from '../../model/case';
 import { CaseType } from '../../util/constants';
 import { MessageEmbed } from 'discord.js';
 import humanizeDuration from 'humanize-duration';
-import { prettyDate } from '../../util/util';
+import { prettyDate } from '../../util/functions';
 import { Action, ActionData } from './action';
 import { User } from 'discord.js';
 

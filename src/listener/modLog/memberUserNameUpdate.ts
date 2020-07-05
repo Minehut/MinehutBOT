@@ -1,6 +1,6 @@
 import { Listener } from 'discord-akairo';
-import { guildConfigs } from '../../guild/guildConfigs';
-import { sendModLogMessage } from '../../util/util';
+import { guildConfigs } from '../../guild/config/guildConfigs';
+import { sendModLogMessage } from '../../util/functions';
 import { User } from 'discord.js';
 
 export default class ModLogMemberUserNameUpdateListener extends Listener {

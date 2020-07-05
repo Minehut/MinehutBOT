@@ -6,7 +6,7 @@ import { GuildMember } from 'discord.js';
 import humanizeDuration from 'humanize-duration';
 import { FOREVER_MS } from '../../../util/constants';
 import { MuteAction } from '../../../structure/action/mute';
-import { guildConfigs } from '../../../guild/guildConfigs';
+import { guildConfigs } from '../../../guild/config/guildConfigs';
 
 export default class MuteCommand extends MinehutCommand {
 	constructor() {

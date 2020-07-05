@@ -5,7 +5,7 @@ import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import { DocumentType } from '@typegoose/typegoose';
 import { Case } from '../../../model/case';
 import { MessageEmbed } from 'discord.js';
-import { prettyDate } from '../../../util/util';
+import { prettyDate } from '../../../util/functions';
 import { FOREVER_MS } from '../../../util/constants';
 import humanizeDuration from 'humanize-duration';
 

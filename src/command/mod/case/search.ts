@@ -5,7 +5,7 @@ import { User } from 'discord.js';
 import { Argument } from 'discord-akairo';
 import { CaseModel } from '../../../model/case';
 import truncate from 'truncate';
-import { humanReadableCaseType, prettyDate } from '../../../util/util';
+import { humanReadableCaseType, prettyDate } from '../../../util/functions';
 import humanize from 'humanize-duration';
 import { MessageEmbed } from 'discord.js';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';

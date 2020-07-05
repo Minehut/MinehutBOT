@@ -2,8 +2,11 @@ import { CaseType } from './constants';
 
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
-import { guildConfigs } from '../guild/guildConfigs';
+import { guildConfigs } from '../guild/config/guildConfigs';
 import { TextChannel, Util, Guild, Message } from 'discord.js';
+import { CENSOR_RULES, CensorRuleType } from './censorRules';
+import { getPermissionLevel } from './permission/getPermissionLevel';
+import { MinehutClient } from '../client/minehutClient';
 TimeAgo.addLocale(en);
 export const ago = new TimeAgo('en-US');
 
@@ -117,4 +120,64 @@ export function arrayDiff(aArray: any[], bArray: any[]) {
 		added,
 		removed,
 	};
+}
+
+export async function censorMessage(msg: Message) {
+	if (!msg.guild || !msg.deletable || msg.author.bot) return;
+	const config = guildConfigs.get(msg.guild.id);
+	if (!config || !config.features.censor) return;
+	const isInIgnoredCategory =
+		(msg.channel as TextChannel).parentID &&
+		config.features.censor.ignoredCategories &&
+		config.features.censor.ignoredCategories.includes(
+			(msg.channel as TextChannel).parentID!
+		);
+	const isInIgnoredChannel =
+		config.features.censor.ignoredChannels &&
+		config.features.censor.ignoredChannels.includes(msg.channel.id);
+	const bypassCensor =
+		getPermissionLevel(msg.member!, msg.client as MinehutClient) >=
+		config.features.censor.minimumBypassPermission;
+	if (isInIgnoredCategory || isInIgnoredChannel || bypassCensor) return;
+
+	const filter = checkString(msg.content);
+	if (!filter) return false;
+
+	if (
+		filter.rule.type === CensorRuleType.Invite &&
+		config.features.censor.inviteWhitelist
+	) {
+		const { invite } = filter.match.groups!;
+		try {
+			const inv = await msg.client.fetchInvite(invite);
+
+			if (
+				inv.guild &&
+				config.features.censor.inviteWhitelist.includes(inv.guild.id)
+			)
+				return false; // Whitelisted invite
+		} catch (err) {} // Invalid invite
+	}
+
+	await msg.delete({ reason: 'Automated chat filter' });
+	const feedbackString = msg.content
+		.trim()
+		.replace(/[\u200B-\u200D\uFEFF]/g, '')
+		.replace(new RegExp(filter.rule.rule, 'i'), '>>>$1<<<');
+	try {
+		msg.author.send(
+			`Your message was deleted because it was caught by our automated chat filter.\nIf you believe this is a mistake, please use the **!meta** command in the Minehut Discord and tell us about the issue.\n\n\`${feedbackString}\``
+		);
+	} catch (err) {} // Could not DM the user
+}
+
+export function checkString(content: string) {
+	content = content.trim().replace(/[\u200B-\u200D\uFEFF]/g, '');
+	const enabledRules = CENSOR_RULES.filter(r => r.enabled);
+	for (let i = 0; i < enabledRules.length; i++) {
+		const rule = enabledRules[i];
+		const regex = new RegExp(rule.rule, 'i');
+		const match = content.match(regex);
+		if (match) return { rule, match };
+	}
 }

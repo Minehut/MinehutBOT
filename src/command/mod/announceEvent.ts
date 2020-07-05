@@ -1,7 +1,7 @@
 import { Message } from 'discord.js';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
-import { guildConfigs } from '../../guild/guildConfigs';
+import { guildConfigs } from '../../guild/config/guildConfigs';
 import { emoji, messages } from '../../util/messages';
 import { PrefixSupplier } from 'discord-akairo';
 import { TextChannel } from 'discord.js';

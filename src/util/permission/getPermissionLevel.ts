@@ -1,7 +1,7 @@
 import { GuildMember } from 'discord.js';
 import { MinehutClient } from '../../client/minehutClient';
 import { PermissionLevel } from './permissionLevel';
-import { guildConfigs } from '../../guild/guildConfigs';
+import { guildConfigs } from '../../guild/config/guildConfigs';
 import { RoleType } from './roleType';
 
 const getRoleTypeById = (id: string): string | null => {

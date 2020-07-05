@@ -8,8 +8,8 @@ import { Listener } from 'discord-akairo';
 import { DocumentType } from '@typegoose/typegoose';
 import { Case } from '../../model/case';
 import { GuildMember } from 'discord.js';
-import { guildConfigs } from '../../guild/guildConfigs';
-import { sendModLogMessage, prettyDate } from '../../util/util';
+import { guildConfigs } from '../../guild/config/guildConfigs';
+import { sendModLogMessage, prettyDate } from '../../util/functions';
 import humanizeDuration from 'humanize-duration';
 import { FOREVER_MS } from '../../util/constants';
 

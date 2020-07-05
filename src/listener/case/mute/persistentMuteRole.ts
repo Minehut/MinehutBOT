@@ -1,9 +1,9 @@
 import { Listener } from 'discord-akairo';
 import { GuildMember } from 'discord.js';
-import { guildConfigs } from '../../../guild/guildConfigs';
+import { guildConfigs } from '../../../guild/config/guildConfigs';
 import { CaseModel } from '../../../model/case';
 import { CaseType } from '../../../util/constants';
-import { sendModLogMessage } from '../../../util/util';
+import { sendModLogMessage } from '../../../util/functions';
 
 // TODO: add mod-log here
 export default class PersistentMuteRole extends Listener {

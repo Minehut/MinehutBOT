@@ -4,7 +4,7 @@ import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import { DocumentType } from '@typegoose/typegoose';
 import { Case } from '../../../model/case';
-import { prettyDate } from '../../../util/util';
+import { prettyDate } from '../../../util/functions';
 import { FOREVER_MS } from '../../../util/constants';
 import humanizeDuration from 'humanize-duration';
 import { cloneDeep } from 'lodash';

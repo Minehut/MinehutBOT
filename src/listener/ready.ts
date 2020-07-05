@@ -1,5 +1,5 @@
 import { Listener } from 'discord-akairo';
-import { guildConfigs } from '../guild/guildConfigs';
+import { guildConfigs } from '../guild/config/guildConfigs';
 
 export default class ReadyListener extends Listener {
 	constructor() {

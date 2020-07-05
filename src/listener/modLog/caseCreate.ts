@@ -1,8 +1,8 @@
 import { Listener } from 'discord-akairo';
 import { DocumentType } from '@typegoose/typegoose';
 import { Case } from '../../model/case';
-import { guildConfigs } from '../../guild/guildConfigs';
-import { sendModLogMessage, humanReadableCaseType } from '../../util/util';
+import { guildConfigs } from '../../guild/config/guildConfigs';
+import { sendModLogMessage, humanReadableCaseType } from '../../util/functions';
 import { CaseType, FOREVER_MS } from '../../util/constants';
 import { emoji } from '../../util/messages';
 import humanizeDuration from 'humanize-duration';

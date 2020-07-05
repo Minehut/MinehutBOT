@@ -1,22 +1,11 @@
 import { GuildConfiguration } from './guildConfiguration';
+import {
+	ALL_MODLOG_EVENTS,
+	CENSOR_BYPASS_PERMISSION_LEVEL,
+	INVITE_WHITELIST,
+} from './common';
 
 export const guildConfigs: Map<string, GuildConfiguration> = new Map();
-
-const allEvents = [
-	'memberJoin', //added
-	'memberLeave', //added
-	'memberUserNameUpdate', //added
-	'memberNickNameUpdate', //added
-	'messageDelete', //added
-	'messageEdit', //added
-	'messageCensor',
-	'caseCreate', //added
-	'caseDelete', //added
-	'caseReasonUpdate', //added
-	'caseDurationUpdate', //added
-	'memberRolesUpdate', //added
-	'command', //added
-];
 
 guildConfigs.set('395189137981964288', {
 	id: '395189137981964288',
@@ -37,7 +26,7 @@ guildConfigs.set('608978588976283660', {
 	features: {
 		modLog: {
 			channel: '726598891759468554',
-			events: allEvents,
+			events: ALL_MODLOG_EVENTS,
 			prefix: '',
 			ignoredChannels: [],
 		},
@@ -56,6 +45,10 @@ guildConfigs.set('608978588976283660', {
 					name: 'event',
 				},
 			],
+		},
+		censor: {
+			minimumBypassPermission: CENSOR_BYPASS_PERMISSION_LEVEL,
+			inviteWhitelist: INVITE_WHITELIST,
 		},
 	},
 });

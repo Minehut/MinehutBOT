@@ -4,7 +4,7 @@ import { TagModel } from '../../model/tag';
 import { MessageEmbed } from 'discord.js';
 import { PrefixSupplier } from 'discord-akairo';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
-import { prettyDate } from '../../util/util';
+import { prettyDate } from '../../util/functions';
 
 export default class TagInfoCommand extends MinehutCommand {
 	constructor() {

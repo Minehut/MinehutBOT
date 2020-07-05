@@ -1,6 +1,6 @@
 import { Listener } from 'discord-akairo';
 import { GuildMember } from 'discord.js';
-import { guildConfigs } from '../../../guild/guildConfigs';
+import { guildConfigs } from '../../../guild/config/guildConfigs';
 import { CaseModel } from '../../../model/case';
 import { CaseType, FOREVER_MS } from '../../../util/constants';
 import { MuteAction } from '../../../structure/action/mute';

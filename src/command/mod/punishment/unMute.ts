@@ -5,7 +5,7 @@ import { messages } from '../../../util/messages';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import { GuildMember } from 'discord.js';
-import { guildConfigs } from '../../../guild/guildConfigs';
+import { guildConfigs } from '../../../guild/config/guildConfigs';
 import { UnMuteAction } from '../../../structure/action/unMute';
 import { CaseModel } from '../../../model/case';
 import { CaseType } from '../../../util/constants';
