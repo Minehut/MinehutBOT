@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { messages } from '../../../util/messages';
+import { emoji } from '../../../util/messages';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import { FOREVER_MS } from '../../../util/constants';
@@ -11,14 +11,14 @@ import { User } from 'discord.js';
 export default class MultiBanCommand extends MinehutCommand {
 	constructor() {
 		super('multiBan', {
-			aliases: ['multiban', 'mban', 'bulkban'],
+			aliases: ['multiban', 'mban', 'massban', 'bulkban'],
 			permissionLevel: PermissionLevel.Moderator,
 			category: 'mod',
 			channel: 'guild',
 			clientPermissions: ['BAN_MEMBERS'],
 			description: {
-				content: messages.commands.punishment.multiBan.description,
-				usage: '"reason" <...members> [d:duration] [days:number]',
+				content: 'Ban multiple users at once',
+				usage: '"reason" <...users> [d:duration] [days:number]',
 			},
 			args: [
 				{
@@ -36,10 +36,8 @@ export default class MultiBanCommand extends MinehutCommand {
 					}),
 					match: 'separate',
 					prompt: {
-						start: (msg: Message) =>
-							messages.commands.punishment.ban.targetPrompt.start(msg.author),
-						retry: (msg: Message) =>
-							messages.commands.punishment.ban.targetPrompt.retry(msg.author),
+						start: (msg: Message) => `${msg.author}, who do you want to ban?`,
+						retry: (msg: Message) => `${msg.author}, please mention a user.`,
 					},
 				},
 				{
@@ -73,9 +71,7 @@ export default class MultiBanCommand extends MinehutCommand {
 			duration === FOREVER_MS
 				? 'permanent'
 				: humanizeDuration(duration, { largest: 3, round: true });
-		const m = await msg.channel.send(
-			messages.commands.punishment.multiBan.processing
-		);
+		const m = await msg.channel.send(emoji.loading);
 		const banned: { success: string[]; fail: string[] } = {
 			success: [],
 			fail: [],
@@ -96,7 +92,13 @@ export default class MultiBanCommand extends MinehutCommand {
 			banned.success.push(target.id);
 		});
 		m.edit(
-			messages.commands.punishment.multiBan.done(banned, humanReadable, reason)
+			`${emoji.check} banned ${banned.success.length} members ${
+				humanReadable !== 'permanent' ? `for **${humanReadable}** ` : ' '
+			}(\`${reason}\`) ${
+				banned.fail.length > 0
+					? `[=> skipped ${banned.fail.length} members]`
+					: ''
+			}`
 		);
 	}
 }

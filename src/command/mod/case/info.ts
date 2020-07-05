@@ -1,5 +1,4 @@
 import { Message } from 'discord.js';
-import { messages } from '../../../util/messages';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import { DocumentType } from '@typegoose/typegoose';
@@ -17,7 +16,7 @@ export default class CaseInfoCommand extends MinehutCommand {
 			clientPermissions: ['EMBED_LINKS'],
 			permissionLevel: PermissionLevel.JuniorModerator,
 			description: {
-				content: messages.commands.case.info.description,
+				content: 'Lookup a specific case',
 				usage: '<case>',
 			},
 			args: [
@@ -26,9 +25,9 @@ export default class CaseInfoCommand extends MinehutCommand {
 					type: 'caseId',
 					prompt: {
 						start: (msg: Message) =>
-							messages.commands.case.info.casePrompt.start(msg.author),
+							`${msg.author}, which case do you want to lookup?`,
 						retry: (msg: Message) =>
-							messages.commands.case.info.casePrompt.retry(msg.author),
+							`${msg.author}, please specify a valid case ID.`,
 					},
 				},
 			],

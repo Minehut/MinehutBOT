@@ -1,7 +1,5 @@
-// check if they're muted first
-
 import { Message } from 'discord.js';
-import { messages } from '../../../util/messages';
+import { emoji } from '../../../util/messages';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import { GuildMember } from 'discord.js';
@@ -19,7 +17,7 @@ export default class UnMuteCommand extends MinehutCommand {
 			channel: 'guild',
 			clientPermissions: ['MANAGE_ROLES'],
 			description: {
-				content: messages.commands.punishment.unMute.description,
+				content: 'Unmute a member',
 				usage: '<member> [...reason]',
 			},
 			args: [
@@ -28,13 +26,8 @@ export default class UnMuteCommand extends MinehutCommand {
 					type: 'member',
 					prompt: {
 						start: (msg: Message) =>
-							messages.commands.punishment.unMute.memberPrompt.start(
-								msg.author
-							),
-						retry: (msg: Message) =>
-							messages.commands.punishment.unMute.memberPrompt.retry(
-								msg.author
-							),
+							`${msg.author}, who do you want to unmute?`,
+						retry: (msg: Message) => `${msg.author}, please mention a member.`,
 					},
 				},
 				{
@@ -51,9 +44,9 @@ export default class UnMuteCommand extends MinehutCommand {
 		{ member, reason }: { member: GuildMember; reason: string }
 	) {
 		if (!member.manageable)
-			return msg.channel.send(messages.commands.punishment.unMute.notUnMutable);
+			return msg.channel.send(`${emoji.cross} I cannot unmute that member`);
 		if (!guildConfigs.get(msg.guild!.id)?.roles.muted)
-			return msg.channel.send(messages.commands.punishment.mute.noMuteRole);
+			throw 'no mute role set in config';
 		if (
 			!(await CaseModel.exists({
 				targetId: member.id,
@@ -62,7 +55,9 @@ export default class UnMuteCommand extends MinehutCommand {
 				guildId: msg.guild!.id,
 			}))
 		)
-			return msg.channel.send(messages.commands.punishment.unMute.notMuted);
+			return msg.channel.send(
+				`${emoji.cross} this member is not currently muted`
+			);
 		const action = new UnMuteAction({
 			target: member,
 			moderator: msg.member!,
@@ -72,11 +67,7 @@ export default class UnMuteCommand extends MinehutCommand {
 		});
 		const c = await action.commit();
 		msg.channel.send(
-			messages.commands.punishment.unMute.unMuted(
-				action.target,
-				action.reason,
-				c?.id
-			)
+			`:ok_hand: unmuted ${action.target.user.tag} (\`${action.reason}\`) [${c?.id}]`
 		);
 	}
 }

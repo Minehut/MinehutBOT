@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { messages } from '../../../util/messages';
+import { emoji } from '../../../util/messages';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import { DocumentType } from '@typegoose/typegoose';
@@ -13,7 +13,7 @@ export default class CaseSearchCommand extends MinehutCommand {
 			channel: 'guild',
 			permissionLevel: PermissionLevel.JuniorModerator,
 			description: {
-				content: messages.commands.case.reason.description,
+				content: 'Set a case reason',
 				usage: '<case> <...new reason>',
 			},
 			args: [
@@ -22,9 +22,9 @@ export default class CaseSearchCommand extends MinehutCommand {
 					type: 'caseId',
 					prompt: {
 						start: (msg: Message) =>
-							messages.commands.case.reason.casePrompt.start(msg.author),
+							`${msg.author}, which case's reason do you want to change?`,
 						retry: (msg: Message) =>
-							messages.commands.case.reason.casePrompt.retry(msg.author),
+							`${msg.author}, please specify a valid case ID.`,
 					},
 				},
 				{
@@ -33,9 +33,9 @@ export default class CaseSearchCommand extends MinehutCommand {
 					match: 'rest',
 					prompt: {
 						start: (msg: Message) =>
-							messages.commands.case.reason.reasonPrompt.start(msg.author),
+							`${msg.author}, what do you want the case reason to be?`,
 						retry: (msg: Message) =>
-							messages.commands.case.reason.reasonPrompt.retry(msg.author),
+							`${msg.author}, please specify a case reason.`,
 					},
 				},
 			],
@@ -52,7 +52,9 @@ export default class CaseSearchCommand extends MinehutCommand {
 		await c.updateOne({ reason: c.reason });
 		this.client.emit('caseUpdate', oldCase, newCase, msg.member!);
 		msg.channel.send(
-			messages.commands.case.reason.caseUpdated(c.id, reason.trim())
+			`${emoji.check} updated reason for case **${
+				c.id
+			}** (\`${c.reason.trim()}\`)`
 		);
 	}
 }

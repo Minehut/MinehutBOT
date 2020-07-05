@@ -4,7 +4,6 @@ import { MessageEmbed } from 'discord.js';
 import truncate from 'truncate';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
-import { messages } from '../../../util/messages';
 
 interface TagAlias {
 	name: string;
@@ -18,7 +17,7 @@ export default class TagListAliasesCommand extends MinehutCommand {
 			category: 'tag',
 			channel: 'guild',
 			description: {
-				content: messages.commands.tag.aliases.list.description,
+				content: 'List all tag aliases',
 			},
 		});
 	}

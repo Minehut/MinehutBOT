@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { messages } from '../../util/messages';
+import { messages, emoji } from '../../util/messages';
 import { inspect } from 'util';
 import { PrefixSupplier } from 'discord-akairo';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
@@ -49,7 +49,7 @@ export default class EvalCommand extends MinehutCommand {
 		if (content.length > 2000) {
 			console.log(content);
 			return msg.channel.send(
-				messages.commands.utility.eval.outputTooLong(content.length)
+				`${emoji.warning} length of output exceeds character limit, logged output to console (${content.length}/2000)`
 			);
 		}
 		msg.channel.send(content);

@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { messages, emoji } from '../../../util/messages';
+import { emoji } from '../../../util/messages';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { User } from 'discord.js';
 import { Argument } from 'discord-akairo';
@@ -13,7 +13,7 @@ export default class CaseClearCommand extends MinehutCommand {
 			channel: 'guild',
 			permissionLevel: PermissionLevel.SeniorModerator,
 			description: {
-				content: messages.commands.case.clear.description,
+				content: "Clear a user's punishment history",
 				usage: '<user>',
 			},
 			args: [
@@ -28,9 +28,8 @@ export default class CaseClearCommand extends MinehutCommand {
 					}),
 					prompt: {
 						start: (msg: Message) =>
-							messages.commands.case.clear.targetPrompt.start(msg.author),
-						retry: (msg: Message) =>
-							messages.commands.case.clear.targetPrompt.retry(msg.author),
+							`${msg.author}, whose history do you want to clear?`,
+						retry: (msg: Message) => `${msg.author}, please mention a user.`,
 					},
 				},
 			],
@@ -40,6 +39,6 @@ export default class CaseClearCommand extends MinehutCommand {
 	async exec(msg: Message, { target }: { target: User }) {
 		const m = await msg.channel.send(emoji.loading);
 		await CaseModel.deleteMany({ targetId: target.id, active: false });
-		m.edit(messages.commands.case.clear.clearedHistory(target));
+		m.edit(`${emoji.check} cleared ${target.tag}'s case history`);
 	}
 }

@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { messages } from '../../util/messages';
+import { emoji } from '../../util/messages';
 import { TagModel } from '../../model/tag';
 import { PrefixSupplier } from 'discord-akairo';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
@@ -10,7 +10,7 @@ export default class TagSourceCommand extends MinehutCommand {
 			category: 'tag',
 			channel: 'guild',
 			description: {
-				content: messages.commands.tag.source.description,
+				content: 'Get tag source',
 				usage: '<name/alias>',
 			},
 			args: [
@@ -19,7 +19,7 @@ export default class TagSourceCommand extends MinehutCommand {
 					type: 'string',
 					prompt: {
 						start: (msg: Message) =>
-							messages.commands.tag.source.namePrompt.start(msg.author),
+							`${msg.author}, which tag's source do you want to get?`,
 					},
 				},
 			],
@@ -34,7 +34,7 @@ export default class TagSourceCommand extends MinehutCommand {
 		const tag = await TagModel.findByNameOrAlias(name, msg.guild!.id);
 		if (!tag)
 			return msg.channel.send(
-				messages.commands.tag.info.unknownTag(prefix, name)
+				`${emoji.cross} tag \`${name}\` does not exist, check \`${prefix}tags\``
 			);
 
 		msg.channel.send(tag.content, { code: true });

@@ -9,7 +9,19 @@ export default class TagCommand extends MinehutCommand {
 		super('tag', {
 			aliases: ['tag'],
 			description: {
-				content: messages.commands.tag.description,
+				content: `Manage tags.
+				Available subcommands:
+				• **show** \`<name/alias>\`
+				• **set** \`<name> <content>\`
+				• **setalias** \`<alias> <target>\`
+				• **listaliases**
+				• **deletealias** \`<alias>\`
+				• **info** \`<name/alias>\`
+				• **source** \`<name/alias>\`
+				• **list**
+				• **rename** \`<old name> <new name>\`
+				• **delete** \`<name>\`
+				`,
 				usage: '<method> <...arguments>',
 			},
 			category: 'tag',

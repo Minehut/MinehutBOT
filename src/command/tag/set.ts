@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { messages } from '../../util/messages';
+import { emoji } from '../../util/messages';
 import { TagModel, Tag } from '../../model/tag';
 import { PrefixSupplier } from 'discord-akairo';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
@@ -12,7 +12,7 @@ export default class TagSetCommand extends MinehutCommand {
 			category: 'tag',
 			channel: 'guild',
 			description: {
-				content: messages.commands.tag.set.description,
+				content: 'Set/edit a tag',
 				usage: '<name> <content>',
 			},
 			args: [
@@ -21,7 +21,7 @@ export default class TagSetCommand extends MinehutCommand {
 					type: 'string',
 					prompt: {
 						start: (msg: Message) =>
-							messages.commands.tag.set.namePrompt.start(msg.author),
+							`${msg.author}, what should the tag be called? (spaces allowed)`,
 					},
 				},
 				{
@@ -30,7 +30,7 @@ export default class TagSetCommand extends MinehutCommand {
 					match: 'rest',
 					prompt: {
 						start: (msg: Message) =>
-							messages.commands.tag.set.contentPrompt.start(msg.author),
+							`${msg.author}, what should the tag's content be?`,
 					},
 				},
 			],
@@ -52,15 +52,12 @@ export default class TagSetCommand extends MinehutCommand {
 		const conflictingTag = await TagModel.findByAlias(tag.name, msg.guild!.id);
 		if (conflictingTag)
 			return msg.channel.send(
-				messages.commands.tag.set.conflictingAliases(
-					prefix,
-					conflictingTag.name
-				)
+				`${emoji.cross} tag name conflicts with \`${conflictingTag.name}\`'s aliases (use ${prefix}tag info ${conflictingTag.name})`
 			);
 		if (!(await TagModel.exists({ name, guild: msg.guild!.id }))) {
 			TagModel.create(tag);
-			return msg.channel.send(messages.commands.tag.set.tagCreated(tag.name));
+			return msg.channel.send(`${emoji.check} tag \`${tag.name}\` created`);
 		} else await TagModel.updateOne({ name }, tag);
-		return msg.channel.send(messages.commands.tag.set.tagUpdated(tag.name));
+		return msg.channel.send(`${emoji.check} tag \`${tag.name}\` updated`);
 	}
 }

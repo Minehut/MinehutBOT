@@ -2,7 +2,6 @@ import { Message } from 'discord.js';
 import { TagModel } from '../../model/tag';
 import { MessageEmbed } from 'discord.js';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
-import { messages } from '../../util/messages';
 
 export default class TagListCommand extends MinehutCommand {
 	constructor() {
@@ -12,7 +11,7 @@ export default class TagListCommand extends MinehutCommand {
 			category: 'tag',
 			channel: 'guild',
 			description: {
-				content: messages.commands.tag.list.description,
+				content: 'List the tags',
 			},
 		});
 	}

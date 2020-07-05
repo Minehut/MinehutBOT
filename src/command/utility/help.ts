@@ -1,5 +1,4 @@
 import { MinehutCommand } from '../../structure/command/minehutCommand';
-import { messages } from '../../util/messages';
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { PrefixSupplier } from 'discord-akairo';
@@ -10,7 +9,8 @@ export default class HelpCommand extends MinehutCommand {
 		super('help', {
 			aliases: ['help'],
 			description: {
-				content: messages.commands.help.description,
+				content:
+					'Lists available commands or displays detailed information for a specific command',
 				usage: '[command]',
 			},
 			category: 'utility',

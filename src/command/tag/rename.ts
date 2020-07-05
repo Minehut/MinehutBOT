@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { messages } from '../../util/messages';
+import { emoji } from '../../util/messages';
 import { TagModel } from '../../model/tag';
 import { PrefixSupplier } from 'discord-akairo';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
@@ -12,7 +12,7 @@ export default class TagRenameCommand extends MinehutCommand {
 			category: 'tag',
 			channel: 'guild',
 			description: {
-				content: messages.commands.tag.rename.description,
+				content: 'Rename a tag',
 				usage: '<old> <new>',
 			},
 			args: [
@@ -21,7 +21,7 @@ export default class TagRenameCommand extends MinehutCommand {
 					type: 'string',
 					prompt: {
 						start: (msg: Message) =>
-							messages.commands.tag.rename.oldNamePrompt.start(msg.author),
+							`${msg.author}, which tag do you want to rename?`,
 					},
 				},
 				{
@@ -29,7 +29,7 @@ export default class TagRenameCommand extends MinehutCommand {
 					type: 'string',
 					prompt: {
 						start: (msg: Message) =>
-							messages.commands.tag.rename.newNamePrompt.start(msg.author),
+							`${msg.author}, what should the tag's new name be?`,
 					},
 				},
 			],
@@ -50,7 +50,7 @@ export default class TagRenameCommand extends MinehutCommand {
 		const tag = await TagModel.findByNameOrAlias(oldName, msg.guild!.id);
 		if (!tag)
 			return msg.channel.send(
-				messages.commands.tag.rename.unknownTag(prefix, oldName)
+				`${emoji.cross} tag \`${oldName}\` does not exist, check \`${prefix}tags\``
 			);
 		oldName = tag.name;
 		const tagWithNewName = await TagModel.findByNameOrAlias(
@@ -58,10 +58,12 @@ export default class TagRenameCommand extends MinehutCommand {
 			msg.guild!.id
 		);
 		if (tagWithNewName)
-			return msg.channel.send(messages.commands.tag.rename.conflictingName);
+			return msg.channel.send(
+				`${emoji.cross} a tag with the new name/alias already exists`
+			);
 		await tag.updateOne({ name: newName });
-		return msg.channel.send(
-			messages.commands.tag.rename.tagUpdated(oldName, newName)
+		msg.channel.send(
+			`${emoji.check} tag \`${tag.name}\` is now \`${newName}\``
 		);
 	}
 }

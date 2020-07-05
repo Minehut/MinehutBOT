@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { messages } from '../../util/messages';
+import { emoji } from '../../util/messages';
 import { TagModel } from '../../model/tag';
 import truncate from 'truncate';
 import { PrefixSupplier } from 'discord-akairo';
@@ -11,7 +11,7 @@ export default class TagShowCommand extends MinehutCommand {
 			category: 'tag',
 			channel: 'guild',
 			description: {
-				content: messages.commands.tag.show.description,
+				content: 'Show specific tag',
 				usage: '<name/alias>',
 			},
 			args: [
@@ -20,7 +20,7 @@ export default class TagShowCommand extends MinehutCommand {
 					type: 'string',
 					prompt: {
 						start: (msg: Message) =>
-							messages.commands.tag.show.namePrompt.start(msg.author),
+							`${msg.author}, which tag do you want to show?`,
 					},
 				},
 			],
@@ -34,7 +34,7 @@ export default class TagShowCommand extends MinehutCommand {
 		const tag = await TagModel.findByNameOrAlias(name, msg.guild!.id);
 		if (!tag)
 			return msg.channel.send(
-				messages.commands.tag.show.unknownTag(prefix, name)
+				`${emoji.cross} tag \`${name}\` does not exist, check \`${prefix}tags\``
 			);
 		if (
 			this.client.tagCooldownManager.isOnCooldown(
@@ -42,9 +42,7 @@ export default class TagShowCommand extends MinehutCommand {
 			)
 		)
 			return msg.react('⏲️');
-		msg.channel.send(
-			truncate(messages.commands.tag.show.showTag(tag.content), 1900)
-		);
+		msg.channel.send(truncate(tag.content, 1900));
 		this.client.tagCooldownManager.add(`t-${tag.name}-${msg.channel.id}`);
 		await tag.updateOne({ uses: tag.uses + 1 });
 	}

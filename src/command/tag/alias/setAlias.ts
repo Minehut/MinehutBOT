@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { messages } from '../../../util/messages';
+import { emoji } from '../../../util/messages';
 import { TagModel } from '../../../model/tag';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
@@ -11,7 +11,7 @@ export default class TagSetAliasCommand extends MinehutCommand {
 			category: 'tag',
 			channel: 'guild',
 			description: {
-				content: messages.commands.tag.aliases.set.description,
+				content: 'Set a tag alias',
 				usage: '<alias> <target>',
 			},
 			args: [
@@ -20,7 +20,7 @@ export default class TagSetAliasCommand extends MinehutCommand {
 					type: 'string',
 					prompt: {
 						start: (msg: Message) =>
-							messages.commands.tag.aliases.set.aliasPrompt.start(msg.author),
+							`${msg.author}, what do you want the alias to be?`,
 					},
 				},
 				{
@@ -28,7 +28,7 @@ export default class TagSetAliasCommand extends MinehutCommand {
 					type: 'string',
 					prompt: {
 						start: (msg: Message) =>
-							messages.commands.tag.aliases.set.namePrompt.start(msg.author),
+							`${msg.author}, which tag do you want this alias to be added to?`,
 					},
 				},
 			],
@@ -39,15 +39,16 @@ export default class TagSetAliasCommand extends MinehutCommand {
 		alias = alias.replace(/\s+/g, '-').toLowerCase();
 		name = name.replace(/\s+/g, '-').toLowerCase();
 
-		const existingTarget = await TagModel.findByNameOrAlias(alias, msg.guild!.id);
+		const existingTarget = await TagModel.findByNameOrAlias(
+			alias,
+			msg.guild!.id
+		);
 
 		// If alias already points to something, remove it from that something
 		// OR if the alias already points to it and the user wanted to do that, say nothing changed
 		if (existingTarget) {
 			if (existingTarget.name === name || existingTarget.aliases.includes(name))
-				return msg.channel.send(
-					messages.commands.tag.aliases.set.nothingChanged
-				);
+				return msg.channel.send(':o: nothing changed');
 			existingTarget.update({
 				aliases: existingTarget.aliases.filter(a => a !== alias),
 			});
@@ -55,18 +56,16 @@ export default class TagSetAliasCommand extends MinehutCommand {
 
 		const target = await TagModel.findByNameOrAlias(name, msg.guild!.id);
 		if (!target)
-			return msg.channel.send(
-				messages.commands.tag.aliases.set.unknownTarget(name)
-			);
+			return msg.channel.send(`${emoji.cross} unknown target \`${name}\``);
 
 		await target.updateOne({ $push: { aliases: alias } });
 		target.aliases.push(alias);
-		return msg.channel.send(
-			messages.commands.tag.aliases.set.aliasesUpdated(
-				name,
-				alias,
-				target.aliases
-			)
+		msg.channel.send(
+			`${
+				emoji.check
+			} \`${name}\` now points to \`${name}\` (aliases: ${target.aliases.join(
+				', '
+			)})`
 		);
 	}
 }

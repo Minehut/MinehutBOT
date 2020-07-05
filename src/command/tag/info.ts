@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { messages } from '../../util/messages';
+import { emoji } from '../../util/messages';
 import { TagModel } from '../../model/tag';
 import { MessageEmbed } from 'discord.js';
 import { PrefixSupplier } from 'discord-akairo';
@@ -13,7 +13,7 @@ export default class TagInfoCommand extends MinehutCommand {
 			category: 'tag',
 			channel: 'guild',
 			description: {
-				content: messages.commands.tag.info.description,
+				content: 'Lookup a tag',
 				usage: '<name/alias>',
 			},
 			args: [
@@ -22,7 +22,7 @@ export default class TagInfoCommand extends MinehutCommand {
 					type: 'string',
 					prompt: {
 						start: (msg: Message) =>
-							messages.commands.tag.info.namePrompt.start(msg.author),
+							`${msg.author}, which tag do you want to lookup?`,
 					},
 				},
 			],
@@ -37,7 +37,7 @@ export default class TagInfoCommand extends MinehutCommand {
 		const tag = await TagModel.findByNameOrAlias(name, msg.guild!.id);
 		if (!tag)
 			return msg.channel.send(
-				messages.commands.tag.info.unknownTag(prefix, name)
+				`${emoji.cross} tag \`${name}\` does not exist, check \`${prefix}tags\``
 			);
 		// send embed of tag info here
 		const embed = new MessageEmbed();

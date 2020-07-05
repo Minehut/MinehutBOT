@@ -1,6 +1,6 @@
 import { Message } from 'discord.js';
 import { TagModel } from '../../model/tag';
-import { messages } from '../../util/messages';
+import { emoji } from '../../util/messages';
 import { PrefixSupplier } from 'discord-akairo';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
@@ -12,7 +12,7 @@ export default class TagDeleteCommand extends MinehutCommand {
 			category: 'tag',
 			channel: 'guild',
 			description: {
-				content: messages.commands.tag.delete.description,
+				content: 'Delete a tag',
 				usage: '<name/alias>',
 			},
 			args: [
@@ -21,7 +21,7 @@ export default class TagDeleteCommand extends MinehutCommand {
 					type: 'string',
 					prompt: {
 						start: (msg: Message) =>
-							messages.commands.tag.delete.namePrompt.start(msg.author),
+							`${msg.author}, which tag do you want to delete?`,
 					},
 				},
 			],
@@ -36,19 +36,17 @@ export default class TagDeleteCommand extends MinehutCommand {
 		const tag = await TagModel.findByNameOrAlias(name, msg.guild!.id);
 		if (!tag)
 			return msg.channel.send(
-				messages.commands.tag.delete.unknownTag(prefix, name)
+				`${emoji.cross} tag \`${name}\` does not exist, check \`${prefix}tags\``
 			);
 		if (tag.aliases.includes(name))
 			return msg.channel.send(
-				messages.commands.tag.delete.useNameNotAlias(
-					prefix,
-					name,
-					tag.name
-				)
+				`${emoji.cross} \`${name}\` is an alias of \`${tag.name}\` -- you can delete the alias with \`${prefix}tag deletealias ${name}\`, or delete the entire tag with \`${prefix}tag delete ${tag.name}\``
 			);
 		await tag.remove();
 		msg.channel.send(
-			messages.commands.tag.delete.tagDeleted(tag.name, tag.aliases!)
+			`:wastebasket: tag \`${tag.name}\` deleted ${
+				tag.aliases.length > 0 ? `(aliases: ${tag.aliases.join(', ')})` : ''
+			}`
 		);
 	}
 }

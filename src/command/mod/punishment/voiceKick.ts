@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { messages } from '../../../util/messages';
+import { emoji } from '../../../util/messages';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import { GuildMember } from 'discord.js';
@@ -14,7 +14,8 @@ export default class VoiceKickCommand extends MinehutCommand {
 			channel: 'guild',
 			clientPermissions: ['MOVE_MEMBERS'],
 			description: {
-				content: messages.commands.punishment.voiceKick.description,
+				content:
+					"Kick a member from their voice channel (shows on record as opposed to 'Disconnect' button)",
 				usage: '<member> [...reason]',
 			},
 			args: [
@@ -23,13 +24,8 @@ export default class VoiceKickCommand extends MinehutCommand {
 					type: 'member',
 					prompt: {
 						start: (msg: Message) =>
-							messages.commands.punishment.voiceKick.memberPrompt.start(
-								msg.author
-							),
-						retry: (msg: Message) =>
-							messages.commands.punishment.voiceKick.memberPrompt.retry(
-								msg.author
-							),
+							`${msg.author}, who do you want to voicekick?`,
+						retry: (msg: Message) => `${msg.author}, please mention a member.`,
 					},
 				},
 				{
@@ -46,9 +42,7 @@ export default class VoiceKickCommand extends MinehutCommand {
 		{ member, reason }: { member: GuildMember; reason: string }
 	) {
 		if (!member.voice.channel)
-			return msg.channel.send(
-				messages.commands.punishment.voiceKick.notInVoice
-			);
+			return msg.channel.send(`${emoji.cross} user is not in a voice channel`);
 		const action = new VoiceKickAction({
 			target: member,
 			moderator: msg.member!,
@@ -58,11 +52,7 @@ export default class VoiceKickCommand extends MinehutCommand {
 		});
 		const c = await action.commit();
 		msg.channel.send(
-			messages.commands.punishment.voiceKick.kicked(
-				action.target,
-				action.reason,
-				c?.id
-			)
+			`:boot: kicked ${action.target.user.tag} from their voice channel (\`${action.reason}\`) [${c?.id}]`
 		);
 	}
 }

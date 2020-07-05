@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { messages } from '../../../util/messages';
+import { emoji } from '../../../util/messages';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import { GuildMember } from 'discord.js';
@@ -17,7 +17,7 @@ export default class MuteCommand extends MinehutCommand {
 			channel: 'guild',
 			clientPermissions: ['MANAGE_ROLES'],
 			description: {
-				content: messages.commands.punishment.mute.description,
+				content: 'Mute a member for specified duration (defaults to permanent)',
 				usage: '<user> [...reason] [d:duration]',
 			},
 			args: [
@@ -25,10 +25,8 @@ export default class MuteCommand extends MinehutCommand {
 					id: 'member',
 					type: 'member',
 					prompt: {
-						start: (msg: Message) =>
-							messages.commands.punishment.mute.memberPrompt.start(msg.author),
-						retry: (msg: Message) =>
-							messages.commands.punishment.mute.memberPrompt.retry(msg.author),
+						start: (msg: Message) => `${msg.author}, who do you want to mute?`,
+						retry: (msg: Message) => `${msg.author}, please mention a member.`,
 					},
 				},
 				{
@@ -56,9 +54,9 @@ export default class MuteCommand extends MinehutCommand {
 		}: { member: GuildMember; reason: string; duration: number }
 	) {
 		if (!member.manageable)
-			return msg.channel.send(messages.commands.punishment.mute.notMutable);
+			return msg.channel.send(`${emoji.cross} I cannot mute that member`);
 		if (!guildConfigs.get(msg.guild!.id)?.roles.muted)
-			return msg.channel.send(messages.commands.punishment.mute.noMuteRole);
+			throw 'no mute role set in config';
 		const humanReadable =
 			duration === FOREVER_MS
 				? 'permanent'
@@ -73,12 +71,9 @@ export default class MuteCommand extends MinehutCommand {
 		});
 		const c = await action.commit();
 		msg.channel.send(
-			messages.commands.punishment.mute.muted(
-				action.target,
-				action.reason,
-				humanReadable,
-				c?.id
-			)
+			`:zipper_mouth: muted ${action.target.user.tag}${
+				humanReadable !== 'permanent' ? ` for **${humanReadable}** ` : ' '
+			}(\`${reason}\`) [${c?.id}]`
 		);
 	}
 }

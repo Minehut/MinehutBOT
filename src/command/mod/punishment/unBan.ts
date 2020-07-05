@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { messages } from '../../../util/messages';
+import { emoji } from '../../../util/messages';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import { CaseModel } from '../../../model/case';
@@ -17,7 +17,7 @@ export default class UnBanCommand extends MinehutCommand {
 			channel: 'guild',
 			clientPermissions: ['BAN_MEMBERS'],
 			description: {
-				content: messages.commands.punishment.unBan.description,
+				content: 'Unban a user',
 				usage: '<user> [...reason]',
 			},
 			args: [
@@ -31,10 +31,8 @@ export default class UnBanCommand extends MinehutCommand {
 						}
 					}),
 					prompt: {
-						start: (msg: Message) =>
-							messages.commands.punishment.unBan.targetPrompt.start(msg.author),
-						retry: (msg: Message) =>
-							messages.commands.punishment.unBan.targetPrompt.retry(msg.author),
+						start: (msg: Message) => `${msg.author}, who do you want to unban?`,
+						retry: (msg: Message) => `${msg.author}, please mention a user.`,
 					},
 				},
 				{
@@ -58,7 +56,9 @@ export default class UnBanCommand extends MinehutCommand {
 				guildId: msg.guild!.id,
 			}))
 		)
-			return msg.channel.send(messages.commands.punishment.unBan.notBanned);
+			return msg.channel.send(
+				`${emoji.cross} this user is not currently banned`
+			);
 		const action = new UnBanAction({
 			target: target,
 			moderator: msg.member!,
@@ -68,11 +68,7 @@ export default class UnBanCommand extends MinehutCommand {
 		});
 		const c = await action.commit();
 		msg.channel.send(
-			messages.commands.punishment.unBan.unBanned(
-				action.target,
-				action.reason,
-				c?.id
-			)
+			`:ok_hand: unbanned ${action.target.tag} (\`${action.reason}\`) [${c?.id}]`
 		);
 	}
 }

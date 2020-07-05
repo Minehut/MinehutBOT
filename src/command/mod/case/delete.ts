@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { messages } from '../../../util/messages';
+import { emoji } from '../../../util/messages';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import { DocumentType } from '@typegoose/typegoose';
@@ -12,7 +12,7 @@ export default class CaseDeleteCommand extends MinehutCommand {
 			channel: 'guild',
 			permissionLevel: PermissionLevel.Moderator,
 			description: {
-				content: messages.commands.case.delete.description,
+				content: 'Delete a case',
 				usage: '<case>',
 			},
 			args: [
@@ -21,9 +21,9 @@ export default class CaseDeleteCommand extends MinehutCommand {
 					type: 'caseId',
 					prompt: {
 						start: (msg: Message) =>
-							messages.commands.case.delete.casePrompt.start(msg.author),
+							`${msg.author}, which case do you want to delete?`,
 						retry: (msg: Message) =>
-							messages.commands.case.delete.casePrompt.retry(msg.author),
+							`${msg.author}, please specify a valid case ID.`,
 					},
 				},
 			],
@@ -31,9 +31,10 @@ export default class CaseDeleteCommand extends MinehutCommand {
 	}
 
 	async exec(msg: Message, { c }: { c: DocumentType<Case> }) {
-		if (c.active) return msg.channel.send(messages.commands.case.delete.caseActive);
+		if (c.active)
+			return msg.channel.send(`${emoji.cross} cannot delete an active case`);
 		await c.remove();
 		this.client.emit('caseDelete', c, msg.member!);
-		msg.channel.send(messages.commands.case.delete.caseDeleted(c.id));
+		msg.channel.send(`${emoji.check} deleted case #${c.id}`);
 	}
 }

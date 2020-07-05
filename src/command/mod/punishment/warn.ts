@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { messages } from '../../../util/messages';
+import { emoji } from '../../../util/messages';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import { GuildMember } from 'discord.js';
@@ -13,7 +13,7 @@ export default class WarnCommand extends MinehutCommand {
 			category: 'mod',
 			channel: 'guild',
 			description: {
-				content: messages.commands.punishment.warn.description,
+				content: 'Warn a member',
 				usage: '<member> <...reason>',
 			},
 			args: [
@@ -21,10 +21,8 @@ export default class WarnCommand extends MinehutCommand {
 					id: 'member',
 					type: 'member',
 					prompt: {
-						start: (msg: Message) =>
-							messages.commands.punishment.warn.memberPrompt.start(msg.author),
-						retry: (msg: Message) =>
-							messages.commands.punishment.warn.memberPrompt.retry(msg.author),
+						start: (msg: Message) => `${msg.author}, who do you want to warn?`,
+						retry: (msg: Message) => `${msg.author}, please mention a member.`,
 					},
 				},
 				{
@@ -33,9 +31,8 @@ export default class WarnCommand extends MinehutCommand {
 					match: 'rest',
 					prompt: {
 						start: (msg: Message) =>
-							messages.commands.punishment.warn.reasonPrompt.start(msg.author),
-						retry: (msg: Message) =>
-							messages.commands.punishment.warn.reasonPrompt.retry(msg.author),
+							`${msg.author}, what is the reason for the warning?`,
+						retry: (msg: Message) => `${msg.author}, please include a reason.`,
 					},
 				},
 			],
@@ -55,11 +52,7 @@ export default class WarnCommand extends MinehutCommand {
 		});
 		const c = await action.commit();
 		msg.channel.send(
-			messages.commands.punishment.warn.warned(
-				action.target,
-				action.reason,
-				c?.id
-			)
+			`${emoji.warning} warned ${action.target.user.tag} for \`${action.reason}\` [${c?.id}]`
 		);
 	}
 }

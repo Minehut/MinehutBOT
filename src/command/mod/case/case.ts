@@ -10,7 +10,15 @@ export default class CaseCommand extends MinehutCommand {
 		super('case', {
 			aliases: ['case', 'infractions', 'infraction', 'inf', 'cases'],
 			description: {
-				content: messages.commands.case.description,
+				content: `Manage cases.
+				Available subcommands:
+				• **clear** \`<user>\`
+				• **delete** \`<case>\`
+				• **duration** \`<case> <new duration>\`
+				• **info** \`<case>\`
+				• **search** \`<user>\`
+				• **reason** \`<case> <...new reason>\`
+				`,
 				usage: '<method> <...arguments>',
 			},
 			permissionLevel: PermissionLevel.JuniorModerator,

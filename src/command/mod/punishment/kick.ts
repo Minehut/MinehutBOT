@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { messages } from '../../../util/messages';
+import { emoji } from '../../../util/messages';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import { GuildMember } from 'discord.js';
@@ -14,7 +14,7 @@ export default class KickCommand extends MinehutCommand {
 			channel: 'guild',
 			clientPermissions: ['KICK_MEMBERS'],
 			description: {
-				content: messages.commands.punishment.kick.description,
+				content: 'Kick a member',
 				usage: '<member> [...reason]',
 			},
 			args: [
@@ -22,10 +22,8 @@ export default class KickCommand extends MinehutCommand {
 					id: 'member',
 					type: 'member',
 					prompt: {
-						start: (msg: Message) =>
-							messages.commands.punishment.kick.memberPrompt.start(msg.author),
-						retry: (msg: Message) =>
-							messages.commands.punishment.kick.memberPrompt.retry(msg.author),
+						start: (msg: Message) => `${msg.author}, who do you want to kick?`,
+						retry: (msg: Message) => `${msg.author}, please mention a member.`,
 					},
 				},
 				{
@@ -42,7 +40,7 @@ export default class KickCommand extends MinehutCommand {
 		{ member, reason }: { member: GuildMember; reason: string }
 	) {
 		if (!member.kickable)
-			return msg.channel.send(messages.commands.punishment.kick.notKickable);
+			return msg.channel.send(`${emoji.cross} I cannot kick that member`);
 		const action = new KickAction({
 			target: member,
 			moderator: msg.member!,
@@ -52,11 +50,7 @@ export default class KickCommand extends MinehutCommand {
 		});
 		const c = await action.commit();
 		msg.channel.send(
-			messages.commands.punishment.kick.kicked(
-				action.target,
-				action.reason,
-				c?.id
-			)
+			`:boot: kicked ${action.target.user.tag} (\`${action.reason}\`) [${c?.id}]`
 		);
 	}
 }

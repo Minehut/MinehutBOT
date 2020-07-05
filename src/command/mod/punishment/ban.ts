@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { messages } from '../../../util/messages';
+import { emoji } from '../../../util/messages';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import humanizeDuration from 'humanize-duration';
@@ -17,7 +17,7 @@ export default class BanCommand extends MinehutCommand {
 			channel: 'guild',
 			clientPermissions: ['BAN_MEMBERS'],
 			description: {
-				content: messages.commands.punishment.ban.description,
+				content: 'Ban a user for specified duration (defaults to permanent)',
 				usage: '<user> [...reason] [d:duration] [days:number]',
 			},
 			args: [
@@ -31,10 +31,8 @@ export default class BanCommand extends MinehutCommand {
 						}
 					}),
 					prompt: {
-						start: (msg: Message) =>
-							messages.commands.punishment.ban.targetPrompt.start(msg.author),
-						retry: (msg: Message) =>
-							messages.commands.punishment.ban.targetPrompt.retry(msg.author),
+						start: (msg: Message) => `${msg.author}, who do you want to ban?`,
+						retry: (msg: Message) => `${msg.author}, please mention a user.`,
 					},
 				},
 				{
@@ -72,7 +70,7 @@ export default class BanCommand extends MinehutCommand {
 		console.log(days);
 		const member = msg.guild!.member(target);
 		if (member && !member.bannable)
-			return msg.channel.send(messages.commands.punishment.ban.notBannable);
+			return msg.channel.send(`${emoji.cross} I cannot ban that user`);
 		const humanReadable =
 			duration === FOREVER_MS
 				? 'permanent'
@@ -88,12 +86,9 @@ export default class BanCommand extends MinehutCommand {
 		});
 		const c = await action.commit();
 		msg.channel.send(
-			messages.commands.punishment.ban.banned(
-				action.target,
-				action.reason,
-				humanReadable,
-				c?.id
-			)
+			`:hammer: banned ${target.tag}${
+				humanReadable !== 'permanent' ? ` for **${humanReadable}** ` : ' '
+			}(\`${action.reason}\`) [${c?.id}]`
 		);
 	}
 }

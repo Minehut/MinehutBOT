@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { messages } from '../../../util/messages';
+import { emoji } from '../../../util/messages';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import { GuildMember } from 'discord.js';
@@ -14,7 +14,8 @@ export default class SoftBanCommand extends MinehutCommand {
 			channel: 'guild',
 			clientPermissions: ['BAN_MEMBERS'],
 			description: {
-				content: messages.commands.punishment.softBan.description,
+				content:
+					'Bans a member, then immediately unbans them, deleting all of their messages up to 7 days old (TL;DR: kick with message deletion)',
 				usage: '<member> [...reason]',
 			},
 			args: [
@@ -23,13 +24,8 @@ export default class SoftBanCommand extends MinehutCommand {
 					type: 'member',
 					prompt: {
 						start: (msg: Message) =>
-							messages.commands.punishment.softBan.memberPrompt.start(
-								msg.author
-							),
-						retry: (msg: Message) =>
-							messages.commands.punishment.softBan.memberPrompt.retry(
-								msg.author
-							),
+							`${msg.author}, who do you want to softban?`,
+						retry: (msg: Message) => `${msg.author}, please mention a member.`,
 					},
 				},
 				{
@@ -46,7 +42,7 @@ export default class SoftBanCommand extends MinehutCommand {
 		{ member, reason }: { member: GuildMember; reason: string }
 	) {
 		if (!member.bannable)
-			return msg.channel.send(messages.commands.punishment.softBan.notBannable);
+			return msg.channel.send(`${emoji.cross} I cannot ban that member`);
 		const action = new SoftBanAction({
 			target: member,
 			moderator: msg.member!,
@@ -56,11 +52,7 @@ export default class SoftBanCommand extends MinehutCommand {
 		});
 		const c = await action.commit();
 		msg.channel.send(
-			messages.commands.punishment.softBan.softBanned(
-				action.target,
-				action.reason,
-				c?.id
-			)
+			`:hammer: softbanned ${action.target.user.tag} (\`${action.reason}\`) [${c?.id}]`
 		);
 	}
 }

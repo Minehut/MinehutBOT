@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { messages } from '../../../util/messages';
+import { emoji } from '../../../util/messages';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import { DocumentType } from '@typegoose/typegoose';
@@ -16,7 +16,7 @@ export default class CaseDurationCommand extends MinehutCommand {
 			channel: 'guild',
 			permissionLevel: PermissionLevel.JuniorModerator,
 			description: {
-				content: messages.commands.case.duration.description,
+				content: 'Set a case duration',
 				usage: '<case> <new duration>',
 			},
 			args: [
@@ -25,9 +25,9 @@ export default class CaseDurationCommand extends MinehutCommand {
 					type: 'caseId',
 					prompt: {
 						start: (msg: Message) =>
-							messages.commands.case.duration.casePrompt.start(msg.author),
+							`${msg.author}, which case's duration do you want to change?`,
 						retry: (msg: Message) =>
-							messages.commands.case.duration.casePrompt.retry(msg.author),
+							`${msg.author}, please specify a valid case ID.`,
 					},
 				},
 				{
@@ -35,9 +35,9 @@ export default class CaseDurationCommand extends MinehutCommand {
 					type: 'duration',
 					prompt: {
 						start: (msg: Message) =>
-							messages.commands.case.duration.durationPrompt.start(msg.author),
+							`${msg.author}, what do you want the case duration to be?`,
 						retry: (msg: Message) =>
-							messages.commands.case.duration.durationPrompt.retry(msg.author),
+							`${msg.author}, please specify a case duration.`,
 					},
 				},
 			],
@@ -49,7 +49,7 @@ export default class CaseDurationCommand extends MinehutCommand {
 		{ c, duration }: { c: DocumentType<Case>; duration: number }
 	) {
 		if (!c.active)
-			return msg.channel.send(messages.commands.case.duration.alreadyExpired);
+			return msg.channel.send(`${emoji.cross} case has already expired`);
 
 		const oldCase = cloneDeep(c);
 		const newExpiry = new Date(c.createdAt).getTime() + duration;
@@ -66,12 +66,10 @@ export default class CaseDurationCommand extends MinehutCommand {
 		this.client.banScheduler.refresh();
 		this.client.muteScheduler.refresh();
 
-		return msg.channel.send(
-			messages.commands.case.duration.caseUpdated(
-				c._id,
-				humanReadable,
-				prettyDate(new Date(newExpiry))
-			)
+		msg.channel.send(
+			`${emoji.check} case **${c.id}** is now ${
+				humanReadable === 'permanent' ? 'permanent' : `${humanReadable} long`
+			} (expires: ${prettyDate(new Date(newExpiry))})`
 		);
 	}
 }

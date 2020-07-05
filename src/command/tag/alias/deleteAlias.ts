@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { messages } from '../../../util/messages';
+import { emoji } from '../../../util/messages';
 import { TagModel } from '../../../model/tag';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
@@ -11,7 +11,7 @@ export default class TagSetAliasCommand extends MinehutCommand {
 			category: 'tag',
 			channel: 'guild',
 			description: {
-				content: messages.commands.tag.aliases.delete.description,
+				content: 'Delete a tag alias',
 				usage: '<alias>',
 			},
 			args: [
@@ -20,7 +20,7 @@ export default class TagSetAliasCommand extends MinehutCommand {
 					type: 'string',
 					prompt: {
 						start: (msg: Message) =>
-							messages.commands.tag.aliases.set.aliasPrompt.start(msg.author),
+							`${msg.author}, which tag alias do you want to delete?`,
 					},
 				},
 			],
@@ -35,21 +35,17 @@ export default class TagSetAliasCommand extends MinehutCommand {
 		if (tag) {
 			if (tag.name === alias)
 				return msg.channel.send(
-					messages.commands.tag.aliases.delete.aliasIsName(alias)
+					`${emoji.cross} \`${alias}\` is a name, not an alias`
 				);
 			else if (tag.aliases.includes(alias)) {
 				msg.channel.send(tag.aliases);
 				await tag.updateOne({
 					aliases: tag.aliases.filter(a => a !== alias),
 				});
-				return msg.channel.send(
-					messages.commands.tag.aliases.delete.deletedAlias(alias)
-				);
+				return msg.channel.send(`${emoji.check} deleted alias \`${alias}\``);
 			}
 		} else {
-			return msg.channel.send(
-				messages.commands.tag.aliases.delete.unknownAlias(alias)
-			);
+			return msg.channel.send(`${emoji.cross} unknown alias \`${alias}\``);
 		}
 	}
 }

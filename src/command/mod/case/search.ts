@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { messages, emoji } from '../../../util/messages';
+import { emoji } from '../../../util/messages';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { User } from 'discord.js';
 import { Argument } from 'discord-akairo';
@@ -22,7 +22,7 @@ export default class CaseSearchCommand extends MinehutCommand {
 			channel: 'guild',
 			permissionLevel: PermissionLevel.JuniorModerator,
 			description: {
-				content: messages.commands.case.search.description,
+				content: `Lookup cases where specific user is the target`,
 				usage: '<user>',
 			},
 			args: [
@@ -37,9 +37,8 @@ export default class CaseSearchCommand extends MinehutCommand {
 					}),
 					prompt: {
 						start: (msg: Message) =>
-							messages.commands.case.search.targetPrompt.start(msg.author),
-						retry: (msg: Message) =>
-							messages.commands.case.search.targetPrompt.retry(msg.author),
+							`${msg.author}, who do you want to lookup?`,
+						retry: (msg: Message) => `${msg.author}, please mention a user.`,
 					},
 				},
 			],
@@ -48,14 +47,14 @@ export default class CaseSearchCommand extends MinehutCommand {
 
 	async exec(msg: Message, { target }: { target: User }) {
 		const m = await msg.channel.send(
-			messages.commands.case.search.loading(target.tag)
+			`${emoji.loading} Searching for cases where target is **${target.tag}**`
 		);
 		let cases = await CaseModel.find({
 			targetId: target.id,
 			guildId: msg.guild!.id,
 		}).sort('-createdAt');
 		if (cases.length < 1)
-			return m.edit(messages.commands.case.search.emptyHistory);
+			return m.edit(`${emoji.dab} No cases found for this user`);
 		const historyItems = cases.map(c =>
 			[
 				`\`${c._id}\` ${
