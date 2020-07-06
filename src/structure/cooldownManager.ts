@@ -8,11 +8,9 @@ const timeElapsed = (timestamp: Date | number): number =>
 */
 export class CooldownManager {
 	private store: Map<string, number>;
-	private cooldown: number;
 
-	constructor(cooldown: number) {
+	constructor(private cooldown: number) {
 		this.store = new Map();
-		this.cooldown = cooldown;
 	}
 
 	// Might add/replace a method for checking how long left is on cooldown
