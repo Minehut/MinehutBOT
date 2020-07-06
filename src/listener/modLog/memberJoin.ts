@@ -1,7 +1,7 @@
 import { Listener } from 'discord-akairo';
 import { guildConfigs } from '../../guild/config/guildConfigs';
 import { GuildMember } from 'discord.js';
-import { sendModLogMessage } from '../../util/functions';
+import { sendModLogMessage, prettyDate } from '../../util/functions';
 
 export default class ModLogMemberJoinListener extends Listener {
 	constructor() {
@@ -21,7 +21,9 @@ export default class ModLogMemberJoinListener extends Listener {
 			return;
 		await sendModLogMessage(
 			member.guild,
-			`:inbox_tray: ${member.user.tag} (\`${member.id}\`) joined`
+			`:inbox_tray: ${member.user.tag} (\`${
+				member.id
+			}\`) joined (account created: ${prettyDate(member.user.createdAt)})`
 		);
 	}
 }

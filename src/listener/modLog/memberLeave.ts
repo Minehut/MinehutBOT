@@ -1,7 +1,7 @@
 import { Listener } from 'discord-akairo';
 import { guildConfigs } from '../../guild/config/guildConfigs';
 import { GuildMember } from 'discord.js';
-import { sendModLogMessage } from '../../util/functions';
+import { sendModLogMessage, prettyDate } from '../../util/functions';
 
 export default class ModLogMemberLeaveListener extends Listener {
 	constructor() {
@@ -21,7 +21,9 @@ export default class ModLogMemberLeaveListener extends Listener {
 			return;
 		await sendModLogMessage(
 			member.guild,
-			`:outbox_tray: ${member.user.tag} (\`${member.id}\`) left`
+			`:outbox_tray: ${member.user.tag} (\`${
+				member.id
+			}\`) left (joined server: ${prettyDate(member.joinedAt!)})`
 		);
 	}
 }
