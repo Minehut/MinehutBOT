@@ -89,6 +89,20 @@ export class MinehutClient extends AkairoClient {
 
 		this.tagCooldownManager = new CooldownManager(10000);
 
+		this.registerArgTypes();
+
+		this.commandHandler.on('error', (err, msg, _command) => {
+			msg.channel.send(
+				'an error occurred (error event): ' + err.name + ' ' + err.message
+			);
+		});
+	}
+
+	start(token: string) {
+		super.login(token);
+	}
+
+	registerArgTypes() {
 		this.commandHandler.resolver.addType('handler', (_msg: Message, phrase) => {
 			if (!phrase) return null;
 			switch (phrase.toLowerCase()) {
@@ -129,16 +143,6 @@ export class MinehutClient extends AkairoClient {
 				return parsed;
 			}
 		);
-
-		this.commandHandler.on('error', (err, msg, _command) => {
-			msg.channel.send(
-				'an error occurred (error event): ' + err.name + ' ' + err.message
-			);
-		});
-	}
-
-	start(token: string) {
-		super.login(token);
 	}
 }
 
@@ -151,7 +155,9 @@ declare module 'discord-akairo' {
 		banScheduler: BanScheduler;
 		muteScheduler: MuteScheduler;
 		tagCooldownManager: CooldownManager;
+
 		start(token: string): void;
+		registerArgTypes(): void;
 
 		on<K extends keyof MinehutClientEvents>(
 			event: K,
