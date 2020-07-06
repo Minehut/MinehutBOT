@@ -112,7 +112,7 @@ export async function sendModLogMessage(guild: Guild, content: string) {
 }
 
 // Thanks draem
-export function arrayDiff(aArray: any[], bArray: any[]) {
+export function arrayDiff<T>(aArray: T[], bArray: T[]) {
 	const added = bArray.filter(e => !aArray.includes(e));
 	const removed = aArray.filter(e => !bArray.includes(e));
 
