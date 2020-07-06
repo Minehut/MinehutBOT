@@ -27,6 +27,7 @@ export default class ModLogMemberRolesUpdateListener extends Listener {
 				oldMember.roles.cache.array(),
 				newMember.roles.cache.array()
 			);
+			if (added.length === 0 && removed.length === 0) return; // Both role lists are empty - Did they just join the guild?
 			const diffString = `${added
 				.map(r => `**+** ${r.name} (\`${r.id}\`)`)
 				.join('\n')}${removed
