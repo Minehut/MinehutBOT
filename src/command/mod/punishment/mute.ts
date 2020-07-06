@@ -73,7 +73,7 @@ export default class MuteCommand extends MinehutCommand {
 		msg.channel.send(
 			`:zipper_mouth: muted ${action.target.user.tag}${
 				humanReadable !== 'permanent' ? ` for **${humanReadable}** ` : ' '
-			}(\`${reason}\`) [${c?.id}]`
+			}(\`${action.reason}\`) [${c?.id}]`
 		);
 	}
 }
