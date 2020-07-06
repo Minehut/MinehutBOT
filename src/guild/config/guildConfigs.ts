@@ -42,7 +42,7 @@ guildConfigs.set('608978588976283660', {
 				{
 					role: '701854509164527707',
 					channel: '728201493555052641',
-					name: 'eventee',
+					name: 'event',
 				},
 			],
 		},
