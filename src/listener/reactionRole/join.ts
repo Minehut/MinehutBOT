@@ -29,12 +29,12 @@ export default class ReactionRoleJoinListener extends Listener {
 		const reactionRole = config.features.reactionRole.roles.find(
 			r => r.emoji === emoji.name
 		);
-		if (!reactionRole) throw 'Reaction roles: missing role config';
+		if (!reactionRole) throw new Error('Reaction roles: missing role config');
 
 		if (member.roles.cache.has(reactionRole.roleId)) return;
 
 		const role = message.guild.roles.cache.get(reactionRole.roleId);
-		if (!role) throw 'Reaction roles: could not get role by ID';
+		if (!role) throw new Error('Reaction roles: could not get role by ID');
 
 		member.roles.add(role);
 	}

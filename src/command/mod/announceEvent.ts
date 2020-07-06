@@ -58,9 +58,7 @@ export default class AnnounceEventCommand extends MinehutCommand {
 			!config.features.announcements ||
 			!config.features.announcements.announcers.find(a => a.name === 'event')
 		)
-			return msg.channel.send(
-				`${emoji.cross} improper config, contact a bot developer`
-			);
+			throw new Error('Improper announcements config');
 
 		const announcer = config.features.announcements.announcers.find(
 			a => a.name === 'event'

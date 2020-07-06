@@ -26,7 +26,8 @@ export default class ReactionRoleRawListener extends Listener {
 		if (!channel || channel.messages.cache.has(packet.d.message_id)) return; // if message is already cached don't emit again
 
 		const message = await channel.messages.fetch(packet.d.message_id);
-		if (!message) throw 'Could not fetch message in reaction role raw';
+		if (!message)
+			throw new Error('Could not fetch message in reaction role raw');
 
 		const emoji = packet.d.emoji.id
 			? `${packet.d.emoji.name}:${packet.d.emoji.id}`
@@ -39,7 +40,7 @@ export default class ReactionRoleRawListener extends Listener {
 			packet.d.user_id,
 			this.client.users.resolve(packet.d.user_id)!
 		);
-		
+
 		switch (packet.t) {
 			case 'MESSAGE_REACTION_ADD':
 				return this.client.emit(

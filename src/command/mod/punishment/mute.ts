@@ -56,7 +56,7 @@ export default class MuteCommand extends MinehutCommand {
 		if (!member.manageable)
 			return msg.channel.send(`${emoji.cross} I cannot mute that member`);
 		if (!guildConfigs.get(msg.guild!.id)?.roles.muted)
-			throw 'no mute role set in config';
+			throw new Error('No mute role set in config');
 		const humanReadable =
 			duration === FOREVER_MS
 				? 'permanent'

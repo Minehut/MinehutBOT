@@ -31,7 +31,8 @@ export function getPermissionLevel(member: GuildMember, client: MinehutClient) {
 
 	const highestRole = roles.sort((a, b) => a.position - b.position).last();
 	const roleType = getRoleTypeById(highestRole?.id!);
-	if (!roleType) throw 'Something weird happened, roleType is not defined';
+	if (!roleType)
+		throw new Error('Something weird happened, roleType is not defined');
 
 	switch (roleType) {
 		case RoleType.Muted:
@@ -39,31 +40,31 @@ export function getPermissionLevel(member: GuildMember, client: MinehutClient) {
 
 		case RoleType.DJ:
 			return PermissionLevel.DJ;
-		
+
 		case RoleType.Verified:
 			return PermissionLevel.Verified;
-		
+
 		case RoleType.BoostersPass:
 			return PermissionLevel.BoostersPass;
-		
+
 		case RoleType.NitroBooster:
 			return PermissionLevel.NitroBooster;
 
 		case RoleType.Advisor:
 			return PermissionLevel.Advisor;
-		
+
 		case RoleType.SuperLeague:
 			return PermissionLevel.SuperLeague;
-		
+
 		case RoleType.YouTube:
 			return PermissionLevel.YouTube;
-		
+
 		case RoleType.Robot:
 			return PermissionLevel.Robot;
 
 		case RoleType.JuniorModerator:
 			return PermissionLevel.JuniorModerator;
-		
+
 		case RoleType.Moderator:
 			return PermissionLevel.Moderator;
 
@@ -78,7 +79,7 @@ export function getPermissionLevel(member: GuildMember, client: MinehutClient) {
 
 		case RoleType.Admin:
 			return PermissionLevel.Admin;
-		
+
 		default:
 			return PermissionLevel.Everyone;
 	}

@@ -46,7 +46,7 @@ export default class UnMuteCommand extends MinehutCommand {
 		if (!member.manageable)
 			return msg.channel.send(`${emoji.cross} I cannot unmute that member`);
 		if (!guildConfigs.get(msg.guild!.id)?.roles.muted)
-			throw 'no mute role set in config';
+			throw new Error('No mute role set in config');
 		if (
 			!(await CaseModel.exists({
 				targetId: member.id,
