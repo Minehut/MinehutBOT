@@ -4,7 +4,7 @@ import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { User } from 'discord.js';
 import { Argument } from 'discord-akairo';
 import { CaseModel } from '../../../model/case';
-import truncate from 'truncate';
+import { truncate } from 'lodash';
 import { humanReadableCaseType, prettyDate } from '../../../util/functions';
 import humanize from 'humanize-duration';
 import { MessageEmbed } from 'discord.js';
@@ -62,7 +62,9 @@ export default class CaseSearchCommand extends MinehutCommand {
 				} ${humanReadableCaseType(c.type)} by **${c.moderatorTag}** (${
 					c.moderatorId
 				})`,
-				`- **__Reason:__** ${truncate(Util.escapeMarkdown(c.reason), 50)}`,
+				`- **__Reason:__** ${truncate(Util.escapeMarkdown(c.reason), {
+					length: 50,
+				})}`,
 				c.expiresAt.getTime() > -1
 					? `- **__Duration:__** ${humanize(
 							c.expiresAt.getTime() - c.createdAt.getTime(),
@@ -84,7 +86,9 @@ export default class CaseSearchCommand extends MinehutCommand {
 			embeds.push(
 				new MessageEmbed()
 					.setDescription(
-						truncate(itemChunks[i].join('\n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n'), 2000)
+						truncate(itemChunks[i].join('\n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n'), {
+							length: 2000,
+						})
 					)
 					.setColor('LUMINOUS_VIVID_PINK')
 					.setAuthor(`${target.tag} (${target.id})`, target.displayAvatarURL())

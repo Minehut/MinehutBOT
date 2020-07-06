@@ -1,9 +1,7 @@
 import { randomAlphanumericString } from '../../util/functions';
-// import { DocumentType } from '@typegoose/typegoose';
-// import { Case } from '../../model/case';
 import { Guild } from 'discord.js';
 import { MinehutClient } from '../../client/minehutClient';
-import truncate from 'truncate';
+import { truncate } from 'lodash';
 import { GuildMember } from 'discord.js';
 import { DocumentType } from '@typegoose/typegoose';
 import { Case } from '../../model/case';
@@ -33,7 +31,9 @@ export class Action {
 		this.guild = data.guild;
 		this.moderator = data.moderator;
 
-		this.reason = truncate(data.reason || 'No reason provided', 2000);
+		this.reason = truncate(data.reason || 'No reason provided', {
+			length: 2000,
+		});
 	}
 
 	async after() {

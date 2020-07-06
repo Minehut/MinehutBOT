@@ -1,7 +1,7 @@
 import { Message } from 'discord.js';
 import { TagModel } from '../../../model/tag';
 import { MessageEmbed } from 'discord.js';
-import truncate from 'truncate';
+import { truncate } from 'lodash';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
 
@@ -32,6 +32,7 @@ export default class TagListAliasesCommand extends MinehutCommand {
 			if (t.aliases.length > 0)
 				t.aliases.forEach(a => aliases.push({ name: t.name, alias: a }));
 		});
+		// TODO: use pagination here
 		embed.setDescription(
 			truncate(
 				aliases
@@ -40,7 +41,7 @@ export default class TagListAliasesCommand extends MinehutCommand {
 							`:small_orange_diamond: \`${a.alias}\` :point_right: \`${a.name}\``
 					)
 					.join('\n'),
-				2045
+				{ length: 2045 }
 			)
 		);
 		msg.channel.send(embed);

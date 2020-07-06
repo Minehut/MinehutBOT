@@ -1,7 +1,7 @@
 import { Message } from 'discord.js';
 import { emoji } from '../../util/messages';
 import { TagModel } from '../../model/tag';
-import truncate from 'truncate';
+import { truncate } from 'lodash';
 import { PrefixSupplier } from 'discord-akairo';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
 
@@ -42,7 +42,7 @@ export default class TagShowCommand extends MinehutCommand {
 			)
 		)
 			return msg.react('⏲️');
-		msg.channel.send(truncate(tag.content, 1900));
+		msg.channel.send(truncate(tag.content, { length: 1900 }));
 		this.client.tagCooldownManager.add(`t-${tag.name}-${msg.channel.id}`);
 		await tag.updateOne({ uses: tag.uses + 1 });
 	}
