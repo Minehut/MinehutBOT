@@ -27,7 +27,7 @@ export const messages = {
 		commandHandler: {
 			missingPermissions: {
 				user: (required: PermissionLevel) =>
-					`:no_entry: you don't have the required permission level (${required.toString()})`,
+					`:no_entry: you don't have the required permission level (${required})`,
 				client: (missing: string) =>
 					`${emoji.cross} bot is missing permission ${missing}`,
 			},
