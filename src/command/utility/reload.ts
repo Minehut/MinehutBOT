@@ -19,6 +19,7 @@ export default class ReloadCommand extends MinehutCommand {
 			description: {
 				content: 'Reload a module',
 				usage: '<handler> <moduleid>',
+				examples: ['cmd ping'],
 			},
 			args: [
 				{

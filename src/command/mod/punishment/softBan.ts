@@ -17,6 +17,7 @@ export default class SoftBanCommand extends MinehutCommand {
 				content:
 					'Bans a member, then immediately unbans them, deleting all of their messages up to 7 days old (TL;DR: kick with message deletion)',
 				usage: '<member> [...reason]',
+				examples: ['@daniel', '250536623270264833 bye bye (again)'],
 			},
 			args: [
 				{

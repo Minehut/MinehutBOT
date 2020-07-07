@@ -23,6 +23,17 @@ export default class TagCommand extends MinehutCommand {
 				• **delete** \`<name>\`
 				`,
 				usage: '<method> <...arguments>',
+				examples: [
+					'show meta',
+					'set minehut :point_right: If you want a great server host, use minehut.com',
+					'setalias mh minehut',
+					'deletealias mh',
+					'info minehut',
+					'info mh',
+					'source timings',
+					'rename minehut memehut',
+					'delete memehut',
+				],
 			},
 			category: 'tag',
 			channel: 'guild',

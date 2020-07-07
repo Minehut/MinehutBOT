@@ -19,6 +19,7 @@ export default class UnBanCommand extends MinehutCommand {
 			description: {
 				content: 'Unban a user',
 				usage: '<user> [...reason]',
+				examples: ['@daniel', '@daniel accepted appeal'],
 			},
 			args: [
 				{

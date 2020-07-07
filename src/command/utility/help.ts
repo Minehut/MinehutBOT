@@ -12,6 +12,7 @@ export default class HelpCommand extends MinehutCommand {
 				content:
 					'Lists available commands or displays detailed information for a specific command',
 				usage: '[command]',
+				examples: ['case', 'tag', 'ban', ''],
 			},
 			category: 'utility',
 			args: [

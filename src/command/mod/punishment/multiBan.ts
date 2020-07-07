@@ -17,8 +17,10 @@ export default class MultiBanCommand extends MinehutCommand {
 			channel: 'guild',
 			clientPermissions: ['BAN_MEMBERS'],
 			description: {
-				content: 'Ban multiple users at once',
-				usage: '"reason" <...users> [d:duration] [days:number]',
+				content:
+					'Ban multiple users at once (EXTREMELY DELICATE, USE PERFECT ARGUMENTS)',
+				usage: '<"reason>" <...users> [d:duration] [days:number]',
+				examples: ['"bot" 250536623270264833 @theminecoder 535986058991501323'],
 			},
 			args: [
 				{
@@ -44,7 +46,7 @@ export default class MultiBanCommand extends MinehutCommand {
 					id: 'duration',
 					type: 'duration',
 					match: 'option',
-					flag: ['duration', 'd', 'l'],
+					flag: ['duration:', 'd:', 'l:'],
 					default: FOREVER_MS,
 				},
 				{

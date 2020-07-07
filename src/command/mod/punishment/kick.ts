@@ -16,6 +16,7 @@ export default class KickCommand extends MinehutCommand {
 			description: {
 				content: 'Kick a member',
 				usage: '<member> [...reason]',
+				examples: ['@daniel', '250536623270264833 bye bye'],
 			},
 			args: [
 				{

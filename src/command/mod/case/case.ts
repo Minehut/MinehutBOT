@@ -20,6 +20,17 @@ export default class CaseCommand extends MinehutCommand {
 				• **reason** \`<case> <...new reason>\`
 				`,
 				usage: '<method> <...arguments>',
+				examples: [
+					'clear @daniel',
+					'clear 184474878840274946',
+					'delete C4T5',
+					'duration L33T 2d',
+					'duration LEET 5years',
+					'info JELL',
+					'search @daniel',
+					'search 250536623270264833',
+					'reason AEST This is a better reason!',
+				],
 			},
 			permissionLevel: PermissionLevel.JuniorModerator,
 			category: 'mod',

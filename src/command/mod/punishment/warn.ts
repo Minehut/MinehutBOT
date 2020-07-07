@@ -15,6 +15,7 @@ export default class WarnCommand extends MinehutCommand {
 			description: {
 				content: 'Warn a member',
 				usage: '<member> <...reason>',
+				examples: ['@daniel Channel Misuse', '74881710235320320 Spam'],
 			},
 			args: [
 				{

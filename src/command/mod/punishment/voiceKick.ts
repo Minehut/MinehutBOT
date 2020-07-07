@@ -17,6 +17,7 @@ export default class VoiceKickCommand extends MinehutCommand {
 				content:
 					"Kick a member from their voice channel (shows on record as opposed to 'Disconnect' button)",
 				usage: '<member> [...reason]',
+				examples: ['@Trent using a voice changer'],
 			},
 			args: [
 				{

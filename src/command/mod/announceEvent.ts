@@ -10,12 +10,17 @@ export default class AnnounceEventCommand extends MinehutCommand {
 	constructor() {
 		super('announceEvent', {
 			aliases: ['announceevent'],
-			category: 'utility',
+			category: 'mod',
 			channel: 'guild',
 			permissionLevel: PermissionLevel.Moderator,
 			description: {
 				content: 'Announce an event',
 				usage: '<content> [--mention]',
+				examples: [
+					'--mention The sheep shearing event is starting now! Join the Events voice channel :)',
+					'-m Shorter way of saying mention',
+					'This is not an important announcement so it does not require a mention',
+				],
 			},
 			args: [
 				{
@@ -28,9 +33,8 @@ export default class AnnounceEventCommand extends MinehutCommand {
 				},
 				{
 					id: 'mention',
-					match: 'option',
+					match: 'flag',
 					flag: ['--mention', '-m'],
-					default: false,
 				},
 			],
 		});

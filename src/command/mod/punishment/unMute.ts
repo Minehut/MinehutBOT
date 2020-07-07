@@ -19,6 +19,7 @@ export default class UnMuteCommand extends MinehutCommand {
 			description: {
 				content: 'Unmute a member',
 				usage: '<member> [...reason]',
+				examples: ['296275116889866240 cool person'],
 			},
 			args: [
 				{

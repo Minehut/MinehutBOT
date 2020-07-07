@@ -17,8 +17,16 @@ export default class BanCommand extends MinehutCommand {
 			channel: 'guild',
 			clientPermissions: ['BAN_MEMBERS'],
 			description: {
-				content: 'Ban a user for specified duration (defaults to permanent)',
+				content:
+					'Ban a user for specified duration (defaults to permanent), days arg = how many messages should be deleted',
 				usage: '<user> [...reason] [d:duration] [days:number]',
+				examples: [
+					'@daniel',
+					'74881710235320320 too cool to be here',
+					'@Trent suspicious d:1y',
+					'201345371513946112 d:1h',
+					'@daniel delete this! days:1 d:2w',
+				],
 			},
 			args: [
 				{
@@ -36,10 +44,15 @@ export default class BanCommand extends MinehutCommand {
 					},
 				},
 				{
+					id: 'reason',
+					type: 'string',
+					match: 'rest',
+				},
+				{
 					id: 'duration',
 					type: 'duration',
 					match: 'option',
-					flag: ['duration', 'd', 'l'],
+					flag: ['duration:', 'd:', 'l:'],
 					default: FOREVER_MS,
 				},
 				{
@@ -48,11 +61,6 @@ export default class BanCommand extends MinehutCommand {
 					match: 'option',
 					flag: 'days:',
 					default: 0,
-				},
-				{
-					id: 'reason',
-					type: 'string',
-					match: 'rest',
 				},
 			],
 		});

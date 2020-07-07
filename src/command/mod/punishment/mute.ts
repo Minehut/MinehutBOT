@@ -19,6 +19,11 @@ export default class MuteCommand extends MinehutCommand {
 			description: {
 				content: 'Mute a member for specified duration (defaults to permanent)',
 				usage: '<user> [...reason] [d:duration]',
+				examples: [
+					'@daniel Swearing! d:6h',
+					'161984544205963264',
+					'@ZeroParticle d:2w',
+				],
 			},
 			args: [
 				{
@@ -30,16 +35,16 @@ export default class MuteCommand extends MinehutCommand {
 					},
 				},
 				{
-					id: 'duration',
-					type: 'duration',
-					match: 'option',
-					flag: ['duration', 'd', 'l'],
-					default: FOREVER_MS,
-				},
-				{
 					id: 'reason',
 					type: 'string',
 					match: 'rest',
+				},
+				{
+					id: 'duration',
+					type: 'duration',
+					match: 'option',
+					flag: ['duration:', 'd:', 'l:'],
+					default: FOREVER_MS,
 				},
 			],
 		});

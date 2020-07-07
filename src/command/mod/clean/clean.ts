@@ -17,6 +17,12 @@ export default class CleanCommand extends MinehutCommand {
 				• **bots** \`<count>\`
 				`,
 				usage: '<method> <...arguments>',
+				examples: [
+					'user @daniel 30',
+					'user 99619143552077824 20',
+					'all 70',
+					'bots 10',
+				],
 			},
 			permissionLevel: PermissionLevel.JuniorModerator,
 			category: 'mod',
