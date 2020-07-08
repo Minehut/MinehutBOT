@@ -44,7 +44,10 @@ export default class TagCommand extends MinehutCommand {
 		const method = yield {
 			type: [
 				['tag-set', 'set'],
+
 				['tag-delete', 'delete'],
+				['tag-delete', 'del'],
+
 				['tag-show', 'show'],
 				['tag-list', 'list'],
 				['tag-info', 'info'],
