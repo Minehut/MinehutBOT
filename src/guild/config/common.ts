@@ -21,6 +21,7 @@ export const INVITE_WHITELIST = [
 	'239599059415859200', // Minehut
 	'546414872196415501', // Minehut Meta
 	'405124395401609218', // Super League Gaming Official
+	'302094807046684672', // MINECRAFT
 
 	'608978588976283660', // Bot testing
 ];
