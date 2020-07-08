@@ -20,6 +20,7 @@ export const CENSOR_BYPASS_PERMISSION_LEVEL = PermissionLevel.JuniorModerator;
 export const INVITE_WHITELIST = [
 	'239599059415859200', // Minehut
 	'546414872196415501', // Minehut Meta
-	'333669866735271938', // Warzone
+	'405124395401609218', // Super League Gaming Official
+
 	'608978588976283660', // Bot testing
 ];
