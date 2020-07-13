@@ -8,7 +8,7 @@ import { PermissionLevel } from '../../util/permission/permissionLevel';
 export default class TagDeleteCommand extends MinehutCommand {
 	constructor() {
 		super('tag-delete', {
-			permissionLevel: PermissionLevel.Moderator,
+			permissionLevel: PermissionLevel.Support,
 			category: 'tag',
 			channel: 'guild',
 			description: {

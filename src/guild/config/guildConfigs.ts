@@ -22,6 +22,7 @@ guildConfigs.set('608978588976283660', {
 		juniorModerator: '701854457331187763',
 		admin: '701854509164527707',
 		muted: '615630839438508062',
+		support: '728202547944357958',
 	},
 	features: {
 		modLog: {

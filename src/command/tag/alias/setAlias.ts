@@ -7,7 +7,7 @@ import { PermissionLevel } from '../../../util/permission/permissionLevel';
 export default class TagSetAliasCommand extends MinehutCommand {
 	constructor() {
 		super('tag-setalias', {
-			permissionLevel: PermissionLevel.Moderator,
+			permissionLevel: PermissionLevel.Support,
 			category: 'tag',
 			channel: 'guild',
 			description: {

@@ -11,6 +11,7 @@ export interface RoleList {
 	robot?: string;
 	buildTeam?: string;
 	builder?: string;
+	support?: string;
 	staff?: string;
 	mentor?: string;
 	juniorModerator?: string;

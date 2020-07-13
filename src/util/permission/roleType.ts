@@ -12,6 +12,7 @@ export enum RoleType {
 	Robot = 'robot',
 	BuildTeam = 'buildTeam',
 	Builder = 'builder',
+	Support = 'support',
 
 	Staff = 'staff',
 	Mentor = 'mentor',
@@ -20,5 +21,5 @@ export enum RoleType {
 	SeniorModerator = 'seniorModerator',
 	Manager = 'manager',
 	Developer = 'developer',
-	Admin = 'admin'
+	Admin = 'admin',
 }

@@ -50,6 +50,9 @@ export function getPermissionLevel(member: GuildMember, client: MinehutClient) {
 		case RoleType.NitroBooster:
 			return PermissionLevel.NitroBooster;
 
+		case RoleType.Support:
+			return PermissionLevel.Support;
+
 		case RoleType.Advisor:
 			return PermissionLevel.Advisor;
 

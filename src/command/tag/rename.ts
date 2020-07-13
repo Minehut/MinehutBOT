@@ -8,7 +8,7 @@ import { PermissionLevel } from '../../util/permission/permissionLevel';
 export default class TagRenameCommand extends MinehutCommand {
 	constructor() {
 		super('tag-rename', {
-			permissionLevel: PermissionLevel.Moderator,
+			permissionLevel: PermissionLevel.Support,
 			category: 'tag',
 			channel: 'guild',
 			description: {

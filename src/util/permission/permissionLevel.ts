@@ -9,16 +9,20 @@ export enum PermissionLevel {
 	YouTube = 4,
 
 	DJ = 5,
+	Advisor = 5,
 
 	BuildTeam = 6,
-	Advisor = 7,
+	Support = 7,
+
 	Robot = 8,
 
 	JuniorModerator = 9,
 	Moderator = 10,
 	SeniorModerator = 11,
+
 	Manager = 12,
 	SuperLeague = 12,
+
 	Developer = 13,
 	Admin = 13,
 
