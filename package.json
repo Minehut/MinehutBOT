@@ -15,7 +15,7 @@
 		"humanize-duration": "^3.23.0",
 		"javascript-time-ago": "^2.0.7",
 		"lodash": "^4.17.15",
-		"minehut": "^0.0.11",
+		"minehut": "^0.0.12",
 		"mongoose": "^5.9.10",
 		"node-fetch": "^2.6.0",
 		"parse-duration": "^0.4.4"

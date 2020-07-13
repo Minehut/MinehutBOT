@@ -50,7 +50,7 @@ export default class ReloadCommand extends MinehutCommand {
 				return msg.channel.send(
 					messages.commands.common.useHelp(prefix, this.aliases[0])
 				);
-			const mod = handler.reload(module.toLowerCase());
+			const mod = handler.reload(module);
 			const proto = Object.getPrototypeOf(mod.constructor);
 			msg.channel.send(
 				`reloaded ${proto.name.toLowerCase()} \`${mod.id}\` ${

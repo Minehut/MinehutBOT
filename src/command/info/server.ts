@@ -3,7 +3,6 @@ import { Message } from 'discord.js';
 import { emoji } from '../../util/messages';
 import { MessageEmbed } from 'discord.js';
 import { prettyDate } from '../../util/functions';
-// import { MessageEmbed } from 'discord.js';
 import { startCase } from 'lodash';
 
 const COLOUR_CODE_EXPR = /&[0-9A-FK-OR]/gim;
@@ -39,7 +38,6 @@ export default class ServerInfoCommand extends MinehutCommand {
 		);
 		try {
 			const server = await this.client.minehutApi.servers.get(serverName);
-			console.log(server);
 			const embed = new MessageEmbed();
 			embed.setTitle(
 				`${server.name} (${server.visibility ? 'visible' : 'unlisted'})`
