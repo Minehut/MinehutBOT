@@ -12,6 +12,8 @@ import { MuteScheduler } from '../structure/scheduler/muteScheduler';
 import { CooldownManager } from '../structure/cooldownManager';
 import MinehutClientEvents from './minehutClientEvents';
 
+import { Minehut } from 'minehut';
+
 export class MinehutClient extends AkairoClient {
 	commandHandler: CommandHandler;
 	listenerHandler: ListenerHandler;
@@ -21,6 +23,8 @@ export class MinehutClient extends AkairoClient {
 	muteScheduler: MuteScheduler;
 
 	tagCooldownManager: CooldownManager;
+
+	minehutApi: Minehut;
 
 	ownerIds: string[] | undefined;
 	mongo?: Mongoose;
@@ -89,6 +93,8 @@ export class MinehutClient extends AkairoClient {
 
 		this.tagCooldownManager = new CooldownManager(10000);
 
+		this.minehutApi = new Minehut();
+
 		this.registerArgTypes();
 
 		this.commandHandler.on('error', (err, msg, _command) => {
@@ -155,6 +161,7 @@ declare module 'discord-akairo' {
 		banScheduler: BanScheduler;
 		muteScheduler: MuteScheduler;
 		tagCooldownManager: CooldownManager;
+		minehutApi: Minehut;
 
 		start(token: string): void;
 		registerArgTypes(): void;
