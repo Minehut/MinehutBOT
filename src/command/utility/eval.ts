@@ -40,7 +40,7 @@ export default class EvalCommand extends MinehutCommand {
 			);
 		let content: string;
 		try {
-			let evaled = eval(`(async() => { ${expression} })()`);
+			let evaled = eval(expression);
 			if (typeof evaled !== 'string') evaled = inspect(evaled);
 			content = `\`\`\`xl\n${this.clean(evaled)}\`\`\``;
 		} catch (err) {
