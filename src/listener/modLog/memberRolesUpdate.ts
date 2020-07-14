@@ -21,8 +21,6 @@ export default class ModLogMemberRolesUpdateListener extends Listener {
 			oldMember.roles === newMember.roles
 		)
 			return;
-		const guild = this.client.guilds.cache.get(config.id);
-		if (!guild) return;
 		const { added, removed }: { added: Role[]; removed: Role[] } = arrayDiff(
 			oldMember.roles.cache.array(),
 			newMember.roles.cache.array()

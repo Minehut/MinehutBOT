@@ -20,8 +20,7 @@ export default class ModLogMemberNickNameUpdateListener extends Listener {
 			oldMember.nickname === newMember.nickname
 		)
 			return;
-		const guild = this.client.guilds.cache.get(config.id);
-		if (!guild) return;
+		const guild = newMember.guild;
 		if (oldMember.nickname && !newMember.nickname)
 			return await sendModLogMessage(
 				guild,
