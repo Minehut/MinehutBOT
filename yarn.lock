@@ -370,10 +370,10 @@ mime-types@^2.1.12:
   dependencies:
     mime-db "1.43.0"
 
-minehut@^0.0.12:
-  version "0.0.12"
-  resolved "https://registry.yarnpkg.com/minehut/-/minehut-0.0.12.tgz#4cfe8617039e4c4900069d98deacab106d082f3c"
-  integrity sha512-DyN7vx2tRGzkVgBcAICx7V8QJgUfMCnGv8mpIPCFvPBWhhr6BlVglI4LmJqcdyEL6IzbTj1igyl+eMI5cDEvWg==
+minehut@^0.0.14:
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/minehut/-/minehut-0.0.14.tgz#ed64cd86d3d71bbbbe2794f3253dbe041c498849"
+  integrity sha512-AwTUM8bJ9ta2E1ABKLP1WXWXNTydEEJTqi0b1u4vOw3qFQemooMlibIa8Z7ITpz2U3EimoS9nugcb456ukdwuw==
   dependencies:
     node-fetch "^2.6.0"
 
