@@ -62,7 +62,9 @@ export default class AnnounceEventCommand extends MinehutCommand {
 			!config.features.announcements ||
 			!config.features.announcements.announcers.find(a => a.name === 'event')
 		)
-			throw new Error('Improper announcements config');
+			return msg.channel.send(
+				`${emoji.cross} this server does not have event announcements configured`
+			);
 
 		const announcer = config.features.announcements.announcers.find(
 			a => a.name === 'event'
