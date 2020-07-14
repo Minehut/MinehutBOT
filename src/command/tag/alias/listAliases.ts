@@ -23,7 +23,7 @@ export default class TagListAliasesCommand extends MinehutCommand {
 	}
 
 	async exec(msg: Message) {
-		const tags = await TagModel.find({ guild: msg.guild!.id });
+		const tags = await TagModel.find();
 		const embed = new MessageEmbed();
 		embed.setColor('ORANGE');
 		embed.setTitle(`Showing all tag aliases`);

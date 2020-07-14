@@ -47,16 +47,13 @@ export default class TagRenameCommand extends MinehutCommand {
 
 		// check if name tag exists
 		// check if newName is already a name or alias
-		const tag = await TagModel.findByNameOrAlias(oldName, msg.guild!.id);
+		const tag = await TagModel.findByNameOrAlias(oldName);
 		if (!tag)
 			return msg.channel.send(
 				`${emoji.cross} tag \`${oldName}\` does not exist, check \`${prefix}tags\``
 			);
 		oldName = tag.name;
-		const tagWithNewName = await TagModel.findByNameOrAlias(
-			newName,
-			msg.guild!.id
-		);
+		const tagWithNewName = await TagModel.findByNameOrAlias(newName);
 		if (tagWithNewName)
 			return msg.channel.send(
 				`${emoji.cross} a tag with the new name/alias already exists`
