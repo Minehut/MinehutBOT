@@ -1,6 +1,9 @@
 import { Listener } from 'discord-akairo';
 import { guildConfigs } from '../../guild/config/guildConfigs';
-import { sendModLogMessage, removeMarkdownAndMentions } from '../../util/functions';
+import {
+	sendModLogMessage,
+	removeMarkdownAndMentions,
+} from '../../util/functions';
 import { Message } from 'discord.js';
 import { TextChannel } from 'discord.js';
 
@@ -20,7 +23,8 @@ export default class ModLogMessageDeleteListener extends Listener {
 			!config.features.modLog ||
 			!config.features.modLog.events.includes('messageDelete') ||
 			msg.author.id === this.client.user!.id ||
-			config.features.modLog.ignoredChannels.includes(msg.channel.id)
+			(config.features.modLog.ignoredChannels &&
+				config.features.modLog.ignoredChannels.includes(msg.channel.id))
 		)
 			return;
 		await sendModLogMessage(

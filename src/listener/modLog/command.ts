@@ -21,7 +21,8 @@ export default class ModLogCommandListener extends Listener {
 			!config ||
 			!config.features.modLog ||
 			!config.features.modLog.events.includes('command') ||
-			config.features.modLog.ignoredChannels.includes(msg.channel.id)
+			(config.features.modLog.ignoredChannels &&
+				config.features.modLog.ignoredChannels.includes(msg.channel.id))
 		)
 			return;
 		await sendModLogMessage(
