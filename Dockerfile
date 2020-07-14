@@ -6,6 +6,6 @@ WORKDIR /app
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 
 ADD . .
-RUN npm install
+RUN yarn install
 
-CMD ["/usr/local/bin/npm", "start"]
+CMD ["/usr/local/bin/yarn", "start"]
