@@ -75,7 +75,6 @@ export default class BanCommand extends MinehutCommand {
 			days,
 		}: { target: User; reason: string; duration: number; days: number }
 	) {
-		console.log(days);
 		const member = msg.guild!.member(target);
 		if (member && !member.bannable)
 			return msg.channel.send(`${emoji.cross} I cannot ban that user`);

@@ -1,13 +1,18 @@
 import { MinehutClient } from './client/minehutClient';
 import { mongoose } from '@typegoose/typegoose';
+import * as Sentry from '@sentry/node';
 
 require('dotenv').config();
+
+Sentry.init({
+	dsn: process.env.SENTRY_DSN,
+});
 
 // TODO: validate env variables
 (async () => {
 	const connection = await mongoose.connect(process.env.MONGO_URI || '', {
 		useNewUrlParser: true,
-		useUnifiedTopology: true
+		useUnifiedTopology: true,
 	});
 
 	const client = new MinehutClient({

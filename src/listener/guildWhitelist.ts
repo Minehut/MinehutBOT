@@ -18,6 +18,6 @@ export default class GuildWhitelistListener extends Listener {
 	async exec(guild: Guild) {
 		if (guildConfigs.has(guild.id)) return;
 		await guild.leave();
-		console.log('left guild because not on whitelist', guild.id); // todo: make logging better
+		console.log(`Left guild ${guild.id} because not on whitelist`);
 	}
 }

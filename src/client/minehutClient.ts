@@ -96,12 +96,6 @@ export class MinehutClient extends AkairoClient {
 		this.minehutApi = new Minehut();
 
 		this.registerArgTypes();
-
-		this.commandHandler.on('error', (err, msg, _command) => {
-			msg.channel.send(
-				'an error occurred (error event): ' + err.name + ' ' + err.message
-			);
-		});
 	}
 
 	start(token: string) {
@@ -145,7 +139,6 @@ export class MinehutClient extends AkairoClient {
 			'duration',
 			(_msg: Message, phrase) => {
 				const parsed = parseDuration(phrase);
-				// console.log(phrase, parsed);
 				return parsed;
 			}
 		);
