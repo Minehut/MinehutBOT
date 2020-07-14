@@ -24,6 +24,8 @@ export enum CaseType {
 	ForceBan = 'FORCEBAN',
 }
 
+console.log(process.env.MONGO_URI);
+
 (async () => {
 	const connection = await mongoose.connect(process.env.MONGO_URI || '', {
 		useNewUrlParser: true,
@@ -33,20 +35,20 @@ export enum CaseType {
 	const rtags = await r.table('tags').run();
 	// console.log(rtags);
 
-	// rtags.forEach((rtr: any) => {
-	// 	TagModel.create({
-	// 		name: rtr.id,
-	// 		content: rtr.content,
-	// 		author: '250536623270264833',
-	// 		guild: '239599059415859200',
-	// 		aliases: rtr.aliases,
-	// 		uses: rtr.uses,
-	// 	} as Tag);
-	// 	console.log(`Inserted ${rtr.id} into Mongo`);
-	// });
+	rtags.forEach((rtr: any) => {
+		TagModel.create({
+			name: rtr.id,
+			content: rtr.content,
+			author: '250536623270264833',
+			guild: '239599059415859200',
+			aliases: rtr.aliases,
+			uses: rtr.uses,
+		} as Tag);
+		console.log(`Inserted ${rtr.id} into Mongo`);
+	});
 
 	const rpunishments = await r.table('punishments').run();
-	console.log(rpunishments);
+	// console.log(rpunishments);
 
 	rpunishments.forEach((rtp: any) => {
 		let type: CaseType;
@@ -80,7 +82,7 @@ export enum CaseType {
 			_id: rtp.id,
 			reason: rtp.reason,
 			type,
-			guild: '608978588976283660',
+			guild: '239599059415859200',
 			expiresAt,
 		} as Case);
 		console.log(`Inserted case ${rtp.id} into Mongo`);
