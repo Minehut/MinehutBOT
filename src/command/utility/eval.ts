@@ -3,13 +3,12 @@ import { messages, emoji } from '../../util/messages';
 import { inspect } from 'util';
 import { PrefixSupplier } from 'discord-akairo';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
-import { PermissionLevel } from '../../util/permission/permissionLevel';
 
 export default class EvalCommand extends MinehutCommand {
 	constructor() {
 		super('eval', {
 			aliases: ['eval'],
-			permissionLevel: PermissionLevel.BotDeveloper,
+			ownerOnly: true,
 			category: 'utility',
 			description: {
 				content: 'Evaluate JavaScript code',
