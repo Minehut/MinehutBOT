@@ -1,5 +1,6 @@
-FROM node:12
+FROM node:12-alpine
 
+RUN apk add dumb-init
 RUN mkdir -p /app
 WORKDIR /app
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
