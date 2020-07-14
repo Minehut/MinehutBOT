@@ -100,11 +100,11 @@ export function removeMarkdownAndMentions(content: string, msg?: Message) {
 export async function sendModLogMessage(guild: Guild, content: string) {
 	const config = guildConfigs.get(guild.id);
 	if (!config || !config.features.modLog) return;
-	const channel = guild.channels.cache.get(
+	const channel = guild.client.channels.cache.get(
 		config.features.modLog.channel
 	) as TextChannel;
 	const date = new Date();
-	channel.send(
+	channel?.send(
 		`**\`${prettyDate(date, false, false)}\`** ${
 			config.features.modLog.prefix
 		} ${content}`
