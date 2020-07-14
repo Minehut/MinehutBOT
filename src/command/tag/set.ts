@@ -49,12 +49,12 @@ export default class TagSetCommand extends MinehutCommand {
 			author: msg.author.id,
 			guild: msg.guild!.id,
 		} as Tag;
-		const conflictingTag = await TagModel.findByAlias(tag.name, msg.guild!.id);
+		const conflictingTag = await TagModel.findByAlias(tag.name);
 		if (conflictingTag)
 			return msg.channel.send(
 				`${emoji.cross} tag name conflicts with \`${conflictingTag.name}\`'s aliases (use ${prefix}tag info ${conflictingTag.name})`
 			);
-		if (!(await TagModel.exists({ name, guild: msg.guild!.id }))) {
+		if (!(await TagModel.exists({ name }))) {
 			TagModel.create(tag);
 			return msg.channel.send(`${emoji.check} tag \`${tag.name}\` created`);
 		} else await TagModel.updateOne({ name }, tag);

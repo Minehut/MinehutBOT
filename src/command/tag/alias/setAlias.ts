@@ -39,10 +39,7 @@ export default class TagSetAliasCommand extends MinehutCommand {
 		alias = alias.replace(/\s+/g, '-').toLowerCase();
 		name = name.replace(/\s+/g, '-').toLowerCase();
 
-		const existingTarget = await TagModel.findByNameOrAlias(
-			alias,
-			msg.guild!.id
-		);
+		const existingTarget = await TagModel.findByNameOrAlias(alias);
 
 		// If alias already points to something, remove it from that something
 		// OR if the alias already points to it and the user wanted to do that, say nothing changed
@@ -54,7 +51,7 @@ export default class TagSetAliasCommand extends MinehutCommand {
 			});
 		}
 
-		const target = await TagModel.findByNameOrAlias(name, msg.guild!.id);
+		const target = await TagModel.findByNameOrAlias(name);
 		if (!target)
 			return msg.channel.send(`${emoji.cross} unknown target \`${name}\``);
 

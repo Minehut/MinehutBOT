@@ -30,7 +30,7 @@ export default class TagSetAliasCommand extends MinehutCommand {
 	async exec(msg: Message, { alias }: { alias: string }) {
 		alias = alias.replace(/\s+/g, '-').toLowerCase();
 
-		const tag = await TagModel.findByNameOrAlias(alias, msg.guild!.id);
+		const tag = await TagModel.findByNameOrAlias(alias);
 
 		if (tag) {
 			if (tag.name === alias)

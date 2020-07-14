@@ -34,7 +34,7 @@ export default class TagInfoCommand extends MinehutCommand {
 		const prefix = (this.handler.prefix as PrefixSupplier)(msg) as string;
 
 		// Find tag with that name or alias
-		const tag = await TagModel.findByNameOrAlias(name, msg.guild!.id);
+		const tag = await TagModel.findByNameOrAlias(name);
 		if (!tag)
 			return msg.channel.send(
 				`${emoji.cross} tag \`${name}\` does not exist, check \`${prefix}tags\``
