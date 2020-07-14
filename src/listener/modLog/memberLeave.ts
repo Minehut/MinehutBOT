@@ -21,9 +21,11 @@ export default class ModLogMemberLeaveListener extends Listener {
 			return;
 		await sendModLogMessage(
 			member.guild,
-			`:outbox_tray: ${member.user.tag} (\`${
-				member.id
-			}\`) left (joined server: ${prettyDate(member.joinedAt!)})`
+			`:outbox_tray: ${member.user.tag} (\`${member.id}\`) left ${
+				member.joinedAt
+					? `(joined server: ${prettyDate(member.joinedAt!)})`
+					: ''
+			}`
 		);
 	}
 }
