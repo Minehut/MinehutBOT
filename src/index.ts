@@ -4,9 +4,10 @@ import * as Sentry from '@sentry/node';
 
 require('dotenv').config();
 
-Sentry.init({
-	dsn: process.env.SENTRY_DSN,
-});
+if (process.env.NODE_ENV === 'production')
+	Sentry.init({
+		dsn: process.env.SENTRY_DSN,
+	});
 
 // TODO: validate env variables
 (async () => {

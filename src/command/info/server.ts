@@ -50,7 +50,7 @@ export default class ServerInfoCommand extends MinehutCommand {
 			embed.addField('Suspended?', server.suspended ? 'Yes' : 'No', true);
 			embed.addField('Credits/day', Math.round(server.creditsPerDay), true);
 			const icon = await server.getActiveIcon();
-			embed.addField('Icon', icon.displayName, true);
+			if (icon) embed.addField('Icon', icon.displayName, true);
 			const plugins = await server.getActivePlugins();
 			embed.addField('Plugins', plugins.map(p => `⋆ ${p.name}`).join('\n'));
 			embed.addField(
