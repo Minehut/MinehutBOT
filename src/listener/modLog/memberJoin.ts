@@ -3,6 +3,8 @@ import { guildConfigs } from '../../guild/config/guildConfigs';
 import { GuildMember } from 'discord.js';
 import { sendModLogMessage, prettyDate } from '../../util/functions';
 
+const THIRTY_DAYS_MS = 2.592e9;
+
 export default class ModLogMemberJoinListener extends Listener {
 	constructor() {
 		super('modLogMemberJoin', {
@@ -19,9 +21,10 @@ export default class ModLogMemberJoinListener extends Listener {
 			!config.features.modLog.events.includes('memberJoin')
 		)
 			return;
+		const isNew = Date.now() - member.user.createdAt.getTime() < THIRTY_DAYS_MS;
 		await sendModLogMessage(
 			member.guild,
-			`:inbox_tray: ${member.user.tag} (\`${
+			`:inbox_tray: ${isNew ? ':new: ' : ''}${member.user.tag} (\`${
 				member.id
 			}\`) joined (account created: ${prettyDate(member.user.createdAt)})`
 		);
