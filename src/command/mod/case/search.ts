@@ -64,7 +64,7 @@ export default class CaseSearchCommand extends MinehutCommand {
 					c.moderatorId
 				})`,
 				`- **__Reason:__** ${truncate(Util.escapeMarkdown(c.reason), {
-					length: 50,
+					length: 200,
 				})}`,
 				c.expiresAt.getTime() > -1
 					? `- **__Duration:__** ${humanize(
