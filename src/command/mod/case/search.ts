@@ -96,6 +96,11 @@ export default class CaseSearchCommand extends MinehutCommand {
 					.setFooter(`**__Showing page ${pageNum} of ${itemChunks.length}**__`)
 			);
 		}
-		editMessageWithPaginatedEmbeds(m, embeds, { owner: msg.author });
+		editMessageWithPaginatedEmbeds(m, embeds, {
+			owner: msg.author,
+			footer: `Showing page {current} of {max} • ${historyItems.length} case${
+				historyItems.length > 1 ? 's' : ''
+			}`,
+		});
 	}
 }
