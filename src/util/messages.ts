@@ -1,14 +1,14 @@
 import { PermissionLevel } from './permission/permissionLevel';
 
 export const emoji = {
-	cross: '<:mhcross:548390154381950976>',
-	check: '<:mhdottick:610799592589623306>',
-	warning: '<:mhdotwarning:610801144914247690>',
-	ahh: '<:mhnotthis:703852468756283395>',
-	loading: '<a:dotloading:610799582812700673>',
-	dab: '<:mhdab:713449873776574505>',
-	active: '<:jonline:548390154956570645>',
-	inactive: '<:jdnd:548390154319036439>',
+	cross: '<:botcross:732545645726138388>',
+	check: '<:botcheck:732545645797441636>',
+	warning: '<:botwarning:732545645625344040>',
+	ahh: '<:botahh:732545645881327616>',
+	loading: '<a:botloading:732545648406036562>',
+	dab: '<:botdab:732545639551860756>',
+	active: '<:botonline:732545637572411443>',
+	inactive: '<:botdnd:732545635894558751>',
 };
 
 export const messages = {
