@@ -36,7 +36,7 @@ export class BanScheduler {
 
 	async unban(c: DocumentType<Case>) {
 		// unban user here
-		const guild = this.client.guilds.cache.get(c.guildId);
+		const guild = this.client.guilds.cache.get(c.guild);
 		if (!guild) return;
 		const user = await this.client.users.fetch(c.targetId);
 		if (!user) return;

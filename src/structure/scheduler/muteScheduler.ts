@@ -35,7 +35,7 @@ export class MuteScheduler {
 	}
 
 	async unmute(c: DocumentType<Case>) {
-		const guild = this.client.guilds.cache.get(c.guildId);
+		const guild = this.client.guilds.cache.get(c.guild);
 		if (!guild) return;
 		const member = guild.member(c.targetId);
 		if (!member) return;

@@ -44,14 +44,14 @@ export default class ModLogCaseCreateListener extends Listener {
 	}
 
 	async exec(c: DocumentType<Case>) {
-		const config = guildConfigs.get(c.guildId);
+		const config = guildConfigs.get(c.guild);
 		if (
 			!config ||
 			!config.features.modLog ||
 			!config.features.modLog.events.includes('caseCreate')
 		)
 			return;
-		const guild = this.client.guilds.cache.get(c.guildId);
+		const guild = this.client.guilds.cache.get(c.guild);
 		if (!guild) return;
 
 		let log;

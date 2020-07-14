@@ -14,7 +14,7 @@ export default class ModLogCaseDeleteListener extends Listener {
 	}
 
 	async exec(c: DocumentType<Case>, member: GuildMember) {
-		const config = guildConfigs.get(c.guildId);
+		const config = guildConfigs.get(c.guild);
 		if (
 			!config ||
 			!config.features.modLog ||

@@ -28,7 +28,7 @@ export class UnBanAction extends Action {
 			// Make all old bans inactive
 			await CaseModel.updateMany(
 				{
-					guildId: this.moderator.guild.id,
+					guild: this.moderator.guild.id,
 					active: true,
 					$or: [{ type: CaseType.Ban }, { type: CaseType.ForceBan }],
 					targetId: this.target.id,
@@ -46,7 +46,7 @@ export class UnBanAction extends Action {
 			targetTag: this.target.tag,
 			expiresAt: new Date(-1),
 			reason: this.reason,
-			guildId: this.moderator.guild.id,
+			guild: this.moderator.guild.id,
 			type: CaseType.UnBan,
 		});
 		await this.after();

@@ -23,7 +23,7 @@ export default class PersistentMuteRole extends Listener {
 				targetId: member.id,
 				type: CaseType.Mute,
 				active: true,
-				guildId: member.guild.id,
+				guild: member.guild.id,
 			})
 		) {
 			member.roles.add(mutedRole);

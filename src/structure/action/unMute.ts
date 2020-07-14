@@ -32,7 +32,7 @@ export class UnMuteAction extends Action {
 			// Make all old mutes inactive
 			await CaseModel.updateMany(
 				{
-					guildId: this.target.guild!.id,
+					guild: this.target.guild!.id,
 					active: true,
 					type: CaseType.Mute,
 					targetId: this.target.id,
@@ -50,7 +50,7 @@ export class UnMuteAction extends Action {
 			targetTag: this.target.user.tag,
 			expiresAt: new Date(-1),
 			reason: this.reason,
-			guildId: this.target.guild.id,
+			guild: this.target.guild.id,
 			type: CaseType.UnMute,
 		} as Case);
 		await this.after();

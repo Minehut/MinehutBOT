@@ -18,7 +18,7 @@ export default class ModLogCaseReasonUpdateListener extends Listener {
 		newCase: DocumentType<Case>,
 		member: GuildMember
 	) {
-		const config = guildConfigs.get(oldCase.guildId);
+		const config = guildConfigs.get(oldCase.guild);
 		if (
 			!config ||
 			!config.features.modLog ||

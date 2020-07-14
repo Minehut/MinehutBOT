@@ -26,7 +26,7 @@ export default class UnMuteByRoleRemovalListener extends Listener {
 					targetId: newMember.id,
 					type: CaseType.Mute,
 					active: true,
-					guildId: newMember.guild.id,
+					guild: newMember.guild.id,
 				}))
 			)
 				return;

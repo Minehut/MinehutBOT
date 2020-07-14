@@ -39,7 +39,7 @@ export class BanAction extends Action {
 		// Make previous bans inactive
 		await CaseModel.updateMany(
 			{
-				guildId: this.guild.id,
+				guild: this.guild.id,
 				active: true,
 				$or: [{ type: CaseType.Ban }, { type: CaseType.ForceBan }],
 				targetId: this.target.id,
@@ -61,7 +61,7 @@ export class BanAction extends Action {
 			targetTag: this.target.tag,
 			expiresAt: this.expiresAt,
 			reason: this.reason,
-			guildId: this.guild.id,
+			guild: this.guild.id,
 			type: CaseType.Ban,
 		});
 		await this.client.banScheduler.refresh();

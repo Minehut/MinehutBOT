@@ -36,7 +36,7 @@ export class MuteAction extends Action {
 		// Make previous mutes inactive
 		await CaseModel.updateMany(
 			{
-				guildId: this.guild.id,
+				guild: this.guild.id,
 				active: true,
 				type: CaseType.Mute,
 				targetId: this.target.id,
@@ -55,7 +55,7 @@ export class MuteAction extends Action {
 			targetTag: this.target.user.tag,
 			expiresAt: this.expiresAt,
 			reason: this.reason,
-			guildId: this.guild.id,
+			guild: this.guild.id,
 			type: CaseType.Mute,
 		});
 		await this.target.roles.add(muteRole, `[#${this.id}] ${this.reason}`);

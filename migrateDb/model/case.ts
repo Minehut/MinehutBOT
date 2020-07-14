@@ -1,5 +1,5 @@
 import { prop, getModelForClass } from '@typegoose/typegoose';
-import { CaseType } from '../util/constants';
+import { CaseType } from '../migrate';
 
 export class Case {
 	@prop({ required: true })

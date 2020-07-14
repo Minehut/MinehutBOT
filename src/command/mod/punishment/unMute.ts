@@ -53,7 +53,7 @@ export default class UnMuteCommand extends MinehutCommand {
 				targetId: member.id,
 				type: CaseType.Mute,
 				active: true,
-				guildId: msg.guild!.id,
+				guild: msg.guild!.id,
 			}))
 		)
 			return msg.channel.send(

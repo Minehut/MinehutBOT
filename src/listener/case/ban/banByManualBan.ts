@@ -24,7 +24,7 @@ export default class BanByManualBan extends Listener {
 					targetId: user.id,
 					$or: [{ type: CaseType.Ban }, { type: CaseType.ForceBan }],
 					active: true,
-					guildId: guild.id,
+					guild: guild.id,
 				})
 			)
 				return;

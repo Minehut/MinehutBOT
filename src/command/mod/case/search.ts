@@ -52,7 +52,7 @@ export default class CaseSearchCommand extends MinehutCommand {
 		);
 		let cases = await CaseModel.find({
 			targetId: target.id,
-			guildId: msg.guild!.id,
+			guild: msg.guild!.id,
 		}).sort('-createdAt');
 		if (cases.length < 1)
 			return m.edit(`${emoji.dab} No cases found for this user`);

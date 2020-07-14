@@ -54,7 +54,7 @@ export default class UnBanCommand extends MinehutCommand {
 				targetId: target.id,
 				$or: [{ type: CaseType.Ban }, { type: CaseType.ForceBan }],
 				active: true,
-				guildId: msg.guild!.id,
+				guild: msg.guild!.id,
 			}))
 		)
 			return msg.channel.send(
