@@ -52,7 +52,8 @@ export default class ServerInfoCommand extends MinehutCommand {
 			const icon = await server.getActiveIcon();
 			if (icon) embed.addField('Icon', icon.displayName, true);
 			const plugins = await server.getActivePlugins();
-			embed.addField('Plugins', plugins.map(p => `⋆ ${p.name}`).join('\n'));
+			if (plugins.length > 0)
+				embed.addField('Plugins', plugins.map(p => `⋆ ${p.name}`).join('\n'));
 			embed.addField(
 				'Server Properties',
 				Object.keys(server.serverProperties).map(
@@ -75,6 +76,7 @@ export default class ServerInfoCommand extends MinehutCommand {
 			);
 			return m.edit(embed);
 		} catch (e) {
+			if (process.env.NODE_ENV === 'development') console.log(e);
 			return m.edit(`${emoji.cross} could not fetch server`);
 		}
 	}
