@@ -11,6 +11,10 @@ export default class ReadyListener extends Listener {
 
 	async exec() {
 		console.log(`Logged in as ${this.client.user?.tag}`);
+		this.client.user?.setActivity({
+			name: ":eyes:",
+			type: "CUSTOM_STATUS"
+		})
 
 		this.client.guilds.cache.forEach(g => {
 			if (!guildConfigs.has(g.id!))
