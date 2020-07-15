@@ -41,7 +41,28 @@ guildConfigs.set('239599059415859200', {
 		censor: {
 			minimumBypassPermission: CENSOR_BYPASS_PERMISSION_LEVEL,
 			inviteWhitelist: INVITE_WHITELIST,
-			ignoredCategories: ['616367029053554708', '364462035833978881'], // Private, Staff categories (includes Boosters channels)
+			overrides: [
+				{
+					id: '616367029053554708', // Private category (incl. boosters)
+					type: 'category',
+					config: {
+						minimumBypassPermission: CENSOR_BYPASS_PERMISSION_LEVEL,
+						allowSwearing: true,
+						allowZalgo: true,
+					},
+				},
+				{
+					id: '364462035833978881', // Staff category
+					type: 'category',
+					config: {
+						minimumBypassPermission: CENSOR_BYPASS_PERMISSION_LEVEL,
+						allowSwearing: true,
+						allowCopyPasta: true,
+						allowInvites: true,
+						allowZalgo: true,
+					},
+				},
+			],
 		},
 		modLog: {
 			channel: '480889821225549824',
@@ -166,6 +187,16 @@ guildConfigs.set('608978588976283660', {
 		censor: {
 			minimumBypassPermission: CENSOR_BYPASS_PERMISSION_LEVEL,
 			inviteWhitelist: INVITE_WHITELIST,
+			overrides: [
+				{
+					id: '617438825144123432',
+					type: 'channel',
+					config: {
+						allowSwearing: true,
+						minimumBypassPermission: CENSOR_BYPASS_PERMISSION_LEVEL,
+					},
+				},
+			],
 		},
 	},
 });

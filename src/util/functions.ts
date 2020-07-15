@@ -1,5 +1,4 @@
 import { CaseType } from './constants';
-
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
 import { guildConfigs } from '../guild/config/guildConfigs';
@@ -7,6 +6,7 @@ import { TextChannel, Util, Guild, Message } from 'discord.js';
 import { CENSOR_RULES, CensorRuleType } from './censorRules';
 import { getPermissionLevel } from './permission/getPermissionLevel';
 import { MinehutClient } from '../client/minehutClient';
+import { cloneDeep } from 'lodash';
 TimeAgo.addLocale(en);
 export const ago = new TimeAgo('en-US');
 
@@ -122,42 +122,51 @@ export function arrayDiff<T>(aArray: T[], bArray: T[]) {
 	};
 }
 
+const { Swear, CopyPasta, Invite, Spam, Zalgo } = CensorRuleType;
+
 export async function censorMessage(msg: Message) {
 	if (!msg.guild || !msg.deletable || msg.author.bot) return;
 	const config = guildConfigs.get(msg.guild.id);
 	if (!config || !config.features.censor) return;
-	const isInIgnoredCategory =
-		(msg.channel as TextChannel).parentID &&
-		config.features.censor.ignoredCategories &&
-		config.features.censor.ignoredCategories.includes(
-			(msg.channel as TextChannel).parentID!
-		);
-	const isInIgnoredChannel =
-		config.features.censor.ignoredChannels &&
-		config.features.censor.ignoredChannels.includes(msg.channel.id);
+	const override = config.features.censor.overrides.find(o =>
+		o.type === 'channel'
+			? o.id === msg.channel.id
+			: (msg.channel as TextChannel).parentID
+	);
+	const featureConf = cloneDeep(config.features.censor);
+	const censorConfig = override
+		? Object.assign(featureConf, override.config)
+		: featureConf;
 	const bypassCensor =
 		getPermissionLevel(msg.member!, msg.client as MinehutClient) >=
-		config.features.censor.minimumBypassPermission;
-	if (isInIgnoredCategory || isInIgnoredChannel || bypassCensor) return;
-
+		censorConfig.minimumBypassPermission;
+	if (bypassCensor) return;
 	const filter = checkString(msg.content);
 	if (!filter) return false;
 
+	const type = filter.rule.type;
+
 	if (
-		filter.rule.type === CensorRuleType.Invite &&
-		config.features.censor.inviteWhitelist
+		type === Invite &&
+		censorConfig.inviteWhitelist &&
+		!censorConfig.allowInvites
 	) {
 		const { invite } = filter.match.groups!;
 		try {
 			const inv = await msg.client.fetchInvite(invite);
 
-			if (
-				inv.guild &&
-				config.features.censor.inviteWhitelist.includes(inv.guild.id)
-			)
+			if (inv.guild && censorConfig.inviteWhitelist.includes(inv.guild.id))
 				return false; // Whitelisted invite
 		} catch (err) {} // Invalid invite
 	}
+
+	if (type === CopyPasta && censorConfig.allowCopyPasta) return false;
+
+	if (type === Swear && censorConfig.allowSwearing) return false;
+
+	if (type === Zalgo && censorConfig.allowZalgo) return false;
+
+	if (type === Spam && censorConfig.allowSpam) return false;
 
 	await msg.delete({ reason: 'Automated chat filter' });
 	const feedbackString = msg.content

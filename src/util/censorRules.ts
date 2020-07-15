@@ -1,13 +1,17 @@
+import { ZALGO_REGEX } from './constants';
+
 export enum CensorRuleType {
 	Swear,
 	CopyPasta,
 	Invite,
 	Spam,
+	Zalgo,
 }
 
-const { Swear, CopyPasta, Invite, Spam } = CensorRuleType;
+const { Swear, CopyPasta, Invite, Spam, Zalgo } = CensorRuleType;
 
 export const CENSOR_RULES = [
+	{ rule: ZALGO_REGEX.toString(), type: Zalgo, enabled: true },
 	{ rule: '\\b(horny)', type: Swear, enabled: true },
 	{ rule: '\\b(boobs?)', type: Swear, enabled: true },
 	{
