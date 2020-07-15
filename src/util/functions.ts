@@ -131,7 +131,7 @@ export async function censorMessage(msg: Message) {
 	const override = config.features.censor.overrides.find(o =>
 		o.type === 'channel'
 			? o.id === msg.channel.id
-			: (msg.channel as TextChannel).parentID
+			: o.id === (msg.channel as TextChannel).parentID
 	);
 	const featureConf = cloneDeep(config.features.censor);
 	const censorConfig = override
