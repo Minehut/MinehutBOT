@@ -131,41 +131,41 @@ guildConfigs.set('546414872196415501', {
 });
 
 // bot testing
-// guildConfigs.set('608978588976283660', {
-// 	id: '608978588976283660',
-// 	prefix: '!',
-// 	roles: {
-// 		juniorModerator: '701854457331187763',
-// 		admin: '701854509164527707',
-// 		muted: '615630839438508062',
-// 		support: '728202547944357958',
-// 	},
-// 	features: {
-// 		modLog: {
-// 			channel: '726598891759468554',
-// 			events: ALL_MODLOG_EVENTS,
-// 			prefix: '',
-// 			ignoredChannels: [],
-// 		},
-// 		reactionRole: {
-// 			channel: '728201493555052641',
-// 			roles: [
-// 				{ roleId: '728202487672078368', emoji: '🤔' },
-// 				{ roleId: '728202547944357958', emoji: 'PepeClown' },
-// 			],
-// 		},
-// 		announcements: {
-// 			announcers: [
-// 				{
-// 					role: '701854509164527707',
-// 					channel: '728201493555052641',
-// 					name: 'event',
-// 				},
-// 			],
-// 		},
-// 		censor: {
-// 			minimumBypassPermission: CENSOR_BYPASS_PERMISSION_LEVEL,
-// 			inviteWhitelist: INVITE_WHITELIST,
-// 		},
-// 	},
-// });
+guildConfigs.set('608978588976283660', {
+	id: '608978588976283660',
+	prefix: '!',
+	roles: {
+		juniorModerator: '701854457331187763',
+		admin: '701854509164527707',
+		muted: '615630839438508062',
+		support: '728202547944357958',
+	},
+	features: {
+		modLog: {
+			channel: '726598891759468554',
+			events: ALL_MODLOG_EVENTS,
+			prefix: '',
+			ignoredChannels: [],
+		},
+		reactionRole: {
+			channel: '728201493555052641',
+			roles: [
+				{ roleId: '728202487672078368', emoji: '🤔' },
+				{ roleId: '728202547944357958', emoji: 'PepeClown' },
+			],
+		},
+		announcements: {
+			announcers: [
+				{
+					role: '701854509164527707',
+					channel: '728201493555052641',
+					name: 'event',
+				},
+			],
+		},
+		censor: {
+			minimumBypassPermission: CENSOR_BYPASS_PERMISSION_LEVEL,
+			inviteWhitelist: INVITE_WHITELIST,
+		},
+	},
+});

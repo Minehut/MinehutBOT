@@ -158,7 +158,7 @@ export const CENSOR_RULES = [
 	{ rule: '\\b(fk(?!dr)( off+)?)', type: Swear, enabled: true },
 	{
 		rule:
-			'\\b((https?://)?(www.)?(discord.(gg|io|me|li)|discordapp.com/invite)/(?<invite>.+[a-z]))',
+			'\\b((https?://)?(www.)?(discord.(gg|io|me|li)|discord(app)?.com/invite)/(?<invite>.+[a-z]))',
 		type: Invite,
 		enabled: true,
 	},
