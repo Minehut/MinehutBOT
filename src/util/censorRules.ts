@@ -81,7 +81,7 @@ export const CENSOR_RULES = [
 	{ rule: '\\b(sperm)', type: Swear, enabled: true },
 	{ rule: '\\b(aroused)', type: Swear, enabled: true },
 	{ rule: '\\b(wanker)', type: Swear, enabled: true },
-	{ rule: '\\b((gas the )?jews?)', type: Swear, enabled: true },
+	{ rule: '\\b(gas( )?(the)?( )?jews)', type: Swear, enabled: true },
 	{ rule: '\\b(hitler|nazi)', type: Swear, enabled: true },
 	{ rule: '\\b(erection)', type: Swear, enabled: true },
 	{ rule: '\\b(fisting)', type: Swear, enabled: true },
