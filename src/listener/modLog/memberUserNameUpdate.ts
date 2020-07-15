@@ -21,7 +21,7 @@ export default class ModLogMemberUserNameUpdateListener extends Listener {
 			)
 				return;
 			const guild = this.client.guilds.cache.get(config.id);
-			if (!guild) return;
+			if (!guild || !guild.member(newUser.id)) return;
 			await sendModLogMessage(
 				guild,
 				`:name_badge: ${oldUser.tag} (\`${oldUser.id}\`) changed username to \`${newUser.tag}\``
