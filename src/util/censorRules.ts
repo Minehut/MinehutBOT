@@ -112,7 +112,7 @@ export const CENSOR_RULES = [
 		type: Spam,
 		enabled: false,
 	},
-	{ rule: '\\b(ddos)', type: Swear, enabled: true },
+	{ rule: '\\b(ddos)', type: Swear, enabled: false },
 	{ rule: '卍', type: Swear, enabled: true },
 	{ rule: '\\b((?<!s)kys)', type: Swear, enabled: true },
 	{ rule: '\\b((bull?|horse)shit)', type: Swear, enabled: true },
@@ -163,9 +163,9 @@ export const CENSOR_RULES = [
 		enabled: true,
 	},
 	{
-		rule: '\\b(badword)',
+		rule: '\\b(reallybadword)',
 		type: CopyPasta,
-		enabled: false,
+		enabled: true,
 	},
 	{
 		rule: '\\b(Copy And Paste (Him|Her))',
