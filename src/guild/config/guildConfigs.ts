@@ -41,7 +41,28 @@ guildConfigs.set('239599059415859200', {
 		censor: {
 			minimumBypassPermission: CENSOR_BYPASS_PERMISSION_LEVEL,
 			inviteWhitelist: INVITE_WHITELIST,
-			ignoredCategories: ['616367029053554708', '364462035833978881'], // Private, Staff categories (includes Boosters channels)
+			overrides: [
+				{
+					id: '616367029053554708', // Private category (incl. boosters)
+					type: 'category',
+					config: {
+						minimumBypassPermission: CENSOR_BYPASS_PERMISSION_LEVEL,
+						allowSwearing: true,
+						allowZalgo: true,
+					},
+				},
+				{
+					id: '364462035833978881', // Staff category
+					type: 'category',
+					config: {
+						minimumBypassPermission: CENSOR_BYPASS_PERMISSION_LEVEL,
+						allowSwearing: true,
+						allowCopyPasta: true,
+						allowInvites: true,
+						allowZalgo: true,
+					},
+				},
+			],
 		},
 		modLog: {
 			channel: '480889821225549824',
@@ -130,42 +151,70 @@ guildConfigs.set('546414872196415501', {
 	},
 });
 
+// Minehut Creators
+guildConfigs.set('721155702915072040', {
+	id: '721155702915072040',
+	roles: {
+		superLeague: '721170251236245525',
+		robot: '732835610133528608',
+		moderator: '721170156008767560',
+		admin: '721170351446425681',
+	},
+	features: {
+		modLog: {
+			channel: '721171219348717679',
+			events: ALL_MODLOG_EVENTS,
+			prefix: '',
+		},
+	},
+});
+
 // bot testing
-// guildConfigs.set('608978588976283660', {
-// 	id: '608978588976283660',
-// 	prefix: '!',
-// 	roles: {
-// 		juniorModerator: '701854457331187763',
-// 		admin: '701854509164527707',
-// 		muted: '615630839438508062',
-// 		support: '728202547944357958',
-// 	},
-// 	features: {
-// 		modLog: {
-// 			channel: '726598891759468554',
-// 			events: ALL_MODLOG_EVENTS,
-// 			prefix: '',
-// 			ignoredChannels: [],
-// 		},
-// 		reactionRole: {
-// 			channel: '728201493555052641',
-// 			roles: [
-// 				{ roleId: '728202487672078368', emoji: '🤔' },
-// 				{ roleId: '728202547944357958', emoji: 'PepeClown' },
-// 			],
-// 		},
-// 		announcements: {
-// 			announcers: [
-// 				{
-// 					role: '701854509164527707',
-// 					channel: '728201493555052641',
-// 					name: 'event',
-// 				},
-// 			],
-// 		},
-// 		censor: {
-// 			minimumBypassPermission: CENSOR_BYPASS_PERMISSION_LEVEL,
-// 			inviteWhitelist: INVITE_WHITELIST,
-// 		},
-// 	},
-// });
+guildConfigs.set('608978588976283660', {
+	id: '608978588976283660',
+	prefix: '!',
+	roles: {
+		juniorModerator: '701854457331187763',
+		admin: '701854509164527707',
+		muted: '615630839438508062',
+		support: '728202547944357958',
+	},
+	features: {
+		modLog: {
+			channel: '726598891759468554',
+			events: ALL_MODLOG_EVENTS,
+			prefix: '',
+			ignoredChannels: [],
+		},
+		reactionRole: {
+			channel: '728201493555052641',
+			roles: [
+				{ roleId: '728202487672078368', emoji: '🤔' },
+				{ roleId: '728202547944357958', emoji: 'PepeClown' },
+			],
+		},
+		announcements: {
+			announcers: [
+				{
+					role: '701854509164527707',
+					channel: '728201493555052641',
+					name: 'event',
+				},
+			],
+		},
+		censor: {
+			minimumBypassPermission: CENSOR_BYPASS_PERMISSION_LEVEL,
+			inviteWhitelist: INVITE_WHITELIST,
+			overrides: [
+				{
+					id: '617438825144123432',
+					type: 'channel',
+					config: {
+						allowSwearing: true,
+						minimumBypassPermission: CENSOR_BYPASS_PERMISSION_LEVEL,
+					},
+				},
+			],
+		},
+	},
+});

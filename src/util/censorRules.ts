@@ -1,13 +1,17 @@
+import { ZALGO_REGEX } from './constants';
+
 export enum CensorRuleType {
 	Swear,
 	CopyPasta,
 	Invite,
 	Spam,
+	Zalgo,
 }
 
-const { Swear, CopyPasta, Invite, Spam } = CensorRuleType;
+const { Swear, CopyPasta, Invite, Spam, Zalgo } = CensorRuleType;
 
 export const CENSOR_RULES = [
+	{ rule: ZALGO_REGEX.toString(), type: Zalgo, enabled: true },
 	{ rule: '\\b(horny)', type: Swear, enabled: true },
 	{ rule: '\\b(boobs?)', type: Swear, enabled: true },
 	{
@@ -81,7 +85,7 @@ export const CENSOR_RULES = [
 	{ rule: '\\b(sperm)', type: Swear, enabled: true },
 	{ rule: '\\b(aroused)', type: Swear, enabled: true },
 	{ rule: '\\b(wanker)', type: Swear, enabled: true },
-	{ rule: '\\b((gas the )?jews?)', type: Swear, enabled: true },
+	{ rule: '\\b(gas( )?(the)?( )?jews)', type: Swear, enabled: true },
 	{ rule: '\\b(hitler|nazi)', type: Swear, enabled: true },
 	{ rule: '\\b(erection)', type: Swear, enabled: true },
 	{ rule: '\\b(fisting)', type: Swear, enabled: true },
@@ -112,7 +116,7 @@ export const CENSOR_RULES = [
 		type: Spam,
 		enabled: false,
 	},
-	{ rule: '\\b(ddos)', type: Swear, enabled: true },
+	{ rule: '\\b(ddos)', type: Swear, enabled: false },
 	{ rule: '卍', type: Swear, enabled: true },
 	{ rule: '\\b((?<!s)kys)', type: Swear, enabled: true },
 	{ rule: '\\b((bull?|horse)shit)', type: Swear, enabled: true },
@@ -158,14 +162,14 @@ export const CENSOR_RULES = [
 	{ rule: '\\b(fk(?!dr)( off+)?)', type: Swear, enabled: true },
 	{
 		rule:
-			'\\b((https?://)?(www.)?(discord.(gg|io|me|li)|discordapp.com/invite)/(?<invite>.+[a-z]))',
+			'\\b((https?://)?(www.)?(discord.(gg|io|me|li)|discord(app)?.com/invite)/(?<invite>.+[a-z]))',
 		type: Invite,
 		enabled: true,
 	},
 	{
-		rule: '\\b(badword)',
+		rule: '\\b(reallybadword)',
 		type: CopyPasta,
-		enabled: false,
+		enabled: true,
 	},
 	{
 		rule: '\\b(Copy And Paste (Him|Her))',

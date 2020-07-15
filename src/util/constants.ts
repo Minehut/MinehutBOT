@@ -128,5 +128,6 @@ export const ZALGO_REGEX = new RegExp(
 		'\u0359',
 		'\u035a',
 		'\u0323',
-	].join('|')
+	].join('|'),
+	'gi'
 );
