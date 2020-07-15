@@ -151,6 +151,24 @@ guildConfigs.set('546414872196415501', {
 	},
 });
 
+// Minehut Creators
+guildConfigs.set('721155702915072040', {
+	id: '721155702915072040',
+	roles: {
+		superLeague: '721170251236245525',
+		robot: '732835610133528608',
+		moderator: '721170156008767560',
+		admin: '721170351446425681',
+	},
+	features: {
+		modLog: {
+			channel: '721171219348717679',
+			events: ALL_MODLOG_EVENTS,
+			prefix: '',
+		},
+	},
+});
+
 // bot testing
 guildConfigs.set('608978588976283660', {
 	id: '608978588976283660',
