@@ -15,7 +15,7 @@
 		"dotenv": "^8.2.0",
 		"humanize-duration": "^3.23.0",
 		"javascript-time-ago": "^2.0.7",
-		"lodash": "^4.17.15",
+		"lodash": "^4.17.19",
 		"minehut": "^0.0.14",
 		"mongoose": "^5.9.10",
 		"node-fetch": "^2.6.0",
