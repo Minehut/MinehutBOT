@@ -141,12 +141,12 @@ export async function censorMessage(msg: Message) {
 		: featureConf;
 	const bypassCensor =
 		getPermissionLevel(msg.member!, msg.client as MinehutClient) >=
-		(censorConfig.minimumBypassPermission || PermissionLevel.Everyone);
+		censorConfig.minimumBypassPermission;
 	if (bypassCensor) return;
 
 	const canChat =
 		getPermissionLevel(msg.member!, msg.client as MinehutClient) >=
-		censorConfig.minimumChatPermission;
+		(censorConfig.minimumChatPermission || PermissionLevel.Everyone);
 	if(!canChat) {
 		await msg.delete({reason: 'Below needed chat permission level!'})
 		return;
