@@ -5,7 +5,8 @@ const { Inhibitor } = require('discord-akairo');
 class BlacklistInhibitor extends Inhibitor {
 
     //TODO Store in mongo
-    private blacklist: Array<string> = ["146715539019005952"];
+    // noinspection JSMismatchedCollectionQueryUpdate
+    private blacklist: Array<string> = [];
 
     constructor() {
         super('blacklist', {
