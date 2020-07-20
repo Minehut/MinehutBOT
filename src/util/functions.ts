@@ -1,12 +1,14 @@
-import { CaseType } from './constants';
+import {CaseType} from './constants';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
-import { guildConfigs } from '../guild/config/guildConfigs';
-import { TextChannel, Util, Guild, Message } from 'discord.js';
-import { CENSOR_RULES, CensorRuleType } from './censorRules';
-import { getPermissionLevel } from './permission/getPermissionLevel';
-import { MinehutClient } from '../client/minehutClient';
-import { cloneDeep } from 'lodash';
+import {guildConfigs} from '../guild/config/guildConfigs';
+import {Guild, Message, TextChannel, Util} from 'discord.js';
+import {CENSOR_RULES, CensorRuleType} from './censorRules';
+import {getPermissionLevel} from './permission/getPermissionLevel';
+import {MinehutClient} from '../client/minehutClient';
+import {cloneDeep} from 'lodash';
+import {PermissionLevel} from "./permission/permissionLevel";
+
 TimeAgo.addLocale(en);
 export const ago = new TimeAgo('en-US');
 
@@ -139,8 +141,17 @@ export async function censorMessage(msg: Message) {
 		: featureConf;
 	const bypassCensor =
 		getPermissionLevel(msg.member!, msg.client as MinehutClient) >=
-		censorConfig.minimumBypassPermission;
+		(censorConfig.minimumBypassPermission || PermissionLevel.Everyone);
 	if (bypassCensor) return;
+
+	const canChat =
+		getPermissionLevel(msg.member!, msg.client as MinehutClient) >=
+		censorConfig.minimumChatPermission;
+	if(!canChat) {
+		await msg.delete({reason: 'Below needed chat permission level!'})
+		return;
+	}
+
 	const filter = checkString(msg.content);
 	if (!filter) return false;
 

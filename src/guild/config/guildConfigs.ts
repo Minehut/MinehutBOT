@@ -1,9 +1,6 @@
-import { GuildConfiguration } from './guildConfiguration';
-import {
-	ALL_MODLOG_EVENTS,
-	CENSOR_BYPASS_PERMISSION_LEVEL,
-	INVITE_WHITELIST,
-} from './common';
+import {GuildConfiguration} from './guildConfiguration';
+import {ALL_MODLOG_EVENTS, CENSOR_BYPASS_PERMISSION_LEVEL, INVITE_WHITELIST,} from './common';
+import {PermissionLevel} from "../../util/permission/permissionLevel";
 
 export const guildConfigs: Map<string, GuildConfiguration> = new Map();
 
@@ -62,6 +59,18 @@ guildConfigs.set('239599059415859200', {
 						allowZalgo: true,
 					},
 				},
+				{
+					id: '730111433576284192',
+					type: 'channel',
+					config: {
+						minimumBypassPermission: CENSOR_BYPASS_PERMISSION_LEVEL,
+						allowSwearing: false,
+						allowCopyPasta: false,
+						allowInvites: false,
+						allowZalgo: false,
+						minimumChatPermission: PermissionLevel.Verified
+					}
+				}
 			],
 		},
 		modLog: {
