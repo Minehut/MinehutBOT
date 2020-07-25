@@ -1,6 +1,10 @@
-import {GuildConfiguration} from './guildConfiguration';
-import {ALL_MODLOG_EVENTS, CENSOR_BYPASS_PERMISSION_LEVEL, INVITE_WHITELIST,} from './common';
-import {PermissionLevel} from "../../util/permission/permissionLevel";
+import { GuildConfiguration } from './guildConfiguration';
+import {
+	ALL_MODLOG_EVENTS,
+	CENSOR_BYPASS_PERMISSION_LEVEL,
+	INVITE_WHITELIST,
+} from './common';
+import { PermissionLevel } from '../../util/permission/permissionLevel';
 
 export const guildConfigs: Map<string, GuildConfiguration> = new Map();
 
@@ -60,17 +64,13 @@ guildConfigs.set('239599059415859200', {
 					},
 				},
 				{
-					id: '730111433576284192',
+					id: '730111433576284192', // Featured Servers #discussion
 					type: 'channel',
 					config: {
 						minimumBypassPermission: CENSOR_BYPASS_PERMISSION_LEVEL,
-						allowSwearing: false,
-						allowCopyPasta: false,
-						allowInvites: false,
-						allowZalgo: false,
-						minimumChatPermission: PermissionLevel.Verified
-					}
-				}
+						minimumChatPermission: PermissionLevel.Verified,
+					},
+				},
 			],
 		},
 		modLog: {
@@ -156,6 +156,12 @@ guildConfigs.set('546414872196415501', {
 			channel: '548317804076597249',
 			events: ALL_MODLOG_EVENTS,
 			prefix: '',
+		},
+		censor: {
+			allowSwearing: true,
+			minimumBypassPermission: CENSOR_BYPASS_PERMISSION_LEVEL,
+			minimumChatPermission: PermissionLevel.Everyone,
+			overrides: [],
 		},
 	},
 });
