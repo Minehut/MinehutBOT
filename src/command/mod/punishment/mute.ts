@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { emoji } from '../../../util/messages';
+import { emoji, messages } from '../../../util/messages';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import { GuildMember } from 'discord.js';
@@ -7,6 +7,7 @@ import humanizeDuration from 'humanize-duration';
 import { FOREVER_MS } from '../../../util/constants';
 import { MuteAction } from '../../../structure/action/mute';
 import { guildConfigs } from '../../../guild/config/guildConfigs';
+import { PrefixSupplier } from 'discord-akairo';
 
 export default class MuteCommand extends MinehutCommand {
 	constructor() {
@@ -17,34 +18,28 @@ export default class MuteCommand extends MinehutCommand {
 			channel: 'guild',
 			clientPermissions: ['MANAGE_ROLES'],
 			description: {
-				content: 'Mute a member for specified duration (defaults to permanent)',
-				usage: '<user> [...reason] [d:duration]',
+				content: 'Mute a member for specified duration',
+				usage: '<user> <duration> [...reason]',
 				examples: [
-					'@daniel Swearing! d:6h',
-					'161984544205963264',
-					'@ZeroParticle d:2w',
+					'@daniel 6h Swearing!',
+					'161984544205963264 forever',
+					'250536623270264833 p very long mute',
+					'@ZeroParticle 2w',
 				],
 			},
 			args: [
 				{
 					id: 'member',
 					type: 'member',
-					prompt: {
-						start: (msg: Message) => `${msg.author}, who do you want to mute?`,
-						retry: (msg: Message) => `${msg.author}, please mention a member.`,
-					},
+				},
+				{
+					id: 'duration',
+					type: 'duration',
 				},
 				{
 					id: 'reason',
 					type: 'string',
 					match: 'rest',
-				},
-				{
-					id: 'duration',
-					type: 'duration',
-					match: 'option',
-					flag: ['duration:', 'd:', 'l:'],
-					default: FOREVER_MS,
 				},
 			],
 		});
@@ -56,8 +51,11 @@ export default class MuteCommand extends MinehutCommand {
 			member,
 			reason,
 			duration,
-		}: { member: GuildMember; reason: string; duration: number }
+		}: { member?: GuildMember; reason: string; duration: number | null }
 	) {
+		const prefix = (this.handler.prefix as PrefixSupplier)(msg) as string;
+		if (!member || !duration)
+			return msg.channel.send(messages.commands.common.useHelp(prefix, 'mute'));
 		if (!member.manageable)
 			return msg.channel.send(`${emoji.cross} I cannot mute that member`);
 		if (!guildConfigs.get(msg.guild!.id)?.roles.muted)
