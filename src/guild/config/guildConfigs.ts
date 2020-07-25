@@ -1,9 +1,5 @@
 import { GuildConfiguration } from './guildConfiguration';
-import {
-	ALL_MODLOG_EVENTS,
-	CENSOR_BYPASS_PERMISSION_LEVEL,
-	INVITE_WHITELIST,
-} from './common';
+import { ALL_MODLOG_EVENTS, INVITE_WHITELIST } from './common';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
 
 export const guildConfigs: Map<string, GuildConfiguration> = new Map();
@@ -40,14 +36,12 @@ guildConfigs.set('239599059415859200', {
 			],
 		},
 		censor: {
-			minimumBypassPermission: CENSOR_BYPASS_PERMISSION_LEVEL,
 			inviteWhitelist: INVITE_WHITELIST,
 			overrides: [
 				{
 					id: '616367029053554708', // Private category (incl. boosters)
 					type: 'category',
 					config: {
-						minimumBypassPermission: CENSOR_BYPASS_PERMISSION_LEVEL,
 						allowSwearing: true,
 						allowZalgo: true,
 					},
@@ -56,7 +50,6 @@ guildConfigs.set('239599059415859200', {
 					id: '364462035833978881', // Staff category
 					type: 'category',
 					config: {
-						minimumBypassPermission: CENSOR_BYPASS_PERMISSION_LEVEL,
 						allowSwearing: true,
 						allowCopyPasta: true,
 						allowInvites: true,
@@ -67,7 +60,6 @@ guildConfigs.set('239599059415859200', {
 					id: '730111433576284192', // Featured Servers #discussion
 					type: 'channel',
 					config: {
-						minimumBypassPermission: CENSOR_BYPASS_PERMISSION_LEVEL,
 						minimumChatPermission: PermissionLevel.Verified,
 					},
 				},
@@ -160,7 +152,6 @@ guildConfigs.set('546414872196415501', {
 		},
 		censor: {
 			allowSwearing: true,
-			minimumBypassPermission: CENSOR_BYPASS_PERMISSION_LEVEL,
 			minimumChatPermission: PermissionLevel.Everyone,
 			overrides: [],
 		},
@@ -219,7 +210,6 @@ guildConfigs.set('608978588976283660', {
 			],
 		},
 		censor: {
-			minimumBypassPermission: CENSOR_BYPASS_PERMISSION_LEVEL,
 			inviteWhitelist: INVITE_WHITELIST,
 			overrides: [
 				{
@@ -227,7 +217,6 @@ guildConfigs.set('608978588976283660', {
 					type: 'channel',
 					config: {
 						allowSwearing: true,
-						minimumBypassPermission: CENSOR_BYPASS_PERMISSION_LEVEL,
 					},
 				},
 			],

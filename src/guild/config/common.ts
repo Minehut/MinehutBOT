@@ -1,5 +1,3 @@
-import { PermissionLevel } from '../../util/permission/permissionLevel';
-
 export const ALL_MODLOG_EVENTS = [
 	'memberJoin', //added
 	'memberLeave', //added
@@ -16,7 +14,6 @@ export const ALL_MODLOG_EVENTS = [
 	'command', //added
 ];
 
-export const CENSOR_BYPASS_PERMISSION_LEVEL = PermissionLevel.JuniorModerator;
 export const INVITE_WHITELIST = [
 	'239599059415859200', // Minehut
 	'546414872196415501', // Minehut Meta
