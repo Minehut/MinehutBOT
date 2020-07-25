@@ -72,7 +72,7 @@ export const CENSOR_RULES = [
 	},
 	{ rule: '\\b(blowjob)', type: Swear, enabled: true },
 	{ rule: '\\b(p(e|3)nn?is)', type: Swear, enabled: true },
-	{ rule: '\\b(piss)', type: Swear, enabled: true },
+	{ rule: '\\b(piss)', type: Swear, enabled: false },
 	{ rule: '\\b(c(u)nt)', type: Swear, enabled: true },
 	{ rule: '\\b(whore)', type: Swear, enabled: true },
 	{ rule: '\\b(b(i|\\*)t?ch)', type: Swear, enabled: true },
