@@ -154,7 +154,7 @@ guildConfigs.set('546414872196415501', {
 	features: {
 		modLog: {
 			channel: '548317804076597249',
-			events: ALL_MODLOG_EVENTS,
+			events: ALL_MODLOG_EVENTS.filter(e => e !== 'memberUserNameUpdate'),
 			prefix: '',
 		},
 		censor: {
