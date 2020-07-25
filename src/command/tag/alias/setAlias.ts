@@ -60,7 +60,7 @@ export default class TagSetAliasCommand extends MinehutCommand {
 		msg.channel.send(
 			`${
 				emoji.check
-			} \`${name}\` now points to \`${name}\` (aliases: ${target.aliases.join(
+			} \`${alias}\` now points to \`${name}\` (aliases: ${target.aliases.join(
 				', '
 			)})`
 		);
