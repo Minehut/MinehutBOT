@@ -6,6 +6,7 @@ import {
 } from '../../util/functions';
 import { Message } from 'discord.js';
 import { TextChannel } from 'discord.js';
+import _ from 'lodash';
 
 export default class ModLogMessageDeleteListener extends Listener {
 	constructor() {
@@ -33,7 +34,11 @@ export default class ModLogMessageDeleteListener extends Listener {
 				msg.author.id
 			}\`) message deleted in **#${(msg.channel as TextChannel).name}**: (\`${
 				msg.id
-			}\`) ${removeMarkdownAndMentions(msg.content)}`
+			}\`) ${removeMarkdownAndMentions(msg.content)}`,
+			_.take(
+				msg.attachments.map(a => a.proxyURL),
+				20
+			)
 		);
 	}
 }

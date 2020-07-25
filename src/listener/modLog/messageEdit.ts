@@ -6,6 +6,7 @@ import {
 } from '../../util/functions';
 import { Message } from 'discord.js';
 import { TextChannel } from 'discord.js';
+import _ from 'lodash';
 
 export default class ModLogMessageEditListener extends Listener {
 	constructor() {
@@ -37,7 +38,11 @@ export default class ModLogMessageEditListener extends Listener {
 			}\`)\n**Old:** ${removeMarkdownAndMentions(
 				oldMsg.content,
 				oldMsg
-			)}\n**New:** ${removeMarkdownAndMentions(newMsg.content, newMsg)}`
+			)}\n**New:** ${removeMarkdownAndMentions(newMsg.content, newMsg)}`,
+			_.take(
+				newMsg.attachments.map(a => a.proxyURL),
+				20
+			)
 		);
 	}
 }
