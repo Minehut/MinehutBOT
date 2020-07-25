@@ -1,6 +1,6 @@
-import {GuildConfiguration} from './guildConfiguration';
-import {ALL_MODLOG_EVENTS, CENSOR_BYPASS_PERMISSION_LEVEL, INVITE_WHITELIST,} from './common';
-import {PermissionLevel} from "../../util/permission/permissionLevel";
+import { GuildConfiguration } from './guildConfiguration';
+import { ALL_MODLOG_EVENTS, INVITE_WHITELIST } from './common';
+import { PermissionLevel } from '../../util/permission/permissionLevel';
 
 export const guildConfigs: Map<string, GuildConfiguration> = new Map();
 
@@ -36,14 +36,12 @@ guildConfigs.set('239599059415859200', {
 			],
 		},
 		censor: {
-			minimumBypassPermission: CENSOR_BYPASS_PERMISSION_LEVEL,
 			inviteWhitelist: INVITE_WHITELIST,
 			overrides: [
 				{
 					id: '616367029053554708', // Private category (incl. boosters)
 					type: 'category',
 					config: {
-						minimumBypassPermission: CENSOR_BYPASS_PERMISSION_LEVEL,
 						allowSwearing: true,
 						allowZalgo: true,
 					},
@@ -52,7 +50,6 @@ guildConfigs.set('239599059415859200', {
 					id: '364462035833978881', // Staff category
 					type: 'category',
 					config: {
-						minimumBypassPermission: CENSOR_BYPASS_PERMISSION_LEVEL,
 						allowSwearing: true,
 						allowCopyPasta: true,
 						allowInvites: true,
@@ -60,23 +57,19 @@ guildConfigs.set('239599059415859200', {
 					},
 				},
 				{
-					id: '730111433576284192',
+					id: '730111433576284192', // Featured Servers #discussion
 					type: 'channel',
 					config: {
-						minimumBypassPermission: CENSOR_BYPASS_PERMISSION_LEVEL,
-						allowSwearing: false,
-						allowCopyPasta: false,
-						allowInvites: false,
-						allowZalgo: false,
-						minimumChatPermission: PermissionLevel.Verified
-					}
-				}
+						minimumChatPermission: PermissionLevel.Verified,
+					},
+				},
 			],
 		},
 		modLog: {
 			channel: '480889821225549824',
 			events: ALL_MODLOG_EVENTS,
 			prefix: '',
+			ignoredChannels: ['601544975221653514'], // #count-to-1mil
 		},
 		reactionRole: {
 			channel: '364453066277388289',
@@ -154,8 +147,13 @@ guildConfigs.set('546414872196415501', {
 	features: {
 		modLog: {
 			channel: '548317804076597249',
-			events: ALL_MODLOG_EVENTS,
+			events: ALL_MODLOG_EVENTS.filter(e => e !== 'memberUserNameUpdate'),
 			prefix: '',
+		},
+		censor: {
+			allowSwearing: true,
+			minimumChatPermission: PermissionLevel.Everyone,
+			overrides: [],
 		},
 	},
 });
@@ -212,7 +210,6 @@ guildConfigs.set('608978588976283660', {
 			],
 		},
 		censor: {
-			minimumBypassPermission: CENSOR_BYPASS_PERMISSION_LEVEL,
 			inviteWhitelist: INVITE_WHITELIST,
 			overrides: [
 				{
@@ -220,7 +217,6 @@ guildConfigs.set('608978588976283660', {
 					type: 'channel',
 					config: {
 						allowSwearing: true,
-						minimumBypassPermission: CENSOR_BYPASS_PERMISSION_LEVEL,
 					},
 				},
 			],

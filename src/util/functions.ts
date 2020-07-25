@@ -1,13 +1,13 @@
-import {CaseType} from './constants';
+import { CaseType } from './constants';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
-import {guildConfigs} from '../guild/config/guildConfigs';
-import {Guild, Message, TextChannel, Util} from 'discord.js';
-import {CENSOR_RULES, CensorRuleType} from './censorRules';
-import {getPermissionLevel} from './permission/getPermissionLevel';
-import {MinehutClient} from '../client/minehutClient';
-import {cloneDeep} from 'lodash';
-import {PermissionLevel} from "./permission/permissionLevel";
+import { guildConfigs } from '../guild/config/guildConfigs';
+import { Guild, Message, TextChannel, Util } from 'discord.js';
+import { CENSOR_RULES, CensorRuleType } from './censorRules';
+import { getPermissionLevel } from './permission/getPermissionLevel';
+import { MinehutClient } from '../client/minehutClient';
+import { cloneDeep } from 'lodash';
+import { PermissionLevel } from './permission/permissionLevel';
 
 TimeAgo.addLocale(en);
 export const ago = new TimeAgo('en-US');
@@ -99,7 +99,11 @@ export function removeMarkdownAndMentions(content: string, msg?: Message) {
 	);
 }
 
-export async function sendModLogMessage(guild: Guild, content: string) {
+export async function sendModLogMessage(
+	guild: Guild,
+	content: string,
+	attachmentUrls: string[] = []
+) {
 	const config = guildConfigs.get(guild.id);
 	if (!config || !config.features.modLog) return;
 	const channel = guild.client.channels.cache.get(
@@ -109,7 +113,8 @@ export async function sendModLogMessage(guild: Guild, content: string) {
 	channel?.send(
 		`**\`${prettyDate(date, false, false)}\`** ${
 			config.features.modLog.prefix
-		} ${content}`
+		} ${content}`,
+		{ files: attachmentUrls }
 	);
 }
 
@@ -141,14 +146,14 @@ export async function censorMessage(msg: Message) {
 		: featureConf;
 	const bypassCensor =
 		getPermissionLevel(msg.member!, msg.client as MinehutClient) >=
-		censorConfig.minimumBypassPermission;
+		(censorConfig.minimumBypassPermission || PermissionLevel.JuniorModerator);
 	if (bypassCensor) return;
 
 	const canChat =
 		getPermissionLevel(msg.member!, msg.client as MinehutClient) >=
 		(censorConfig.minimumChatPermission || PermissionLevel.Everyone);
-	if(!canChat) {
-		await msg.delete({reason: 'Below needed chat permission level!'})
+	if (!canChat) {
+		await msg.delete({ reason: 'Below needed chat permission level!' });
 		return;
 	}
 

@@ -17,5 +17,5 @@ export interface CensorConfiguration {
 
 	inviteWhitelist?: string[];
 	minimumChatPermission?: PermissionLevel;
-	minimumBypassPermission: PermissionLevel;
+	minimumBypassPermission?: PermissionLevel;
 }

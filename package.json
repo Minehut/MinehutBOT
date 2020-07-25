@@ -9,6 +9,12 @@
 	"dependencies": {
 		"@sentry/node": "5.19.1",
 		"@typegoose/typegoose": "^7.0.0",
+		"@types/humanize-duration": "^3.18.0",
+		"@types/javascript-time-ago": "^2.0.1",
+		"@types/lodash": "^4.14.157",
+		"@types/mongoose": "^5.7.12",
+		"@types/node": "^13.13.0",
+		"@types/node-fetch": "^2.5.7",
 		"discord-akairo": "^8.0.0",
 		"discord.js": "^12.2.0",
 		"discord.js-pagination-ts": "^1.0.10",
@@ -19,16 +25,9 @@
 		"minehut": "^0.0.14",
 		"mongoose": "^5.9.10",
 		"node-fetch": "^2.6.0",
-		"parse-duration": "^0.4.4",
-		
+		"parse-duration": "jellz/parse-duration",
 		"ts-node": "^8.8.2",
-		"typescript": "^3.8.3",
-		"@types/humanize-duration": "^3.18.0",
-		"@types/javascript-time-ago": "^2.0.1",
-		"@types/lodash": "^4.14.157",
-		"@types/mongoose": "^5.7.12",
-		"@types/node": "^13.13.0",
-		"@types/node-fetch": "^2.5.7"
+		"typescript": "^3.8.3"
 	},
 	"scripts": {
 		"start": "ts-node ."

@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { emoji } from '../../../util/messages';
+import { emoji, messages } from '../../../util/messages';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import humanizeDuration from 'humanize-duration';
@@ -7,6 +7,7 @@ import { FOREVER_MS } from '../../../util/constants';
 import { BanAction } from '../../../structure/action/ban';
 import { Argument } from 'discord-akairo';
 import { User } from 'discord.js';
+import { PrefixSupplier } from 'discord-akairo';
 
 export default class BanCommand extends MinehutCommand {
 	constructor() {
@@ -18,14 +19,14 @@ export default class BanCommand extends MinehutCommand {
 			clientPermissions: ['BAN_MEMBERS'],
 			description: {
 				content:
-					'Ban a user for specified duration (defaults to permanent), days arg = how many messages should be deleted',
-				usage: '<user> [...reason] [d:duration] [days:number]',
+					'Ban a user for specified duration, days arg = how many messages should be deleted',
+				usage: '<user> <duration> [...reason] [days:number]',
 				examples: [
 					'@daniel',
-					'74881710235320320 too cool to be here',
-					'@Trent suspicious d:1y',
-					'201345371513946112 d:1h',
-					'@daniel delete this! days:1 d:2w',
+					'74881710235320320 p too cool to be here',
+					'@Trent 1y suspicious',
+					'201345371513946112 1h',
+					'@daniel 2w delete this! days:1',
 				],
 			},
 			args: [
@@ -38,22 +39,15 @@ export default class BanCommand extends MinehutCommand {
 							return null;
 						}
 					}),
-					prompt: {
-						start: (msg: Message) => `${msg.author}, who do you want to ban?`,
-						retry: (msg: Message) => `${msg.author}, please mention a user.`,
-					},
+				},
+				{
+					id: 'duration',
+					type: 'duration',
 				},
 				{
 					id: 'reason',
 					type: 'string',
 					match: 'rest',
-				},
-				{
-					id: 'duration',
-					type: 'duration',
-					match: 'option',
-					flag: ['duration:', 'd:', 'l:'],
-					default: FOREVER_MS,
 				},
 				{
 					id: 'days',
@@ -73,8 +67,16 @@ export default class BanCommand extends MinehutCommand {
 			reason,
 			duration,
 			days,
-		}: { target: User; reason: string; duration: number; days: number }
+		}: {
+			target: User | null;
+			reason: string;
+			duration: number | null;
+			days: number;
+		}
 	) {
+		const prefix = (this.handler.prefix as PrefixSupplier)(msg) as string;
+		if (!target || !duration)
+			return msg.channel.send(messages.commands.common.useHelp(prefix, 'ban'));
 		const member = msg.guild!.member(target);
 		if (member && !member.bannable)
 			return msg.channel.send(`${emoji.cross} I cannot ban that user`);

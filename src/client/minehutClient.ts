@@ -13,6 +13,7 @@ import { CooldownManager } from '../structure/cooldownManager';
 import MinehutClientEvents from './minehutClientEvents';
 
 import { Minehut } from 'minehut';
+import { FOREVER_MS } from '../util/constants';
 
 export class MinehutClient extends AkairoClient {
 	commandHandler: CommandHandler;
@@ -138,6 +139,10 @@ export class MinehutClient extends AkairoClient {
 		this.commandHandler.resolver.addType(
 			'duration',
 			(_msg: Message, phrase) => {
+				if (
+					['p', 'forever', 'permanent', 'perm'].includes(phrase.toLowerCase())
+				)
+					return FOREVER_MS;
 				const parsed = parseDuration(phrase);
 				return parsed;
 			}
