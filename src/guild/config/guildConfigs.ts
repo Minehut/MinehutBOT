@@ -77,6 +77,7 @@ guildConfigs.set('239599059415859200', {
 			channel: '480889821225549824',
 			events: ALL_MODLOG_EVENTS,
 			prefix: '',
+			ignoredChannels: ['601544975221653514'], // #count-to-1mil
 		},
 		reactionRole: {
 			channel: '364453066277388289',
