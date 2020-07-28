@@ -131,6 +131,15 @@ export function arrayDiff<T>(aArray: T[], bArray: T[]) {
 
 const { Swear, CopyPasta, Invite, Spam, Zalgo } = CensorRuleType;
 
+export interface CensorCheckResponse {
+	rule: {
+		rule: string;
+		type: CensorRuleType;
+		enabled: boolean;
+	};
+	match: RegExpMatchArray;
+}
+
 export async function censorMessage(msg: Message) {
 	if (!msg.guild || !msg.deletable || msg.author.bot) return;
 	const config = guildConfigs.get(msg.guild.id);
@@ -189,6 +198,7 @@ export async function censorMessage(msg: Message) {
 		.trim()
 		.replace(/[\u200B-\u200D\uFEFF]/g, '')
 		.replace(new RegExp(filter.rule.rule, 'i'), '>>>$1<<<');
+	(msg.client as MinehutClient).emit('messageCensor', msg, filter);
 	try {
 		msg.author.send(
 			`Your message was deleted because it was caught by our automated chat filter.\nIf you believe this is a mistake, please use the **!meta** command in the Minehut Discord and tell us about the issue.\n\n\`${feedbackString}\``
@@ -196,7 +206,7 @@ export async function censorMessage(msg: Message) {
 	} catch (err) {} // Could not DM the user
 }
 
-export function checkString(content: string) {
+export function checkString(content: string): CensorCheckResponse | undefined {
 	content = content.trim().replace(/[\u200B-\u200D\uFEFF]/g, '');
 	const enabledRules = CENSOR_RULES.filter(r => r.enabled);
 	for (let i = 0; i < enabledRules.length; i++) {
