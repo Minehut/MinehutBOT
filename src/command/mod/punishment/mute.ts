@@ -1,10 +1,9 @@
 import { Message } from 'discord.js';
-import { messages } from '../../../util/messages';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import { GuildMember } from 'discord.js';
 import humanizeDuration from 'humanize-duration';
-import { FOREVER_MS } from '../../../util/constants';
+import { FOREVER_MS, MESSAGES } from '../../../util/constants';
 import { MuteAction } from '../../../structure/action/mute';
 import { guildConfigs } from '../../../guild/config/guildConfigs';
 import { PrefixSupplier } from 'discord-akairo';
@@ -55,7 +54,7 @@ export default class MuteCommand extends MinehutCommand {
 	) {
 		const prefix = (this.handler.prefix as PrefixSupplier)(msg) as string;
 		if (!member || !duration)
-			return msg.channel.send(messages.commands.common.useHelp(prefix, 'mute'));
+			return msg.channel.send(MESSAGES.commands.useHelp(prefix, 'mute'));
 		if (!member.manageable)
 			return msg.channel.send(`${process.env.EMOJI_CROSS} I cannot mute that member`);
 		if (!guildConfigs.get(msg.guild!.id)?.roles.muted)

@@ -2,9 +2,9 @@ import { Message } from 'discord.js';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
 import { guildConfigs } from '../../guild/config/guildConfigs';
-import { messages } from '../../util/messages';
 import { PrefixSupplier } from 'discord-akairo';
 import { TextChannel } from 'discord.js';
+import { MESSAGES } from '../../util/constants';
 
 export default class AnnounceEventCommand extends MinehutCommand {
 	constructor() {
@@ -53,7 +53,7 @@ export default class AnnounceEventCommand extends MinehutCommand {
 		const prefix = (this.handler.prefix as PrefixSupplier)(msg) as string;
 		if (!content)
 			return msg.channel.send(
-				messages.commands.common.useHelp(prefix, 'announceevent')
+				MESSAGES.commands.useHelp(prefix, 'announceevent')
 			);
 
 		const config = guildConfigs.get(msg.guild!.id);

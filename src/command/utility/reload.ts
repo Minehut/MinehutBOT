@@ -4,10 +4,10 @@ import {
 	CommandHandler,
 	ListenerHandler,
 } from 'discord-akairo';
-import { messages } from '../../util/messages';
 import { PrefixSupplier } from 'discord-akairo';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
+import { MESSAGES } from '../../util/constants';
 
 export default class ReloadCommand extends MinehutCommand {
 	constructor() {
@@ -48,7 +48,7 @@ export default class ReloadCommand extends MinehutCommand {
 		try {
 			if (!handler || !module)
 				return msg.channel.send(
-					messages.commands.common.useHelp(prefix, this.aliases[0])
+					MESSAGES.commands.useHelp(prefix, this.aliases[0])
 				);
 			const mod = handler.reload(module);
 			const proto = Object.getPrototypeOf(mod.constructor);

@@ -1,9 +1,8 @@
 import { Message } from 'discord.js';
-import { messages } from '../../../util/messages';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import humanizeDuration from 'humanize-duration';
-import { FOREVER_MS } from '../../../util/constants';
+import { FOREVER_MS, MESSAGES } from '../../../util/constants';
 import { BanAction } from '../../../structure/action/ban';
 import { Argument } from 'discord-akairo';
 import { User } from 'discord.js';
@@ -76,10 +75,12 @@ export default class BanCommand extends MinehutCommand {
 	) {
 		const prefix = (this.handler.prefix as PrefixSupplier)(msg) as string;
 		if (!target || !duration)
-			return msg.channel.send(messages.commands.common.useHelp(prefix, 'ban'));
+			return msg.channel.send(MESSAGES.commands.useHelp(prefix, 'ban'));
 		const member = msg.guild!.member(target);
 		if (member && !member.bannable)
-			return msg.channel.send(`${process.env.EMOJI_CROSS} I cannot ban that user`);
+			return msg.channel.send(
+				`${process.env.EMOJI_CROSS} I cannot ban that user`
+			);
 		const humanReadable =
 			duration === FOREVER_MS
 				? 'permanent'

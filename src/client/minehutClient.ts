@@ -4,7 +4,6 @@ import { Mongoose } from 'mongoose';
 import { Message } from 'discord.js';
 import { InhibitorHandler } from 'discord-akairo';
 import { guildConfigs } from '../guild/config/guildConfigs';
-import { messages } from '../util/messages';
 import { CaseModel } from '../model/case';
 import parseDuration from 'parse-duration';
 import { BanScheduler } from '../structure/scheduler/banScheduler';
@@ -13,7 +12,7 @@ import { CooldownManager } from '../structure/cooldownManager';
 import MinehutClientEvents from './minehutClientEvents';
 
 import { Minehut } from 'minehut';
-import { FOREVER_MS } from '../util/constants';
+import { FOREVER_MS, MESSAGES } from '../util/constants';
 
 export class MinehutClient extends AkairoClient {
 	commandHandler: CommandHandler;
@@ -55,12 +54,12 @@ export class MinehutClient extends AkairoClient {
 			argumentDefaults: {
 				prompt: {
 					modifyRetry: (_, str) =>
-						messages.commandHandler.prompt.modifyRetry(str),
+						MESSAGES.commandHandler.prompt.modifyRetry(str),
 					modifyStart: (_, str) =>
-						messages.commandHandler.prompt.modifyStart(str),
-					timeout: messages.commandHandler.prompt.timeout,
-					ended: messages.commandHandler.prompt.ended,
-					cancel: messages.commandHandler.prompt.cancel,
+						MESSAGES.commandHandler.prompt.modifyStart(str),
+					timeout: MESSAGES.commandHandler.prompt.timeout,
+					ended: MESSAGES.commandHandler.prompt.ended,
+					cancel: MESSAGES.commandHandler.prompt.cancel,
 					retries: 3,
 					time: 30000,
 				},
