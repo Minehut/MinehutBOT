@@ -1,6 +1,5 @@
 import { MinehutCommand } from '../../structure/command/minehutCommand';
 import { Message } from 'discord.js';
-import { emoji } from '../../util/messages';
 import { MessageEmbed } from 'discord.js';
 import { prettyDate } from '../../util/functions';
 import { startCase } from 'lodash';
@@ -34,7 +33,7 @@ export default class ServerInfoCommand extends MinehutCommand {
 
 	async exec(msg: Message, { serverName }: { serverName: string }) {
 		const m = await msg.channel.send(
-			`${emoji.loading} fetching server **${serverName}**`
+			`${process.env.EMOJI_LOADING} fetching server **${serverName}**`
 		);
 		try {
 			const server = await this.client.minehutApi.servers.get(serverName);
@@ -77,7 +76,7 @@ export default class ServerInfoCommand extends MinehutCommand {
 			return m.edit(embed);
 		} catch (e) {
 			if (process.env.NODE_ENV === 'development') console.log(e);
-			return m.edit(`${emoji.cross} could not fetch server`);
+			return m.edit(`${process.env.EMOJI_CROSS} could not fetch server`);
 		}
 	}
 }

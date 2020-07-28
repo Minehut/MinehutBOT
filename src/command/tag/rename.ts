@@ -1,5 +1,4 @@
 import { Message } from 'discord.js';
-import { emoji } from '../../util/messages';
 import { TagModel } from '../../model/tag';
 import { PrefixSupplier } from 'discord-akairo';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
@@ -50,17 +49,17 @@ export default class TagRenameCommand extends MinehutCommand {
 		const tag = await TagModel.findByNameOrAlias(oldName);
 		if (!tag)
 			return msg.channel.send(
-				`${emoji.cross} tag \`${oldName}\` does not exist, check \`${prefix}tags\``
+				`${process.env.EMOJI_CROSS} tag \`${oldName}\` does not exist, check \`${prefix}tags\``
 			);
 		oldName = tag.name;
 		const tagWithNewName = await TagModel.findByNameOrAlias(newName);
 		if (tagWithNewName)
 			return msg.channel.send(
-				`${emoji.cross} a tag with the new name/alias already exists`
+				`${process.env.EMOJI_CROSS} a tag with the new name/alias already exists`
 			);
 		await tag.updateOne({ name: newName });
 		msg.channel.send(
-			`${emoji.check} tag \`${tag.name}\` is now \`${newName}\``
+			`${process.env.EMOJI_CHECK} tag \`${tag.name}\` is now \`${newName}\``
 		);
 	}
 }

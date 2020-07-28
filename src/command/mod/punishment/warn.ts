@@ -1,5 +1,4 @@
 import { Message } from 'discord.js';
-import { emoji } from '../../../util/messages';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import { GuildMember } from 'discord.js';
@@ -53,7 +52,7 @@ export default class WarnCommand extends MinehutCommand {
 		});
 		const c = await action.commit();
 		msg.channel.send(
-			`${emoji.warning} warned ${action.target.user.tag} for \`${action.reason}\` [${c?.id}]`
+			`${process.env.EMOJI_WARNING} warned ${action.target.user.tag} for \`${action.reason}\` [${c?.id}]`
 		);
 	}
 }

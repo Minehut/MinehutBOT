@@ -5,7 +5,7 @@ export const ALL_MODLOG_EVENTS = [
 	'memberNickNameUpdate', //added
 	'messageDelete', //added
 	'messageEdit', //added
-	'messageCensor',
+	'messageCensor', //added
 	'caseCreate', //added
 	'caseDelete', //added
 	'caseReasonUpdate', //added

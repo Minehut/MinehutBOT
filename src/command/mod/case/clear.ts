@@ -1,5 +1,4 @@
 import { Message } from 'discord.js';
-import { emoji } from '../../../util/messages';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { User } from 'discord.js';
 import { Argument } from 'discord-akairo';
@@ -37,8 +36,8 @@ export default class CaseClearCommand extends MinehutCommand {
 	}
 
 	async exec(msg: Message, { target }: { target: User }) {
-		const m = await msg.channel.send(emoji.loading);
+		const m = await msg.channel.send(process.env.EMOJI_LOADING);
 		await CaseModel.deleteMany({ targetId: target.id, active: false });
-		m.edit(`${emoji.check} cleared ${target.tag}'s case history`);
+		m.edit(`${process.env.EMOJI_CHECK} cleared ${target.tag}'s case history`);
 	}
 }

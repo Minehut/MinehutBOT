@@ -1,8 +1,8 @@
 import { Message } from 'discord.js';
-import { messages, emoji } from '../../util/messages';
 import { inspect } from 'util';
 import { PrefixSupplier } from 'discord-akairo';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
+import { MESSAGES } from '../../util/constants';
 
 export default class EvalCommand extends MinehutCommand {
 	constructor() {
@@ -35,7 +35,7 @@ export default class EvalCommand extends MinehutCommand {
 
 		if (!expression)
 			return msg.channel.send(
-				messages.commands.common.useHelp(prefix, this.aliases[0])
+				MESSAGES.commands.useHelp(prefix, this.aliases[0])
 			);
 		let content: string;
 		try {
@@ -48,7 +48,7 @@ export default class EvalCommand extends MinehutCommand {
 		if (content.length > 2000) {
 			console.log(content);
 			return msg.channel.send(
-				`${emoji.warning} length of output exceeds character limit, logged output to console (${content.length}/2000)`
+				`${process.env.EMOJI_WARNING} length of output exceeds character limit, logged output to console (${content.length}/2000)`
 			);
 		}
 		msg.channel.send(content);

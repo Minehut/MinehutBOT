@@ -1,5 +1,4 @@
 import { Message } from 'discord.js';
-import { emoji } from '../../../util/messages';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import { CaseModel } from '../../../model/case';
@@ -58,7 +57,7 @@ export default class UnBanCommand extends MinehutCommand {
 			}))
 		)
 			return msg.channel.send(
-				`${emoji.cross} this user is not currently banned`
+				`${process.env.EMOJI_CROSS} this user is not currently banned`
 			);
 		const action = new UnBanAction({
 			target: target,

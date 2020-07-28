@@ -1,8 +1,8 @@
 import { Flag } from 'discord-akairo';
 import { Message } from 'discord.js';
-import { messages } from '../../util/messages';
 import { PrefixSupplier } from 'discord-akairo';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
+import { MESSAGES } from '../../util/constants';
 
 export default class TagCommand extends MinehutCommand {
 	constructor() {
@@ -61,7 +61,7 @@ export default class TagCommand extends MinehutCommand {
 			],
 			otherwise: (msg: Message) => {
 				const prefix = (this.handler.prefix as PrefixSupplier)(msg) as string;
-				return messages.commands.common.useHelp(prefix, this.aliases[0]);
+				return MESSAGES.commands.useHelp(prefix, this.aliases[0]);
 			},
 		};
 

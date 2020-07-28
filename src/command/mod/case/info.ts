@@ -39,11 +39,6 @@ export default class CaseInfoCommand extends MinehutCommand {
 		const embed = new MessageEmbed();
 		embed.setTitle(`Information for case #${c.id}`);
 		embed.setColor(c.active ? 'GREEN' : 'RED');
-		// embed.addField(
-		// 	'Active?',
-		// 	`${!c.active ? `${emoji.inactive} Inactive` : `${emoji.active} Active`}`,
-		// 	true
-		// );
 		embed.addField('Moderator', `${c.moderatorTag} (${c.moderatorId})`, true);
 		embed.addField('Target', `${c.targetTag} (${c.targetId})`, true);
 		embed.addField('Reason', c.reason, true);

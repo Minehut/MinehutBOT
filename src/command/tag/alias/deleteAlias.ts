@@ -1,5 +1,4 @@
 import { Message } from 'discord.js';
-import { emoji } from '../../../util/messages';
 import { TagModel } from '../../../model/tag';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
@@ -35,17 +34,17 @@ export default class TagSetAliasCommand extends MinehutCommand {
 		if (tag) {
 			if (tag.name === alias)
 				return msg.channel.send(
-					`${emoji.cross} \`${alias}\` is a name, not an alias`
+					`${process.env.EMOJI_CROSS} \`${alias}\` is a name, not an alias`
 				);
 			else if (tag.aliases.includes(alias)) {
 				msg.channel.send(tag.aliases);
 				await tag.updateOne({
 					aliases: tag.aliases.filter(a => a !== alias),
 				});
-				return msg.channel.send(`${emoji.check} deleted alias \`${alias}\``);
+				return msg.channel.send(`${process.env.EMOJI_CHECK} deleted alias \`${alias}\``);
 			}
 		} else {
-			return msg.channel.send(`${emoji.cross} unknown alias \`${alias}\``);
+			return msg.channel.send(`${process.env.EMOJI_CROSS} unknown alias \`${alias}\``);
 		}
 	}
 }

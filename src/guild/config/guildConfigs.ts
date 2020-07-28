@@ -7,6 +7,7 @@ export const guildConfigs: Map<string, GuildConfiguration> = new Map();
 // Main Minehut discord
 guildConfigs.set('239599059415859200', {
 	id: '239599059415859200',
+	main: true,
 	roles: {
 		muted: '274899318291431424',
 		dj: '597138002158026764',

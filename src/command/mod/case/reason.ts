@@ -1,5 +1,4 @@
 import { Message } from 'discord.js';
-import { emoji } from '../../../util/messages';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import { DocumentType } from '@typegoose/typegoose';
@@ -52,7 +51,7 @@ export default class CaseSearchCommand extends MinehutCommand {
 		await c.updateOne({ reason: c.reason });
 		this.client.emit('caseUpdate', oldCase, newCase, msg.member!);
 		msg.channel.send(
-			`${emoji.check} updated reason for case **${
+			`${process.env.EMOJI_CHECK} updated reason for case **${
 				c.id
 			}** (\`${c.reason.trim()}\`)`
 		);

@@ -1,6 +1,5 @@
 import { MinehutCommand } from '../../structure/command/minehutCommand';
 import { Message } from 'discord.js';
-import { emoji } from '../../util/messages';
 import { MessageEmbed } from 'discord.js';
 
 export default class NetworkStatsCommand extends MinehutCommand {
@@ -15,7 +14,7 @@ export default class NetworkStatsCommand extends MinehutCommand {
 	}
 
 	async exec(msg: Message) {
-		const m = await msg.channel.send(`${emoji.loading} fetching network stats`);
+		const m = await msg.channel.send(`${process.env.EMOJI_LOADING} fetching network stats`);
 		try {
 			const simpleStats = await this.client.minehutApi.getSimpleStats();
 			const playerDistribution = await this.client.minehutApi.getPlayerDistribution();
@@ -43,7 +42,7 @@ export default class NetworkStatsCommand extends MinehutCommand {
 			);
 			return m.edit(embed);
 		} catch (e) {
-			return m.edit(`${emoji.cross} could not fetch network stats`);
+			return m.edit(`${process.env.EMOJI_CROSS} could not fetch network stats`);
 		}
 	}
 }

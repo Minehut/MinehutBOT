@@ -1,6 +1,5 @@
 import { Message } from 'discord.js';
 import { TagModel } from '../../model/tag';
-import { emoji } from '../../util/messages';
 import { PrefixSupplier } from 'discord-akairo';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
@@ -36,11 +35,11 @@ export default class TagDeleteCommand extends MinehutCommand {
 		const tag = await TagModel.findByNameOrAlias(name);
 		if (!tag)
 			return msg.channel.send(
-				`${emoji.cross} tag \`${name}\` does not exist, check \`${prefix}tags\``
+				`${process.env.EMOJI_CROSS} tag \`${name}\` does not exist, check \`${prefix}tags\``
 			);
 		if (tag.aliases.includes(name))
 			return msg.channel.send(
-				`${emoji.cross} \`${name}\` is an alias of \`${tag.name}\` -- you can delete the alias with \`${prefix}tag deletealias ${name}\`, or delete the entire tag with \`${prefix}tag delete ${tag.name}\``
+				`${process.env.EMOJI_CROSS} \`${name}\` is an alias of \`${tag.name}\` -- you can delete the alias with \`${prefix}tag deletealias ${name}\`, or delete the entire tag with \`${prefix}tag delete ${tag.name}\``
 			);
 		await tag.remove();
 		msg.channel.send(

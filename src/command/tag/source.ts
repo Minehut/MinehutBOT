@@ -1,5 +1,4 @@
 import { Message } from 'discord.js';
-import { emoji } from '../../util/messages';
 import { TagModel } from '../../model/tag';
 import { PrefixSupplier } from 'discord-akairo';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
@@ -34,7 +33,7 @@ export default class TagSourceCommand extends MinehutCommand {
 		const tag = await TagModel.findByNameOrAlias(name);
 		if (!tag)
 			return msg.channel.send(
-				`${emoji.cross} tag \`${name}\` does not exist, check \`${prefix}tags\``
+				`${process.env.EMOJI_CROSS} tag \`${name}\` does not exist, check \`${prefix}tags\``
 			);
 
 		msg.channel.send(tag.content, { code: true });
