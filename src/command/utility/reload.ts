@@ -4,7 +4,7 @@ import {
 	CommandHandler,
 	ListenerHandler,
 } from 'discord-akairo';
-import { messages, emoji } from '../../util/messages';
+import { messages } from '../../util/messages';
 import { PrefixSupplier } from 'discord-akairo';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
@@ -59,7 +59,7 @@ export default class ReloadCommand extends MinehutCommand {
 			);
 		} catch (err) {
 			const e = err as Error;
-			msg.channel.send(`${emoji.warning} ${e.message}`);
+			msg.channel.send(`${process.env.EMOJI_WARNING} ${e.message}`);
 		}
 	}
 }

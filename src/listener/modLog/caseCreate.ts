@@ -4,7 +4,6 @@ import { Case } from '../../model/case';
 import { guildConfigs } from '../../guild/config/guildConfigs';
 import { sendModLogMessage, humanReadableCaseType } from '../../util/functions';
 import { CaseType, FOREVER_MS } from '../../util/constants';
-import { emoji } from '../../util/messages';
 import humanizeDuration from 'humanize-duration';
 
 const caseTypeToEmoji = (type: CaseType) => {
@@ -19,7 +18,7 @@ const caseTypeToEmoji = (type: CaseType) => {
 			return ':rotating_light:';
 
 		case CaseType.Warn:
-			return emoji.warning;
+			return process.env.EMOJI_WARNING;
 
 		case CaseType.Mute:
 		case CaseType.VoiceMute:

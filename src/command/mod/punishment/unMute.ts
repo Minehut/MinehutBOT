@@ -1,5 +1,4 @@
 import { Message } from 'discord.js';
-import { emoji } from '../../../util/messages';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import { GuildMember } from 'discord.js';
@@ -45,7 +44,7 @@ export default class UnMuteCommand extends MinehutCommand {
 		{ member, reason }: { member: GuildMember; reason: string }
 	) {
 		if (!member.manageable)
-			return msg.channel.send(`${emoji.cross} I cannot unmute that member`);
+			return msg.channel.send(`${process.env.EMOJI_CROSS} I cannot unmute that member`);
 		if (!guildConfigs.get(msg.guild!.id)?.roles.muted)
 			throw new Error('No mute role set in config');
 		if (
@@ -57,7 +56,7 @@ export default class UnMuteCommand extends MinehutCommand {
 			}))
 		)
 			return msg.channel.send(
-				`${emoji.cross} this member is not currently muted`
+				`${process.env.EMOJI_CROSS} this member is not currently muted`
 			);
 		const action = new UnMuteAction({
 			target: member,

@@ -1,5 +1,4 @@
 import { Message } from 'discord.js';
-import { emoji } from '../../util/messages';
 import { TagModel, Tag } from '../../model/tag';
 import { PrefixSupplier } from 'discord-akairo';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
@@ -52,12 +51,12 @@ export default class TagSetCommand extends MinehutCommand {
 		const conflictingTag = await TagModel.findByAlias(tag.name);
 		if (conflictingTag)
 			return msg.channel.send(
-				`${emoji.cross} tag name conflicts with \`${conflictingTag.name}\`'s aliases (use ${prefix}tag info ${conflictingTag.name})`
+				`${process.env.EMOJI_CROSS} tag name conflicts with \`${conflictingTag.name}\`'s aliases (use ${prefix}tag info ${conflictingTag.name})`
 			);
 		if (!(await TagModel.exists({ name }))) {
 			TagModel.create(tag);
-			return msg.channel.send(`${emoji.check} tag \`${tag.name}\` created`);
+			return msg.channel.send(`${process.env.EMOJI_CHECK} tag \`${tag.name}\` created`);
 		} else await TagModel.updateOne({ name }, tag);
-		return msg.channel.send(`${emoji.check} tag \`${tag.name}\` updated`);
+		return msg.channel.send(`${process.env.EMOJI_CHECK} tag \`${tag.name}\` updated`);
 	}
 }

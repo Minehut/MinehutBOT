@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { emoji, messages } from '../../../util/messages';
+import { messages } from '../../../util/messages';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import { GuildMember } from 'discord.js';
@@ -57,7 +57,7 @@ export default class MuteCommand extends MinehutCommand {
 		if (!member || !duration)
 			return msg.channel.send(messages.commands.common.useHelp(prefix, 'mute'));
 		if (!member.manageable)
-			return msg.channel.send(`${emoji.cross} I cannot mute that member`);
+			return msg.channel.send(`${process.env.EMOJI_CROSS} I cannot mute that member`);
 		if (!guildConfigs.get(msg.guild!.id)?.roles.muted)
 			throw new Error('No mute role set in config');
 		const humanReadable =

@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { emoji, messages } from '../../../util/messages';
+import { messages } from '../../../util/messages';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import humanizeDuration from 'humanize-duration';
@@ -79,7 +79,7 @@ export default class BanCommand extends MinehutCommand {
 			return msg.channel.send(messages.commands.common.useHelp(prefix, 'ban'));
 		const member = msg.guild!.member(target);
 		if (member && !member.bannable)
-			return msg.channel.send(`${emoji.cross} I cannot ban that user`);
+			return msg.channel.send(`${process.env.EMOJI_CROSS} I cannot ban that user`);
 		const humanReadable =
 			duration === FOREVER_MS
 				? 'permanent'

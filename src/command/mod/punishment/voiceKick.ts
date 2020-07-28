@@ -1,5 +1,4 @@
 import { Message } from 'discord.js';
-import { emoji } from '../../../util/messages';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import { GuildMember } from 'discord.js';
@@ -43,7 +42,7 @@ export default class VoiceKickCommand extends MinehutCommand {
 		{ member, reason }: { member: GuildMember; reason: string }
 	) {
 		if (!member.voice.channel)
-			return msg.channel.send(`${emoji.cross} user is not in a voice channel`);
+			return msg.channel.send(`${process.env.EMOJI_CROSS} user is not in a voice channel`);
 		const action = new VoiceKickAction({
 			target: member,
 			moderator: msg.member!,

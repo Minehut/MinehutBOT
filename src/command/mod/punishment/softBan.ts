@@ -1,5 +1,4 @@
 import { Message } from 'discord.js';
-import { emoji } from '../../../util/messages';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import { GuildMember } from 'discord.js';
@@ -43,7 +42,7 @@ export default class SoftBanCommand extends MinehutCommand {
 		{ member, reason }: { member: GuildMember; reason: string }
 	) {
 		if (!member.bannable)
-			return msg.channel.send(`${emoji.cross} I cannot ban that member`);
+			return msg.channel.send(`${process.env.EMOJI_CROSS} I cannot ban that member`);
 		const action = new SoftBanAction({
 			target: member,
 			moderator: msg.member!,

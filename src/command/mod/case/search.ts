@@ -1,5 +1,4 @@
 import { Message } from 'discord.js';
-import { emoji } from '../../../util/messages';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { User } from 'discord.js';
 import { Argument } from 'discord-akairo';
@@ -48,18 +47,19 @@ export default class CaseSearchCommand extends MinehutCommand {
 
 	async exec(msg: Message, { target }: { target: User }) {
 		const m = await msg.channel.send(
-			`${emoji.loading} Searching for cases where target is **${target.tag}**`
+			`${process.env.EMOJI_LOADING} Searching for cases where target is **${target.tag}**`
 		);
 		let cases = await CaseModel.find({
 			targetId: target.id,
 			guild: msg.guild!.id,
 		}).sort('-createdAt');
 		if (cases.length < 1)
-			return m.edit(`${emoji.dab} No cases found for this user`);
+			return m.edit(`${process.env.EMOJI_DAB} No cases found for this user`);
 		const historyItems = cases.map(c =>
 			[
 				`\`${c._id}\` ${
-					c.active ? emoji.active : emoji.inactive
+					c.active ? process.env.EMOJI_STATUS_ONLINE : process.env.EMOJI_STATUS_DND
+
 				} ${humanReadableCaseType(c.type)} by **${c.moderatorTag}** (${
 					c.moderatorId
 				})`,

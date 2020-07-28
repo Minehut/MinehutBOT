@@ -1,5 +1,4 @@
 import { Message } from 'discord.js';
-import { emoji } from '../../../util/messages';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import { DocumentType } from '@typegoose/typegoose';
@@ -49,7 +48,7 @@ export default class CaseDurationCommand extends MinehutCommand {
 		{ c, duration }: { c: DocumentType<Case>; duration: number }
 	) {
 		if (!c.active)
-			return msg.channel.send(`${emoji.cross} case has already expired`);
+			return msg.channel.send(`${process.env.EMOJI_CROSS} case has already expired`);
 
 		const oldCase = cloneDeep(c);
 		const newExpiry = new Date(c.createdAt).getTime() + duration;
@@ -67,7 +66,7 @@ export default class CaseDurationCommand extends MinehutCommand {
 		this.client.muteScheduler.refresh();
 
 		msg.channel.send(
-			`${emoji.check} case **${c.id}** is now ${
+			`${process.env.EMOJI_CHECK} case **${c.id}** is now ${
 				humanReadable === 'permanent' ? 'permanent' : `${humanReadable} long`
 			} (expires: ${prettyDate(new Date(newExpiry))})`
 		);

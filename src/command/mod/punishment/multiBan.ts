@@ -1,5 +1,4 @@
 import { Message } from 'discord.js';
-import { emoji } from '../../../util/messages';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import { FOREVER_MS } from '../../../util/constants';
@@ -73,7 +72,7 @@ export default class MultiBanCommand extends MinehutCommand {
 			duration === FOREVER_MS
 				? 'permanent'
 				: humanizeDuration(duration, { largest: 3, round: true });
-		const m = await msg.channel.send(emoji.loading);
+		const m = await msg.channel.send(process.env.EMOJI_LOADING);
 		const banned: { success: string[]; fail: string[] } = {
 			success: [],
 			fail: [],
@@ -94,7 +93,7 @@ export default class MultiBanCommand extends MinehutCommand {
 			banned.success.push(target.id);
 		});
 		m.edit(
-			`${emoji.check} banned ${banned.success.length} members ${
+			`${process.env.EMOJI_CHECK} banned ${banned.success.length} members ${
 				humanReadable !== 'permanent' ? `for **${humanReadable}** ` : ' '
 			}(\`${reason}\`) ${
 				banned.fail.length > 0

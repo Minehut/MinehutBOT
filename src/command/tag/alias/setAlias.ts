@@ -1,5 +1,4 @@
 import { Message } from 'discord.js';
-import { emoji } from '../../../util/messages';
 import { TagModel } from '../../../model/tag';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
@@ -53,13 +52,13 @@ export default class TagSetAliasCommand extends MinehutCommand {
 
 		const target = await TagModel.findByNameOrAlias(name);
 		if (!target)
-			return msg.channel.send(`${emoji.cross} unknown target \`${name}\``);
+			return msg.channel.send(`${process.env.EMOJI_CROSS} unknown target \`${name}\``);
 
 		await target.updateOne({ $push: { aliases: alias } });
 		target.aliases.push(alias);
 		msg.channel.send(
 			`${
-				emoji.check
+				process.env.EMOJI_CHECK
 			} \`${alias}\` now points to \`${name}\` (aliases: ${target.aliases.join(
 				', '
 			)})`
