@@ -59,26 +59,30 @@ export default class AnnounceEventCommand extends MinehutCommand {
 		const config = guildConfigs.get(msg.guild!.id);
 		if (
 			!config ||
-			!config.features.announcements ||
-			!config.features.announcements.announcers.find(a => a.name === 'event')
+			!config.features.announcement ||
+			!config.features.announcement.announcers.find(a => a.name === 'event')
 		)
 			return msg.channel.send(
-				`${process.env.EMOJI_CROSS} this server does not have event announcements configured`
+				`${process.env.EMOJI_CROSS} this server does not have event announcement configured`
 			);
 
-		const announcer = config.features.announcements.announcers.find(
+		const announcer = config.features.announcement.announcers.find(
 			a => a.name === 'event'
 		)!;
 
 		const role = msg.guild!.roles.cache.get(announcer.role);
 		if (!role)
-			return msg.channel.send(`${process.env.EMOJI_CROSS} could not get events role`);
+			return msg.channel.send(
+				`${process.env.EMOJI_CROSS} could not get events role`
+			);
 
 		const channel = msg.guild!.channels.cache.get(
 			announcer.channel
 		) as TextChannel;
 		if (!channel)
-			return msg.channel.send(`${process.env.EMOJI_CROSS} could not get events channel`);
+			return msg.channel.send(
+				`${process.env.EMOJI_CROSS} could not get events channel`
+			);
 
 		if (mention) await role.setMentionable(true);
 		await channel.send(`${content}${mention ? `\n\n${role.toString()}` : ''}`);

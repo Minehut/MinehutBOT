@@ -13,7 +13,7 @@ export interface GuildConfiguration {
 	features: {
 		modLog?: ModLogConfiguration;
 		reactionRole?: ReactionRoleConfiguration;
-		announcements?: AnnouncementConfiguration;
+		announcement?: AnnouncementConfiguration;
 		censor?: CensorConfiguration;
 	};
 }

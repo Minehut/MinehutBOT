@@ -27,7 +27,7 @@ guildConfigs.set('239599059415859200', {
 		admin: '240228183985618954',
 	},
 	features: {
-		announcements: {
+		announcement: {
 			announcers: [
 				{
 					role: '493253127366115360',
@@ -201,7 +201,7 @@ guildConfigs.set('608978588976283660', {
 				{ roleId: '728202547944357958', emoji: 'PepeClown' },
 			],
 		},
-		announcements: {
+		announcement: {
 			announcers: [
 				{
 					role: '701854509164527707',
