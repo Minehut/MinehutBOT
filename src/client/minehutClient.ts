@@ -146,6 +146,17 @@ export class MinehutClient extends AkairoClient {
 				return parsed;
 			}
 		);
+
+		this.commandHandler.resolver.addType('announcer', (msg, phrase) => {
+			const config = guildConfigs.get(msg.guild!.id);
+			if (config && config.features.announcement)
+				return (
+					config.features.announcement.announcers.find(
+						a => a.name === phrase.toLowerCase()
+					) || null
+				);
+			return null;
+		});
 	}
 }
 
