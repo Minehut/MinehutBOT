@@ -2,6 +2,7 @@ import { Message } from 'discord.js';
 import { TagModel } from '../../model/tag';
 import { MessageEmbed } from 'discord.js';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
+import { truncate } from 'lodash';
 
 export default class TagListCommand extends MinehutCommand {
 	constructor() {
@@ -21,7 +22,9 @@ export default class TagListCommand extends MinehutCommand {
 		const embed = new MessageEmbed();
 		embed.setColor('ORANGE');
 		embed.setTitle(`Showing ${tags.length} tags`);
-		embed.setDescription(tags.map(t => `\`${t.name}\``).join(', '));
+		embed.setDescription(
+			truncate(tags.map(t => `\`${t.name}\``).join(', '), { length: 2048 })
+		);
 		msg.channel.send(embed);
 	}
 }

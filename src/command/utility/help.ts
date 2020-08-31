@@ -28,7 +28,7 @@ export default class HelpCommand extends MinehutCommand {
 		const prefix = (this.handler.prefix as PrefixSupplier)(msg) as string;
 		if (!command) {
 			const embed = new MessageEmbed()
-				.setColor(3447003)
+				.setColor('BLUE')
 				.setTitle('Commands')
 				.setDescription(
 					`This is a list of available Minehut bot commands\nFor more information about a command, use **\`${prefix}help <command>\`**`

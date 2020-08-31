@@ -3,6 +3,8 @@ import { TagModel } from '../../model/tag';
 import { truncate } from 'lodash';
 import { PrefixSupplier } from 'discord-akairo';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
+import { MessageEmbed } from 'discord.js';
+import { IMGUR_LINK_REGEX } from '../../util/constants';
 
 export default class TagShowCommand extends MinehutCommand {
 	constructor() {
@@ -41,7 +43,24 @@ export default class TagShowCommand extends MinehutCommand {
 			)
 		)
 			return msg.react('⏲️');
-		msg.channel.send(truncate(tag.content, { length: 1900 }));
+
+		const matches = tag.content.match(IMGUR_LINK_REGEX);
+		const embed = new MessageEmbed()
+			.setColor('BLUE')
+			.setFooter(
+				`Requested by ${msg.author.tag}`,
+				msg.author.displayAvatarURL()
+			);
+		let content = tag.content;
+		if (matches) {
+			const link = matches[0];
+			content = tag.content.replace(link, '');
+			embed.setImage(link);
+		}
+		embed.setDescription(truncate(content, { length: 2048 }));
+
+		msg.channel.send(embed);
+
 		this.client.tagCooldownManager.add(`t-${tag.name}-${msg.channel.id}`);
 		await tag.updateOne({ uses: tag.uses + 1 });
 	}
