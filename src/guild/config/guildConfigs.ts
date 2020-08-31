@@ -57,13 +57,6 @@ guildConfigs.set('239599059415859200', {
 						allowZalgo: true,
 					},
 				},
-				{
-					id: '730111433576284192', // Featured Servers #discussion
-					type: 'channel',
-					config: {
-						minimumChatPermission: PermissionLevel.Verified,
-					},
-				},
 			],
 		},
 		modLog: {
