@@ -1,31 +1,37 @@
 # MinehutBOT
 
-Minehut's Discord Bot.
+This is the source code of the Discord bot used on the official Minehut Discord server. This may be outdated as the code used on production is closed-source (boo proprietary).
 
-## How to Use
+## Features
 
-Click [here](https://docs.google.com/document/d/1pInCGtGXnRHMrhpowZ-to6eDUyWm2kRgeChlMvpCzfM) to view a document containing all of the commands and the required permissions.
+- Reaction roles
+- Powerful per-guild configuration
+- Extensive moderation suite
+  - Infraction/case management and tracking
+  - Comprehensive logging
+  - Advanced message cleaning
+  - Punishment commands
+  - Customisable chat filter
+- Custom permission levels
+- Tags
+- Built-in documentation
+- Role announcements
+- Minehut commands
 
-## Setting up the Config
+## Usage
 
-Inside the config.json lies multiple options that can be configured. These are all required for full functionality of the bot.
+At this stage, the bot can't be easily self-hosted and used on your own Discord server. This is because the per-guild configurations are hardcoded, and until these are moved to a database, the only way to practically self-host this bot is by forking/patching the guild configs.
 
-| Config Value | What its for                                              |
-|--------------|-----------------------------------------------------------|
-| token        | Discord Bot's private token                               |
-| prefix       | Prefix of all the Bot commands                            |
-| devs         | List of developers of the Bot with additional permissions |
-| guildid      | ID of the Discord server the bot is for                   |
-| logchannel   | Channel to log all misc staff messages to                 |
-| rolechannel  | Channel to look for react messages to give roles for      |
-| muterole     | ID of the role to give to players on mute                 |
-| hsemojiid    | ID of the hypesquad emoji to react with                   |
-| db           | RethinkDB database info to store punishments and more     |
+Feel free to add me on Discord (@daniel#0004) if you'd like to discuss this project.
 
-## How to Setup
+## Future
 
-1. Install all of the dependencies by typing ``npm install``
+I want to get the bot to a stage where people can use it on their own servers with no hassle and a largely improved configuration system. I also want to keep adding new features that are useful to communities (e.g. starboard). There may be a web dashboard component in the future, for managing the configuration and other aspects of the bot. This may eventually lead to the bot being centralised instead of having to be self-hosted.
 
-2. Copy the ``config-example.json`` file into a new file called ``config.json`` and change settings accordingly.
+## Contributing
 
-3. Start the bot by typing ``node minehut.js``
+Contributors are welcome. I'd recommend opening an issue or checking with me on Discord before opening a PR, to make sure it's not a waste of time.
+
+## License
+
+This software is available under the GNU GPL v3 license.
