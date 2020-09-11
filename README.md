@@ -26,7 +26,7 @@ Feel free to add me on Discord (@daniel#0004) if you'd like to discuss this proj
 
 ## Future
 
-I want to get the bot to a stage where people can use it on their own servers with no hassle and a largely improved configuration system. I also want to keep adding new features that are useful to communities (e.g. starboard). There may be a web dashboard component in the future, for managing the configuration and other aspects of the bot. This may eventually lead to the bot being centralised instead of having to be self-hosted.
+I want to get the bot to a stage where people can use it on their own servers with no hassle and a largely improved configuration system. I also want to keep adding new features that are useful to communities (e.g. starboard). There may be a web dashboard component in the future, for managing the configuration and other aspects of the bot. This may eventually lead to the bot being centralised instead of having to be self-hosted. A name change will probably be in order too.
 
 ## Contributing
 
