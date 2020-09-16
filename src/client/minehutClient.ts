@@ -82,11 +82,11 @@ export class MinehutClient extends AkairoClient {
 		});
 
 		this.commandHandler.useListenerHandler(this.listenerHandler);
-		// this.commandHandler.useInhibitorHandler(this.inhibitorHandler);
+		this.commandHandler.useInhibitorHandler(this.inhibitorHandler);
 
 		this.listenerHandler.loadAll();
 		this.commandHandler.loadAll();
-		// this.inhibitorHandler.loadAll();
+		this.inhibitorHandler.loadAll();
 
 		this.banScheduler = new BanScheduler(this);
 		this.muteScheduler = new MuteScheduler(this);
