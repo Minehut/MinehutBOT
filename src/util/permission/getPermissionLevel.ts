@@ -3,16 +3,7 @@ import { MinehutClient } from '../../client/minehutClient';
 import { PermissionLevel } from './permissionLevel';
 import { guildConfigs } from '../../guild/config/guildConfigs';
 import { RoleType } from './roleType';
-
-const getRoleTypeById = (id: string): string | null => {
-	let roleType: string | null = null;
-	guildConfigs.forEach(g =>
-		Object.keys(g.roles).forEach(k => {
-			if (g.roles[k] === id) roleType = k;
-		})
-	);
-	return roleType;
-};
+import getRoleTypeById from './getRoleTypeById';
 
 export function getPermissionLevel(member: GuildMember, client: MinehutClient) {
 	// They have BotDeveloper perm level if they are in the bot owner list
