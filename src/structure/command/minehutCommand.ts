@@ -16,7 +16,7 @@ export class MinehutCommand extends Command {
 		this.userPermissions = (msg: Message) => {
 			if (msg.member) {
 				if (getPermissionLevel(msg.member!, this.client) < this.permissionLevel)
-					if (options?.enforcePermissionLevelRole && !hasPermissionLevelRole(this.permissionLevel, msg.member))
+					if (options?.enforcePermissionLevelRole && hasPermissionLevelRole(this.permissionLevel, msg.member))
 						return null;
 					else
 						return this.permissionLevel;
