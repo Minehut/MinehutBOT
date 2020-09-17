@@ -2,6 +2,7 @@ import { GuildMember } from "discord.js";
 import { guildConfigs } from "../../guild/config/guildConfigs";
 import getRoleTypeById from "./getRoleTypeById";
 import { PermissionLevel } from "./permissionLevel";
+import resolvePermissionLevelFromRoleType from "./resolvePermissionLevelFromRoleType";
 
 export function hasPermissionLevelRole(permissionLevel: PermissionLevel, member: GuildMember) {
     let allRoles: string[] = [];
@@ -10,8 +11,12 @@ export function hasPermissionLevelRole(permissionLevel: PermissionLevel, member:
 	);
     const roles = member.roles.cache.filter(memberRole =>
 		allRoles.includes(memberRole.id)
-	);
+    );
+    
     return roles.filter(r => 
-        getRoleTypeById(r.id) == permissionLevel
+        resolvePermissionLevelFromRoleType(
+            getRoleTypeById(r.id)!
+        ) == permissionLevel
     ).size > 0;
+        
 }
