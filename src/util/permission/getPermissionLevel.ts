@@ -2,8 +2,8 @@ import { GuildMember } from 'discord.js';
 import { MinehutClient } from '../../client/minehutClient';
 import { PermissionLevel } from './permissionLevel';
 import { guildConfigs } from '../../guild/config/guildConfigs';
-import { RoleType } from './roleType';
 import getRoleTypeById from './getRoleTypeById';
+import resolvePermissionLevelFromRoleType from './resolvePermissionLevelFromRoleType';
 
 export function getPermissionLevel(member: GuildMember, client: MinehutClient) {
 	// They have BotDeveloper perm level if they are in the bot owner list
@@ -25,56 +25,5 @@ export function getPermissionLevel(member: GuildMember, client: MinehutClient) {
 	if (!roleType)
 		throw new Error('Something weird happened, roleType is not defined');
 
-	switch (roleType) {
-		case RoleType.Muted:
-			return PermissionLevel.Muted;
-
-		case RoleType.DJ:
-			return PermissionLevel.DJ;
-
-		case RoleType.Verified:
-			return PermissionLevel.Verified;
-
-		case RoleType.BoostersPass:
-			return PermissionLevel.BoostersPass;
-
-		case RoleType.NitroBooster:
-			return PermissionLevel.NitroBooster;
-
-		case RoleType.Support:
-			return PermissionLevel.Support;
-
-		case RoleType.Advisor:
-			return PermissionLevel.Advisor;
-
-		case RoleType.SuperLeague:
-			return PermissionLevel.SuperLeague;
-
-		case RoleType.YouTube:
-			return PermissionLevel.YouTube;
-
-		case RoleType.Robot:
-			return PermissionLevel.Robot;
-
-		case RoleType.JuniorModerator:
-			return PermissionLevel.JuniorModerator;
-
-		case RoleType.Moderator:
-			return PermissionLevel.Moderator;
-
-		case RoleType.SeniorModerator:
-			return PermissionLevel.SeniorModerator;
-
-		case RoleType.Manager:
-			return PermissionLevel.Manager;
-
-		case RoleType.Developer:
-			return PermissionLevel.Developer;
-
-		case RoleType.Admin:
-			return PermissionLevel.Admin;
-
-		default:
-			return PermissionLevel.Everyone;
-	}
+	return resolvePermissionLevelFromRoleType(roleType);
 }
