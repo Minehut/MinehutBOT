@@ -1,7 +1,7 @@
 import { Listener } from "discord-akairo";
 import { GuildMember } from "discord.js";
 import { guildConfigs } from "../../../guild/config/guildConfigs";
-import revokeGrantedBoosterPasses from "../../../util/boosterPass/revokeGrantedBoosterPasses";
+import { revokeGrantedBoosterPasses } from "../../../util/functions";
 
 export default class NitroBoosterRemoved extends Listener {
     constructor() {
