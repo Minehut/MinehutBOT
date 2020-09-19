@@ -8,11 +8,12 @@ import { CaseModel } from '../model/case';
 import parseDuration from 'parse-duration';
 import { BanScheduler } from '../structure/scheduler/banScheduler';
 import { MuteScheduler } from '../structure/scheduler/muteScheduler';
-import { CooldownManager } from '../structure/cooldownManager';
+import { CooldownManager } from '../structure/manager/cooldownManager';
 import MinehutClientEvents from './minehutClientEvents';
 
 import { Minehut } from 'minehut';
 import { FOREVER_MS, MESSAGES } from '../util/constants';
+import InfluxManagerStore from '../structure/manager/influx/influxManagerStore';
 
 export class MinehutClient extends AkairoClient {
 	commandHandler: CommandHandler;
@@ -23,6 +24,8 @@ export class MinehutClient extends AkairoClient {
 	muteScheduler: MuteScheduler;
 
 	tagCooldownManager: CooldownManager;
+
+	influxManagerStore: InfluxManagerStore;
 
 	minehutApi: Minehut;
 
@@ -92,6 +95,8 @@ export class MinehutClient extends AkairoClient {
 		this.muteScheduler = new MuteScheduler(this);
 
 		this.tagCooldownManager = new CooldownManager(10000);
+
+		this.influxManagerStore = new InfluxManagerStore();
 
 		this.minehutApi = new Minehut();
 
@@ -169,6 +174,7 @@ declare module 'discord-akairo' {
 		banScheduler: BanScheduler;
 		muteScheduler: MuteScheduler;
 		tagCooldownManager: CooldownManager;
+		influxManagerStore: InfluxManagerStore;
 		minehutApi: Minehut;
 
 		start(token: string): void;
