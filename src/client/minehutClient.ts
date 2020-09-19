@@ -103,8 +103,8 @@ export class MinehutClient extends AkairoClient {
 		this.registerArgTypes();
 	}
 
-	start(token: string) {
-		super.login(token);
+	async start(token: string) {
+		await super.login(token);
 	}
 
 	registerArgTypes() {
@@ -177,7 +177,7 @@ declare module 'discord-akairo' {
 		influxManagerStore: InfluxManagerStore;
 		minehutApi: Minehut;
 
-		start(token: string): void;
+		start(token: string): Promise<void>;
 		registerArgTypes(): void;
 
 		on<K extends keyof MinehutClientEvents>(
