@@ -16,6 +16,10 @@ export enum CaseType {
 
 export const FOREVER_MS = 3.154e13; // This equals 100 decades
 
+export const THIRTY_DAYS_MS = 2.592e9;
+
+export const THREE_HOUR_MS = 1.08e+7;
+
 export const MESSAGES = {
 	commandHandler: {
 		prompt: {

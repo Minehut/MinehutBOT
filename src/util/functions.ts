@@ -1,4 +1,4 @@
-import { CaseType } from './constants';
+import { CaseType, THIRTY_DAYS_MS } from './constants';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
 import { guildConfigs } from '../guild/config/guildConfigs';
@@ -13,6 +13,8 @@ import { BoosterPassModel } from '../model/boosterPass';
 
 TimeAgo.addLocale(en);
 export const ago = new TimeAgo('en-US');
+
+export const isNew = (member: GuildMember) => Date.now() - member.user.createdAt.getTime() < THIRTY_DAYS_MS;
 
 // todo: Maybe move this to a base Action class? OOP FTW
 export function humanReadableCaseType(
@@ -238,4 +240,19 @@ export async function revokeGrantedBoosterPasses(member: GuildMember) {
                 boosterPassReceiver.roles.remove(boosterPassRole);
         });
         
+}
+
+export function splitMessagesByChannels(msgs: Message[]) {
+	const channelMap = new Map<TextChannel, Message[]>();
+	
+	msgs.forEach(msg => {
+		let msgArray: Message[] = [];
+		if (msg.channel.type != 'text') return;
+		if (channelMap.has(msg.channel))
+			msgArray = channelMap.get(msg.channel)!;
+		msgArray.push(msg);
+		channelMap.set(msg.channel, msgArray);
+	});
+
+	return channelMap;
 }
