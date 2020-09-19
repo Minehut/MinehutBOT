@@ -35,7 +35,7 @@ export default class UserAccountJoinSpan extends Listener {
                                     client: this.client,
                                     guild: member.guild
                                 });
-                                await action.commit();    
+                                action.commit();    
                             });
                         }
                     }
