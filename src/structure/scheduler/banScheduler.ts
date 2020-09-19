@@ -25,11 +25,16 @@ export class BanScheduler {
 			active: true,
 		});
 		bansExpiringSoon.forEach(c => {
-			const timeout = setTimeout(
-				() => this.unban(c),
-				c.expiresAt.getTime() - Date.now()
-			);
-			this.timeouts.set(timeout, c);
+			const expiredDuration = c.expiresAt.getTime() - Date.now();
+			if (expiredDuration > 0) {
+				const timeout = setTimeout(
+					() => this.unban(c),
+					expiredDuration
+				);
+				this.timeouts.set(timeout, c);	
+			} else {
+				this.unban(c);
+			}
 		});
 		setTimeout(() => this.refresh(), REFRESH_MS);
 	}
