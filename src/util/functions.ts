@@ -1,4 +1,4 @@
-import { CaseType, THIRTY_DAYS_MS } from './constants';
+import { CaseType, ONE_DAY_MS, THIRTY_DAYS_MS } from './constants';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
 import { guildConfigs } from '../guild/config/guildConfigs';
@@ -255,4 +255,31 @@ export function splitMessagesByChannels(msgs: Message[]) {
 	});
 
 	return channelMap;
+}
+
+export function filterSimilarAccountJoinDates(members: GuildMember[]) {
+	const similarAccountJoinDates: GuildMember[] = [];
+
+	// start i at 0 and j at 1 to index both elements and compare them
+	for (
+		var i = 0, j = 1; 
+		i < members.length, j < members.length; 
+		++i, ++j
+	) {
+		let memberA = members[i];
+		let memberB = members[j];
+		if (
+			Math.abs(
+				memberA.user.createdAt.getTime() - memberB.user.createdAt.getTime()
+			) <= ONE_DAY_MS
+		) {
+			// if they've already been put into the array, don't put them in again
+			if (similarAccountJoinDates.indexOf(memberA) <= -1)
+				similarAccountJoinDates.push(memberA);
+			if (similarAccountJoinDates.indexOf(memberB) <= -1)
+				similarAccountJoinDates.push(memberB);
+		}
+	}
+
+	return similarAccountJoinDates;
 }
