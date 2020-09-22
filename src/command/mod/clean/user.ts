@@ -51,7 +51,6 @@ export default class CleanUserCommand extends MinehutCommand {
 
 	async exec(msg: Message, { target, count }: { target: User; count: number }) {
 		const messages = await msg.channel.messages.fetch({ limit: 100 });
-		console.log(messages.size);
 		const filtered = messages
 			.filter(m => m.author.id === target.id && m.id !== msg.id)
 			.sort((a, b) => b.createdTimestamp - a.createdTimestamp)
