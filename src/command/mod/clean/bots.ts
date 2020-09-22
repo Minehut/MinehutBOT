@@ -33,7 +33,7 @@ export default class CleanBotsCommand extends MinehutCommand {
 	}
 
 	async exec(msg: Message, { count }: { count: number }) {
-		const messages = await msg.channel.messages.fetch();
+		const messages = await msg.channel.messages.fetch({ limit: 100 });
 		const filtered = messages
 			.filter(m => m.author.bot && m.id !== msg.id)
 			.sort((a, b) => b.createdTimestamp - a.createdTimestamp)
