@@ -29,7 +29,7 @@ export default class UserMessageSpam extends Listener {
                 [],
                 {
                     clearInterval: 5000,
-                    executingQuantity: 6,
+                    executingQuantity: 5,
                     executingListener: this,
                     executingFunction: async (msgs) => {
                         const msg = msgs[0];
