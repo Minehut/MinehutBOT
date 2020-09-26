@@ -9,7 +9,6 @@ import { MinehutClient } from '../client/minehutClient';
 import { cloneDeep } from 'lodash';
 import { PermissionLevel } from './permission/permissionLevel';
 import { GuildMember } from 'discord.js';
-import { BoosterPassModel } from '../model/boosterPass';
 
 TimeAgo.addLocale(en);
 export const ago = new TimeAgo('en-US');

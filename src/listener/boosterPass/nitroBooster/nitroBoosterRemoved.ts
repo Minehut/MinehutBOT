@@ -1,7 +1,7 @@
 import { Listener } from "discord-akairo";
 import { GuildMember } from "discord.js";
 import { guildConfigs } from "../../../guild/config/guildConfigs";
-import { revokeGrantedBoosterPasses } from "../../../util/functions";
+import { BoosterPassModel } from "../../../model/boosterPass";
 
 export default class NitroBoosterRemoved extends Listener {
     constructor() {
@@ -23,7 +23,7 @@ export default class NitroBoosterRemoved extends Listener {
                 oMember.roles.cache.has(nitroBoosterRole) &&
                 !nMember.roles.cache.has(nitroBoosterRole)
             )
-                await revokeGrantedBoosterPasses(nMember);
+                await BoosterPassModel.removeGrantedBoosterPasses(nMember);
         } 
 
     }
