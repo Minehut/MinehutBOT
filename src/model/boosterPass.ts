@@ -1,6 +1,7 @@
 import { getModelForClass, prop } from "@typegoose/typegoose";
 import { ModelType } from "@typegoose/typegoose/lib/types";
 import { GuildMember } from "discord.js";
+import { guildConfigs } from "../guild/config/guildConfigs";
 
 export class BoosterPass {
     @prop({ required: true })
@@ -43,6 +44,26 @@ export class BoosterPass {
         if (limit)
             query.limit(limit);
         return query;
+    }
+
+    static async removeGrantedBoosterPasses(this: ModelType<BoosterPass>, member: GuildMember) {
+        const boosterPasses = await BoosterPassModel.getBoosterPasses(member);
+        if (boosterPasses.length > 0) 
+            boosterPasses.forEach(async bp => {
+                await bp.remove();
+                const boosterPassRole = guildConfigs
+                    .get(member.guild.id)?.roles.boostersPass;
+                if (!boosterPassRole)
+                    throw new Error(`Guild ${member.guild.id} does not have a configured booster pass role!`);
+                const boosterPassReceiver = await member.guild.members.fetch(bp.grantedId);
+                if (!boosterPassReceiver) return;
+                const receiverReceivedPasses = await BoosterPassModel.getGrantedBoosterPasses(boosterPassReceiver);
+                if (
+                    receiverReceivedPasses.length < 0 &&
+                    boosterPassReceiver.roles.cache.has(boosterPassRole)
+                )
+                    boosterPassReceiver.roles.remove(boosterPassRole);
+            });    
     }
 
 }
