@@ -4,6 +4,7 @@ import { Message } from "discord.js";
 import * as XLSX from "xlsx";
 import { BoosterPass, BoosterPassModel } from "../../model/boosterPass";
 import fetch from "node-fetch";
+import { guildConfigs } from "../../guild/config/guildConfigs";
 
 interface BoosterPassDocument {
     'Nitro Booster': string;
@@ -31,6 +32,15 @@ export default class BoosterPassImport extends MinehutCommand {
     }
 
     async exec(msg: Message) {
+        const boosterPassConfiguration = guildConfigs
+            .get(msg.guild!.id)?.features.boosterPass;
+
+        if (
+            !boosterPassConfiguration || 
+            !boosterPassConfiguration.active
+        )
+            return msg.channel.send(`${process.env.EMOJI_CROSS} Booster passes not enabled in configuration.`);
+    
         if (msg.attachments.size != 1)
             return msg.channel.send(`${process.env.EMOJI_CROSS} You must attach one file.`);
         
