@@ -60,7 +60,7 @@ export default class BoosterPassImport extends MinehutCommand {
                             granterTag,
                             grantedId,
                             grantedTag,
-                            guild: 'some ID'
+                            guild: msg.guild!.id
                         } as BoosterPass;
                         BoosterPassModel.create(boosterPass);    
                     }
@@ -75,7 +75,7 @@ export default class BoosterPassImport extends MinehutCommand {
                             granterTag,
                             grantedId,
                             grantedTag,
-                            guild: 'some ID'
+                            guild: msg.guild!.id
                         } as BoosterPass;
                         BoosterPassModel.create(boosterPass);    
                     }
