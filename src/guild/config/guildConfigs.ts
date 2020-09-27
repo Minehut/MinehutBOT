@@ -78,6 +78,9 @@ guildConfigs.set('239599059415859200', {
 				{ roleId: '493253127366115360', emoji: 'HypeBadge' },
 			],
 		},
+		boosterPass: {
+			active: true
+		}
 	},
 });
 
