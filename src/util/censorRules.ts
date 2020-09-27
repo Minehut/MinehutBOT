@@ -128,7 +128,6 @@ export const CENSOR_RULES = [
 	},
 	{ rule: '\\b(naked)', type: Swear, enabled: false },
 	{ rule: '\\b(cancer)', type: Swear, enabled: true },
-	{ rule: '\\b(pp(?![a-z]))', type: Swear, enabled: true },
 	{
 		rule: '\\b(chupa mi polla|sut min pik)',
 		type: Swear,
