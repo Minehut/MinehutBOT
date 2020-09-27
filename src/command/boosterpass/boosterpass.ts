@@ -15,6 +15,7 @@ export default class BoosterPassCommand extends MinehutCommand {
                 • **give** \`<member>\`
                 • **info** \`<member>\`
                 • **revoke** \`<member>\`
+                • **import**
                 `,
                 usage: '<method> <...arguments>',
                 examples: [
@@ -23,7 +24,8 @@ export default class BoosterPassCommand extends MinehutCommand {
                     'info @Facto',
                     'info 535986058991501323',
                     'revoke @Facto',
-                    'revoke 535986058991501323'
+                    'revoke 535986058991501323',
+                    'import'
                 ]
             },
             category: 'boosterpass',
@@ -36,7 +38,8 @@ export default class BoosterPassCommand extends MinehutCommand {
             type: [
                 ['boosterpass-give', 'give'],
                 ['boosterpass-revoke', 'revoke'],
-                ['boosterpass-info', 'info']
+                ['boosterpass-info', 'info'],
+                ['boosterpass-import', 'import']
             ],
             otherwise: (msg: Message) => {
                 const prefix = (this.handler.prefix as PrefixSupplier)(msg) as string;
