@@ -32,12 +32,12 @@ export default class BoosterPassImport extends MinehutCommand {
 
     async exec(msg: Message) {
         if (msg.attachments.size != 1)
-            return msg.channel.send(':x: You must attach one file.');
+            return msg.channel.send(`${process.env.EMOJI_CROSS} You must attach one file.`);
         
         const attachment = msg.attachments.first()!;
 
         if (!attachment.name?.endsWith('.xlsx'))
-            return msg.channel.send(':x: You must attach a XLSX file.');
+            return msg.channel.send(`${process.env.EMOJI_CROSS} You must attach a XLSX file.`);
 
         const res = await fetch(attachment.url);
         const buffer = await res.buffer();
@@ -83,6 +83,6 @@ export default class BoosterPassImport extends MinehutCommand {
             }
         });
 
-        return msg.channel.send(':white_check_mark: Successfully imported booster passes!');
+        return msg.channel.send(`${process.env.EMOJI_CHECK} Successfully imported booster passes!`);
     }
 }
