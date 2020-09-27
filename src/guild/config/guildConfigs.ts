@@ -126,6 +126,7 @@ guildConfigs.set('715281101479739543', {
 			channel: '480889821225549824',
 			events: ALL_MODLOG_EVENTS,
 			prefix: '`[NEXUS]`',
+			ignoredChannels: ['737745603337125899'] // #leaders
 		},
 	},
 });
@@ -181,7 +182,8 @@ guildConfigs.set('650778911126323200', {
 	roles: {
 		admin: '650797870609596418',
 		nitroBooster: '755929113742540841',
-		boostersPass: '755929170185289868'
+		boostersPass: '755929170185289868',
+		muted: '722920900927815700'
 	},
 	commands: {
 		blockedChannels: ['755929414222479361']
