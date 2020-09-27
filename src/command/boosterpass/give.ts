@@ -28,8 +28,10 @@ export default class BoosterPassGiveCommand extends MinehutCommand {
                     id: 'member',
                     type: 'member',
                     prompt: {
-                        start: (msg: Message) => `${msg.author}, who should I give the booster pass too?`,
-                        retry: (msg: Message) => `${msg.author}, please mention a member.`
+                        start: (msg: Message) => 
+                            `${msg.author}, who should I give the booster pass too?`,
+                        retry: (msg: Message) => 
+                            `${msg.author}, please mention a member.`
                     }
                 }
             ]
