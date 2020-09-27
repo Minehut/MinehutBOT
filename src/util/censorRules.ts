@@ -45,7 +45,7 @@ export const CENSOR_RULES = [
 	{ rule: '\\b(hentai)', type: Swear, enabled: true },
 	{
 		rule:
-			'\\b((n|/\\\\/)(1|i|!|e|3)(g|gg|bb|qq)(?!(otiate|otiation|otiator))(?!(h|at))(a|3r|er)?)',
+			'\\b((n|/\\\\/)(1|i|!|3)(g|gg|bb|qq)(?!(otiate|otiation|otiator))(?!(h|at))(a|3r|er)?)',
 		type: Swear,
 		enabled: true,
 	},
