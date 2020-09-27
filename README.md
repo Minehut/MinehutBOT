@@ -30,8 +30,5 @@ I want to get the bot to a stage where people can use it on their own servers wi
 
 ## Contributing
 
-Contributors are welcome. I'd recommend opening an issue or checking with me on Discord before opening a PR, to make sure it's not a waste of time.
+3. Start the bot by typing ``node minehut.js``
 
-## License
-
-This software is available under the GNU GPL v3 license.
