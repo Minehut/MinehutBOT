@@ -23,7 +23,18 @@ This is the source code of the Discord bot used on the official Minehut Discord 
 
 ## Usage
 
-In order to self-host this project, you need a local instance of MongoDB running as well as your own Sentry account. As of right now, you also need to edit the guild configuration in the codebase in order for the bot to work properly in your guild. After you've sufficed these requirements, simply fill out the values in `.env.example` and change it to `.env` and start the bot with `yarn start`.
+### Requirements
+
+- A local instance of MongoDB
+- A Sentry account
+- (optional but recommended) Yarn
+
+### Steps
+
+1. Install all dependencies with `yarn install` or `npm install`.
+2. Fill out all values in `.env.example` and change it to `.env`.
+3. In order for the bot to work properly on your guild, you need to add it to the bot's hard-coded guild configuration.
+4. Start the bot with `yarn start` or `npm start`.
 
 ## Contributing
 
