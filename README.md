@@ -1,6 +1,6 @@
 # MinehutBOT
 
-This is the source code of the Discord bot used on the official Minehut Discord server. This may be outdated as the code used on production is closed-source (boo proprietary).
+This is the source code of the Discord bot used on the official Minehut Discord server.
 
 ## Features
 
@@ -12,6 +12,9 @@ This is the source code of the Discord bot used on the official Minehut Discord 
   - Advanced message cleaning
   - Punishment commands
   - Customisable chat filter
+  - Anti-spam moderation
+  - Anti-bot moderation
+- Boosterpass tracking
 - Custom permission levels
 - Tags
 - Built-in documentation
@@ -20,18 +23,12 @@ This is the source code of the Discord bot used on the official Minehut Discord 
 
 ## Usage
 
-At this stage, the bot can't be easily self-hosted and used on your own Discord server. This is because the per-guild configurations are hardcoded, and until these are moved to a database, the only way to practically self-host this bot is by forking/patching the guild configs.
-
-Feel free to add me on Discord (@daniel#0004) if you'd like to discuss this project.
-
-## Future
-
-I want to get the bot to a stage where people can use it on their own servers with no hassle and a largely improved configuration system. I also want to keep adding new features that are useful to communities (e.g. starboard). There may be a web dashboard component in the future, for managing the configuration and other aspects of the bot. This may eventually lead to the bot being centralised instead of having to be self-hosted. A name change will probably be in order too.
+In order to self-host this project, you need a local instance of MongoDB running as well as your own Sentry account. As of right now, you also need to edit the guild configuration in the codebase in order for the bot to work properly in your guild. After you've sufficed these requirements, simply fill out the values in `.env.example` and change it to `.env` and start the bot with `yarn start`.
 
 ## Contributing
 
-Contributors are welcome. I'd recommend opening an issue or checking with me on Discord before opening a PR, to make sure it's not a waste of time.
+We always welcome contributions to the bot, just simply make a pull request.
 
-## License
+## Credits
 
-This software is available under the GNU GPL v3 license.
+@jellz - Made this README with modification from @Facto
