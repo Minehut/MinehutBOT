@@ -54,6 +54,7 @@ export const CENSOR_RULES = [
 		type: Swear,
 		enabled: true,
 	},
+	{ rule: '\\b(tit)', type: Swear, enabled: true },
 	{ rule: '\\b(tit(ties|s))', type: Swear, enabled: true },
 	{ rule: '(.)(?=([a-z\\.]){17})', type: Spam, enabled: false },
 	{
