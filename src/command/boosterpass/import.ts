@@ -36,15 +36,15 @@ export default class BoosterPassImport extends MinehutCommand {
             .get(msg.guild!.id)?.features.boosterPass;
 
         if (!boosterPassConfiguration)
-            return msg.channel.send(`${process.env.EMOJI_CROSS} Booster passes not enabled in configuration.`);
+            return msg.channel.send(`${process.env.EMOJI_CROSS} Booster passes not enabled in configuration!`);
     
         if (msg.attachments.size != 1)
-            return msg.channel.send(`${process.env.EMOJI_CROSS} You must attach one file.`);
+            return msg.channel.send(`${process.env.EMOJI_CROSS} You must attach one file!`);
         
         const attachment = msg.attachments.first()!;
 
         if (!attachment.name?.endsWith('.xlsx'))
-            return msg.channel.send(`${process.env.EMOJI_CROSS} You must attach a XLSX file.`);
+            return msg.channel.send(`${process.env.EMOJI_CROSS} You must attach a XLSX file!`);
 
         const res = await fetch(attachment.url);
         const buffer = await res.buffer();
@@ -90,6 +90,6 @@ export default class BoosterPassImport extends MinehutCommand {
             }
         });
 
-        return msg.channel.send(`${process.env.EMOJI_CHECK} imported booster passes!`);
+        return msg.channel.send(`${process.env.EMOJI_CHECK} imported booster passes`);
     }
 }
