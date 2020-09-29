@@ -1,7 +1,7 @@
 import { Listener } from "discord-akairo";
 import { GuildMember } from "discord.js";
 import { BanAction } from "../../structure/action/ban";
-import InfluxManager from "../../structure/manager/influx/influxManager";
+import { InfluxManager } from "../../structure/manager/influx/influxManager";
 import { FOREVER_MS } from "../../util/constants";
 import { filterSimilarAccountJoinDates } from "../../util/functions";
 

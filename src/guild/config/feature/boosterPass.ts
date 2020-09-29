@@ -1,3 +1,3 @@
-export default interface BoosterPassConfiguration {
+export interface BoosterPassConfiguration {
     maximumGrantedBoosterPasses?: number;
 }

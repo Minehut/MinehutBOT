@@ -1,6 +1,6 @@
-import InfluxManager from "./influxManager";
+import { InfluxManager } from "./influxManager";
 
-export default class InfluxManagerStore {
+export class InfluxManagerStore {
     private influxManagerStore: Map<string, InfluxManager<any>>
 
     constructor() {

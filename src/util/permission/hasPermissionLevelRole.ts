@@ -1,8 +1,8 @@
 import { GuildMember } from "discord.js";
 import { guildConfigs } from "../../guild/config/guildConfigs";
-import getRoleTypeById from "./getRoleTypeById";
+import { getRoleTypeById } from "./getRoleTypeById";
 import { PermissionLevel } from "./permissionLevel";
-import resolvePermissionLevelFromRoleType from "./resolvePermissionLevelFromRoleType";
+import { resolvePermissionLevelFromRoleType } from "./resolvePermissionLevelFromRoleType";
 
 export function hasPermissionLevelRole(permissionLevel: PermissionLevel, member: GuildMember) {
     let allRoles: string[] = [];

@@ -1,7 +1,7 @@
 import { Listener } from "discord-akairo";
 import { Message, TextChannel } from "discord.js";
 import { MuteAction } from "../../structure/action/mute";
-import InfluxManager from "../../structure/manager/influx/influxManager";
+import { InfluxManager } from "../../structure/manager/influx/influxManager";
 import { THREE_HOUR_MS } from "../../util/constants";
 import { splitMessagesByChannels } from "../../util/functions";
 import { getPermissionLevel } from "../../util/permission/getPermissionLevel";

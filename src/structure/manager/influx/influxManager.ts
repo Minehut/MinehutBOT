@@ -3,9 +3,9 @@
     You can manage the quantity that it should go up to before executing, time between clears, and an action if it satisfies the condition.
 */
 
-import InfluxManagerOptions from "./InfluxManagerOptions"
+import { InfluxManagerOptions } from "./InfluxManagerOptions"
 
-export default class InfluxManager<T> {
+export class InfluxManager<T> {
     private influxStore: T[];
     private influxOptions: InfluxManagerOptions<T>;
     private influxClearInterval: NodeJS.Timeout;

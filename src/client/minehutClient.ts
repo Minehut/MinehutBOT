@@ -13,7 +13,7 @@ import MinehutClientEvents from './minehutClientEvents';
 
 import { Minehut } from 'minehut';
 import { FOREVER_MS, MESSAGES } from '../util/constants';
-import InfluxManagerStore from '../structure/manager/influx/influxManagerStore';
+import { InfluxManagerStore } from '../structure/manager/influx/influxManagerStore';
 
 export class MinehutClient extends AkairoClient {
 	commandHandler: CommandHandler;

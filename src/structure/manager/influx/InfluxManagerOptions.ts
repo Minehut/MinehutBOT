@@ -1,6 +1,6 @@
 import { Listener } from "discord-akairo";
 
-export default interface InfluxManagerOptions<T> {
+export interface InfluxManagerOptions<T> {
     clearInterval: number;
     addCondition?: boolean;
     executingQuantity: number;
