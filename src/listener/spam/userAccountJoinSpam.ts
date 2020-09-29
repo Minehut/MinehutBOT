@@ -5,7 +5,7 @@ import { InfluxManager } from "../../structure/manager/influx/influxManager";
 import { FOREVER_MS } from "../../util/constants";
 import { filterSimilarAccountJoinDates } from "../../util/functions";
 
-export default class UserAccountJoinSpan extends Listener {
+export default class UserAccountJoinSpam extends Listener {
     constructor() {
         super('userAccountJoinSpam', {
             emitter: 'client',
