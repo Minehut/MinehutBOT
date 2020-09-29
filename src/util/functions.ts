@@ -1,4 +1,4 @@
-import { CaseType, ONE_DAY_MS, THIRTY_DAYS_MS } from './constants';
+import { CaseType, ONE_DAY_MS, ONE_MONTH_MS } from './constants';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
 import { guildConfigs } from '../guild/config/guildConfigs';
@@ -13,7 +13,7 @@ import { GuildMember } from 'discord.js';
 TimeAgo.addLocale(en);
 export const ago = new TimeAgo('en-US');
 
-export const isNew = (member: GuildMember) => Date.now() - member.user.createdAt.getTime() < THIRTY_DAYS_MS;
+export const isNew = (member: GuildMember) => Date.now() - member.user.createdAt.getTime() < ONE_MONTH_MS;
 
 // todo: Maybe move this to a base Action class? OOP FTW
 export function humanReadableCaseType(
