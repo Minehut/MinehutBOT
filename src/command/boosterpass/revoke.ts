@@ -50,10 +50,7 @@ export default class BoosterPassGiveCommand extends MinehutCommand {
         const boosterPassRole = guildConfigs
             .get(msg.guild!.id)?.roles.boostersPass;
 
-        if (
-            !boosterPassConfiguration || 
-            !boosterPassConfiguration.active
-        )
+        if (!boosterPassConfiguration)
             return msg.channel.send(`${process.env.EMOJI_CROSS} Booster passes not enabled in configuration!`);
         
         if (!nitroBoosterRole || !boosterPassRole)

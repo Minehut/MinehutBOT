@@ -50,10 +50,7 @@ export default class BoosterPassGiveCommand extends MinehutCommand {
         const boosterPassRole = guildConfigs
             .get(msg.guild!.id)?.roles.boostersPass;
 
-        if (
-            !boosterPassConfiguration || 
-            !boosterPassConfiguration.active
-        )
+        if (!boosterPassConfiguration)
             return msg.channel.send(`${process.env.EMOJI_CROSS} Booster passes not enabled in configuration!`);
         
         if (!nitroBoosterRole || !boosterPassRole)
@@ -64,8 +61,8 @@ export default class BoosterPassGiveCommand extends MinehutCommand {
 
         const boosterPasses = await BoosterPassModel.getBoosterPasses(msg.member!);
 
-        if (boosterPasses.length == 2)
-            return msg.channel.send(`${process.env.EMOJI_CROSS} You already have given two members booster passes!`);
+        if (boosterPasses.length == (boosterPassConfiguration.maximumGrantedBoosterPasses || 2))
+            return msg.channel.send(`${process.env.EMOJI_CROSS} You cannot give anymore booster passes!`);
         if (boosterPasses.find(b => b.grantedId === member.id))
             return msg.channel.send(`${process.env.EMOJI_CROSS} You already have given this member a booster pass!`);
 
