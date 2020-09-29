@@ -27,11 +27,8 @@ export class MuteScheduler {
 		mutesExpiringSoon.forEach(c => {
 			const expiredDuration = c.expiresAt.getTime() - Date.now();
 			if (expiredDuration > 0) {
-				const timeout = setTimeout(
-					() => this.unmute(c),
-					expiredDuration
-				);
-				this.timeouts.set(timeout, c);	
+				const timeout = setTimeout(() => this.unmute(c), expiredDuration);
+				this.timeouts.set(timeout, c);
 			} else {
 				this.unmute(c);
 			}

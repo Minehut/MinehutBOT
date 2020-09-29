@@ -58,8 +58,9 @@ export default class CaseSearchCommand extends MinehutCommand {
 		const historyItems = cases.map(c =>
 			[
 				`\`${c._id}\` ${
-					c.active ? process.env.EMOJI_STATUS_ONLINE : process.env.EMOJI_STATUS_DND
-
+					c.active
+						? process.env.EMOJI_STATUS_ONLINE
+						: process.env.EMOJI_STATUS_DND
 				} ${humanReadableCaseType(c.type)} by **${c.moderatorTag}** (${
 					c.moderatorId
 				})`,

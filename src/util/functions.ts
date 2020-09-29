@@ -13,7 +13,8 @@ import { GuildMember } from 'discord.js';
 TimeAgo.addLocale(en);
 export const ago = new TimeAgo('en-US');
 
-export const isNew = (member: GuildMember) => Date.now() - member.user.createdAt.getTime() < ONE_MONTH_MS;
+export const isNew = (member: GuildMember) =>
+	Date.now() - member.user.createdAt.getTime() < ONE_MONTH_MS;
 
 // todo: Maybe move this to a base Action class? OOP FTW
 export function humanReadableCaseType(
@@ -222,12 +223,11 @@ export function checkString(content: string): CensorCheckResponse | undefined {
 
 export function splitMessagesByChannels(msgs: Message[]) {
 	const channelMap = new Map<TextChannel, Message[]>();
-	
+
 	msgs.forEach(msg => {
 		let msgArray: Message[] = [];
 		if (msg.channel.type != 'text') return;
-		if (channelMap.has(msg.channel))
-			msgArray = channelMap.get(msg.channel)!;
+		if (channelMap.has(msg.channel)) msgArray = channelMap.get(msg.channel)!;
 		msgArray.push(msg);
 		channelMap.set(msg.channel, msgArray);
 	});
@@ -238,9 +238,16 @@ export function splitMessagesByChannels(msgs: Message[]) {
 export function filterSimilarAccountJoinDates(members: GuildMember[]) {
 	const matchesCheck = (a: Date, b: Date) =>
 		Math.abs(a.getTime() - b.getTime()) <= ONE_DAY_MS;
-	
-	return members.filter((v, i, arr) => 
-		matchesCheck(v.user.createdAt, arr[i + 1].user.createdAt ? arr[i + 1].user.createdAt : new Date()) ||
-		matchesCheck(v.user.createdAt, arr[i - 1].user.createdAt ? arr[i - 1].user.createdAt : new Date())
+
+	return members.filter(
+		(v, i, arr) =>
+			matchesCheck(
+				v.user.createdAt,
+				arr[i + 1].user.createdAt ? arr[i + 1].user.createdAt : new Date()
+			) ||
+			matchesCheck(
+				v.user.createdAt,
+				arr[i - 1].user.createdAt ? arr[i - 1].user.createdAt : new Date()
+			)
 	);
 }

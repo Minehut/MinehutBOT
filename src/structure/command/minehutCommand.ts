@@ -7,7 +7,7 @@ import { hasPermissionLevelRole } from '../../util/permission/hasPermissionLevel
 
 export class MinehutCommand extends Command {
 	permissionLevel: PermissionLevel;
-	
+
 	constructor(id: string, options?: MinehutCommandOptions) {
 		super(id, options);
 
@@ -17,7 +17,10 @@ export class MinehutCommand extends Command {
 			if (msg.member) {
 				if (getPermissionLevel(msg.member!, this.client) < this.permissionLevel)
 					return this.permissionLevel;
-				if (options?.enforcePermissionLevelRole && !hasPermissionLevelRole(this.permissionLevel, msg.member))
+				if (
+					options?.enforcePermissionLevelRole &&
+					!hasPermissionLevelRole(this.permissionLevel, msg.member)
+				)
 					return this.permissionLevel;
 				return null;
 			}

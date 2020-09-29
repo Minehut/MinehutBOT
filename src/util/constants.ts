@@ -16,7 +16,7 @@ export enum CaseType {
 
 export const FOREVER_MS = 3.154e13; // This equals 100 decades
 
-export const ONE_HOUR_MS = 3.6e+6;
+export const ONE_HOUR_MS = 3.6e6;
 
 export const ONE_DAY_MS = ONE_HOUR_MS * 24;
 
@@ -165,7 +165,6 @@ export const ZALGO_REGEX = new RegExp(
 		'\u035a',
 		'\u0323',
 	].join('|'),
-	'gi'
 );
 
 export const IMGUR_LINK_REGEX = /((?:https?:)?\/\/(\w+\.)?imgur\.com\/(\S*)(\.[a-zA-Z]{3}))/im;

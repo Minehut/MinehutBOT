@@ -1,8 +1,8 @@
-import { PermissionLevel } from "./permissionLevel";
-import { RoleType } from "./roleType";
+import { PermissionLevel } from './permissionLevel';
+import { RoleType } from './roleType';
 
 export function resolvePermissionLevelFromRoleType(roleType: string) {
-    switch (roleType) {
+	switch (roleType) {
 		case RoleType.Muted:
 			return PermissionLevel.Muted;
 

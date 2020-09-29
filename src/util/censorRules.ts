@@ -58,7 +58,7 @@ export const CENSOR_RULES = [
 	{ rule: '\\b(tit(ties|s))', type: Swear, enabled: true },
 	{ rule: '(.)(?=([a-z\\.]){17})', type: Spam, enabled: false },
 	{
-		rule: '\\b(f(\\.)?((u[\-]c|[uc]|vc)(k|q)|(uk|uc|\\.ck|(\\.|,|-|)uck)))',
+		rule: '\\b(f(\\.)?((u[-]c|[uc]|vc)(k|q)|(uk|uc|\\.ck|(\\.|,|-|)uck)))',
 		type: Swear,
 		enabled: true,
 	},

@@ -40,7 +40,9 @@ export default class KickCommand extends MinehutCommand {
 		{ member, reason }: { member: GuildMember; reason: string }
 	) {
 		if (!member.kickable)
-			return msg.channel.send(`${process.env.EMOJI_CROSS} I cannot kick that member`);
+			return msg.channel.send(
+				`${process.env.EMOJI_CROSS} I cannot kick that member`
+			);
 		const action = new KickAction({
 			target: member,
 			moderator: msg.member!,

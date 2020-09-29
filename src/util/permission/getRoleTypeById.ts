@@ -1,6 +1,6 @@
-import { guildConfigs } from "../../guild/config/guildConfigs";
+import { guildConfigs } from '../../guild/config/guildConfigs';
 
-export function getRoleTypeById(id: string) : string | null {
+export function getRoleTypeById(id: string): string | null {
 	let roleType: string | null = null;
 	guildConfigs.forEach(g =>
 		Object.keys(g.roles).forEach(k => {
@@ -8,5 +8,4 @@ export function getRoleTypeById(id: string) : string | null {
 		})
 	);
 	return roleType;
-
 }

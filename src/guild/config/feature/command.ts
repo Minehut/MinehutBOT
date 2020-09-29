@@ -1,3 +1,3 @@
 export interface CommandConfiguration {
-    blockedChannels: string[]
+	blockedChannels: string[];
 }
