@@ -21,8 +21,6 @@ if (process.env.NODE_ENV === 'production')
 		prefix: process.env.DISCORD_PREFIX || '!',
 		mongo: connection,
 	});
+	
 	await client.start(process.env.DISCORD_TOKEN!);
-
-	client.banScheduler.refresh();
-	client.muteScheduler.refresh();
 })();
