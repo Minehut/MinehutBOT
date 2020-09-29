@@ -11,7 +11,7 @@ export default class BoosterInfoCommand extends MinehutCommand {
             category: 'boosterpass',
             channel: 'guild',
             description: {
-                content: 'Look up a member\'s booster passes',
+                content: 'Look up the booster passes of a member',
                 usage: '<member>',
                 examples: [
                     'boosterpass info @Facto',
