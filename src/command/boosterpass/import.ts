@@ -38,7 +38,7 @@ export default class BoosterPassImport extends MinehutCommand {
         if (!boosterPassConfiguration)
             return msg.channel.send(`${process.env.EMOJI_CROSS} Booster passes not enabled in configuration!`);
     
-        if (msg.attachments.size != 1)
+        if (msg.attachments.size < 1)
             return msg.channel.send(`${process.env.EMOJI_CROSS} You must attach one file!`);
         
         const attachment = msg.attachments.first()!;
