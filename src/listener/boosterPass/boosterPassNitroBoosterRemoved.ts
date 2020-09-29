@@ -1,11 +1,11 @@
 import { Listener } from "discord-akairo";
 import { GuildMember } from "discord.js";
-import { guildConfigs } from "../../../guild/config/guildConfigs";
-import { BoosterPassModel } from "../../../model/boosterPass";
+import { guildConfigs } from "../../guild/config/guildConfigs";
+import { BoosterPassModel } from "../../model/boosterPass";
 
-export default class NitroBoosterRemoved extends Listener {
+export default class BoosterPassNitroBoosterRemovedListener extends Listener {
     constructor() {
-        super('nitroBoosterRemoved', {
+        super('boosterPassNitroBoosterRemoved', {
             emitter: 'client',
             event: 'guildMemberUpdate'
         });

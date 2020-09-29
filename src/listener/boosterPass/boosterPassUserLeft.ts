@@ -1,8 +1,8 @@
 import { Listener } from "discord-akairo";
 import { GuildMember } from "discord.js";
-import { BoosterPassModel } from "../../../model/boosterPass";
+import { BoosterPassModel } from "../../model/boosterPass";
 
-export default class BoosterPassUserLeft extends Listener {
+export default class BoosterPassUserLeftListener extends Listener {
     constructor() {
         super('boosterPassUserLeft', {
             emitter: 'client',
