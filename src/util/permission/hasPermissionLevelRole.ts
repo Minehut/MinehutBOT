@@ -13,10 +13,10 @@ export function hasPermissionLevelRole(permissionLevel: PermissionLevel, member:
 		allRoles.includes(memberRole.id)
     );
     
-    return roles.filter(r => 
+	return roles.some(r => 
         resolvePermissionLevelFromRoleType(
             getRoleTypeById(r.id)!
-        ) == permissionLevel
-    ).size > 0;
+        ) === permissionLevel
+    );
         
 }
