@@ -66,13 +66,13 @@ export default class BoosterPassGiveCommand extends MinehutCommand {
         if (boosterPasses.find(b => b.grantedId === member.id))
             return msg.channel.send(`${process.env.EMOJI_CROSS} You already have given this member a booster pass!`);
 
-        const boosterPass = {
+        const boosterPass: BoosterPass = {
             granterId: msg.author.id,
             granterTag: msg.author.tag,
             grantedId: member.id,
             grantedTag: member.user.tag,
             guild: msg.guild!.id
-        } as BoosterPass;
+        }
 
         await BoosterPassModel.create(boosterPass);
         if (!member.roles.cache.has(boosterPassRole))

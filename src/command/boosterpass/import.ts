@@ -15,7 +15,7 @@ interface BoosterPassDocument {
     'Booster #2 ID': string;
 }
 
-export default class BoosterPassImport extends MinehutCommand {
+export default class BoosterPassImportCommand extends MinehutCommand {
     constructor() {
         super('boosterpass-import', {
             permissionLevel: PermissionLevel.SeniorModerator,
@@ -62,13 +62,13 @@ export default class BoosterPassImport extends MinehutCommand {
                     const grantedId = doc["Booster #1 ID"];
                     const grantedTag = doc["Booster #1"]
                     if (grantedId && grantedTag) {
-                        const boosterPass = {
+                        const boosterPass: BoosterPass = {
                             granterId,
                             granterTag,
                             grantedId,
                             grantedTag,
                             guild: msg.guild!.id
-                        } as BoosterPass;
+                        }
                         BoosterPassModel.create(boosterPass);    
                     }
                 }
@@ -77,13 +77,13 @@ export default class BoosterPassImport extends MinehutCommand {
                     const grantedId = doc["Booster #2 ID"];
                     const grantedTag = doc["Booster #2"]
                     if (grantedId && grantedTag) {
-                        const boosterPass = {
+                        const boosterPass: BoosterPass = {
                             granterId,
                             granterTag,
                             grantedId,
                             grantedTag,
                             guild: msg.guild!.id
-                        } as BoosterPass;
+                        }
                         BoosterPassModel.create(boosterPass);    
                     }
                 }            
