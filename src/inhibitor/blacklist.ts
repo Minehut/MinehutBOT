@@ -1,8 +1,7 @@
+import { Inhibitor } from 'discord-akairo';
 import { Message } from 'discord.js';
 
-const { Inhibitor } = require('discord-akairo');
-
-class BlacklistInhibitor extends Inhibitor {
+export default class BlacklistInhibitor extends Inhibitor {
 	//TODO Store in mongo
 	private blacklist: Array<string> = [];
 
@@ -16,5 +15,3 @@ class BlacklistInhibitor extends Inhibitor {
 		return this.blacklist.includes(message.author.id);
 	}
 }
-
-module.exports = BlacklistInhibitor;
