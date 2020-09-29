@@ -59,7 +59,7 @@ export default class BoosterPassGiveCommand extends MinehutCommand {
         if (member == msg.member)
             return msg.channel.send(`${process.env.EMOJI_CROSS} You cannot give a booster pass to yourself!`);
 
-        const boosterPasses = await BoosterPassModel.getBoosterPasses(msg.member!);
+        const boosterPasses = await BoosterPassModel.getGrantedByMember(msg.member!);
 
         if (boosterPasses.length == (boosterPassConfiguration.maximumGrantedBoosterPasses || 2))
             return msg.channel.send(`${process.env.EMOJI_CROSS} You cannot give anymore booster passes!`);

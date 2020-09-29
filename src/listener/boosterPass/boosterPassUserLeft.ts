@@ -11,7 +11,7 @@ export default class BoosterPassUserLeftListener extends Listener {
     }
 
     async exec(member: GuildMember) {
-        const receivedBoosterPasses = await BoosterPassModel.getGrantedBoosterPasses(member);
+        const receivedBoosterPasses = await BoosterPassModel.getReceivedByMember(member);
         
         if (receivedBoosterPasses.length > 0)
             receivedBoosterPasses.forEach(bp => 

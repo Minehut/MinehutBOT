@@ -22,7 +22,7 @@ export default class BoosterPassNitroBoosterRemovedListener extends Listener {
                 oMember.roles.cache.has(nitroBoosterRole) &&
                 !nMember.roles.cache.has(nitroBoosterRole)
             )
-                await BoosterPassModel.removeGrantedBoosterPasses(nMember);
+                await BoosterPassModel.removeAllGrantedByMember(nMember);
         } 
     }
 }

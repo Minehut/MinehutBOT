@@ -26,7 +26,7 @@ export class BoosterPass {
 	@prop({ required: false })
     updatedAt?: Date;
     
-    static async getBoosterPasses(this: ModelType<BoosterPass>, member: GuildMember, limit?: number) {
+    static async getGrantedByMember(this: ModelType<BoosterPass>, member: GuildMember, limit?: number) {
         const query = this.find({
             granterId: member.id,
             guild: member.guild.id
@@ -36,7 +36,7 @@ export class BoosterPass {
         return query;
     }
 
-    static async getGrantedBoosterPasses(this: ModelType<BoosterPass>, member: GuildMember, limit?: number) {
+    static async getReceivedByMember(this: ModelType<BoosterPass>, member: GuildMember, limit?: number) {
         const query = this.find({
             grantedId: member.id,
             guild: member.guild.id
@@ -46,8 +46,8 @@ export class BoosterPass {
         return query;
     }
 
-    static async removeGrantedBoosterPasses(this: ModelType<BoosterPass>, member: GuildMember) {
-        const boosterPasses = await BoosterPassModel.getBoosterPasses(member);
+    static async removeAllGrantedByMember(this: ModelType<BoosterPass>, member: GuildMember) {
+        const boosterPasses = await BoosterPassModel.getGrantedByMember(member);
         if (boosterPasses.length > 0) 
             boosterPasses.forEach(async bp => {
                 await bp.remove();
@@ -57,7 +57,7 @@ export class BoosterPass {
                     throw new Error(`Guild ${member.guild.id} does not have a configured booster pass role!`);
                 const boosterPassReceiver = await member.guild.members.fetch(bp.grantedId);
                 if (!boosterPassReceiver) return;
-                const receiverReceivedPasses = await BoosterPassModel.getGrantedBoosterPasses(boosterPassReceiver);
+                const receiverReceivedPasses = await BoosterPassModel.getReceivedByMember(boosterPassReceiver);
                 if (
                     receiverReceivedPasses.length < 0 &&
                     boosterPassReceiver.roles.cache.has(boosterPassRole)

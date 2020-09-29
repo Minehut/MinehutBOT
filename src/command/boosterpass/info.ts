@@ -43,10 +43,10 @@ export default class BoosterInfoCommand extends MinehutCommand {
         if (!boosterPassConfiguration)
             return msg.channel.send(`${process.env.EMOJI_CROSS} Booster passes not enabled in configuration!`);
 
-        const boosterPasses = await BoosterPassModel.getBoosterPasses(member, 15);
+        const boosterPasses = await BoosterPassModel.getGrantedByMember(member, 15);
         const mappedBoosterPasses = boosterPasses.map(bp => `• <@${bp.grantedId}>`);
 
-        const receivedBoosterPasses = await BoosterPassModel.getGrantedBoosterPasses(member, 15);
+        const receivedBoosterPasses = await BoosterPassModel.getReceivedByMember(member, 15);
         const mappedReceivedBoosterPasses = receivedBoosterPasses.map(bp => `• <@${bp.granterId}>`);
 
         if (boosterPasses.length <= 0 && receivedBoosterPasses.length <= 0)
