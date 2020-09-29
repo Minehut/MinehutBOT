@@ -16,7 +16,7 @@ export default class BoosterPassNitroBoosterLeftListener extends Listener {
             .get(member.guild.id)?.features.boosterPass;
         
         if (boosterPassConfiguration) 
-            await BoosterPassModel.removeGrantedBoosterPasses(member);
+            await BoosterPassModel.removeAllGrantedByMember(member);
     }
 
 }

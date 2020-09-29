@@ -56,7 +56,7 @@ export default class BoosterPassGiveCommand extends MinehutCommand {
         if (!nitroBoosterRole || !boosterPassRole)
             throw new Error('Booster pass roles not configured in guild config');
 
-        const boosterPasses = await BoosterPassModel.getBoosterPasses(msg.member!);
+        const boosterPasses = await BoosterPassModel.getGrantedByMember(msg.member!);
 
         const boosterPass = boosterPasses.find(b => 
             b.grantedId === member.id 
@@ -67,7 +67,7 @@ export default class BoosterPassGiveCommand extends MinehutCommand {
 
         await boosterPass.remove();
         
-        const memberGrantedBoosterPasses = await BoosterPassModel.getGrantedBoosterPasses(member); 
+        const memberGrantedBoosterPasses = await BoosterPassModel.getReceivedByMember(member); 
 
         if (memberGrantedBoosterPasses.length <= 0)
             await member.roles.remove(boosterPassRole);
