@@ -14,8 +14,7 @@ export default class NitroBoosterRemoved extends Listener {
     async exec(oMember: GuildMember, nMember: GuildMember) {
         const boosterPassConfiguration = guildConfigs
             .get(nMember.guild.id)?.features.boosterPass;
-    
-        if (boosterPassConfiguration && boosterPassConfiguration.active) {
+        if (boosterPassConfiguration) {
             const nitroBoosterRole = guildConfigs
                 .get(nMember.guild.id)?.roles.nitroBooster;
             if (!nitroBoosterRole) return;
@@ -25,6 +24,5 @@ export default class NitroBoosterRemoved extends Listener {
             )
                 await BoosterPassModel.removeGrantedBoosterPasses(nMember);
         } 
-
     }
 }
