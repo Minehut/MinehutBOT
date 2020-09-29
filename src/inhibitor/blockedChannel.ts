@@ -17,9 +17,7 @@ export default class BlockedChannelInhibitor extends Inhibitor {
             if (blockedChannelsConfiguration)
                 return blockedChannelsConfiguration.includes(msg.channel.id);
             return false;
-        } else {
-            return false;
-        }
+        } else return false;
     }
 
 }
