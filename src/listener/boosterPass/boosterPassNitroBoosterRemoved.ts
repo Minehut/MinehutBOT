@@ -3,7 +3,7 @@ import { GuildMember } from "discord.js";
 import { guildConfigs } from "../../guild/config/guildConfigs";
 import { BoosterPassModel } from "../../model/boosterPass";
 
-export default class BoosterPassNitroBoosterRemovedListener extends Listener {
+export default class BoosterPassNitroBoosterRemoved extends Listener {
     constructor() {
         super('boosterPassNitroBoosterRemoved', {
             emitter: 'client',
