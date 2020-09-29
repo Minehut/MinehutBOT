@@ -1,3 +1,3 @@
 export interface BoosterPassConfiguration {
-    maximumGrantedBoosterPasses?: number;
+	maximumGrantedBoosterPasses?: number;
 }

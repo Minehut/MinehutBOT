@@ -44,7 +44,9 @@ export default class UnMuteCommand extends MinehutCommand {
 		{ member, reason }: { member: GuildMember; reason: string }
 	) {
 		if (!member.manageable)
-			return msg.channel.send(`${process.env.EMOJI_CROSS} I cannot unmute that member`);
+			return msg.channel.send(
+				`${process.env.EMOJI_CROSS} I cannot unmute that member`
+			);
 		if (!guildConfigs.get(msg.guild!.id)?.roles.muted)
 			throw new Error('No mute role set in config');
 		if (

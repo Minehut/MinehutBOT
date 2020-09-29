@@ -41,10 +41,14 @@ export default class TagSetAliasCommand extends MinehutCommand {
 				await tag.updateOne({
 					aliases: tag.aliases.filter(a => a !== alias),
 				});
-				return msg.channel.send(`${process.env.EMOJI_CHECK} deleted alias \`${alias}\``);
+				return msg.channel.send(
+					`${process.env.EMOJI_CHECK} deleted alias \`${alias}\``
+				);
 			}
 		} else {
-			return msg.channel.send(`${process.env.EMOJI_CROSS} unknown alias \`${alias}\``);
+			return msg.channel.send(
+				`${process.env.EMOJI_CROSS} unknown alias \`${alias}\``
+			);
 		}
 	}
 }

@@ -159,7 +159,6 @@ export const ZALGO_REGEX = new RegExp(
 		'\u035a',
 		'\u0323',
 	].join('|'),
-	'gi'
 );
 
 export const IMGUR_LINK_REGEX = /((?:https?:)?\/\/(\w+\.)?imgur\.com\/(\S*)(\.[a-zA-Z]{3}))/im;
