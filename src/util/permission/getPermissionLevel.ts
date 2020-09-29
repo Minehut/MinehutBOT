@@ -2,8 +2,8 @@ import { GuildMember } from 'discord.js';
 import { MinehutClient } from '../../client/minehutClient';
 import { PermissionLevel } from './permissionLevel';
 import { guildConfigs } from '../../guild/config/guildConfigs';
-import getRoleTypeById from './getRoleTypeById';
-import resolvePermissionLevelFromRoleType from './resolvePermissionLevelFromRoleType';
+import { getRoleTypeById } from './getRoleTypeById';
+import { resolvePermissionLevelFromRoleType } from './resolvePermissionLevelFromRoleType';
 
 export function getPermissionLevel(member: GuildMember, client: MinehutClient) {
 	// They have BotDeveloper perm level if they are in the bot owner list
