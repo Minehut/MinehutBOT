@@ -13,7 +13,7 @@ export default class BlockedChannelInhibitor extends Inhibitor {
     exec(msg: Message) {
         if (msg.guild) {
             const blockedChannelsConfiguration = guildConfigs
-                .get(msg.guild.id)?.commands?.blockedChannels;
+                .get(msg.guild.id)?.features.commands?.blockedChannels;
             if (blockedChannelsConfiguration)
                 return blockedChannelsConfiguration.includes(msg.channel.id);
             return false;

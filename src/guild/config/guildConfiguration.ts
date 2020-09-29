@@ -4,7 +4,7 @@ import { ReactionRoleConfiguration } from './feature/reactionRole';
 import { AnnouncementConfiguration } from './feature/announcement';
 import { CensorConfiguration } from './feature/censor';
 import BoosterPassConfiguration from './feature/boosterPass';
-import CommandConfiguration from './commandConfiguration';
+import CommandConfiguration from './feature/commandConfiguration';
 
 // The GuildConfiguration can have settings about permissions, log channels, disabled features, etc.
 export interface GuildConfiguration {
@@ -12,8 +12,8 @@ export interface GuildConfiguration {
 	main?: boolean;
 	roles: RoleList;
 	prefix?: string;
-	commands?: CommandConfiguration;
 	features: {
+		commands?: CommandConfiguration;
 		modLog?: ModLogConfiguration;
 		reactionRole?: ReactionRoleConfiguration;
 		announcement?: AnnouncementConfiguration;
