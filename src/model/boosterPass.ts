@@ -21,10 +21,10 @@ export class BoosterPass {
 
     // These are automatically filled by Mongoose, they are just here for typings
 	@prop({ required: false })
-	createdAt!: Date;
+	createdAt?: Date;
 
 	@prop({ required: false })
-    updatedAt!: Date;
+    updatedAt?: Date;
     
     static async getBoosterPasses(this: ModelType<BoosterPass>, member: GuildMember, limit?: number) {
         const query = this.find({
