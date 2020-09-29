@@ -90,6 +90,6 @@ export default class BoosterPassImport extends MinehutCommand {
             }
         });
 
-        return msg.channel.send(`${process.env.EMOJI_CHECK} Successfully imported booster passes!`);
+        return msg.channel.send(`${process.env.EMOJI_CHECK} imported booster passes!`);
     }
 }

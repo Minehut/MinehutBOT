@@ -77,7 +77,7 @@ export default class BoosterPassGiveCommand extends MinehutCommand {
         await BoosterPassModel.create(boosterPass);
         if (!member.roles.cache.has(boosterPassRole))
             await member.roles.add(boosterPassRole);
-        return msg.channel.send(`${process.env.EMOJI_CHECK} Successfully gave **${member.user.tag}** a booster pass`);
+        return msg.channel.send(`${process.env.EMOJI_CHECK} gave **${member.user.tag}** a booster pass`);
     }
 
 }
