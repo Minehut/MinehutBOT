@@ -53,14 +53,14 @@ export default class BoosterPassImport extends MinehutCommand {
         const sheetNameList = workbook.SheetNames;
         const sheetToJson: BoosterPassDocument[] = XLSX.utils.sheet_to_json(workbook.Sheets[sheetNameList[0]]);
 
-        sheetToJson.forEach(async v => {
-            const granterId = v["Booster ID"];
-            const granterTag = v["Nitro Booster"];
+        sheetToJson.forEach(async doc => {
+            const granterId = doc["Booster ID"];
+            const granterTag = doc["Nitro Booster"];
 
             if (granterId && granterTag) {
-                if (v["Booster #1"]) {
-                    const grantedId = v["Booster #1 ID"];
-                    const grantedTag = v["Booster #1"]
+                if (doc["Booster #1"]) {
+                    const grantedId = doc["Booster #1 ID"];
+                    const grantedTag = doc["Booster #1"]
                     if (grantedId && grantedTag) {
                         const boosterPass = {
                             granterId,
@@ -73,9 +73,9 @@ export default class BoosterPassImport extends MinehutCommand {
                     }
                 }
             
-                if (v["Booster #2"]) {
-                    const grantedId = v["Booster #2 ID"];
-                    const grantedTag = v["Booster #2"]
+                if (doc["Booster #2"]) {
+                    const grantedId = doc["Booster #2 ID"];
+                    const grantedTag = doc["Booster #2"]
                     if (grantedId && grantedTag) {
                         const boosterPass = {
                             granterId,
