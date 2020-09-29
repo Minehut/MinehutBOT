@@ -7,7 +7,7 @@ import { Flag } from "discord-akairo";
 export default class BoosterPassCommand extends MinehutCommand {
 
     constructor() {
-        super('boosterpass', {
+        super('boosterPass', {
             aliases: ['boosterpass', 'bp'],
             description: {
                 content: `Give, revoke, or retrieve info on booster passes
