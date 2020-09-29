@@ -18,8 +18,6 @@ export const FOREVER_MS = 3.154e13; // This equals 100 decades
 
 export const ONE_HOUR_MS = 3.6e+6;
 
-export const THREE_HOUR_MS = ONE_HOUR_MS * 3;
-
 export const ONE_DAY_MS = ONE_HOUR_MS * 24;
 
 export const ONE_MONTH_MS = ONE_DAY_MS * 30;
