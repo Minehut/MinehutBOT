@@ -105,6 +105,9 @@ export class MinehutClient extends AkairoClient {
 
 	async start(token: string) {
 		await super.login(token);
+
+		this.banScheduler.refresh();
+		this.muteScheduler.refresh();	
 	}
 
 	registerArgTypes() {
