@@ -29,7 +29,7 @@ export default class BoosterPassGiveCommand extends MinehutCommand {
                     type: 'member',
                     prompt: {
                         start: (msg: Message) => 
-                            `${msg.author}, who should I revoke the booster pass from?`,
+                            `${msg.author}, whose booster pass do you want to revoke?`,
                         retry: (msg: Message) => 
                             `${msg.author}, please mention a member.`
                     }
