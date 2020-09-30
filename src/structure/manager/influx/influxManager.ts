@@ -3,7 +3,7 @@
     You can manage the quantity that it should go up to before executing, time between clears, and an action if it satisfies the condition.
 */
 
-import { InfluxManagerOptions } from './InfluxManagerOptions';
+import { InfluxManagerOptions } from './influxManagerOptions';
 
 export class InfluxManager<T> {
 	private influxStore: T[];
