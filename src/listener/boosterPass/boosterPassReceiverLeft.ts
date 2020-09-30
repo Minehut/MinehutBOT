@@ -15,7 +15,6 @@ export default class BoosterPassReceiverLeft extends Listener {
 			member
 		);
 
-		if (receivedBoosterPasses.length > 0)
-			receivedBoosterPasses.forEach(bp => bp.remove());
+		receivedBoosterPasses.forEach(bp => bp.remove());
 	}
 }
