@@ -70,10 +70,15 @@ export default class BoosterPassGiveCommand extends MinehutCommand {
 			member
 		);
 
+		const maximumBoosterPasses =
+			boosterPassConfiguration.maximumGrantedBoosterPasses || 2;
+
 		if (memberGrantedBoosterPasses.length <= 0)
 			await member.roles.remove(boosterPassRole);
 		return msg.channel.send(
-			`${process.env.EMOJI_CHECK} removed a booster pass from **${member.user.tag}**`
+			`${process.env.EMOJI_CHECK} removed a booster pass from **${
+				member.user.tag
+			}** (${maximumBoosterPasses - (boosterPasses.length - 1)} left)`
 		);
 	}
 }

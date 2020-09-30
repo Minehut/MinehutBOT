@@ -61,10 +61,10 @@ export default class BoosterPassGiveCommand extends MinehutCommand {
 			msg.member!
 		);
 
-		if (
-			boosterPasses.length ==
-			(boosterPassConfiguration.maximumGrantedBoosterPasses || 2)
-		)
+		const maximumGrantedBoosterPasses =
+			boosterPassConfiguration.maximumGrantedBoosterPasses || 2;
+
+		if (boosterPasses.length == maximumGrantedBoosterPasses)
 			return msg.channel.send(
 				`${process.env.EMOJI_CROSS} You cannot give anymore booster passes!`
 			);
@@ -85,7 +85,9 @@ export default class BoosterPassGiveCommand extends MinehutCommand {
 		if (!member.roles.cache.has(boosterPassRole))
 			await member.roles.add(boosterPassRole);
 		return msg.channel.send(
-			`${process.env.EMOJI_CHECK} gave **${member.user.tag}** a booster pass`
+			`${process.env.EMOJI_CHECK} gave **${member.user.tag}** a booster pass (${
+				maximumGrantedBoosterPasses - (boosterPasses.length + 1)
+			} left)`
 		);
 	}
 }
