@@ -4,6 +4,9 @@ import { MessageReaction } from 'discord.js';
 import { TextChannel } from 'discord.js';
 import { MessageEmbed } from 'discord.js';
 import { IMGUR_LINK_REGEX } from '../../util/constants';
+import { User } from 'discord.js';
+import { getPermissionLevel } from '../../util/permission/getPermissionLevel';
+import { PermissionLevel } from '../../util/permission/permissionLevel';
 
 export default class StarAddListener extends Listener {
 	constructor() {
@@ -13,7 +16,7 @@ export default class StarAddListener extends Listener {
 		});
 	}
 
-	async exec(reaction: MessageReaction) {
+	async exec(reaction: MessageReaction, user: User) {
 		const message = reaction.message;
 		if (!message.guild) return;
 		const config = guildConfigs.get(message.guild.id);
@@ -26,9 +29,14 @@ export default class StarAddListener extends Listener {
 		)
 			return;
 		
-			let triggerAmount = config.features.starboard.triggerAmount;
+		let member = message.guild.member(user)
+		if (!member) return;
+		if (getPermissionLevel(member, this.client) === PermissionLevel.Muted) return reaction.remove();
+
+		let triggerAmount = config.features.starboard.triggerAmount;
 		let count = reaction.count;
 		if (!count) return;
+		
 		const emoji = reaction.emoji;
 		if (emoji.toString() === "⭐") {
 			if (count >= triggerAmount) {
