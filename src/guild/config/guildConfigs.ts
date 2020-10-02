@@ -36,6 +36,14 @@ guildConfigs.set('239599059415859200', {
 				},
 			],
 		},
+		commands: {
+			blockedChannels: [
+				{
+					channel: '705481433996853248',
+					whitelistedCommandCategories: ['mod']
+				}
+			]
+		},
 		censor: {
 			inviteWhitelist: INVITE_WHITELIST,
 			overrides: [
@@ -74,7 +82,7 @@ guildConfigs.set('239599059415859200', {
 			],
 		},
 		boosterPass: {
-			active: true
+			maximumGrantedBoosterPasses: 2
 		}
 	},
 });
