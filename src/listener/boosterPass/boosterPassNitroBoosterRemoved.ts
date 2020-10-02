@@ -12,17 +12,14 @@ export default class BoosterPassNitroBoosterRemoved extends Listener {
 	}
 
 	async exec(oMember: GuildMember, nMember: GuildMember) {
-		const boosterPassConfiguration = guildConfigs.get(nMember.guild.id)
-			?.features.boosterPass;
-		if (boosterPassConfiguration) {
-			const nitroBoosterRole = guildConfigs.get(nMember.guild.id)?.roles
-				.nitroBooster;
-			if (!nitroBoosterRole) return;
-			if (
-				oMember.roles.cache.has(nitroBoosterRole) &&
-				!nMember.roles.cache.has(nitroBoosterRole)
-			)
-				await BoosterPassModel.removeAllGrantedByMember(nMember);
-		}
+		const config = guildConfigs.get(nMember.guild.id);
+		if (!config || !config.features.boosterPass) return;
+		const nitroBoosterRole = config.roles.nitroBooster;
+		if (!nitroBoosterRole) return;
+		if (
+			oMember.roles.cache.has(nitroBoosterRole) &&
+			!nMember.roles.cache.has(nitroBoosterRole)
+		)
+			await BoosterPassModel.removeAllGrantedByMember(nMember);
 	}
 }
