@@ -1,7 +1,8 @@
+import { DocumentType } from '@typegoose/typegoose';
 import { Listener } from 'discord-akairo';
 import { GuildMember } from 'discord.js';
 import { guildConfigs } from '../../guild/config/guildConfigs';
-import { BoosterPassModel } from '../../model/boosterPass';
+import { BoosterPass, BoosterPassModel } from '../../model/boosterPass';
 import { sendModLogMessage } from '../../util/functions';
 
 export default class ModLogBoosterPassRevokeListener extends Listener {
@@ -12,7 +13,10 @@ export default class ModLogBoosterPassRevokeListener extends Listener {
 		});
 	}
 
-	async exec(granter: GuildMember, receiver: GuildMember) {
+	async exec(
+		granter: GuildMember,
+		boosterPassReceived: DocumentType<BoosterPass>
+	) {
 		const guild = granter.guild;
 		const config = guildConfigs.get(guild.id);
 		const boosterPassConfig = config?.features.boosterPass;
@@ -29,10 +33,10 @@ export default class ModLogBoosterPassRevokeListener extends Listener {
 		await sendModLogMessage(
 			guild,
 			`${granter.user.tag} (\`${granter.id}\`) revoked a booster pass from ${
-				receiver.user.tag
-			} (\`${receiver.id}\`) (${grantedBoosterPasses.length}/${
-				boosterPassConfig.maximumGrantedBoosterPasses || 2
-			})`
+				boosterPassReceived.grantedTag
+			} (\`${boosterPassReceived.grantedId}\`) (${
+				grantedBoosterPasses.length
+			}/${boosterPassConfig.maximumGrantedBoosterPasses || 2})`
 		);
 	}
 }

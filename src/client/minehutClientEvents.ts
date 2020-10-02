@@ -5,6 +5,7 @@ import { GuildMember } from 'discord.js';
 import { Message } from 'discord.js';
 import { CensorCheckResponse } from '../util/functions';
 import { TextChannel } from 'discord.js';
+import { BoosterPass } from '../model/boosterPass';
 
 export default interface MinehutClientEvents extends ClientEvents {
 	caseUpdate: [DocumentType<Case>, DocumentType<Case>, GuildMember];
@@ -13,7 +14,7 @@ export default interface MinehutClientEvents extends ClientEvents {
 	messageCensor: [Message, CensorCheckResponse];
 	channelCooldownSet: [TextChannel, GuildMember, number];
 	boosterPassGrant: [GuildMember, GuildMember];
-	boosterPassRevoke: [GuildMember, GuildMember];
+	boosterPassRevoke: [GuildMember, DocumentType<BoosterPass>];
 }
 
 export type MinehutClientEvent = keyof MinehutClientEvents;
