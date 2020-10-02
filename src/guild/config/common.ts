@@ -12,6 +12,8 @@ export const ALL_MODLOG_EVENTS = [
 	'caseDurationUpdate', //added
 	'memberRolesUpdate', //added
 	'command', //added
+	'boosterPassGrant', //added
+	'boosterPassRevoke', //added
 ];
 
 export const INVITE_WHITELIST = [
