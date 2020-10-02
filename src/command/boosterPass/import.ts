@@ -30,10 +30,11 @@ export default class BoosterPassImportCommand extends MinehutCommand {
 	}
 
 	async exec(msg: Message) {
-		const boosterPassConfiguration = guildConfigs.get(msg.guild!.id)?.features
-			.boosterPass;
+		const config = guildConfigs.get(msg.guild!.id);
+		const boosterPassConfig = config?.features.boosterPass;
+		const boosterPassRole = config?.roles.boostersPass;
 
-		if (!boosterPassConfiguration)
+		if (!boosterPassConfig)
 			return msg.channel.send(
 				`${process.env.EMOJI_CROSS} Booster passes not enabled in configuration!`
 			);
@@ -75,6 +76,8 @@ export default class BoosterPassImportCommand extends MinehutCommand {
 							grantedTag,
 							guild: msg.guild!.id,
 						};
+						const member = await msg.guild!.members.fetch(grantedId);
+						if (member) member.roles.add(boosterPassRole!);
 						BoosterPassModel.create(boosterPass);
 					}
 				}
@@ -90,6 +93,8 @@ export default class BoosterPassImportCommand extends MinehutCommand {
 							grantedTag,
 							guild: msg.guild!.id,
 						};
+						const member = await msg.guild!.members.fetch(grantedId);
+						if (member) member.roles.add(boosterPassRole!);
 						BoosterPassModel.create(boosterPass);
 					}
 				}
