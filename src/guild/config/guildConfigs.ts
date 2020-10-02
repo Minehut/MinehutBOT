@@ -26,11 +26,6 @@ guildConfigs.set('239599059415859200', {
 		manager: '591722355273760825',
 		admin: '240228183985618954',
 	},
-	commands: {
-		blockedChannels: [
-			'705481433996853248' // #voice
-		]
-	},
 	features: {
 		announcement: {
 			announcers: [
@@ -40,6 +35,14 @@ guildConfigs.set('239599059415859200', {
 					name: 'event',
 				},
 			],
+		},
+		commands: {
+			blockedChannels: [
+				{
+					channel: '705481433996853248',
+					whitelistedCommandCategories: ['mod']
+				}
+			]
 		},
 		censor: {
 			inviteWhitelist: INVITE_WHITELIST,
@@ -79,7 +82,7 @@ guildConfigs.set('239599059415859200', {
 			],
 		},
 		boosterPass: {
-			active: true
+			maximumGrantedBoosterPasses: 2
 		}
 	},
 });
