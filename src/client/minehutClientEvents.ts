@@ -12,6 +12,8 @@ export default interface MinehutClientEvents extends ClientEvents {
 	caseCreate: [DocumentType<Case>];
 	messageCensor: [Message, CensorCheckResponse];
 	channelCooldownSet: [TextChannel, GuildMember, number];
+	boosterPassGrant: [GuildMember, GuildMember];
+	boosterPassRevoke: [GuildMember, GuildMember];
 }
 
 export type MinehutClientEvent = keyof MinehutClientEvents;
