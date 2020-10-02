@@ -1,9 +1,9 @@
 import { MinehutCommand } from '../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
 import { Message } from 'discord.js';
-import { GuildMember } from 'discord.js';
 import { guildConfigs } from '../../guild/config/guildConfigs';
-import { BoosterPassModel } from '../../model/boosterPass';
+import { BoosterPass, BoosterPassModel } from '../../model/boosterPass';
+import { DocumentType } from '@typegoose/typegoose';
 
 export default class BoosterPassGiveCommand extends MinehutCommand {
 	constructor() {
@@ -25,19 +25,23 @@ export default class BoosterPassGiveCommand extends MinehutCommand {
 			clientPermissions: ['MANAGE_ROLES'],
 			args: [
 				{
-					id: 'member',
-					type: 'member',
+					id: 'boosterPassReceived',
+					type: 'boosterPassReceived',
 					prompt: {
 						start: (msg: Message) =>
 							`${msg.author}, whose booster pass do you want to revoke?`,
-						retry: (msg: Message) => `${msg.author}, please mention a member.`,
+						retry: (msg: Message) =>
+							`${msg.author}, please mention a member you have given a booster pass to (if the member has left, supply their ID).`,
 					},
 				},
 			],
 		});
 	}
 
-	async exec(msg: Message, { member }: { member: GuildMember }) {
+	async exec(
+		msg: Message,
+		{ boosterPassReceived }: { boosterPassReceived: DocumentType<BoosterPass> }
+	) {
 		const config = guildConfigs.get(msg.guild!.id);
 		const boosterPassConfig = config?.features.boosterPass;
 		const nitroBoosterRole = config?.roles.nitroBooster;
@@ -55,28 +59,26 @@ export default class BoosterPassGiveCommand extends MinehutCommand {
 			msg.member!
 		);
 
-		const boosterPass = boosterPasses.find(b => b.grantedId === member.id);
+		await boosterPassReceived.remove();
 
-		if (!boosterPass)
-			return msg.channel.send(
-				`${process.env.EMOJI_CROSS} You haven't given this user a booster pass!`
-			);
-
-		await boosterPass.remove();
-
-		const memberGrantedBoosterPasses = await BoosterPassModel.getReceivedByMember(
-			member
-		);
+		await msg
+			.guild!.members.fetch(boosterPassReceived.grantedId)
+			.then(async member => {
+				const memberGrantedBoosterPasses = await BoosterPassModel.getReceivedByMember(
+					member
+				);
+				if (memberGrantedBoosterPasses.length <= 0)
+					await member.roles.remove(boosterPassRole);
+			})
+			.catch(() => {});
 
 		const maximumBoosterPasses =
 			boosterPassConfig.maximumGrantedBoosterPasses || 2;
 
-		if (memberGrantedBoosterPasses.length <= 0)
-			await member.roles.remove(boosterPassRole);
-		this.client.emit('boosterPassRevoke', msg.member!, member);
+		this.client.emit('boosterPassRevoke', msg.member!, boosterPassReceived);
 		return msg.channel.send(
 			`${process.env.EMOJI_CHECK} removed a booster pass from **${
-				member.user.tag
+				boosterPassReceived.grantedTag
 			}** (${maximumBoosterPasses - (boosterPasses.length - 1)} left)`
 		);
 	}

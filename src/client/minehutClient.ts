@@ -14,6 +14,9 @@ import MinehutClientEvents from './minehutClientEvents';
 import { Minehut } from 'minehut';
 import { FOREVER_MS, MESSAGES } from '../util/constants';
 import { InfluxManagerStore } from '../structure/manager/influx/influxManagerStore';
+import { Argument } from 'discord-akairo';
+import { GuildMember } from 'discord.js';
+import { BoosterPassModel } from '../model/boosterPass';
 
 export class MinehutClient extends AkairoClient {
 	commandHandler: CommandHandler;
@@ -165,6 +168,29 @@ export class MinehutClient extends AkairoClient {
 				);
 			return null;
 		});
+
+		this.commandHandler.resolver.addType(
+			'boosterPassReceived',
+			async (msg, phrase) => {
+				let id = phrase;
+				// attempt to cast as a member and use the member type to get the id that way
+				const member: GuildMember = await Argument.cast(
+					'member',
+					this.commandHandler.resolver,
+					msg,
+					phrase
+				);
+				if (!Argument.isFailure(member))
+					id = member.id;
+				const grantedBoosterPasses = await BoosterPassModel.getGrantedByMember(
+					msg.member!
+				);
+				const boosterPassReceived = grantedBoosterPasses.find(
+					bp => bp.grantedId === id
+				);
+				return boosterPassReceived;
+			}
+		);
 	}
 }
 
