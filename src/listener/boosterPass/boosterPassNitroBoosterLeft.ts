@@ -12,10 +12,8 @@ export default class BoosterPassNitroBoosterLeft extends Listener {
 	}
 
 	async exec(member: GuildMember) {
-		const boosterPassConfiguration = guildConfigs.get(member.guild.id)?.features
-			.boosterPass;
-
-		if (boosterPassConfiguration)
-			await BoosterPassModel.removeAllGrantedByMember(member);
+		const config = guildConfigs.get(member.guild.id);
+		if (!config || !config.features.boosterPass) return;
+		await BoosterPassModel.removeAllGrantedByMember(member);
 	}
 }
