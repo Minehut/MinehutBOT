@@ -5,7 +5,7 @@ import { TextChannel } from 'discord.js';
 import { User } from 'discord.js';
 import { getPermissionLevel } from '../../util/permission/getPermissionLevel';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
-import { Star } from '../../structure/starboard/star';
+import { Starboard } from '../../structure/starboard/star';
 
 export default class StarAddListener extends Listener {
 	constructor() {
@@ -29,7 +29,7 @@ export default class StarAddListener extends Listener {
 		)
 			return;
 		
-		const exists = await Star.exists(msg.id)
+		const exists = await Starboard.exists(msg.id)
 		if (exists) return;
 
 		const minLevel = config.features.starboard.minimumPermLevel || PermissionLevel.Everyone
@@ -37,7 +37,7 @@ export default class StarAddListener extends Listener {
 		
 		let triggerEmoji;
 		if (config.features.starboard.emoji) {
-			triggerEmoji = Star.getEmojiFromId(this.client, config.features.starboard.emoji)
+			triggerEmoji = Starboard.getEmojiFromId(this.client, config.features.starboard.emoji)
 		}
 		else {
 			triggerEmoji = "⭐"
@@ -55,10 +55,10 @@ export default class StarAddListener extends Listener {
 		const canStar = reaction.users.cache.some(user => getPermissionLevel(msg.guild?.member(user)!, this.client) >= minLevel)
 	
 		
-		if (Star.emojiEquals(addedEmoji, triggerEmoji)) {
+		if (Starboard.emojiEquals(addedEmoji, triggerEmoji)) {
 			if (count >= triggerAmount && canStar) {
 				const channel = msg.guild.channels.cache.get(config.features.starboard.channel) as TextChannel;
-				const star: Star = new Star({
+				const star: Starboard = new Starboard({
 					msg,
 					channel,
 					count
