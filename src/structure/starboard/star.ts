@@ -5,18 +5,18 @@ import { MinehutClient } from "../../client/minehutClient";
 import { StarModel } from "../../model/star";
 import { IMGUR_LINK_REGEX } from "../../util/constants";
 
-export interface StarData {
+export interface StarboardData {
 	msg: Message;
 	channel: TextChannel;
 	count: number;
 }
 
-export class Star {
+export class Starboard {
 	channel: TextChannel;
 	msg: Message;
 	count: number;
 
-	constructor(data: StarData) {
+	constructor(data: StarboardData) {
 		this.channel = data.channel;
 		this.msg = data.msg;
 		this.count = data.count;
@@ -69,7 +69,7 @@ export class Star {
 		if (typeof y === 'string') {
 			return x.name === y;
 		}
-		console.log(x, y)
+
 		return x.identifier === y.identifier;
 	}
 
