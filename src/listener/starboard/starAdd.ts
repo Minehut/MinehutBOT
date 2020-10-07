@@ -33,22 +33,29 @@ export default class StarAddListener extends Listener {
 		if (exists) return;
 
 		const minLevel = config.features.starboard.minimumPermLevel || PermissionLevel.Everyone
-		const triggerEmoji = config.features.starboard.emoji || "⭐"
+		const addedEmoji = reaction.emoji;
+		
+		let triggerEmoji;
+		if (config.features.starboard.emoji) {
+			triggerEmoji = Star.getEmojiFromId(this.client, config.features.starboard.emoji)
+		}
+		else {
+			triggerEmoji = "⭐"
+		}
 
 		const member = msg.guild.member(user)!;
 		if (getPermissionLevel(member, this.client) === PermissionLevel.Muted) return reaction.remove();
 		
-		//if (msg.author.id === user.id && reaction.emoji.toString() === triggerEmoji) return reaction.remove()
+		//if (msg.author.id === user.id && Star.emojiEquals(addedEmoji, triggerEmoji)) return reaction.remove()
 
 		const triggerAmount = config.features.starboard.triggerAmount;
 		const count = reaction.count;
 		if (!count) return;
 		
 		const canStar = reaction.users.cache.some(user => getPermissionLevel(msg.guild?.member(user)!, this.client) >= minLevel)
-
-		const addedEmoji = reaction.emoji;
-		console.log(addedEmoji.toString())
-		if (Star.emojiEquals(addedEmoji, triggerEmoji) || Star.emojiEquals(addedEmoji.toString(), triggerEmoji)) {
+	
+		
+		if (Star.emojiEquals(addedEmoji, triggerEmoji)) {
 			if (count >= triggerAmount && canStar) {
 				const channel = msg.guild.channels.cache.get(config.features.starboard.channel) as TextChannel;
 				const star: Star = new Star({
@@ -56,7 +63,7 @@ export default class StarAddListener extends Listener {
 					channel,
 					count
 				});
-				star.commit();
+				star.add();
 			}
 			
 		}

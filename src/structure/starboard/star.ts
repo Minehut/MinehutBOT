@@ -1,6 +1,7 @@
 import { TextChannel } from "discord.js";
 import { MessageEmbed } from "discord.js";
 import { Message } from "discord.js";
+import { MinehutClient } from "../../client/minehutClient";
 import { StarModel } from "../../model/star";
 import { IMGUR_LINK_REGEX } from "../../util/constants";
 
@@ -21,7 +22,7 @@ export class Star {
 		this.count = data.count;
     }
 
-	async commit() {
+	async add() {
 		const member = this.msg.member;
 		
 		let matches = this.msg.content.match(IMGUR_LINK_REGEX);
@@ -54,6 +55,30 @@ export class Star {
 
 	static async exists(id: string) {
 		return await StarModel.exists({_id: id})
+	}
+
+	static emojiEquals(x: any, y: any) {
+		if (typeof x === 'string' && typeof y === 'string') {
+			return x === y;
+		}
+
+		if (typeof x === 'string') {
+			return x === y.name;
+		}
+
+		if (typeof y === 'string') {
+			return x.name === y;
+		}
+		console.log(x, y)
+		return x.identifier === y.identifier;
+	}
+
+	static getEmojiFromId(client: MinehutClient, id: string) {
+		if (/^\d+$/.test(id)) {
+			return client.emojis.cache.get(id);
+		}
+		
+		return id;
 	}
 
 }
