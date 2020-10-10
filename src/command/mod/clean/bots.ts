@@ -41,7 +41,7 @@ export default class CleanBotsCommand extends MinehutCommand {
 			.slice(0, count);
 		await msg.channel.bulkDelete(filtered);
 		const bmsg = await msg.channel.send(`:ok_hand: deleted ${filtered.length} messages`);
-		msg.delete({timeout: 3000});
-		bmsg.delete({timeout: 3000});
+		msg.delete({timeout: 5000});
+		bmsg.delete({timeout: 5000});
 	}
 }
