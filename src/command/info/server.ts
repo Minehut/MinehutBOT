@@ -42,7 +42,7 @@ export default class ServerInfoCommand extends MinehutCommand {
 				`${server.name} (${server.visibility ? 'visible' : 'unlisted'})`
 			);
 			embed.setColor(server.online ? 'GREEN' : 'RED');
-			embed.setDescription(server.motd.replace(COLOUR_CODE_EXPR, '').substr(0, 50));
+			embed.setDescription(server.motd.replace(COLOUR_CODE_EXPR, ''));
 			embed.addField('Last Started', prettyDate(server.lastOnline), true);
 			if (server.playerCount > 0)
 				embed.addField('Player Count', server.playerCount, true);
