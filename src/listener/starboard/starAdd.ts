@@ -6,6 +6,8 @@ import { User } from 'discord.js';
 import { getPermissionLevel } from '../../util/permission/getPermissionLevel';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
 import { Starboard } from '../../structure/starboard/star';
+import { StarModel } from '../../model/star';
+import { MessageEmbed } from 'discord.js';
 
 export default class StarAddListener extends Listener {
 	constructor() {
@@ -29,9 +31,8 @@ export default class StarAddListener extends Listener {
 		)
 			return;
 		
-		const exists = await Starboard.exists(msg.id)
-		if (exists) return;
-
+		if (msg.author.id === this.client.user?.id) return;
+		
 		const minLevel = config.features.starboard.minimumPermLevel || PermissionLevel.Everyone
 		const addedEmoji = reaction.emoji;
 		
@@ -42,7 +43,8 @@ export default class StarAddListener extends Listener {
 		else {
 			triggerEmoji = "⭐"
 		}
-
+		if (!Starboard.emojiEquals(addedEmoji, triggerEmoji)) return;
+		
 		const member = msg.guild.member(user)!;
 		if (getPermissionLevel(member, this.client) === PermissionLevel.Muted) return reaction.remove();
 		
@@ -51,24 +53,46 @@ export default class StarAddListener extends Listener {
 		const triggerAmount = config.features.starboard.triggerAmount;
 		const count = reaction.count;
 		if (!count) return;
+
+		const channel = msg.guild.channels.cache.get(config.features.starboard.channel) as TextChannel;
+
+		const exists = await Starboard.exists(msg.id)
+		if (exists) {
+			let entry = await StarModel.findOne({_id: msg.id})
+			if (entry?.starredBy.includes(user.id)) return;
+			await entry?.updateOne({
+				starredBy: entry.starredBy.concat(user.id),
+				starAmount: count
+			})
+			let author = msg.guild.member(msg);
+			const embed = new MessageEmbed()
+			.setColor('YELLOW')
+			.setTimestamp()
+			.setAuthor(author?.displayName, msg.author.displayAvatarURL())
+			.setDescription(`${msg.content}\n\n[Jump!](${msg.url})`);
+			
+			const img = Starboard.findImg(msg)
+			if (img) embed.setImage(img);
+			
+			let pinMsg = await channel.messages.fetch(entry!.storageMsg);
+			//console.log(pinMsg)
+			console.log(pinMsg.editable)
+			
+			return pinMsg.edit(`⭐**${count}** ${msg.channel} `, embed);
+			return;
+		}
 		
 		const canStar = reaction.users.cache.some(user => getPermissionLevel(msg.guild?.member(user)!, this.client) >= minLevel)
 	
-		
-		if (Starboard.emojiEquals(addedEmoji, triggerEmoji)) {
-			if (count >= triggerAmount && canStar) {
-				const channel = msg.guild.channels.cache.get(config.features.starboard.channel) as TextChannel;
-				const star: Starboard = new Starboard({
-					msg,
-					channel,
-					count
-				});
-				star.add();
-			}
-			
+		if (count >= triggerAmount && canStar) {
+			const starredBy = reaction.users.cache.keyArray();
+			const star: Starboard = new Starboard({
+				msg,
+				channel,
+				count,
+				starredBy
+			});
+			star.add();
 		}
-		
-
-
 	}
 }
