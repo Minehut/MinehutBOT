@@ -11,7 +11,13 @@ export class Star {
 	guild!: string;
 
 	@prop({required: true})
+	storageMsg!: string;
+
+	@prop({required: true})
 	starAmount!: number;
+
+	@prop({required: true})
+	starredBy!: string[];
 
 	// These are automatically filled by Mongoose, they are just here for typings
 	@prop({ required: false })
