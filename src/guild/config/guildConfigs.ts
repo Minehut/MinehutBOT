@@ -171,49 +171,23 @@ guildConfigs.set('721155702915072040', {
 });
 
 // bot testing
-guildConfigs.set('608978588976283660', {
-	id: '608978588976283660',
+guildConfigs.set('317816245342699520', {
+	id: '317816245342699520',
 	prefix: '!',
 	roles: {
-		juniorModerator: '701854457331187763',
-		admin: '701854509164527707',
-		muted: '615630839438508062',
-		support: '728202547944357958',
+		admin: '317818495318622218',
 	},
 	features: {
 		modLog: {
-			channel: '726598891759468554',
+			channel: '760709627549057025',
 			events: ALL_MODLOG_EVENTS,
 			prefix: '',
 			ignoredChannels: [],
 		},
-		reactionRole: {
-			channel: '728201493555052641',
-			roles: [
-				{ roleId: '728202487672078368', emoji: '🤔' },
-				{ roleId: '728202547944357958', emoji: 'PepeClown' },
-			],
-		},
-		announcement: {
-			announcers: [
-				{
-					role: '701854509164527707',
-					channel: '728201493555052641',
-					name: 'event',
-				},
-			],
-		},
-		censor: {
-			inviteWhitelist: INVITE_WHITELIST,
-			overrides: [
-				{
-					id: '617438825144123432',
-					type: 'channel',
-					config: {
-						allowSwearing: true,
-					},
-				},
-			],
-		},
+		starboard: {
+			channel: '760714727562280970',
+			triggerAmount: 1,
+			//emoji: '760707303090683954'
+		}
 	},
 });
