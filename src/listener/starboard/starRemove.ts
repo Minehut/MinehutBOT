@@ -3,9 +3,9 @@ import { guildConfigs } from '../../guild/config/guildConfigs';
 import { MessageReaction } from 'discord.js';
 import { TextChannel } from 'discord.js';
 import { User } from 'discord.js';
-import { Starboard } from '../../structure/starboard/star';
 import { StarModel } from '../../model/star';
 import { MessageEmbed } from 'discord.js';
+import { emojiEquals, findImg, getEmojiFromId } from '../../util/functions';
 
 export default class StarRemoveListener extends Listener {
 	constructor() {
@@ -19,61 +19,61 @@ export default class StarRemoveListener extends Listener {
 		const msg = reaction.message;
 		if (!msg.guild) return;
 
-		if (user.id === this.client.user?.id) return;
-		if (msg.author.id === this.client.user?.id) return;
+		if (user.id === this.client.user?.id || msg.author.id === this.client.user?.id) return;
 
 		const config = guildConfigs.get(msg.guild.id);
+		const starboardConfig = config?.features.starboard;
 
 		if (
 			!config ||
-			!config.features.starboard ||
-			!config.features.starboard.channel ||
-			!config.features.starboard.triggerAmount ||
-			(config.features.starboard.ignoredChannels &&
-				config.features.starboard.ignoredChannels.includes(msg.channel.id))
+			!starboardConfig ||
+			!starboardConfig.channel ||
+			!starboardConfig.triggerAmount ||
+			(starboardConfig.ignoredChannels &&
+				starboardConfig.ignoredChannels.includes(msg.channel.id))
 		)
 			return;
 
-		const addedEmoji = reaction.emoji;
-
-		let triggerEmoji = config.features.starboard.emoji
-			? Starboard.getEmojiFromId(this.client, config.features.starboard.emoji)
+		const emojiAddedByUser = reaction.emoji;
+		const starboardTriggerEmoji = starboardConfig.emoji
+			? getEmojiFromId(this.client, starboardConfig.emoji)
 			: '⭐';
 
-		if (!Starboard.emojiEquals(addedEmoji, triggerEmoji)) return;
+		if (!emojiEquals(emojiAddedByUser, starboardTriggerEmoji)) return;
 
-		const count = reaction.count || 0;
+		const addedEmojiCount = reaction.count || 0;
 
-		const channel = msg.guild.channels.cache.get(
-			config.features.starboard.channel
+		const starboardChannel = msg.guild.channels.cache.get(
+			starboardConfig.channel
 		) as TextChannel;
 
-		const exists = await Starboard.exists(msg.id);
-		if (!exists) return;
+		const starboardMsgExists = await StarModel.exists({_id: msg.id});
+		if (!starboardMsgExists) return;
 
-		let entry = await StarModel.findOne({ _id: msg.id });
-		const pinMsg = await channel.messages.fetch(entry!.storageMsg);
-		if (!entry?.starredBy.includes(user.id)) return;
+		const starboardEntry = await StarModel.findOne({ _id: msg.id });
+		const starEntryMessage = await starboardChannel.messages.fetch(starboardEntry!.starEntryId);
+		if (!starboardEntry?.starredBy.includes(user.id)) return;
 
-		if (count === 0) {
-			if (pinMsg.deletable) pinMsg.delete({ reason: 'unstarred' });
+		if (addedEmojiCount === 0) {
+			if (starEntryMessage.deletable) starEntryMessage.delete({ reason: 'unstarred' });
 			return await StarModel.deleteOne({ _id: msg.id });
 		}
 
-		await entry?.updateOne({
-			starredBy: entry.starredBy.splice(entry.starredBy.indexOf(user.id)),
-			starAmount: count,
+		await starboardEntry?.updateOne({
+			starredBy: starboardEntry.starredBy.splice(starboardEntry.starredBy.indexOf(user.id)),
+			starAmount: addedEmojiCount,
 		});
-		let author = msg.guild.member(msg);
+
+		const starredMsgMember = msg.guild.member(msg.author);
 		const embed = new MessageEmbed()
 			.setColor('YELLOW')
 			.setTimestamp()
-			.setAuthor(author?.displayName, msg.author.displayAvatarURL())
-			.setDescription(`${msg.content}\n\n[Jump!](${msg.url})`);
+			.setAuthor(starredMsgMember?.displayName, starredMsgMember?.user.displayAvatarURL())
+		embed.setDescription(`${msg.content ? `${msg.content}\n\n` : ''}[Jump!](${msg.url})`);
 
-		const img = Starboard.findImg(msg);
+		const img = findImg(msg);
 		if (img) embed.setImage(img);
 
-		return pinMsg.edit(`⭐**${count}** ${msg.channel} `, embed);
+		return starEntryMessage.edit(`⭐**${addedEmojiCount}** ${msg.channel} `, embed);
 	}
 }
