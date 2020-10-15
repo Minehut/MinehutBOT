@@ -30,12 +30,12 @@ export class Starboard {
 			.setColor('YELLOW')
 			.setTimestamp()
 			.setAuthor(member?.displayName, member?.user.displayAvatarURL());
-		embed.setDescription(`${this.msg.content ? `${this.msg.content}\n\n` : ''}[Jump!](${this.msg.url})`);
-		// if (this.msg.content) {
-		// 	embed.setDescription(`${this.msg.content}\n\n[Jump!](${this.msg.url})`);
-		// } else {
-		// 	embed.setDescription(`[Jump!](${this.msg.url})`);
-		// }
+		embed.setDescription(
+			`${this.msg.content ? `${this.msg.content}\n\n` : ''}[Jump!](${
+				this.msg.url
+			})`
+		);
+		
 		const img = findImg(this.msg);
 		if (img) embed.setImage(img);
 

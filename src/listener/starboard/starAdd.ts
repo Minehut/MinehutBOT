@@ -37,8 +37,8 @@ export default class StarAddListener extends Listener {
 		if (msg.author.id === this.client.user?.id) return;
 
 		const minStarboardPermTriggerLvl =
-		starboardConfig.minimumPermLevel || PermissionLevel.Everyone;
-		
+			starboardConfig.minimumPermLevel || PermissionLevel.Everyone;
+
 		const emojiAddedByUser = reaction.emoji;
 		const starboardTriggerEmoji = starboardConfig.emoji
 			? emojiEquals(this.client, starboardConfig.emoji)
@@ -47,12 +47,12 @@ export default class StarAddListener extends Listener {
 		if (!emojiEquals(emojiAddedByUser, starboardTriggerEmoji)) return;
 
 		const member = msg.guild.member(user)!;
-		const userPermissionLvl = getPermissionLevel(member, this.client)
+		const userPermissionLvl = getPermissionLevel(member, this.client);
 
-		if (userPermissionLvl === PermissionLevel.Muted) return reaction.users.remove(user)
+		if (userPermissionLvl === PermissionLevel.Muted)
+			return reaction.users.remove(user);
 
-		//if (msg.author.id === user.id && emojiEquals(emojiAddedByUser, starboardTriggerEmoji)) return reaction.users.remove(user)
-
+		if (msg.author.id === user.id && emojiEquals(emojiAddedByUser, starboardTriggerEmoji)) return reaction.users.remove(user)
 
 		const starboardTriggerAmount = starboardConfig.triggerAmount;
 		const addedEmojiCount = reaction.count;
@@ -63,7 +63,7 @@ export default class StarAddListener extends Listener {
 		) as TextChannel;
 
 		// Updates existing starboard entries
-		const starboardMsgExists = await StarModel.exists({_id: msg.id});
+		const starboardMsgExists = await StarModel.exists({ _id: msg.id });
 		if (starboardMsgExists) {
 			const starboardEntry = await StarModel.findOne({ _id: msg.id });
 			if (starboardEntry?.starredBy.includes(user.id)) return;
@@ -71,26 +71,37 @@ export default class StarAddListener extends Listener {
 				starredBy: starboardEntry.starredBy.concat(user.id),
 				starAmount: addedEmojiCount,
 			});
-			
+
 			const starredMsgMember = msg.guild.member(starboardEntry!.author);
 			const embed = new MessageEmbed()
 				.setColor('YELLOW')
 				.setTimestamp()
-				.setAuthor(starredMsgMember?.displayName, starredMsgMember?.user.displayAvatarURL())
-			embed.setDescription(`${msg.content ? `${msg.content}\n\n` : ''}[Jump!](${msg.url})`);
+				.setAuthor(
+					starredMsgMember?.displayName,
+					starredMsgMember?.user.displayAvatarURL()
+				);
+			embed.setDescription(
+				`${msg.content ? `${msg.content}\n\n` : ''}[Jump!](${msg.url})`
+			);
 
 			const img = findImg(msg);
 			if (img) embed.setImage(img);
 
-			const starEntryMessage = await starboardChannel.messages.fetch(starboardEntry!.starEntryId);
+			const starEntryMessage = await starboardChannel.messages.fetch(
+				starboardEntry!.starEntryId
+			);
 
-			return starEntryMessage.edit(`⭐**${addedEmojiCount}** ${msg.channel} `, embed);
+			return starEntryMessage.edit(
+				`⭐**${addedEmojiCount}** ${msg.channel} `,
+				embed
+			);
 		}
 
 		//Checks if any reaction is by a user with permission level greater than the specified config value.
 		const minPermLevelMet = reaction.users.cache.some(
 			user =>
-				getPermissionLevel(msg.guild?.member(user)!, this.client) >= minStarboardPermTriggerLvl
+				getPermissionLevel(msg.guild?.member(user)!, this.client) >=
+				minStarboardPermTriggerLvl
 		);
 
 		if (addedEmojiCount >= starboardTriggerAmount && minPermLevelMet) {
