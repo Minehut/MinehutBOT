@@ -35,7 +35,7 @@ export class Starboard {
 				this.msg.url
 			})`
 		);
-		
+
 		const img = findImg(this.msg);
 		if (img) embed.setImage(img);
 
