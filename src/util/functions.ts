@@ -1,4 +1,4 @@
-import { CaseType, HASTEBIN_URI } from './constants';
+import { CaseType, IMGUR_LINK_REGEX, HASTEBIN_URI } from './constants';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
 import { guildConfigs } from '../guild/config/guildConfigs';
@@ -12,6 +12,7 @@ import { GuildMember } from 'discord.js';
 import { BoosterPassModel } from '../model/boosterPass';
 import fetch from 'node-fetch';
 import { Octokit } from '@octokit/rest';
+import path from 'path';
 
 TimeAgo.addLocale(en);
 export const ago = new TimeAgo('en-US');
@@ -278,4 +279,44 @@ export async function getIssue(
 	} catch {
 		return null;
 	}
+}
+
+export function emojiEquals(x: any, y: any) {
+	if (typeof x === 'string' && typeof y === 'string') {
+		return x === y;
+	}
+
+	if (typeof x === 'string') {
+		return x === y.name;
+	}
+
+	if (typeof y === 'string') {
+		return x.name === y;
+	}
+
+	return x.identifier === y.identifier;
+}
+
+export function getEmojiFromId(client: MinehutClient, id: string) {
+	if (/^\d+$/.test(id)) return client.emojis.cache.get(id);
+	
+	return id;
+}
+
+export function findImg(msg: Message) {
+	let returnAttachment;
+	const extensions = ['.png', '.jpg', '.jpeg', '.gif', '.webp'];
+
+	const attachment = msg.attachments.find(file =>
+		extensions.includes(path.extname(file.url))
+	);
+	
+	if (attachment) returnAttachment = attachment.url;
+
+	if (!returnAttachment) {
+		const match = msg.content.match(IMGUR_LINK_REGEX);
+		if (match && extensions.includes(path.extname(match[0]))) returnAttachment = match[0];
+	}
+
+	return returnAttachment;
 }
