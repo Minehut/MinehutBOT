@@ -1,6 +1,6 @@
 import { prop, getModelForClass } from '@typegoose/typegoose';
 
-export class Star {
+export class StarMessage {
 	@prop({ required: true })
 	_id!: string;
 
@@ -11,7 +11,7 @@ export class Star {
 	guild!: string;
 
 	@prop({required: true})
-	storageMsg!: string;
+	starEntryId!: string;
 
 	@prop({required: true})
 	starAmount!: number;
@@ -27,6 +27,6 @@ export class Star {
 	updatedAt!: Date;
 }
 
-export const StarModel = getModelForClass(Star, {
+export const StarModel = getModelForClass(StarMessage, {
 	schemaOptions: { timestamps: true },
 });
