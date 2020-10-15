@@ -236,7 +236,7 @@ export function emojiEquals(x: any, y: any) {
 
 export function getEmojiFromId(client: MinehutClient, id: string) {
 	if (/^\d+$/.test(id)) return client.emojis.cache.get(id);
-	
+
 	return id;
 }
 
@@ -247,12 +247,13 @@ export function findImg(msg: Message) {
 	const attachment = msg.attachments.find(file =>
 		extensions.includes(path.extname(file.url))
 	);
-	
+
 	if (attachment) returnAttachment = attachment.url;
 
 	if (!returnAttachment) {
 		const match = msg.content.match(IMAGE_LINK_REGEX);
-		if (match && extensions.includes(path.extname(match[0]))) returnAttachment = match[0];
+		if (match && extensions.includes(path.extname(match[0])))
+			returnAttachment = match[0];
 	}
 
 	return returnAttachment;
