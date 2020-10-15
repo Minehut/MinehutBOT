@@ -3,7 +3,7 @@ import { guildConfigs } from '../../guild/config/guildConfigs';
 import { MessageReaction } from 'discord.js';
 import { TextChannel } from 'discord.js';
 import { User } from 'discord.js';
-import { StarModel } from '../../model/star';
+import { StarModel } from '../../model/starboardMessage';
 import { MessageEmbed } from 'discord.js';
 import { emojiEquals, findImg, getEmojiFromId } from '../../util/functions';
 

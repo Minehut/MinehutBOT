@@ -5,8 +5,8 @@ import { TextChannel } from 'discord.js';
 import { User } from 'discord.js';
 import { getPermissionLevel } from '../../util/permission/getPermissionLevel';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
-import { Starboard } from '../../structure/starboard/star';
-import { StarModel } from '../../model/star';
+import { Starboard } from '../../structure/starboard/starboardMessage';
+import { StarModel } from '../../model/starboardMessage';
 import { MessageEmbed } from 'discord.js';
 import { emojiEquals, findImg } from '../../util/functions';
 
