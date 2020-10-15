@@ -199,3 +199,25 @@ guildConfigs.set('721155702915072040', {
 		},
 	},
 });
+
+// bot testing
+guildConfigs.set('317816245342699520', {
+	id: '317816245342699520',
+	prefix: '!',
+	roles: {
+		admin: '317818495318622218',
+	},
+	features: {
+		modLog: {
+			channel: '760709627549057025',
+			events: ALL_MODLOG_EVENTS,
+			prefix: '',
+			ignoredChannels: [],
+		},
+		starboard: {
+			channel: '760714727562280970',
+			triggerAmount: 1,
+			//emoji: '760707303090683954'
+		}
+	},
+});
