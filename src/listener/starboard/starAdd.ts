@@ -52,7 +52,11 @@ export default class StarAddListener extends Listener {
 		if (userPermissionLvl === PermissionLevel.Muted)
 			return reaction.users.remove(user);
 
-		if (msg.author.id === user.id && emojiEquals(emojiAddedByUser, starboardTriggerEmoji)) return reaction.users.remove(user)
+		if (
+			msg.author.id === user.id &&
+			emojiEquals(emojiAddedByUser, starboardTriggerEmoji)
+		)
+			return reaction.users.remove(user);
 
 		const starboardTriggerAmount = starboardConfig.triggerAmount;
 		const addedEmojiCount = reaction.count;
