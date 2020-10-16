@@ -217,3 +217,28 @@ guildConfigs.set('608978588976283660', {
 		},
 	},
 });
+
+guildConfigs.set('650778911126323200', {
+	id: '650778911126323200',
+	roles: {
+		admin: '650797870609596418',
+		nitroBooster: '755929113742540841',
+		boostersPass: '755929170185289868',
+		muted: '722920900927815700',
+	},
+	features: {
+		modLog: {
+			channel: '678475231295176706',
+			prefix: '',
+			events: ALL_MODLOG_EVENTS,
+		},
+		autoReact: {
+			channels: [
+				{
+					channel: '658800152047255582',
+					reactions: ['✅', '❌'],
+				},
+			],
+		},
+	},
+});
