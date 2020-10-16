@@ -303,7 +303,7 @@ export function getEmojiFromId(client: MinehutClient, id: string) {
 	return id;
 }
 
-export function findImg(msg: Message) {
+export function findImgFromMsg(msg: Message) {
 	let returnAttachment;
 	const extensions = ['.png', '.jpg', '.jpeg', '.gif', '.webp'];
 

@@ -8,7 +8,7 @@ import { PermissionLevel } from '../../util/permission/permissionLevel';
 import { Starboard } from '../../structure/starboard/starboardMessage';
 import { StarModel } from '../../model/starboardMessage';
 import { MessageEmbed } from 'discord.js';
-import { emojiEquals, findImg } from '../../util/functions';
+import { emojiEquals, findImgFromMsg } from '../../util/functions';
 
 export default class StarAddListener extends Listener {
 	constructor() {
@@ -88,7 +88,7 @@ export default class StarAddListener extends Listener {
 				`${msg.content ? `${msg.content}\n\n` : ''}[Jump!](${msg.url})`
 			);
 
-			const img = findImg(msg);
+			const img = findImgFromMsg(msg);
 			if (img) embed.setImage(img);
 
 			const starEntryMessage = await starboardChannel.messages.fetch(
