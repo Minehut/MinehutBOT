@@ -149,6 +149,18 @@ guildConfigs.set('546414872196415501', {
 			minimumChatPermission: PermissionLevel.Everyone,
 			overrides: [],
 		},
+		autoReact: {
+			channels: [
+				{
+					channel: '744075635114115142', // #meta-feedback
+					reactions: [':yes:546414872196415501', ':no:546414872196415501'],
+				},
+				{
+					channel: '754091669548171357', // #filter-requests
+					reactions: [':yes:546414872196415501', ':no:546414872196415501'],
+				},
+			],
+		},
 	},
 });
 
