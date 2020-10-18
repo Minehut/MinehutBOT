@@ -1,10 +1,10 @@
 import { Listener } from 'discord-akairo';
 import { Message } from 'discord.js';
-import { guildConfigs } from '../guild/config/guildConfigs';
+import { guildConfigs } from '../../guild/config/guildConfigs';
 
-export default class AutoReactListener extends Listener {
+export default class AutoReactMessageListener extends Listener {
 	constructor() {
-		super('autoReact', {
+		super('autoReactMessage', {
 			emitter: 'client',
 			event: 'message',
 		});
