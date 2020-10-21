@@ -2,7 +2,7 @@ import { TextChannel } from 'discord.js';
 import { MessageEmbed } from 'discord.js';
 import { Message } from 'discord.js';
 import { StarModel } from '../../model/starboardMessage';
-import { findImg } from '../../util/functions';
+import { findImgFromMsg } from '../../util/functions';
 
 export interface StarboardMessageData {
 	msg: Message;
@@ -36,7 +36,7 @@ export class Starboard {
 			})`
 		);
 
-		const img = findImg(this.msg);
+		const img = findImgFromMsg(this.msg);
 		if (img) embed.setImage(img);
 
 		const sentStarboardEntry = await this.channel.send(
