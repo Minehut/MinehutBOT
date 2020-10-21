@@ -101,7 +101,7 @@ export default class StarAddListener extends Listener {
 			);
 		}
 
-		//Checks if any reaction is by a user with permission level greater than the specified config value.
+		// Checks if any reaction is by a user with permission level greater than the specified config value.
 		const minPermLevelMet = reaction.users.cache.some(
 			user =>
 				getPermissionLevel(msg.guild?.member(user)!, this.client) >=
