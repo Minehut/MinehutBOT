@@ -14,7 +14,7 @@ export default class ChannelCooldownCommand extends MinehutCommand {
 			permissionLevel: PermissionLevel.Moderator,
 			description: {
 				content: 'Set a cooldown for a channel',
-				usage: '<channel> <cooldown>',
+				usage: '<channel> <duration>',
 				examples: ['#general 5s', '#random 10s'],
 			},
 			args: [
