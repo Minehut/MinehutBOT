@@ -4,12 +4,14 @@ import { Case } from '../model/case';
 import { GuildMember } from 'discord.js';
 import { Message } from 'discord.js';
 import { CensorCheckResponse } from '../util/functions';
+import { TextChannel } from 'discord.js';
 
 export default interface MinehutClientEvents extends ClientEvents {
 	caseUpdate: [DocumentType<Case>, DocumentType<Case>, GuildMember];
 	caseDelete: [DocumentType<Case>, GuildMember];
 	caseCreate: [DocumentType<Case>];
 	messageCensor: [Message, CensorCheckResponse];
+	channelCooldownSet: [TextChannel, GuildMember, number];
 }
 
 export type MinehutClientEvent = keyof MinehutClientEvents;
