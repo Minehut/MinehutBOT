@@ -34,7 +34,9 @@ export default class ReadyListener extends Listener {
 					const simpleStats = await this.client.minehutApi.getSimpleStats();
 					if (simpleStats.playerCount == 0 || simpleStats.serverCount == 0) return this.client.user?.setStatus('idle');
 					this.client.user?.setStatus('online');
-				} catch(e) this.client.user?.setStatus('dnd');
+				} catch(e) { 
+					this.client.user?.setStatus('dnd');
+				}
 			}
 
 			setInterval(updateStatus, 30000);
