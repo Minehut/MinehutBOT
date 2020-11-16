@@ -77,7 +77,7 @@ export class MuteAction extends Action {
 					humanizeDuration(this.duration, { largest: 3, round: true })
 				)
 				.addField('Expires', prettyDate(this.expiresAt))
-				.addField('Punished unfairly? [Appeal here](https://forums.minehut.com/application/form/5-player-appeals/)')
+				.addField('Punished unfairly? [Appeal here](https://forums.minehut.com/application/form/5-player-appeals/)', true)
 				.setTimestamp();
 			await this.target.send(embed);
 		} catch (err) {}
