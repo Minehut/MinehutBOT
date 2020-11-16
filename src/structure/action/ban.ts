@@ -82,7 +82,8 @@ export class BanAction extends Action {
 					humanizeDuration(this.duration, { largest: 3, round: true })
 				)
 				.addField('Expires', prettyDate(this.expiresAt))
-				.setTimestamp();
+				.setTimestamp()
+				.setFooter('Punished unfairly? [Appeal here](https://forums.minehut.com/application/form/5-player-appeals/)');
 			await this.target.send(embed);
 		} catch (err) {}
 	}
