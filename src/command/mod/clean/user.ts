@@ -57,6 +57,10 @@ export default class CleanUserCommand extends MinehutCommand {
 			.array()
 			.slice(0, count);
 		await msg.channel.bulkDelete(filtered);
-		msg.channel.send(`:ok_hand: deleted ${filtered.length} messages`);
+		const bmsg = await msg.channel.send(
+			`:ok_hand: deleted ${filtered.length} messages`
+		);
+		msg.delete({ timeout: 5000 });
+		bmsg.delete({ timeout: 5000 });
 	}
 }
