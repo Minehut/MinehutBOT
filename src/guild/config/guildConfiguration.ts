@@ -4,6 +4,7 @@ import { ReactionRoleConfiguration } from './feature/reactionRole';
 import { AnnouncementConfiguration } from './feature/announcement';
 import { CensorConfiguration } from './feature/censor';
 import { StarboardConfiguration } from './feature/starboard';
+import { AutoReactConfiguration } from './feature/autoReact';
 
 // The GuildConfiguration can have settings about permissions, log channels, disabled features, etc.
 export interface GuildConfiguration {
@@ -17,5 +18,6 @@ export interface GuildConfiguration {
 		announcement?: AnnouncementConfiguration;
 		censor?: CensorConfiguration;
 		starboard?: StarboardConfiguration;
+		autoReact?: AutoReactConfiguration;
 	};
 }

@@ -20,7 +20,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+      - name: Install deps
+        run: yarn
+      - name: Check typescript compile
+        run: tsc && rm -rf dist
       - name: Run tests
         run: |
           if [ -f docker-compose.test.yml ]; then
@@ -48,7 +54,7 @@ jobs:
       - name: Push image
         run: |
           IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
-          
+
           # Change all uppercase to lowercase
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
 
