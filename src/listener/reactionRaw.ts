@@ -8,9 +8,9 @@ interface RawPacket {
 	op: number;
 }
 
-export default class ReactionRoleRawListener extends Listener {
+export default class ReactionRawListener extends Listener {
 	constructor() {
-		super('reactionRoleRaw', {
+		super('reactionRaw', {
 			emitter: 'client',
 			event: 'raw',
 		});

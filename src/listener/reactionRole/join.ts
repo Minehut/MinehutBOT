@@ -13,7 +13,7 @@ export default class ReactionRoleJoinListener extends Listener {
 
 	async exec(reaction: MessageReaction, user: User) {
 		const message = reaction.message;
-		if (!message.guild) return;
+		if (!message.guild || user.bot) return;
 		const config = guildConfigs.get(message.guild.id);
 		if (
 			!config ||
