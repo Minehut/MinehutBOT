@@ -2,6 +2,7 @@ import { MinehutCommand } from '../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
 import { Message } from 'discord.js';
 import humanizeDuration from 'humanize-duration';
+import { Argument } from 'discord-akairo';
 
 export default class ChannelCooldownCommand extends MinehutCommand {
 	constructor() {
@@ -9,6 +10,7 @@ export default class ChannelCooldownCommand extends MinehutCommand {
 			aliases: ['cooldown'],
 			category: 'mod',
 			channel: 'guild',
+			clientPermissions: ["MANAGE_CHANNELS"],
 			permissionLevel: PermissionLevel.Moderator,
 			description: {
 				content: 'Set a cooldown for a channel',
@@ -18,29 +20,27 @@ export default class ChannelCooldownCommand extends MinehutCommand {
 			args: [
 				{
 					id: 'duration',
-					type: 'duration',
+					type: Argument.union('duration', ['clear', 'disable']),
 					prompt: {
 						start: (msg: Message) =>
-							`${msg.author}, how long should the cooldown be?`,
+							`${msg.author}, how long should the cooldown be? (you may also specify an alias such as \`clear\`)`,
 						retry: (msg: Message) =>
-							`${msg.author}, please specify a valid duration.`,
+							`${msg.author}, please specify a valid duration or alias.`,
 					},
 				},
 			],
 		});
 	}
 
-	async exec(
-		msg: Message,
-		{ duration }: { duration: number }
-	) {
+	async exec(msg: Message, { duration }: { duration: number | string }) {
 		if (msg.channel.type !== 'text')
 			return msg.channel.send(
-				`${process.env.EMOJI_CROSS} specified channel is not a text channel`
+				`${process.env.EMOJI_CROSS} channel is not a text channel`
 			);
 
-		const durationInSeconds = duration / 1000;
-		const humanReadable = humanizeDuration(duration, {
+		const numberDuration = typeof duration === 'number' ? duration : 0;
+		const durationInSeconds = numberDuration / 1000;
+		const humanReadable = humanizeDuration(numberDuration, {
 			largest: 3,
 			round: true,
 		});
@@ -59,7 +59,12 @@ export default class ChannelCooldownCommand extends MinehutCommand {
 			);
 
 		msg.channel.setRateLimitPerUser(durationInSeconds);
-		this.client.emit('channelCooldownSet', msg.channel, msg.member!, duration);
+		this.client.emit(
+			'channelCooldownSet',
+			msg.channel,
+			msg.member!,
+			numberDuration
+		);
 
 		if (durationInSeconds === 0)
 			return msg.channel.send(
