@@ -15,7 +15,7 @@ export default class ChannelCooldownCommand extends MinehutCommand {
 			description: {
 				content: 'Set a cooldown for a channel',
 				usage: '<duration>',
-				examples: ['5s', '10s'],
+				examples: ['5s', '10s', 'clear', 'disable'],
 			},
 			args: [
 				{
