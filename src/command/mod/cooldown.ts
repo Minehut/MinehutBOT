@@ -1,8 +1,6 @@
 import { MinehutCommand } from '../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
 import { Message } from 'discord.js';
-import { Channel } from 'discord.js';
-import { TextChannel } from 'discord.js';
 import humanizeDuration from 'humanize-duration';
 
 export default class ChannelCooldownCommand extends MinehutCommand {
@@ -14,20 +12,10 @@ export default class ChannelCooldownCommand extends MinehutCommand {
 			permissionLevel: PermissionLevel.Moderator,
 			description: {
 				content: 'Set a cooldown for a channel',
-				usage: '<channel> <duration>',
-				examples: ['#general 5s', '#random 10s'],
+				usage: '<duration>',
+				examples: ['5s', '10s'],
 			},
 			args: [
-				{
-					id: 'channel',
-					type: 'channel',
-					prompt: {
-						start: (msg: Message) =>
-							`${msg.author}, which channel would you like to set a cooldown for?`,
-						retry: (msg: Message) =>
-							`${msg.author}, please specify a valid channel.`,
-					},
-				},
 				{
 					id: 'duration',
 					type: 'duration',
@@ -44,25 +32,24 @@ export default class ChannelCooldownCommand extends MinehutCommand {
 
 	async exec(
 		msg: Message,
-		{ channel, duration }: { channel: Channel; duration: number }
+		{ duration }: { duration: number }
 	) {
-		if (channel.type !== 'text')
+		if (msg.channel.type !== 'text')
 			return msg.channel.send(
 				`${process.env.EMOJI_CROSS} specified channel is not a text channel`
 			);
 
-		const textChannel = channel as TextChannel;
 		const durationInSeconds = duration / 1000;
 		const humanReadable = humanizeDuration(duration, {
 			largest: 3,
 			round: true,
 		});
 
-		if (textChannel.rateLimitPerUser === 0 && durationInSeconds === 0)
+		if (msg.channel.rateLimitPerUser === 0 && durationInSeconds === 0)
 			return msg.channel.send(
 				`${process.env.EMOJI_CROSS} cannot disable cooldown when cooldown is already disabled`
 			);
-		if (textChannel.rateLimitPerUser === durationInSeconds)
+		if (msg.channel.rateLimitPerUser === durationInSeconds)
 			return msg.channel.send(
 				`${process.env.EMOJI_CROSS} channel cooldown is already set to this duration`
 			);
@@ -71,16 +58,16 @@ export default class ChannelCooldownCommand extends MinehutCommand {
 				`${process.env.EMOJI_CROSS} cannot set cooldown to be longer than 6 hours`
 			);
 
-		textChannel.setRateLimitPerUser(durationInSeconds);
-		this.client.emit('channelCooldownSet', textChannel, msg.member!, duration);
+		msg.channel.setRateLimitPerUser(durationInSeconds);
+		this.client.emit('channelCooldownSet', msg.channel, msg.member!, duration);
 
 		if (durationInSeconds === 0)
 			return msg.channel.send(
-				`${process.env.EMOJI_CHECK} disabled cooldown for channel **${textChannel}**`
+				`${process.env.EMOJI_CHECK} disabled cooldown for channel **${msg.channel}**`
 			);
 		else
 			return msg.channel.send(
-				`${process.env.EMOJI_CHECK} set cooldown for channel **${textChannel}** to **${humanReadable}**`
+				`${process.env.EMOJI_CHECK} set cooldown for channel **${msg.channel}** to **${humanReadable}**`
 			);
 	}
 }
