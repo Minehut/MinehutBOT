@@ -78,7 +78,7 @@ export class MuteAction extends Action {
 				)
 				.addField('Expires', prettyDate(this.expiresAt))
 				.setTimestamp()
-				.setFooter('forums.minehut.com', 'https://i.imgur.com/dnyXrKy.png');
+				.setFooter('forums.minehut.com');
 			await this.target.send(embed);
 		} catch (err) {}
 	}
