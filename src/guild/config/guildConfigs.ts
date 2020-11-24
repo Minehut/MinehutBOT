@@ -153,13 +153,13 @@ guildConfigs.set('546414872196415501', {
 			channels: [
 				{
 					channel: '744075635114115142', // #meta-feedback
-					reactions: [':yes:546414872196415501', ':no:546414872196415501'],
+					reactions: [':yes:546435721444196353', ':no:546435753719103488'],
 					allowMessageAuthorReacting: false,
 					allowMultipleUserReactions: false,
 				},
 				{
 					channel: '754091669548171357', // #filter-requests
-					reactions: [':yes:546414872196415501', ':no:546414872196415501'],
+					reactions: [':yes:546435721444196353', ':no:546435753719103488'],
 					allowMessageAuthorReacting: false,
 					allowMultipleUserReactions: false,
 				},
