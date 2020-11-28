@@ -2,8 +2,9 @@ import { Listener } from 'discord-akairo';
 import { Message } from 'discord.js';
 import fetch from 'node-fetch';
 import { guildConfigs } from '../guild/config/guildConfigs';
-import hastebin from 'hastebin-gen';
 import { MessageEmbed } from 'discord.js';
+import { WHITELISTED_HASTEBIN_FILE_EXTENSIONS } from '../util/constants';
+import { generateHastebinFromInput } from '../util/functions';
 
 export default class HastebinConversionListener extends Listener {
 	constructor() {
@@ -18,14 +19,10 @@ export default class HastebinConversionListener extends Listener {
 
 		const hastebinConversionConfig = guildConfigs.get(msg.guild.id)?.features
 			.hastebinConversion;
-		if (
-			!hastebinConversionConfig ||
-			!hastebinConversionConfig.channels.includes(msg.channel.id)
-		)
-			return;
+		if (!hastebinConversionConfig) return;
 
 		const messageAttachment = msg.attachments.find(attachment =>
-			hastebinConversionConfig.whitelistedExtensions.some(ext =>
+			WHITELISTED_HASTEBIN_FILE_EXTENSIONS.some(ext =>
 				attachment.name?.endsWith(`.${ext}`)
 			)
 		);
@@ -36,11 +33,11 @@ export default class HastebinConversionListener extends Listener {
 
 		const res = await fetch(messageAttachment.url);
 		const text = await res.text();
-		const hastebinUrl = await hastebin(text, {
-			extension: messageAttachment.name?.substring(
-				messageAttachment.name.indexOf('.') + 1
-			),
-		});
+
+		const hastebinUrl = await generateHastebinFromInput(
+			text,
+			messageAttachment.name?.substring(messageAttachment.name.indexOf('.') + 1)!
+		);
 		const embed = new MessageEmbed()
 			.setTitle(hastebinUrl)
 			.setFooter(`Requested by ${msg.author.tag}`, msg.author.avatarURL()!)

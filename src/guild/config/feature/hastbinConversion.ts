@@ -1,4 +1,1 @@
-export interface HastebinConversionConfiguration {
-	channels: string[];
-	whitelistedExtensions: string[];
-}
+export interface HastebinConversionConfiguration {}
