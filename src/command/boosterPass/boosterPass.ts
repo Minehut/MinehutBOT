@@ -39,6 +39,7 @@ export default class BoosterPassCommand extends MinehutCommand {
 				['boosterpass-revoke', 'revoke'],
 				['boosterpass-info', 'info'],
 				['boosterpass-import', 'import'],
+				['boosterpass-force-revoke', 'force-revoke']
 			],
 			otherwise: (msg: Message) => {
 				const prefix = (this.handler.prefix as PrefixSupplier)(msg) as string;

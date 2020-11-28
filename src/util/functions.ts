@@ -240,6 +240,7 @@ export async function revokeGrantedBoosterPasses(member: GuildMember) {
         });
         
 }
+
 export async function generateHastebinFromInput(input: string, ext: string) {
 	const res = await fetch(`${HASTEBIN_URI}/documents`, {
 		method: 'POST',
