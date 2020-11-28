@@ -13,6 +13,9 @@ import MinehutClientEvents from './minehutClientEvents';
 
 import { Minehut } from 'minehut';
 import { FOREVER_MS, MESSAGES } from '../util/constants';
+import { CacheManager } from '../structure/cacheManager';
+
+import { OctokitResponse, IssuesGetResponseData } from '@octokit/types';
 
 export class MinehutClient extends AkairoClient {
 	commandHandler: CommandHandler;
@@ -24,6 +27,9 @@ export class MinehutClient extends AkairoClient {
 
 	tagCooldownManager: CooldownManager;
 	hastebinCooldownManager: CooldownManager;
+	githubCooldownManager: CooldownManager;
+  
+	githubCacheManager: CacheManager<number, any>;
 
 	minehutApi: Minehut;
 
@@ -94,6 +100,9 @@ export class MinehutClient extends AkairoClient {
 
 		this.tagCooldownManager = new CooldownManager(10000);
 		this.hastebinCooldownManager = new CooldownManager(10000);
+		this.githubCooldownManager = new CooldownManager(10000);
+
+		this.githubCacheManager = new CacheManager();
 
 		this.minehutApi = new Minehut();
 
@@ -172,6 +181,11 @@ declare module 'discord-akairo' {
 		muteScheduler: MuteScheduler;
 		tagCooldownManager: CooldownManager;
 		hastebinCooldownManager: CooldownManager;
+		githubCooldownManager: CooldownManager;
+		githubCacheManager: CacheManager<
+			number,
+			Promise<OctokitResponse<IssuesGetResponseData>>
+		>;
 		minehutApi: Minehut;
 
 		start(token: string): void;
