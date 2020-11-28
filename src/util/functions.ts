@@ -9,6 +9,7 @@ import { MinehutClient } from '../client/minehutClient';
 import { cloneDeep } from 'lodash';
 import { PermissionLevel } from './permission/permissionLevel';
 import { GuildMember } from 'discord.js';
+import { BoosterPassModel } from '../model/boosterPass';
 
 TimeAgo.addLocale(en);
 export const ago = new TimeAgo('en-US');
@@ -219,7 +220,7 @@ export function checkString(content: string): CensorCheckResponse | undefined {
 }
 
 export async function revokeGrantedBoosterPasses(member: GuildMember) {
-    const boosterPasses = await BoosterPassModel.getBoosterPasses(member);
+    const boosterPasses = await BoosterPassModel.getGrantedByMember(member);
     if (boosterPasses.length > 0) 
         boosterPasses.forEach(async bp => {
             await bp.remove();
@@ -229,7 +230,7 @@ export async function revokeGrantedBoosterPasses(member: GuildMember) {
                 throw new Error(`Guild ${member.guild.id} does not have a configured booster pass role!`);
             const boosterPassReceiver = await member.guild.members.fetch(bp.grantedId);
             if (!boosterPassReceiver) return;
-            const receiverReceivedPasses = await BoosterPassModel.getGrantedBoosterPasses(boosterPassReceiver);
+            const receiverReceivedPasses = await BoosterPassModel.getReceivedByMember(boosterPassReceiver);
             if (
                 receiverReceivedPasses.length < 0 &&
                 boosterPassReceiver.roles.cache.has(boosterPassRole)
