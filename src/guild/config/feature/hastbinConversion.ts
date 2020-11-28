@@ -1,4 +1,4 @@
 export interface HastebinConversionConfiguration {
-	channels: string[];
+	ignoredChannels?: string[];
 	whitelistedExtensions: string[];
 }
