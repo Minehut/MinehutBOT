@@ -2,8 +2,8 @@ import { Listener } from 'discord-akairo';
 import { Message } from 'discord.js';
 import fetch from 'node-fetch';
 import { guildConfigs } from '../guild/config/guildConfigs';
-import hastebin from 'hastebin-gen';
 import { MessageEmbed } from 'discord.js';
+import { generateHastebinFromInput } from '../util/functions';
 
 export default class HastebinConversionListener extends Listener {
 	constructor() {
@@ -20,7 +20,7 @@ export default class HastebinConversionListener extends Listener {
 			.hastebinConversion;
 		if (
 			!hastebinConversionConfig ||
-			!hastebinConversionConfig.channels.includes(msg.channel.id)
+			hastebinConversionConfig.ignoredChannels?.includes(msg.channel.id)
 		)
 			return;
 
@@ -36,11 +36,13 @@ export default class HastebinConversionListener extends Listener {
 
 		const res = await fetch(messageAttachment.url);
 		const text = await res.text();
-		const hastebinUrl = await hastebin(text, {
-			extension: messageAttachment.name?.substring(
+
+		const hastebinUrl = await generateHastebinFromInput(
+			text,
+			messageAttachment.name?.substring(
 				messageAttachment.name.indexOf('.') + 1
-			),
-		});
+			)!
+		);
 		const embed = new MessageEmbed()
 			.setTitle(hastebinUrl)
 			.setFooter(`Requested by ${msg.author.tag}`, msg.author.avatarURL()!)

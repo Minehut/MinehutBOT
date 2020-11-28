@@ -16,6 +16,16 @@ export const ALL_MODLOG_EVENTS = [
 	'boosterPassRevoke', //added
 ];
 
+export const HASTEBIN_EXTENSIONS_WHITELIST = [
+	'txt',
+	'log',
+	'json',
+	'yml',
+	'yaml',
+	'properties',
+	'sk',
+];
+
 export const INVITE_WHITELIST = [
 	'239599059415859200', // Minehut
 	'546414872196415501', // Minehut Meta
