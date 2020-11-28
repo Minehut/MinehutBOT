@@ -45,7 +45,7 @@ export default class HastebinConversionListener extends Listener {
 		);
 		const embed = new MessageEmbed()
 			.setTitle("Converted!")
-			.addField(`${msg.author.tag}'s file has been automatically converted into a hastebin post.\nYou can view them [here](${hastebinUrl}).`)
+			.addField(`${msg.author.tag}'s file has been automatically converted into a hastebin post.\nYou can view them __[here](${hastebinUrl})__.`)
 			.setFooter(`Requested by ${msg.author.tag}`, msg.author.avatarURL()!)
 			.setColor('BLUE');
 		await msg.channel.send(embed);
