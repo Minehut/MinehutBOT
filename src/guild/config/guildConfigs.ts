@@ -75,7 +75,7 @@ guildConfigs.set('239599059415859200', {
 		},
 		hastebinConversion: {
 			channels: ['412394499919052810', '660337933743816724', '400170127737356299'],
-			whitelistedExtensions: ['txt']
+			whitelistedExtensions: ['txt', 'log', 'json', 'yml', 'yaml', 'properties', 'sk']
 		}
 	},
 });
