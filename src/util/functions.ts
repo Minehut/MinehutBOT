@@ -229,6 +229,7 @@ export async function generateHastebinFromInput(input: string, ext: string) {
 		throw new Error(`Error while generating hastebin: ${res.statusText}`);
 	const { key }: { key: string } = await res.json();
 	return `${HASTEBIN_URI}/${key}.${ext}`;
+}
 
 const octokit = new Octokit();
 export async function getIssue(
