@@ -26,8 +26,9 @@ export class MinehutClient extends AkairoClient {
 	muteScheduler: MuteScheduler;
 
 	tagCooldownManager: CooldownManager;
+	hastebinCooldownManager: CooldownManager;
 	githubCooldownManager: CooldownManager;
-
+  
 	githubCacheManager: CacheManager<number, any>;
 
 	minehutApi: Minehut;
@@ -98,6 +99,7 @@ export class MinehutClient extends AkairoClient {
 		this.muteScheduler = new MuteScheduler(this);
 
 		this.tagCooldownManager = new CooldownManager(10000);
+		this.hastebinCooldownManager = new CooldownManager(10000);
 		this.githubCooldownManager = new CooldownManager(10000);
 
 		this.githubCacheManager = new CacheManager();
@@ -178,6 +180,7 @@ declare module 'discord-akairo' {
 		banScheduler: BanScheduler;
 		muteScheduler: MuteScheduler;
 		tagCooldownManager: CooldownManager;
+		hastebinCooldownManager: CooldownManager;
 		githubCooldownManager: CooldownManager;
 		githubCacheManager: CacheManager<
 			number,

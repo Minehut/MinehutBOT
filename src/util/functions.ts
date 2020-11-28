@@ -1,4 +1,4 @@
-import { CaseType } from './constants';
+import { CaseType, HASTEBIN_URI } from './constants';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
 import { guildConfigs } from '../guild/config/guildConfigs';
@@ -8,6 +8,7 @@ import { getPermissionLevel } from './permission/getPermissionLevel';
 import { MinehutClient } from '../client/minehutClient';
 import { cloneDeep } from 'lodash';
 import { PermissionLevel } from './permission/permissionLevel';
+import fetch from 'node-fetch';
 import { Octokit } from '@octokit/rest';
 
 TimeAgo.addLocale(en);
@@ -217,6 +218,17 @@ export function checkString(content: string): CensorCheckResponse | undefined {
 		if (match) return { rule, match };
 	}
 }
+
+export async function generateHastebinFromInput(input: string, ext: string) {
+	const res = await fetch(`${HASTEBIN_URI}/documents`, {
+		method: 'POST',
+		body: input,
+		headers: { 'Content-Type': 'text/plain' },
+	});
+	if (!res.ok)
+		throw new Error(`Error while generating hastebin: ${res.statusText}`);
+	const { key }: { key: string } = await res.json();
+	return `${HASTEBIN_URI}/${key}.${ext}`;
 
 const octokit = new Octokit();
 export async function getIssue(
