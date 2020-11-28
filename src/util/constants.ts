@@ -165,5 +165,3 @@ export const ZALGO_REGEX = new RegExp(
 export const IMGUR_LINK_REGEX = /((?:https?:)?\/\/(\w+\.)?imgur\.com\/(\S*)(\.[a-zA-Z]{3}))/im;
 
 export const HASTEBIN_URI = 'https://hastebin.com';
-
-export const WHITELISTED_HASTEBIN_FILE_EXTENSIONS = ['txt', 'log', 'json', 'yml', 'yaml', 'properties', 'sk'];

@@ -3,7 +3,6 @@ import { Message } from 'discord.js';
 import fetch from 'node-fetch';
 import { guildConfigs } from '../guild/config/guildConfigs';
 import { MessageEmbed } from 'discord.js';
-import { WHITELISTED_HASTEBIN_FILE_EXTENSIONS } from '../util/constants';
 import { generateHastebinFromInput } from '../util/functions';
 
 export default class HastebinConversionListener extends Listener {
@@ -22,7 +21,7 @@ export default class HastebinConversionListener extends Listener {
 		if (!hastebinConversionConfig) return;
 
 		const messageAttachment = msg.attachments.find(attachment =>
-			WHITELISTED_HASTEBIN_FILE_EXTENSIONS.some(ext =>
+			hastebinConversionConfig.whitelistedExtensions.some(ext =>
 				attachment.name?.endsWith(`.${ext}`)
 			)
 		);
