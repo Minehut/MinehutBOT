@@ -18,7 +18,11 @@ export default class HastebinConversionListener extends Listener {
 
 		const hastebinConversionConfig = guildConfigs.get(msg.guild.id)?.features
 			.hastebinConversion;
-		if (!hastebinConversionConfig) return;
+		if (
+			!hastebinConversionConfig ||
+			hastebinConversionConfig.ignoredChannels?.includes(msg.channel.id)
+		)
+			return;
 
 		const messageAttachment = msg.attachments.find(attachment =>
 			hastebinConversionConfig.whitelistedExtensions.some(ext =>
@@ -35,7 +39,9 @@ export default class HastebinConversionListener extends Listener {
 
 		const hastebinUrl = await generateHastebinFromInput(
 			text,
-			messageAttachment.name?.substring(messageAttachment.name.indexOf('.') + 1)!
+			messageAttachment.name?.substring(
+				messageAttachment.name.indexOf('.') + 1
+			)!
 		);
 		const embed = new MessageEmbed()
 			.setTitle(hastebinUrl)
