@@ -1,5 +1,5 @@
 import { GuildConfiguration } from './guildConfiguration';
-import { ALL_MODLOG_EVENTS, INVITE_WHITELIST } from './common';
+import { ALL_MODLOG_EVENTS, HASTEBIN_EXTENSIONS_WHITELIST, INVITE_WHITELIST } from './common';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
 
 export const guildConfigs: Map<string, GuildConfiguration> = new Map();
@@ -73,6 +73,10 @@ guildConfigs.set('239599059415859200', {
 				{ roleId: '493253127366115360', emoji: 'HypeBadge' },
 			],
 		},
+		hastebinConversion: {
+			ignoredChannels: ['480889821225549824'],
+			whitelistedExtensions: HASTEBIN_EXTENSIONS_WHITELIST
+		}
 	},
 });
 
@@ -149,6 +153,26 @@ guildConfigs.set('546414872196415501', {
 			minimumChatPermission: PermissionLevel.Everyone,
 			overrides: [],
 		},
+		autoReact: {
+			channels: [
+				{
+					channel: '744075635114115142', // #meta-feedback
+					reactions: [':yes:546435721444196353', ':no:546435753719103488'],
+					allowMessageAuthorReacting: false,
+					allowMultipleUserReactions: false,
+				},
+				{
+					channel: '754091669548171357', // #filter-requests
+					reactions: [':yes:546435721444196353', ':no:546435753719103488'],
+					allowMessageAuthorReacting: false,
+					allowMultipleUserReactions: false,
+				},
+			],
+		},
+		hastebinConversion: {
+			ignoredChannels: ['548317804076597249'],
+			whitelistedExtensions: HASTEBIN_EXTENSIONS_WHITELIST
+		}
 	},
 });
 

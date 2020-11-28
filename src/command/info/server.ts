@@ -2,7 +2,7 @@ import { MinehutCommand } from '../../structure/command/minehutCommand';
 import { Message } from 'discord.js';
 import { MessageEmbed } from 'discord.js';
 import { prettyDate } from '../../util/functions';
-import { startCase } from 'lodash';
+import { startCase, truncate } from 'lodash';
 
 const COLOUR_CODE_EXPR = /&[0-9A-FK-OR]/gim;
 
@@ -64,7 +64,7 @@ export default class ServerInfoCommand extends MinehutCommand {
 									: 'No'
 								: server.serverProperties[key].toString().length > 0
 								? `\`${server.serverProperties[key]}\``
-								: server.serverProperties[key]
+								: truncate(server.serverProperties[key]+"", { length: 50 })
 						}`
 				),
 				true
