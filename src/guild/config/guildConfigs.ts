@@ -1,5 +1,5 @@
 import { GuildConfiguration } from './guildConfiguration';
-import { ALL_MODLOG_EVENTS, INVITE_WHITELIST } from './common';
+import { ALL_MODLOG_EVENTS, HASTEBIN_EXTENSIONS_WHITELIST, INVITE_WHITELIST } from './common';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
 
 export const guildConfigs: Map<string, GuildConfiguration> = new Map();
@@ -74,7 +74,8 @@ guildConfigs.set('239599059415859200', {
 			],
 		},
 		hastebinConversion: {
-
+			ignoredChannels: ['480889821225549824'],
+			whitelistedExtensions: HASTEBIN_EXTENSIONS_WHITELIST
 		}
 	},
 });
@@ -169,7 +170,8 @@ guildConfigs.set('546414872196415501', {
 			],
 		},
 		hastebinConversion: {
-
+			ignoredChannels: ['548317804076597249'],
+			whitelistedExtensions: HASTEBIN_EXTENSIONS_WHITELIST
 		}
 	},
 });
