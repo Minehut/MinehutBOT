@@ -76,6 +76,10 @@ guildConfigs.set('239599059415859200', {
 		boosterPass: {
 			maximumGrantedBoosterPasses: 2,
 		},
+		hastebinConversion: {
+			channels: ['412394499919052810', '660337933743816724', '400170127737356299'],
+			whitelistedExtensions: ['txt', 'log', 'json', 'yml', 'yaml', 'properties', 'sk']
+		}
 	},
 });
 
