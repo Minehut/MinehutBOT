@@ -26,7 +26,7 @@ export default class HastebinConversionListener extends Listener {
 
 		const messageAttachment = msg.attachments.find(attachment =>
 			hastebinConversionConfig.whitelistedExtensions.some(ext =>
-				attachment.name?.endsWith(ext)
+				attachment.name?.endsWith(`.${ext}`)
 			)
 		);
 		if (!messageAttachment) return;
