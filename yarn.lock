@@ -303,6 +303,13 @@ form-data@^3.0.0:
     combined-stream "^1.0.8"
     mime-types "^2.1.12"
 
+hastebin-gen@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/hastebin-gen/-/hastebin-gen-2.0.5.tgz#8f4f11d5c4890280e2dbd34217e6ff06d053fe68"
+  integrity sha512-At1LaKtcqh2jiP8xfE2sDGT9IshIki6FqsgLwn2y7FzAvlFJRtpUsSPh3yWjWIQIvxi/GPF07IBqSI8WhPL/gQ==
+  dependencies:
+    node-fetch "^2.6.0"
+
 https-proxy-agent@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/https-proxy-agent/-/https-proxy-agent-4.0.0.tgz#702b71fb5520a132a66de1f67541d9e62154d82b"
