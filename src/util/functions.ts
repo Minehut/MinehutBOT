@@ -8,6 +8,7 @@ import { getPermissionLevel } from './permission/getPermissionLevel';
 import { MinehutClient } from '../client/minehutClient';
 import { cloneDeep } from 'lodash';
 import { PermissionLevel } from './permission/permissionLevel';
+import { Octokit } from '@octokit/rest';
 
 TimeAgo.addLocale(en);
 export const ago = new TimeAgo('en-US');
@@ -214,5 +215,31 @@ export function checkString(content: string): CensorCheckResponse | undefined {
 		const regex = new RegExp(rule.rule, 'i');
 		const match = content.match(regex);
 		if (match) return { rule, match };
+	}
+}
+
+const octokit = new Octokit();
+export async function getIssue(
+	client: MinehutClient,
+	repoOwner: string,
+	repoName: string,
+	issueNumber: number,
+	bypassCache?: boolean
+) {
+	if (!bypassCache) {
+		const issue = client.githubCacheManager.getValue(issueNumber);
+		if (issue) return issue; // Checks if issue is stored locally to reduce the number of API requests
+	}
+	try {
+		const issue = await octokit.issues.get({
+			owner: repoOwner,
+			repo: repoName,
+			issue_number: issueNumber,
+		});
+		if (issue.data.pull_request) return null;
+		client.githubCacheManager.addIssue(issueNumber, issue);
+		return issue;
+	} catch {
+		return null;
 	}
 }

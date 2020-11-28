@@ -149,6 +149,10 @@ guildConfigs.set('546414872196415501', {
 			minimumChatPermission: PermissionLevel.Everyone,
 			overrides: [],
 		},
+		githubIssue: {
+			githubRepoOwner: "Minehut",
+			githubRepoName: "Meta",
+		}
 	},
 });
 
