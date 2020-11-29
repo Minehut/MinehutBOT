@@ -14,11 +14,11 @@ export default class BoosterPassForceRevokeCommand extends MinehutCommand {
 			channel: 'guild',
 			description: {
 				content:
-					'Remove a booster pass from a member, if you have given them one',
-				usage: '<member>',
+					'Forcefully revoke a booster pass that someone has granted',
+				usage: '<member> <user>',
 				examples: [
-					'boosterpass revoke @Facto',
-					'boosterpass revoke 535986058991501323',
+					'boosterpass force-revoke @Facto @RichieNy',
+					'boosterpass force-revoke 535986058991501323 361294035077431308',
 				],
 			},
 			clientPermissions: ['MANAGE_ROLES'],
