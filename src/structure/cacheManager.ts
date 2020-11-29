@@ -1,6 +1,6 @@
 import { Collection } from 'discord.js';
 
-const EXPIRED_MS = 6e5; // 10 minutes
+const EXPIRED_MS = 600000; // 10 minutes
 
 export class CacheManager<K, V> {
 	private store: Collection<K, V>;
