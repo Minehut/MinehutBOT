@@ -9,6 +9,7 @@ import { MinehutClient } from '../client/minehutClient';
 import { cloneDeep } from 'lodash';
 import { PermissionLevel } from './permission/permissionLevel';
 import fetch from 'node-fetch';
+import { Octokit } from '@octokit/rest';
 
 TimeAgo.addLocale(en);
 export const ago = new TimeAgo('en-US');
@@ -228,4 +229,30 @@ export async function generateHastebinFromInput(input: string, ext: string) {
 		throw new Error(`Error while generating hastebin: ${res.statusText}`);
 	const { key }: { key: string } = await res.json();
 	return `${HASTEBIN_URI}/${key}.${ext}`;
+}
+
+const octokit = new Octokit();
+export async function getIssue(
+	client: MinehutClient,
+	repoOwner: string,
+	repoName: string,
+	issueNumber: number,
+	bypassCache?: boolean
+) {
+	if (!bypassCache) {
+		const issue = client.githubCacheManager.getValue(issueNumber);
+		if (issue) return issue; // Checks if issue is stored locally to reduce the number of API requests
+	}
+	try {
+		const issue = await octokit.issues.get({
+			owner: repoOwner,
+			repo: repoName,
+			issue_number: issueNumber,
+		});
+		if (issue.data.pull_request) return null;
+		client.githubCacheManager.addIssue(issueNumber, issue);
+		return issue;
+	} catch {
+		return null;
+	}
 }
