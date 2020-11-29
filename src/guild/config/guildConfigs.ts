@@ -172,7 +172,7 @@ guildConfigs.set('546414872196415501', {
 		hastebinConversion: {
 			ignoredChannels: ['548317804076597249'],
 			whitelistedExtensions: HASTEBIN_EXTENSIONS_WHITELIST
-   },
+    },
 		githubIssue: {
 			githubRepoOwner: "Minehut",
 			githubRepoName: "Meta",
