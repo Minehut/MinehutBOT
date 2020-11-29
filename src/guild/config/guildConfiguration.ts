@@ -6,6 +6,7 @@ import { CensorConfiguration } from './feature/censor';
 import { AutoReactConfiguration } from './feature/autoReact';
 import { BoosterPassConfiguration } from './feature/boosterPass';
 import { HastebinConversionConfiguration } from './feature/hastbinConversion';
+import { GithubIssueReferenceConfiguration } from './feature/githubIssue';
 
 // The GuildConfiguration can have settings about permissions, log channels, disabled features, etc.
 export interface GuildConfiguration {
@@ -21,5 +22,6 @@ export interface GuildConfiguration {
 		autoReact?: AutoReactConfiguration;
 		boosterPass?: BoosterPassConfiguration;
 		hastebinConversion?: HastebinConversionConfiguration;
+		githubIssue?: GithubIssueReferenceConfiguration;
 	};
 }
