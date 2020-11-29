@@ -55,8 +55,12 @@ export default class TagSetCommand extends MinehutCommand {
 			);
 		if (!(await TagModel.exists({ name }))) {
 			TagModel.create(tag);
-			return msg.channel.send(`${process.env.EMOJI_CHECK} tag \`${tag.name}\` created`);
+			return msg.channel.send(
+				`${process.env.EMOJI_CHECK} tag \`${tag.name}\` created`
+			);
 		} else await TagModel.updateOne({ name }, tag);
-		return msg.channel.send(`${process.env.EMOJI_CHECK} tag \`${tag.name}\` updated`);
+		return msg.channel.send(
+			`${process.env.EMOJI_CHECK} tag \`${tag.name}\` updated`
+		);
 	}
 }

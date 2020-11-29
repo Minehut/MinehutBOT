@@ -42,7 +42,9 @@ export default class SoftBanCommand extends MinehutCommand {
 		{ member, reason }: { member: GuildMember; reason: string }
 	) {
 		if (!member.bannable)
-			return msg.channel.send(`${process.env.EMOJI_CROSS} I cannot ban that member`);
+			return msg.channel.send(
+				`${process.env.EMOJI_CROSS} I cannot ban that member`
+			);
 		const action = new SoftBanAction({
 			target: member,
 			moderator: msg.member!,

@@ -52,7 +52,9 @@ export default class TagSetAliasCommand extends MinehutCommand {
 
 		const target = await TagModel.findByNameOrAlias(name);
 		if (!target)
-			return msg.channel.send(`${process.env.EMOJI_CROSS} unknown target \`${name}\``);
+			return msg.channel.send(
+				`${process.env.EMOJI_CROSS} unknown target \`${name}\``
+			);
 
 		await target.updateOne({ $push: { aliases: alias } });
 		target.aliases.push(alias);

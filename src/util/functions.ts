@@ -8,6 +8,8 @@ import { getPermissionLevel } from './permission/getPermissionLevel';
 import { MinehutClient } from '../client/minehutClient';
 import { cloneDeep } from 'lodash';
 import { PermissionLevel } from './permission/permissionLevel';
+import { GuildMember } from 'discord.js';
+import { BoosterPassModel } from '../model/boosterPass';
 import fetch from 'node-fetch';
 import { Octokit } from '@octokit/rest';
 
@@ -217,6 +219,27 @@ export function checkString(content: string): CensorCheckResponse | undefined {
 		const match = content.match(regex);
 		if (match) return { rule, match };
 	}
+}
+
+export async function revokeGrantedBoosterPasses(member: GuildMember) {
+    const boosterPasses = await BoosterPassModel.getGrantedByMember(member);
+    if (boosterPasses.length > 0) 
+        boosterPasses.forEach(async bp => {
+            await bp.remove();
+            const boosterPassRole = guildConfigs
+                .get(member.guild.id)?.roles.boostersPass;
+            if (!boosterPassRole)
+                throw new Error(`Guild ${member.guild.id} does not have a configured booster pass role!`);
+            const boosterPassReceiver = await member.guild.members.fetch(bp.grantedId);
+            if (!boosterPassReceiver) return;
+            const receiverReceivedPasses = await BoosterPassModel.getReceivedByMember(boosterPassReceiver);
+            if (
+                receiverReceivedPasses.length < 0 &&
+                boosterPassReceiver.roles.cache.has(boosterPassRole)
+            )
+                boosterPassReceiver.roles.remove(boosterPassRole);
+        });
+        
 }
 
 export async function generateHastebinFromInput(input: string, ext: string) {

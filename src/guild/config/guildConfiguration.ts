@@ -4,6 +4,7 @@ import { ReactionRoleConfiguration } from './feature/reactionRole';
 import { AnnouncementConfiguration } from './feature/announcement';
 import { CensorConfiguration } from './feature/censor';
 import { AutoReactConfiguration } from './feature/autoReact';
+import { BoosterPassConfiguration } from './feature/boosterPass';
 import { HastebinConversionConfiguration } from './feature/hastbinConversion';
 import { GithubIssueReferenceConfiguration } from './feature/githubIssue';
 
@@ -19,6 +20,7 @@ export interface GuildConfiguration {
 		announcement?: AnnouncementConfiguration;
 		censor?: CensorConfiguration;
 		autoReact?: AutoReactConfiguration;
+		boosterPass?: BoosterPassConfiguration;
 		hastebinConversion?: HastebinConversionConfiguration;
 		githubIssue?: GithubIssueReferenceConfiguration;
 	};
