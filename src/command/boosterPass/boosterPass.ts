@@ -14,7 +14,6 @@ export default class BoosterPassCommand extends MinehutCommand {
                 • **give** \`<member>\`
                 • **info** \`<member>\`
                 • **revoke** \`<member>\`
-                • **import**
                 `,
 				usage: '<method> <...arguments>',
 				examples: [
@@ -24,7 +23,6 @@ export default class BoosterPassCommand extends MinehutCommand {
 					'info 535986058991501323',
 					'revoke @Facto',
 					'revoke 535986058991501323',
-					'import',
 				],
 			},
 			category: 'boosterpass',
@@ -38,7 +36,6 @@ export default class BoosterPassCommand extends MinehutCommand {
 				['boosterpass-give', 'give'],
 				['boosterpass-revoke', 'revoke'],
 				['boosterpass-info', 'info'],
-				['boosterpass-import', 'import'],
 				['boosterpass-force-revoke', 'force-revoke']
 			],
 			otherwise: (msg: Message) => {
