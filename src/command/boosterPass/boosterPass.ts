@@ -13,7 +13,8 @@ export default class BoosterPassCommand extends MinehutCommand {
                 Available subcommands:
                 • **give** \`<member>\`
                 • **info** \`<member>\`
-                • **revoke** \`<member>\`
+				• **revoke** \`<member>\`
+				• **force-revoke** \`<member>\` \`<user>\`
                 `,
 				usage: '<method> <...arguments>',
 				examples: [
@@ -23,6 +24,8 @@ export default class BoosterPassCommand extends MinehutCommand {
 					'info 535986058991501323',
 					'revoke @Facto',
 					'revoke 535986058991501323',
+					'force-revoke @jellz @ronthecookie',
+					'force-revoke 399406110261641216 142244934139904000'
 				],
 			},
 			category: 'boosterpass',
