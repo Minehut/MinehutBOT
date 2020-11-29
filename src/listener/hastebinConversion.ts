@@ -44,7 +44,7 @@ export default class HastebinConversionListener extends Listener {
 			)!
 		);
 		const embed = new MessageEmbed()
-			.setTitle(hastebinUrl)
+			.setDescription(`__[View ${messageAttachment.name || "attachment"} on hastebin](${hastebinUrl})__.`)
 			.setFooter(`Requested by ${msg.author.tag}`, msg.author.avatarURL()!)
 			.setColor('BLUE');
 		await msg.channel.send(embed);
