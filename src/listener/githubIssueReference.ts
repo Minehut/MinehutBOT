@@ -31,7 +31,7 @@ export default class GithubIssueReferenceListener extends Listener {
 					`gh-${issueNumber}-${msg.channel.id}`
 				)
 			)
-				return msg.react('⏲️');
+			return msg.react('⏲️');
 			const issue = await getIssue(
 				this.client,
 				config.features.githubIssue.githubRepoOwner,
