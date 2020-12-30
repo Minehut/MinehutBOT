@@ -63,7 +63,7 @@ export default class ServerInfoCommand extends MinehutCommand {
 									? 'Yes'
 									: 'No'
 								: server.serverProperties[key].toString().length > 0
-								? `\`${server.serverProperties[key]}\``
+								? `\`${truncate(server.serverProperties[key], { length: 50 })}\``
 								: truncate(server.serverProperties[key]+"", { length: 50 })
 						}`
 				),
