@@ -56,7 +56,7 @@ export default class GithubIssueReferenceListener extends Listener {
 					.setAuthor(
 						issue.data.user.login,
 						issue.data.user.avatar_url,
-						issue.data.user.avatar_url
+						issue.data.user.html_url
 					)
 					.setColor(issue.data.state === 'open' ? 'GREEN' : 'RED')
 					.setFooter(
