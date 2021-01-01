@@ -152,6 +152,7 @@ guildConfigs.set('546414872196415501', {
 			prefix: '',
 		},
 		censor: {
+			inviteWhitelist: INVITE_WHITELIST,
 			allowSwearing: true,
 			minimumChatPermission: PermissionLevel.Everyone,
 			overrides: [],
