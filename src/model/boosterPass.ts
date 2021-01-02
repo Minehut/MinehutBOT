@@ -74,7 +74,7 @@ export class BoosterPass {
 					boosterPassReceiver
 				);
 				if (
-					receiverReceivedPasses.length < 0 &&
+					receiverReceivedPasses.length <= 0 &&
 					boosterPassReceiver.roles.cache.has(boosterPassRole)
 				)
 					boosterPassReceiver.roles.remove(boosterPassRole);
