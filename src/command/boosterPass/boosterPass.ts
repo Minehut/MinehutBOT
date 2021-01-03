@@ -36,10 +36,10 @@ export default class BoosterPassCommand extends MinehutCommand {
 	*args() {
 		const method = yield {
 			type: [
-				['boosterpass-give', 'give'],
-				['boosterpass-revoke', 'revoke'],
+				['boosterpass-give', 'give', 'grant'],
+				['boosterpass-revoke', 'revoke', 'remove'],
 				['boosterpass-info', 'info'],
-				['boosterpass-force-revoke', 'force-revoke']
+				['boosterpass-force-revoke', 'force-revoke', 'force-remove']
 			],
 			otherwise: (msg: Message) => {
 				const prefix = (this.handler.prefix as PrefixSupplier)(msg) as string;
