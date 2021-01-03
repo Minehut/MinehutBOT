@@ -35,7 +35,7 @@ export default class PluginInfoCommand extends MinehutCommand {
 		);
 		const plugins = await this.getData('https://api.minehut.com/plugins_public');
 		const plugin = plugins.all.filter((x: any) => x.name.includes(pluginName) || x._id === pluginName)[0];
-		if(!plugin) return m.edit(`${process.env.EMOJI_CROSS} could not fetch server`);
+		if(!plugin) return m.edit(`${process.env.EMOJI_CROSS} could not fetch plugin`);
 		const embed: MessageEmbed = new MessageEmbed();
 		embed.setTitle(`${plugin.name}`);
 		embed.setDescription(plugin.desc);
