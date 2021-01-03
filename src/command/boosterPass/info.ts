@@ -21,11 +21,7 @@ export default class BoosterInfoCommand extends MinehutCommand {
 				{
 					id: 'member',
 					type: 'member',
-					prompt: {
-						start: (msg: Message) =>
-							`${msg.author}, whose booster passes should I look up?`,
-						retry: (msg: Message) => `${msg.author}, please mention a member.`,
-					},
+					default: (msg: Message) => msg.member,
 				},
 			],
 		});
