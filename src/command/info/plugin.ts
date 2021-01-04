@@ -1,6 +1,5 @@
 import { MinehutCommand } from '../../structure/command/minehutCommand';
-import { Message } from 'discord.js';
-import { MessageEmbed } from 'discord.js';
+import { Message, MessageEmbed } from 'discord.js';
 import { prettyDate } from '../../util/functions';
 import fetch from 'node-fetch';
 
@@ -18,6 +17,7 @@ export default class PluginInfoCommand extends MinehutCommand {
 				{
 					id: 'pluginName',
 					type: 'string',
+					match: 'rest',
 					prompt: {
 						start: (msg: Message) =>
 							`${msg.author}, what plugin would you like to look up?`,
@@ -34,7 +34,7 @@ export default class PluginInfoCommand extends MinehutCommand {
 			`${process.env.EMOJI_LOADING} fetching plugin **${pluginName}**`
 		);
 		const plugins = await this.getData('https://api.minehut.com/plugins_public');
-		const plugin = plugins.all.filter((x: any) => x.name.includes(pluginName) || x._id === pluginName)[0];
+		const plugin = plugins.all.filter((x: any) => x.name === pluginName || x._id === pluginName)[0];
 		if(!plugin) return m.edit(`${process.env.EMOJI_CROSS} could not fetch plugin`);
 		const embed: MessageEmbed = new MessageEmbed();
 		embed.setTitle(`${plugin.name}`);
