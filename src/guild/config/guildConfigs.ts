@@ -4,12 +4,6 @@ import { PermissionLevel } from '../../util/permission/permissionLevel';
 
 export const guildConfigs: Map<string, GuildConfiguration> = new Map();
 
-guildConfigs.set('731984954174734356', {
-	id: '731984954174734356',
-	roles: {},
-	features: {}
-})
-
 // Main Minehut discord
 guildConfigs.set('239599059415859200', {
 	id: '239599059415859200',
