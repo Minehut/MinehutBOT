@@ -21,7 +21,7 @@ export default class TagCommand extends MinehutCommand {
 				• **list**
 				• **rename** \`<old name> <new name>\`
 				• **delete** \`<name>\`
-				* **setsection** \`<name> <section>\`
+				• **setsection** \`<name> <section>\`
 				`,
 				usage: '<method> <...arguments>',
 				examples: [
