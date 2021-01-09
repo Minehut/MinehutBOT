@@ -21,11 +21,12 @@ export default class TagCommand extends MinehutCommand {
 				• **list**
 				• **rename** \`<old name> <new name>\`
 				• **delete** \`<name>\`
+				* **setsection** \`<name> <section>\`
 				`,
 				usage: '<method> <...arguments>',
 				examples: [
 					'show meta',
-					'set minehut :point_right: If you want a great server host, use minehut.com',
+					'set informative minehut :point_right: If you want a great server host, use minehut.com',
 					'setalias mh minehut',
 					'deletealias mh',
 					'info minehut',
@@ -33,6 +34,7 @@ export default class TagCommand extends MinehutCommand {
 					'source timings',
 					'rename minehut memehut',
 					'delete memehut',
+					'setsection minehut useful',
 				],
 			},
 			category: 'tag',
@@ -58,6 +60,8 @@ export default class TagCommand extends MinehutCommand {
 				['tag-setalias', 'setalias'],
 				['tag-deletealias', 'deletealias'],
 				['tag-deletealias', 'delalias'],
+
+				['tag-setsection', 'setsection']
 			],
 			otherwise: (msg: Message) => {
 				const prefix = (this.handler.prefix as PrefixSupplier)(msg) as string;

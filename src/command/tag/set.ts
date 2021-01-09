@@ -16,6 +16,14 @@ export default class TagSetCommand extends MinehutCommand {
 			},
 			args: [
 				{
+					id: 'section',
+					type: 'string',
+					prompt: {
+						start: (msg: Message) =>
+							`${msg.author}, what section does the tag belong in?`,
+					},
+				},
+				{
 					id: 'name',
 					type: 'string',
 					prompt: {
@@ -38,11 +46,12 @@ export default class TagSetCommand extends MinehutCommand {
 
 	async exec(
 		msg: Message,
-		{ name, content }: { name: string; content: string }
+		{ section, name, content }: { section: string; name: string; content: string }
 	) {
 		name = name.replace(/\s+/g, '-').toLowerCase();
 		const prefix = (this.handler.prefix as PrefixSupplier)(msg) as string;
 		const tag = {
+			section,
 			name,
 			content,
 			author: msg.author.id,
