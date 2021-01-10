@@ -11,7 +11,7 @@ export default class UnMuteCommand extends MinehutCommand {
 	constructor() {
 		super('unMute', {
 			aliases: ['unmute'],
-			permissionLevel: PermissionLevel.JuniorModerator,
+			permissionLevel: PermissionLevel.SuperHelper,
 			category: 'mod',
 			channel: 'guild',
 			clientPermissions: ['MANAGE_ROLES'],

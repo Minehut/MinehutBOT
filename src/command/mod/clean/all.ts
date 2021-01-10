@@ -7,7 +7,7 @@ export default class CleanAllCommand extends MinehutCommand {
 		super('clean-all', {
 			category: 'mod',
 			channel: 'guild',
-			permissionLevel: PermissionLevel.JuniorModerator,
+			permissionLevel: PermissionLevel.SuperHelper,
 			description: {
 				content: 'Clean x amount of messages',
 				usage: '<count>',

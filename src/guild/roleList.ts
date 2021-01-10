@@ -11,10 +11,10 @@ export interface RoleList {
 	robot?: string;
 	buildTeam?: string;
 	builder?: string;
-	support?: string;
+	helper?: string;
 	staff?: string;
 	mentor?: string;
-	juniorModerator?: string;
+	superhelper?: string;
 	moderator?: string;
 	seniorModerator?: string;
 	manager?: string;

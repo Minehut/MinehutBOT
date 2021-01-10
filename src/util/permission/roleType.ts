@@ -12,11 +12,11 @@ export enum RoleType {
 	Robot = 'robot',
 	BuildTeam = 'buildTeam',
 	Builder = 'builder',
-	Support = 'support',
 
 	Staff = 'staff',
 	Mentor = 'mentor',
-	JuniorModerator = 'juniorModerator',
+	SuperHelper = 'superHelper',
+	Helper = 'helper',
 	Moderator = 'moderator',
 	SeniorModerator = 'seniorModerator',
 	Manager = 'manager',
