@@ -18,9 +18,6 @@ export function resolvePermissionLevelFromRoleType(roleType: string) {
 		case RoleType.NitroBooster:
 			return PermissionLevel.NitroBooster;
 
-		case RoleType.Support:
-			return PermissionLevel.Support;
-
 		case RoleType.Advisor:
 			return PermissionLevel.Advisor;
 
@@ -30,11 +27,14 @@ export function resolvePermissionLevelFromRoleType(roleType: string) {
 		case RoleType.YouTube:
 			return PermissionLevel.YouTube;
 
+		case RoleType.Helper:
+			return PermissionLevel.Helper;
+
 		case RoleType.Robot:
 			return PermissionLevel.Robot;
 
-		case RoleType.JuniorModerator:
-			return PermissionLevel.JuniorModerator;
+		case RoleType.SuperHelper:
+			return PermissionLevel.SuperHelper;
 
 		case RoleType.Moderator:
 			return PermissionLevel.Moderator;
