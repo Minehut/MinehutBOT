@@ -14,7 +14,7 @@ export interface RoleList {
 	helper?: string;
 	staff?: string;
 	mentor?: string;
-	superhelper?: string;
+	superHelper?: string;
 	moderator?: string;
 	seniorModerator?: string;
 	manager?: string;
