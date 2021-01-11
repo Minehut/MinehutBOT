@@ -12,7 +12,7 @@ export default class TagSetCommand extends MinehutCommand {
 			channel: 'guild',
 			description: {
 				content: 'Set/edit a tag',
-				usage: '<name> <content>',
+				usage: '<section> <name> <content>',
 			},
 			args: [
 				{
