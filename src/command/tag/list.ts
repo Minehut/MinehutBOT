@@ -22,9 +22,20 @@ export default class TagListCommand extends MinehutCommand {
 		const embed = new MessageEmbed();
 		embed.setColor('ORANGE');
 		embed.setTitle(`Showing ${tags.length} tags`);
-		embed.setDescription(
-			truncate(tags.map(t => `\`${t.name}\``).join(', '), { length: 2048 })
-		);
+		const fields: { [ key: string ] : typeof tags[0][] } = {};
+		for (const tag of tags) {
+			if (!fields[tag.section || 'Uncategorized'])
+				fields[tag.section || 'Uncategorized'] = [];
+			fields[tag.section || 'Uncategorized'].push(tag);
+		}
+		for (const name in fields) {
+			const field: object[] = fields[name];
+			const mapped: string = truncate(
+				field.map((t: { name? : string }) => `\`${t.name}\``).join(', '),
+				{ length: 512 }
+			);
+			embed.addField(name, mapped, true);
+		}
 		msg.channel.send(embed);
 	}
 }
