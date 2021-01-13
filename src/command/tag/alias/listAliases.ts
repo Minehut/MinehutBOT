@@ -19,30 +19,48 @@ export default class TagListAliasesCommand extends MinehutCommand {
 			description: {
 				content: 'List all tag aliases',
 			},
+			args: [
+				{
+					id: 'page',
+					type: 'number',
+					default: 1,
+				},
+			],
 		});
 	}
 
-	async exec(msg: Message) {
+	async exec(msg: Message, { page }: { page: number }) {
 		const tags = await TagModel.find();
 		const embed = new MessageEmbed();
 		embed.setColor('ORANGE');
-		embed.setTitle(`Showing all tag aliases`);
+        page = Math.floor(page);
 		const aliases: TagAlias[] = [];
 		tags.forEach(t => {
 			if (t.aliases.length > 0)
 				t.aliases.forEach(a => aliases.push({ name: t.name, alias: a }));
-		});
-		// TODO: use pagination here
+        });
+        const max = Math.ceil(aliases.length / 16);
+        if(page < 1) page = 1;
+        if(page > max) page = max;
+        const output: string[] = [];
+        embed.setTitle(`Showing page ${page} of all tag aliases`);
 		embed.setDescription(
 			truncate(
-				aliases
-					.map(
-						a =>
-							`:small_orange_diamond: \`${a.alias}\` :point_right: \`${a.name}\``
-					)
-					.join('\n'),
+				(() => {
+					for (const x of aliases.slice(page === 1 ? 0 : (page - 1) * 16, page * 16)) {
+						output.push(
+							`:small_orange_diamond: \`${x.alias}\` :point_right: \`${x.name}\``
+						);
+					}
+					return output.join('\n');
+				})(),
 				{ length: 2045 }
 			)
+		);
+		embed.setFooter(
+			`Page ${page} out of ${max} pages; ${
+				output.length
+			} aliases shown.`
 		);
 		msg.channel.send(embed);
 	}
