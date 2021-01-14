@@ -14,7 +14,7 @@ export default class TagCommand extends MinehutCommand {
 				• **show** \`<name/alias>\`
 				• **set** \`<name> <content>\`
 				• **setalias** \`<alias> <target>\`
-				• **listaliases** [page]
+				• **listaliases**
 				• **deletealias** \`<alias>\`
 				• **info** \`<name/alias>\`
 				• **source** \`<name/alias>\`
