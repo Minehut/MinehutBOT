@@ -1,9 +1,10 @@
 import { Message } from 'discord.js';
 import { TagModel } from '../../../model/tag';
 import { MessageEmbed } from 'discord.js';
-import { truncate } from 'lodash';
+import { truncate, chunk } from 'lodash';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../../util/permission/permissionLevel';
+import { editMessageWithPaginatedEmbeds } from 'discord.js-pagination-ts';
 
 interface TagAlias {
 	name: string;
@@ -19,49 +20,46 @@ export default class TagListAliasesCommand extends MinehutCommand {
 			description: {
 				content: 'List all tag aliases',
 			},
-			args: [
-				{
-					id: 'page',
-					type: 'number',
-					default: 1,
-				},
-			],
 		});
 	}
 
-	async exec(msg: Message, { page }: { page: number }) {
+	async exec(msg: Message) {
+		const m = await msg.channel.send(
+			`${process.env.EMOJI_LOADING} Retrieving tag aliases.`
+		);
 		const tags = await TagModel.find();
-		const embed = new MessageEmbed();
-		embed.setColor('ORANGE');
-        page = Math.floor(page);
 		const aliases: TagAlias[] = [];
 		tags.forEach(t => {
 			if (t.aliases.length > 0)
 				t.aliases.forEach(a => aliases.push({ name: t.name, alias: a }));
-        });
-        const max = Math.ceil(aliases.length / 16);
-        if(page < 1) page = 1;
-        if(page > max) page = max;
-        const output: string[] = [];
-        embed.setTitle(`Showing page ${page} of all tag aliases`);
-		embed.setDescription(
-			truncate(
-				(() => {
-					for (const x of aliases.slice(page === 1 ? 0 : (page - 1) * 16, page * 16)) {
-						output.push(
-							`:small_orange_diamond: \`${x.alias}\` :point_right: \`${x.name}\``
-						);
-					}
-					return output.join('\n');
-				})(),
-				{ length: 2045 }
-			)
+		});
+		if (aliases.length < 1) {
+			return m.edit(`${process.env.EMOJI_DAB} No tag aliases found`);
+		}
+		const items = aliases.map(
+			a => `:small_orange_diamond: \`${a.alias}\` :point_right: \`${a.name}\``
 		);
-		embed.setFooter(
-			`Page ${page} out of ${max} pages; ${
-				output.length
-			} aliases shown.`
-		);
-		msg.channel.send(embed);
+		const chunks = chunk(items, 16);
+		const embeds = [];
+		for (let i = 0; i < chunks.length; i++) {
+			const page = i + 1;
+			embeds.push(
+				new MessageEmbed()
+					.setDescription(
+						truncate(chunks[i].join('\n'), {
+							length: 2000,
+						})
+					)
+					.setColor('ORANGE')
+					.setAuthor(`Listing tag aliases`)
+					.setFooter(`**__Showing page ${page} of ${chunks.length}**__`)
+			);
+		}
+		editMessageWithPaginatedEmbeds(m, embeds, {
+			owner: msg.author,
+			footer: `Showing page {current} of {max} • ${items.length} tag${
+				items.length > 1 ? 's' : ''
+			}`,
+		});
 	}
 }
