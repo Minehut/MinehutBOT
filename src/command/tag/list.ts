@@ -17,7 +17,7 @@ export default class TagListCommand extends MinehutCommand {
 			},
 			args: [
 				{
-					id: 'section',
+					id: 'category',
 					type: 'string',
 					default: null,
 				},
@@ -25,15 +25,15 @@ export default class TagListCommand extends MinehutCommand {
 		});
 	}
 
-	async exec(msg: Message, { section }: { section: string }) {
+	async exec(msg: Message, { category }: { category: string }) {
 		const tags = await TagModel.find().sort('name');
 		const fields: { [key: string]: typeof tags[0][] } = {};
 		for (const tag of tags) {
-			if (!fields[tag.section || 'Uncategorized'])
-				fields[tag.section || 'Uncategorized'] = [];
-			fields[tag.section || 'Uncategorized'].push(tag);
+			if (!fields[tag.category || 'Uncategorized'])
+				fields[tag.category || 'Uncategorized'] = [];
+			fields[tag.category || 'Uncategorized'].push(tag);
 		}
-		if (!section) {
+		if (!category) {
 			const embed = new MessageEmbed();
 			embed.setColor('ORANGE');
 			embed.setTitle(`Showing ${tags.length} tags`);
@@ -49,18 +49,18 @@ export default class TagListCommand extends MinehutCommand {
 		} else {
 			let exists = false;
 			for (const field in fields)
-				if (field.toLowerCase() === section.toLowerCase()) {
+				if (field.toLowerCase() === category.toLowerCase()) {
 					exists = true;
-					section = field;
+					category = field;
 				}
 			if (!exists)
 				return msg.channel.send(
-					`${process.env.EMOJI_CROSS} Section \`${section}\` does not exist.`
+					`${process.env.EMOJI_CROSS} Category \`${category}\` does not exist.`
 				);
 			const m = await msg.channel.send(
-				`${process.env.EMOJI_LOADING} Fetching tags in section \`${section}\`.`
+				`${process.env.EMOJI_LOADING} Fetching tags in category \`${category}\`.`
 			);
-			const items: string[] = fields[section].map(
+			const items: string[] = fields[category].map(
 				(t: { name?: string }) => `\`${t.name}\``
 			);
 			const chunks = chunk(items, 30);
@@ -75,7 +75,7 @@ export default class TagListCommand extends MinehutCommand {
 							})
 						)
 						.setColor('ORANGE')
-						.setAuthor(`Listing tags in section ${section}`)
+						.setAuthor(`Listing tags in category ${category}`)
 						.setFooter(`**__Showing page ${page} of ${chunks.length}**__`)
 				);
 			}
