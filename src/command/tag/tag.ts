@@ -18,7 +18,7 @@ export default class TagCommand extends MinehutCommand {
 				• **deletealias** \`<alias>\`
 				• **info** \`<name/alias>\`
 				• **source** \`<name/alias>\`
-				• **list**
+				• **list \`[section]\`**
 				• **rename** \`<old name> <new name>\`
 				• **delete** \`<name>\`
 				• **setsection** \`<name> <section>\`
