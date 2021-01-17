@@ -1,12 +1,15 @@
 import { Collection } from 'discord.js';
 
-const EXPIRED_MS = 600000; // 10 minutes
-
+/* 
+	This class can be used to manage caches for anything;
+	It was originally created to manage the cache for github issue referencing
+	But it is written in a way that it can be initialised and used to manage any cache
+*/
 export class CacheManager<K, V> {
 	private store: Collection<K, V>;
 	private time: Collection<K, Date | number>;
 
-	constructor() {
+	constructor(private readonly expiredMS: number) {
 		this.store = new Collection();
 		this.time = new Collection();
 	}
@@ -26,19 +29,19 @@ export class CacheManager<K, V> {
 		return null;
 	}
 
-	addIssue(key: K, value: V) {
+	addValue(key: K, value: V) {
 		this.store.set(key, value);
 		this.time.set(key, Date.now());
-		setTimeout(() => this.removeIssue(key), EXPIRED_MS);
+		setTimeout(() => this.removeValue(key), this.expiredMS);
 	}
 
-	removeIssue(key: K) {
+	removeValue(key: K) {
 		if (this.store.delete(key) && this.time.delete(key)) return true;
 		return false;
 	}
 
 	getType() {
-		if (typeof this.store === typeof this.time) return typeof this.store;
+		if (typeof this.store) return typeof this.store;
 		return null;
 	}
 }
