@@ -274,7 +274,7 @@ export async function getIssue(
 			issue_number: issueNumber,
 		});
 		if (issue.data.pull_request) return null;
-		client.githubCacheManager.addIssue(issueNumber, issue);
+		client.githubCacheManager.addValue(issueNumber, issue);
 		return issue;
 	} catch {
 		return null;
