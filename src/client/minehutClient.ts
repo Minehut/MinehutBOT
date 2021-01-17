@@ -105,7 +105,7 @@ export class MinehutClient extends AkairoClient {
 		this.hastebinCooldownManager = new CooldownManager(10000);
 		this.githubCooldownManager = new CooldownManager(10000);
 
-		this.githubCacheManager = new CacheManager();
+		this.githubCacheManager = new CacheManager(600000);
 
 		this.minehutApi = new Minehut();
 
