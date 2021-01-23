@@ -12,6 +12,18 @@ export const ALL_MODLOG_EVENTS = [
 	'caseDurationUpdate', //added
 	'memberRolesUpdate', //added
 	'command', //added
+	'boosterPassGrant', //added
+	'boosterPassRevoke', //added
+];
+
+export const HASTEBIN_EXTENSIONS_WHITELIST = [
+	'txt',
+	'log',
+	'json',
+	'yml',
+	'yaml',
+	'properties',
+	'sk',
 ];
 
 export const INVITE_WHITELIST = [

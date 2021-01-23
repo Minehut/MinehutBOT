@@ -3,6 +3,9 @@ import { ModelType } from '@typegoose/typegoose/lib/types';
 
 export class Tag {
 	@prop({ required: true })
+	section!: string;
+
+	@prop({ required: true })
 	name!: string;
 
 	@prop({ required: true })

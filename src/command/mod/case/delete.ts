@@ -31,7 +31,9 @@ export default class CaseDeleteCommand extends MinehutCommand {
 
 	async exec(msg: Message, { c }: { c: DocumentType<Case> }) {
 		if (c.active)
-			return msg.channel.send(`${process.env.EMOJI_CROSS} cannot delete an active case`);
+			return msg.channel.send(
+				`${process.env.EMOJI_CROSS} cannot delete an active case`
+			);
 		await c.remove();
 		this.client.emit('caseDelete', c, msg.member!);
 		msg.channel.send(`${process.env.EMOJI_CHECK} deleted case #${c.id}`);

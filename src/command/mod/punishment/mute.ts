@@ -12,7 +12,7 @@ export default class MuteCommand extends MinehutCommand {
 	constructor() {
 		super('mute', {
 			aliases: ['mute'],
-			permissionLevel: PermissionLevel.JuniorModerator,
+			permissionLevel: PermissionLevel.SuperHelper,
 			category: 'mod',
 			channel: 'guild',
 			clientPermissions: ['MANAGE_ROLES'],
@@ -56,7 +56,9 @@ export default class MuteCommand extends MinehutCommand {
 		if (!member || !duration)
 			return msg.channel.send(MESSAGES.commands.useHelp(prefix, 'mute'));
 		if (!member.manageable)
-			return msg.channel.send(`${process.env.EMOJI_CROSS} I cannot mute that member`);
+			return msg.channel.send(
+				`${process.env.EMOJI_CROSS} I cannot mute that member`
+			);
 		if (!guildConfigs.get(msg.guild!.id)?.roles.muted)
 			throw new Error('No mute role set in config');
 		const humanReadable =

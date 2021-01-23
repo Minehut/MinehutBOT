@@ -13,6 +13,12 @@ import MinehutClientEvents from './minehutClientEvents';
 
 import { Minehut } from 'minehut';
 import { FOREVER_MS, MESSAGES } from '../util/constants';
+import { Argument } from 'discord-akairo';
+import { GuildMember } from 'discord.js';
+import { BoosterPassModel } from '../model/boosterPass';
+import { CacheManager } from '../structure/cacheManager';
+
+import { OctokitResponse, IssuesGetResponseData } from '@octokit/types';
 
 export class MinehutClient extends AkairoClient {
 	commandHandler: CommandHandler;
@@ -23,6 +29,10 @@ export class MinehutClient extends AkairoClient {
 	muteScheduler: MuteScheduler;
 
 	tagCooldownManager: CooldownManager;
+	hastebinCooldownManager: CooldownManager;
+	githubCooldownManager: CooldownManager;
+  
+	githubCacheManager: CacheManager<number, any>;
 
 	minehutApi: Minehut;
 
@@ -92,6 +102,10 @@ export class MinehutClient extends AkairoClient {
 		this.muteScheduler = new MuteScheduler(this);
 
 		this.tagCooldownManager = new CooldownManager(10000);
+		this.hastebinCooldownManager = new CooldownManager(10000);
+		this.githubCooldownManager = new CooldownManager(10000);
+
+		this.githubCacheManager = new CacheManager(600000);
 
 		this.minehutApi = new Minehut();
 
@@ -157,6 +171,29 @@ export class MinehutClient extends AkairoClient {
 				);
 			return null;
 		});
+
+		this.commandHandler.resolver.addType(
+			'boosterPassReceived',
+			async (msg, phrase) => {
+				let id = phrase;
+				// attempt to cast as a member and use the member type to get the id that way
+				const member: GuildMember = await Argument.cast(
+					'member',
+					this.commandHandler.resolver,
+					msg,
+					phrase
+				);
+				if (!Argument.isFailure(member))
+					id = member.id;
+				const grantedBoosterPasses = await BoosterPassModel.getGrantedByMember(
+					msg.member!
+				);
+				const boosterPassReceived = grantedBoosterPasses.find(
+					bp => bp.grantedId === id
+				);
+				return boosterPassReceived;
+			}
+		);
 	}
 }
 
@@ -169,6 +206,12 @@ declare module 'discord-akairo' {
 		banScheduler: BanScheduler;
 		muteScheduler: MuteScheduler;
 		tagCooldownManager: CooldownManager;
+		hastebinCooldownManager: CooldownManager;
+		githubCooldownManager: CooldownManager;
+		githubCacheManager: CacheManager<
+			number,
+			Promise<OctokitResponse<IssuesGetResponseData>>
+		>;
 		minehutApi: Minehut;
 
 		start(token: string): void;

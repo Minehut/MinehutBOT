@@ -7,14 +7,22 @@ import { PermissionLevel } from '../../util/permission/permissionLevel';
 export default class TagSetCommand extends MinehutCommand {
 	constructor() {
 		super('tag-set', {
-			permissionLevel: PermissionLevel.Support,
+			permissionLevel: PermissionLevel.Helper,
 			category: 'tag',
 			channel: 'guild',
 			description: {
 				content: 'Set/edit a tag',
-				usage: '<name> <content>',
+				usage: '<section> <name> <content>',
 			},
 			args: [
+				{
+					id: 'section',
+					type: 'string',
+					prompt: {
+						start: (msg: Message) =>
+							`${msg.author}, what section does the tag belong in?`,
+					},
+				},
 				{
 					id: 'name',
 					type: 'string',
@@ -38,11 +46,12 @@ export default class TagSetCommand extends MinehutCommand {
 
 	async exec(
 		msg: Message,
-		{ name, content }: { name: string; content: string }
+		{ section, name, content }: { section: string; name: string; content: string }
 	) {
 		name = name.replace(/\s+/g, '-').toLowerCase();
 		const prefix = (this.handler.prefix as PrefixSupplier)(msg) as string;
 		const tag = {
+			section,
 			name,
 			content,
 			author: msg.author.id,
@@ -55,8 +64,12 @@ export default class TagSetCommand extends MinehutCommand {
 			);
 		if (!(await TagModel.exists({ name }))) {
 			TagModel.create(tag);
-			return msg.channel.send(`${process.env.EMOJI_CHECK} tag \`${tag.name}\` created`);
+			return msg.channel.send(
+				`${process.env.EMOJI_CHECK} tag \`${tag.name}\` created`
+			);
 		} else await TagModel.updateOne({ name }, tag);
-		return msg.channel.send(`${process.env.EMOJI_CHECK} tag \`${tag.name}\` updated`);
+		return msg.channel.send(
+			`${process.env.EMOJI_CHECK} tag \`${tag.name}\` updated`
+		);
 	}
 }

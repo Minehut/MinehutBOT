@@ -45,9 +45,10 @@ export default class TagInfoCommand extends MinehutCommand {
 		if (tag.aliases.length > 0)
 			embed.addField(
 				'Aliases',
-				tag.aliases.map(a => `\`${a}\``).join(', '),
+				tag.aliases.map((a: string) => `\`${a}\``).join(', '),
 				true
 			);
+		embed.addField('Section', tag.section, true);
 		embed.addField('Uses', tag.uses, true);
 		const author = await this.client.users.fetch(tag.author);
 		embed.addField(

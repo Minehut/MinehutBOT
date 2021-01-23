@@ -14,7 +14,9 @@ export default class NetworkStatsCommand extends MinehutCommand {
 	}
 
 	async exec(msg: Message) {
-		const m = await msg.channel.send(`${process.env.EMOJI_LOADING} fetching network stats`);
+		const m = await msg.channel.send(
+			`${process.env.EMOJI_LOADING} fetching network stats`
+		);
 		try {
 			const simpleStats = await this.client.minehutApi.getSimpleStats();
 			const playerDistribution = await this.client.minehutApi.getPlayerDistribution();

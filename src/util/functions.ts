@@ -1,4 +1,4 @@
-import { CaseType, IMAGE_LINK_REGEX } from './constants';
+import { CaseType, HASTEBIN_URI, IMAGE_LINK_REGEX } from './constants';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
 import { guildConfigs } from '../guild/config/guildConfigs';
@@ -9,6 +9,10 @@ import { MinehutClient } from '../client/minehutClient';
 import { cloneDeep } from 'lodash';
 import { PermissionLevel } from './permission/permissionLevel';
 import path from 'path';
+import { GuildMember } from 'discord.js';
+import { BoosterPassModel } from '../model/boosterPass';
+import fetch from 'node-fetch';
+import { Octokit } from '@octokit/rest';
 
 TimeAgo.addLocale(en);
 export const ago = new TimeAgo('en-US');
@@ -156,7 +160,7 @@ export async function censorMessage(msg: Message) {
 		: featureConf;
 	const bypassCensor =
 		getPermissionLevel(msg.member!, msg.client as MinehutClient) >=
-		(censorConfig.minimumBypassPermission || PermissionLevel.JuniorModerator);
+		(censorConfig.minimumBypassPermission || PermissionLevel.Helper);
 	if (bypassCensor) return;
 
 	const canChat =
@@ -256,5 +260,63 @@ export function findImgFromMsg(msg: Message) {
 			returnAttachment = match[0];
 	}
 
-	return returnAttachment;
+	 return returnAttachment;
+}
+
+export async function revokeGrantedBoosterPasses(member: GuildMember) {
+    const boosterPasses = await BoosterPassModel.getGrantedByMember(member);
+    if (boosterPasses.length > 0) 
+        boosterPasses.forEach(async bp => {
+            await bp.remove();
+            const boosterPassRole = guildConfigs
+                .get(member.guild.id)?.roles.boostersPass;
+            if (!boosterPassRole)
+                throw new Error(`Guild ${member.guild.id} does not have a configured booster pass role!`);
+            const boosterPassReceiver = await member.guild.members.fetch(bp.grantedId);
+            if (!boosterPassReceiver) return;
+            const receiverReceivedPasses = await BoosterPassModel.getReceivedByMember(boosterPassReceiver);
+            if (
+                receiverReceivedPasses.length < 0 &&
+                boosterPassReceiver.roles.cache.has(boosterPassRole)
+            )
+                boosterPassReceiver.roles.remove(boosterPassRole);
+        });  
+}
+
+export async function generateHastebinFromInput(input: string, ext: string) {
+	const res = await fetch(`${HASTEBIN_URI}/documents`, {
+		method: 'POST',
+		body: input,
+		headers: { 'Content-Type': 'text/plain' },
+	});
+	if (!res.ok)
+		throw new Error(`Error while generating hastebin: ${res.statusText}`);
+	const { key }: { key: string } = await res.json();
+	return `${HASTEBIN_URI}/${key}.${ext}`;
+}
+
+const octokit = new Octokit();
+export async function getIssue(
+	client: MinehutClient,
+	repoOwner: string,
+	repoName: string,
+	issueNumber: number,
+	bypassCache?: boolean
+) {
+	if (!bypassCache) {
+		const issue = client.githubCacheManager.getValue(issueNumber);
+		if (issue) return issue; // Checks if issue is stored locally to reduce the number of API requests
+	}
+	try {
+		const issue = await octokit.issues.get({
+			owner: repoOwner,
+			repo: repoName,
+			issue_number: issueNumber,
+		});
+		if (issue.data.pull_request) return null;
+		client.githubCacheManager.addValue(issueNumber, issue);
+		return issue;
+	} catch {
+		return null;
+	}
 }

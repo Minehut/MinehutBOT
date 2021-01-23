@@ -1,5 +1,5 @@
 import { GuildConfiguration } from './guildConfiguration';
-import { ALL_MODLOG_EVENTS, INVITE_WHITELIST } from './common';
+import { ALL_MODLOG_EVENTS, HASTEBIN_EXTENSIONS_WHITELIST, INVITE_WHITELIST } from './common';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
 
 export const guildConfigs: Map<string, GuildConfiguration> = new Map();
@@ -18,9 +18,9 @@ guildConfigs.set('239599059415859200', {
 		superLeague: '470655938018279448',
 		youTube: '588769186621161503',
 		buildTeam: '502570149157797898',
-		support: '726663955065470997',
+		helper: '726663955065470997',
 		robot: '394262717663412224',
-		juniorModerator: '276887063683399680',
+		superHelper: '276887063683399680',
 		moderator: '246487117000212480',
 		seniorModerator: '291735862759129088',
 		manager: '591722355273760825',
@@ -73,6 +73,13 @@ guildConfigs.set('239599059415859200', {
 				{ roleId: '493253127366115360', emoji: 'HypeBadge' },
 			],
 		},
+		boosterPass: {
+			maximumGrantedBoosterPasses: 2,
+		},
+		hastebinConversion: {
+			ignoredChannels: ['480889821225549824'],
+			whitelistedExtensions: HASTEBIN_EXTENSIONS_WHITELIST
+		}
 	},
 });
 
@@ -87,7 +94,7 @@ guildConfigs.set('370014721556086794', {
 		builder: '502214335725174790',
 		staff: '615653607274184723',
 		mentor: '678685808282173449',
-		juniorModerator: '396472533668462592',
+		helper: '396472533668462592',
 		moderator: '391351349893136394',
 		seniorModerator: '396139742368104457',
 		developer: '391351204187340821',
@@ -113,8 +120,7 @@ guildConfigs.set('715281101479739543', {
 		moderator: '715281911529996430',
 		seniorModerator: '715281850385301616',
 		manager: '732327323780513902',
-		admin: '715281797017108531',
-		support: '715282098205884476',
+		admin: '715281797017108531'
 	},
 	features: {
 		modLog: {
@@ -132,10 +138,9 @@ guildConfigs.set('546414872196415501', {
 		nitroBooster: '639198630800130079',
 		superLeague: '728320626670043257',
 		robot: '546490078571266050',
-		juniorModerator: '728319488558235719',
-		moderator: '728319531847516260',
+		moderator: '737150217476112424',
 		seniorModerator: '546415221212839947',
-		manager: '728319666581143575',
+		manager: '737496310793371734',
 		admin: '647224295554023446',
 	},
 	features: {
@@ -145,6 +150,7 @@ guildConfigs.set('546414872196415501', {
 			prefix: '',
 		},
 		censor: {
+			inviteWhitelist: INVITE_WHITELIST,
 			allowSwearing: true,
 			minimumChatPermission: PermissionLevel.Everyone,
 			overrides: [],
@@ -153,17 +159,25 @@ guildConfigs.set('546414872196415501', {
 			channels: [
 				{
 					channel: '744075635114115142', // #meta-feedback
-					reactions: [':yes:546414872196415501', ':no:546414872196415501'],
+					reactions: [':yes:546435721444196353', ':no:546435753719103488'],
 					allowMessageAuthorReacting: false,
 					allowMultipleUserReactions: false,
 				},
 				{
 					channel: '754091669548171357', // #filter-requests
-					reactions: [':yes:546414872196415501', ':no:546414872196415501'],
+					reactions: [':yes:546435721444196353', ':no:546435753719103488'],
 					allowMessageAuthorReacting: false,
 					allowMultipleUserReactions: false,
 				},
 			],
+		},
+		hastebinConversion: {
+			ignoredChannels: ['548317804076597249'],
+			whitelistedExtensions: HASTEBIN_EXTENSIONS_WHITELIST
+    },
+		githubIssue: {
+			githubRepoOwner: "Minehut",
+			githubRepoName: "Meta",
 		},
 	},
 });
@@ -182,54 +196,6 @@ guildConfigs.set('721155702915072040', {
 			channel: '721171219348717679',
 			events: ALL_MODLOG_EVENTS,
 			prefix: '',
-		},
-	},
-});
-
-// bot testing
-guildConfigs.set('608978588976283660', {
-	id: '608978588976283660',
-	prefix: '!',
-	roles: {
-		juniorModerator: '701854457331187763',
-		admin: '701854509164527707',
-		muted: '615630839438508062',
-		support: '728202547944357958',
-	},
-	features: {
-		modLog: {
-			channel: '726598891759468554',
-			events: ALL_MODLOG_EVENTS,
-			prefix: '',
-			ignoredChannels: [],
-		},
-		reactionRole: {
-			channel: '728201493555052641',
-			roles: [
-				{ roleId: '728202487672078368', emoji: '🤔' },
-				{ roleId: '728202547944357958', emoji: 'PepeClown' },
-			],
-		},
-		announcement: {
-			announcers: [
-				{
-					role: '701854509164527707',
-					channel: '728201493555052641',
-					name: 'event',
-				},
-			],
-		},
-		censor: {
-			inviteWhitelist: INVITE_WHITELIST,
-			overrides: [
-				{
-					id: '617438825144123432',
-					type: 'channel',
-					config: {
-						allowSwearing: true,
-					},
-				},
-			],
 		},
 	},
 });

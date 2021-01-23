@@ -12,11 +12,11 @@ export enum PermissionLevel {
 	Advisor = 5,
 
 	BuildTeam = 6,
-	Support = 7,
+	Helper = 7,
 
 	Robot = 8,
 
-	JuniorModerator = 9,
+	SuperHelper = 9,
 	Moderator = 10,
 	SeniorModerator = 11,
 

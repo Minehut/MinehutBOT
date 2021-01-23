@@ -13,7 +13,7 @@ export default class CaseDurationCommand extends MinehutCommand {
 		super('case-duration', {
 			category: 'mod',
 			channel: 'guild',
-			permissionLevel: PermissionLevel.JuniorModerator,
+			permissionLevel: PermissionLevel.SuperHelper,
 			description: {
 				content: 'Set a case duration',
 				usage: '<case> <new duration>',
@@ -48,7 +48,9 @@ export default class CaseDurationCommand extends MinehutCommand {
 		{ c, duration }: { c: DocumentType<Case>; duration: number }
 	) {
 		if (!c.active)
-			return msg.channel.send(`${process.env.EMOJI_CROSS} case has already expired`);
+			return msg.channel.send(
+				`${process.env.EMOJI_CROSS} case has already expired`
+			);
 
 		const oldCase = cloneDeep(c);
 		const newExpiry = new Date(c.createdAt).getTime() + duration;

@@ -28,6 +28,18 @@ export default class ReadyListener extends Listener {
 			this.client.user?.setActivity(`👀 ${memberCount}`, {
 				type: 'WATCHING',
 			});
+
+			const updateStatus = async () => {
+				try {
+					const simpleStats = await this.client.minehutApi.getSimpleStats();
+					if (simpleStats.playerCount == 0 || simpleStats.serverCount == 0) return this.client.user?.setStatus('idle');
+					this.client.user?.setStatus('online');
+				} catch(e) { 
+					this.client.user?.setStatus('dnd');
+				}
+			}
+
+			setInterval(updateStatus, 30000);
 		}
 
 		await this.client.banScheduler.refresh();

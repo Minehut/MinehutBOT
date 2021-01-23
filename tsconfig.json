@@ -1,5 +1,5 @@
 {
-	"exclude": ["migrateDb/*"],
+	"exclude": ["migrateBoosterPasses/*"],
 	"compilerOptions": {
 		"resolveJsonModule": true,
 		"experimentalDecorators": true,
