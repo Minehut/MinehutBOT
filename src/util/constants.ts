@@ -165,5 +165,5 @@ export const IMGUR_LINK_REGEX = /((?:https?:)?\/\/(\w+\.)?imgur\.com\/(\S*)(\.[a
 
 export const IMAGE_LINK_REGEX = /https?:\/\/(?:\w+\.)?[\w-]+\.[\w]{2,3}(?:\/[\w-_.]+)+\.(?:png|jpg|jpeg|gif|webp)/;
 
-export const HASTEBIN_URI = 'https://hastebin.com';
+export const HASTEBIN_URL = 'https://hastebin.com';
 

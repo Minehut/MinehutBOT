@@ -1,4 +1,4 @@
-import { CaseType, HASTEBIN_URI, IMAGE_LINK_REGEX } from './constants';
+import { CaseType, HASTEBIN_URL, IMAGE_LINK_REGEX } from './constants';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
 import { guildConfigs } from '../guild/config/guildConfigs';
@@ -284,7 +284,7 @@ export async function revokeGrantedBoosterPasses(member: GuildMember) {
 }
 
 export async function generateHastebinFromInput(input: string, ext: string) {
-	const res = await fetch(`${HASTEBIN_URI}/documents`, {
+	const res = await fetch(`${HASTEBIN_URL}/documents`, {
 		method: 'POST',
 		body: input,
 		headers: { 'Content-Type': 'text/plain' },
@@ -292,7 +292,7 @@ export async function generateHastebinFromInput(input: string, ext: string) {
 	if (!res.ok)
 		throw new Error(`Error while generating hastebin: ${res.statusText}`);
 	const { key }: { key: string } = await res.json();
-	return `${HASTEBIN_URI}/${key}.${ext}`;
+	return `${HASTEBIN_URL}/${key}.${ext}`;
 }
 
 const octokit = new Octokit();
