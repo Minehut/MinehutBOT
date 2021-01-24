@@ -7,7 +7,7 @@ import { StarModel } from '../../model/starboardMessage';
 import { MessageEmbed } from 'discord.js';
 import {
 	emojiEquals,
-	findImgFromMsg,
+	findImageFromMessage,
 	getEmojiFromId,
 } from '../../util/functions';
 
@@ -89,7 +89,7 @@ export default class StarRemoveListener extends Listener {
 			`${msg.content ? `${msg.content}\n\n` : ''}[Jump!](${msg.url})`
 		);
 
-		const img = findImgFromMsg(msg);
+		const img = findImageFromMessage(msg);
 		if (img) embed.setImage(img);
 
 		return starEntryMessage.edit(

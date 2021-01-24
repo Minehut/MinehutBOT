@@ -244,7 +244,7 @@ export function getEmojiFromId(client: MinehutClient, id: string) {
 	return id;
 }
 
-export function findImgFromMsg(msg: Message) {
+export function findImageFromMessage(msg: Message) {
 	let returnAttachment;
 	const extensions = ['.png', '.jpg', '.jpeg', '.gif', '.webp'];
 
