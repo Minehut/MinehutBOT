@@ -1,7 +1,5 @@
-import { TextChannel } from 'discord.js';
-import { MessageEmbed } from 'discord.js';
-import { Message } from 'discord.js';
-import { StarModel } from '../../model/starboardMessage';
+import { Message, MessageEmbed, TextChannel } from 'discord.js';
+import { StarMessageModel } from '../../model/starboardMessage';
 import { findImageFromMessage } from '../../util/functions';
 
 export interface StarboardMessageData {
@@ -43,7 +41,7 @@ export class Starboard {
 			`⭐**${this.count}** ${this.msg.channel} `,
 			embed
 		);
-		await StarModel.create({
+		await StarMessageModel.create({
 			_id: this.msg.id,
 			author: this.msg.author.id,
 			guild: this.msg.guild!.id,
