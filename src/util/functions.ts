@@ -222,6 +222,25 @@ export function checkString(content: string): CensorCheckResponse | undefined {
 	}
 }
 
+export function findImageFromMessage(msg: Message) {
+	let returnAttachment;
+	const extensions = ['.png', '.jpg', '.jpeg', '.gif', '.webp'];
+
+	const attachment = msg.attachments.find(file =>
+		extensions.includes(path.extname(file.url))
+	);
+
+	if (attachment) returnAttachment = attachment.url;
+
+	if (!returnAttachment) {
+		const match = msg.content.match(IMGUR_LINK_REGEX);
+		if (match && extensions.includes(path.extname(match[0])))
+			returnAttachment = match[0];
+	}
+
+	 return returnAttachment;
+}
+
 export async function revokeGrantedBoosterPasses(member: GuildMember) {
     const boosterPasses = await BoosterPassModel.getGrantedByMember(member);
     if (boosterPasses.length > 0) 
