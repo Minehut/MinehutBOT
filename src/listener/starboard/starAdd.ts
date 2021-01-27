@@ -6,7 +6,7 @@ import { User } from 'discord.js';
 import { getPermissionLevel } from '../../util/permission/getPermissionLevel';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
 import { Starboard } from '../../structure/starboard/starboardMessage';
-import { StarModel } from '../../model/starboardMessage';
+import { StarMessageModel } from '../../model/starboardMessage';
 import { MessageEmbed } from 'discord.js';
 import { emojiEquals, findImageFromMessage } from '../../util/functions';
 
@@ -67,9 +67,9 @@ export default class StarAddListener extends Listener {
 		) as TextChannel;
 
 		// Updates existing starboard entries
-		const starboardMsgExists = await StarModel.exists({ _id: msg.id });
+		const starboardMsgExists = await StarMessageModel.exists({ _id: msg.id });
 		if (starboardMsgExists) {
-			const starboardEntry = await StarModel.findOne({ _id: msg.id });
+			const starboardEntry = await StarMessageModel.findOne({ _id: msg.id });
 			if (starboardEntry?.starredBy.includes(user.id)) return;
 			await starboardEntry?.updateOne({
 				starredBy: starboardEntry.starredBy.concat(user.id),
