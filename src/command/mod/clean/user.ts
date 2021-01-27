@@ -56,6 +56,7 @@ export default class CleanUserCommand extends MinehutCommand {
 			.sort((a, b) => b.createdTimestamp - a.createdTimestamp)
 			.array()
 			.slice(0, count);
+		//@ts-ignore
 		await msg.channel.bulkDelete(filtered);
 		const bmsg = await msg.channel.send(
 			`:ok_hand: deleted ${filtered.length} messages`

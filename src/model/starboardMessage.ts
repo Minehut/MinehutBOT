@@ -27,6 +27,6 @@ export class StarMessage {
 	updatedAt!: Date;
 }
 
-export const StarModel = getModelForClass(StarMessage, {
+export const StarMessageModel = getModelForClass(StarMessage, {
 	schemaOptions: { timestamps: true },
 });

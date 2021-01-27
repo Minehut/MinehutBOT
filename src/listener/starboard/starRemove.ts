@@ -3,7 +3,7 @@ import { guildConfigs } from '../../guild/config/guildConfigs';
 import { MessageReaction } from 'discord.js';
 import { TextChannel } from 'discord.js';
 import { User } from 'discord.js';
-import { StarModel } from '../../model/starboardMessage';
+import { StarMessageModel } from '../../model/starboardMessage';
 import { MessageEmbed } from 'discord.js';
 import {
 	emojiEquals,
@@ -55,10 +55,10 @@ export default class StarRemoveListener extends Listener {
 			starboardConfig.channel
 		) as TextChannel;
 
-		const starboardMsgExists = await StarModel.exists({ _id: msg.id });
+		const starboardMsgExists = await StarMessageModel.exists({ _id: msg.id });
 		if (!starboardMsgExists) return;
 
-		const starboardEntry = await StarModel.findOne({ _id: msg.id });
+		const starboardEntry = await StarMessageModel.findOne({ _id: msg.id });
 		const starEntryMessage = await starboardChannel.messages.fetch(
 			starboardEntry!.starEntryId
 		);
@@ -67,7 +67,7 @@ export default class StarRemoveListener extends Listener {
 		if (addedEmojiCount === 0) {
 			if (starEntryMessage.deletable)
 				starEntryMessage.delete({ reason: 'unstarred' });
-			return await StarModel.deleteOne({ _id: msg.id });
+			return await StarMessageModel.deleteOne({ _id: msg.id });
 		}
 
 		await starboardEntry?.updateOne({
