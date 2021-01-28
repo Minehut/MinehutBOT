@@ -1,10 +1,7 @@
 import { Listener } from 'discord-akairo';
 import { guildConfigs } from '../../guild/config/guildConfigs';
-import { MessageReaction } from 'discord.js';
-import { TextChannel } from 'discord.js';
-import { User } from 'discord.js';
+import { MessageReaction, TextChannel, User, MessageEmbed  } from 'discord.js';
 import { StarMessageModel } from '../../model/starboardMessage';
-import { MessageEmbed } from 'discord.js';
 import { findImageFromMessage } from '../../util/functions';
 
 export default class StarRemoveListener extends Listener {
