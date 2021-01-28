@@ -56,7 +56,7 @@ export default class StarRemoveListener extends Listener {
 		);
 		if (!starboardEntry.starredBy.includes(user.id)) return;
 
-		if (addedEmojiCount === 0) {
+		if (addedEmojiCount < starboardConfig.triggerAmount) {
 			if (starEntryMessage.deletable)
 				starEntryMessage.delete({ reason: 'unstarred' });
 			this.client.starboardCooldownManager.add(user.id);
@@ -84,7 +84,7 @@ export default class StarRemoveListener extends Listener {
 
 		this.client.starboardCooldownManager.add(user.id);
 		return starEntryMessage.edit(
-			`${starboardConfig.emoji ?? '⭐'} **${addedEmojiCount}** ${msg.channel} `,
+			`${starboardTriggerEmoji} **${addedEmojiCount}** ${msg.channel} `,
 			embed
 		);
 	}
