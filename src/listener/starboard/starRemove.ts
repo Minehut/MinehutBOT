@@ -59,6 +59,7 @@ export default class StarRemoveListener extends Listener {
 		if (addedEmojiCount === 0) {
 			if (starEntryMessage.deletable)
 				starEntryMessage.delete({ reason: 'unstarred' });
+			this.client.starboardCooldownManager.add(user.id);
 			return await StarMessageModel.deleteOne({ _id: msg.id });
 		}
 
