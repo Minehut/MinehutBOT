@@ -223,7 +223,7 @@ export function checkString(content: string): CensorCheckResponse | undefined {
 }
 
 export function findImageFromMessage(msg: Message) {
-	let returnAttachment;
+	let returnAttachment: string | undefined;
 	const extensions = ['.png', '.jpg', '.jpeg', '.gif', '.webp'];
 
 	const attachment = msg.attachments.find(file =>
@@ -238,7 +238,7 @@ export function findImageFromMessage(msg: Message) {
 			returnAttachment = match[0];
 	}
 
-	 return returnAttachment;
+	return returnAttachment;
 }
 
 export async function revokeGrantedBoosterPasses(member: GuildMember) {
