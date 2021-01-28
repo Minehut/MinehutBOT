@@ -222,7 +222,7 @@ export function checkString(content: string): CensorCheckResponse | undefined {
 	}
 }
 
-export function findImageFromMessage(msg: Message) {
+export function findImageFromMessage(msg: Message): string | undefined {
 	let returnAttachment: string | undefined;
 	const extensions = ['.png', '.jpg', '.jpeg', '.gif', '.webp'];
 
