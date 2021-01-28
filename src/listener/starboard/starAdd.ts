@@ -113,6 +113,7 @@ export default class StarAddListener extends Listener {
 				starredBy,
 			});
 			starboardMessage.addStarboardMessage();
+			this.client.starboardCooldownManager.add(user.id);
 		}
 	}
 }
