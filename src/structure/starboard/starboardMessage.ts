@@ -23,9 +23,9 @@ export class StarboardMessage {
 		this.msg = data.msg;
 		this.count = data.count;
 		this.starredBy = data.starredBy;
-		this.config = guildConfigs.get(data.msg.id)
+		this.config = guildConfigs.get(data.msg.id);
 	}
-	
+
 	// If this method is called, it is assumed that checks have been made that the starboard is configured properly.
 	async addStarboardMessage() {
 		const author = this.msg.author;
@@ -43,7 +43,9 @@ export class StarboardMessage {
 		if (img) embed.setImage(img);
 
 		const sentStarboardEntry = await this.channel.send(
-			`${this.config?.features?.starboard?.emoji ?? '⭐'}**${this.count}** ${this.msg.channel} `,
+			`${this.config?.features?.starboard?.emoji ?? '⭐'}**${this.count}** ${
+				this.msg.channel
+			} `,
 			embed
 		);
 		await StarMessageModel.create({

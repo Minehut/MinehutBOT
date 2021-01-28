@@ -1,6 +1,6 @@
 import { Listener } from 'discord-akairo';
 import { guildConfigs } from '../../guild/config/guildConfigs';
-import { MessageReaction, TextChannel, User, MessageEmbed  } from 'discord.js';
+import { MessageReaction, TextChannel, User, MessageEmbed } from 'discord.js';
 import { StarMessageModel } from '../../model/starboardMessage';
 import { findImageFromMessage } from '../../util/functions';
 
@@ -64,17 +64,16 @@ export default class StarRemoveListener extends Listener {
 		}
 
 		await starboardEntry.updateOne({
-			starredBy: starboardEntry.starredBy.filter(savedUser => savedUser != user.id),
+			starredBy: starboardEntry.starredBy.filter(
+				savedUser => savedUser != user.id
+			),
 			starAmount: addedEmojiCount,
 		});
 
 		const embed = new MessageEmbed()
 			.setColor('YELLOW')
 			.setTimestamp(msg.createdAt)
-			.setAuthor(
-				msg.author.tag,
-				msg.author.displayAvatarURL()
-			);
+			.setAuthor(msg.author.tag, msg.author.displayAvatarURL());
 		embed.setDescription(
 			`${msg.content ? `${msg.content}\n\n` : ''}[Jump!](${msg.url})`
 		);
