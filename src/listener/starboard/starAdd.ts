@@ -33,6 +33,8 @@ export default class StarAddListener extends Listener {
 
 		if (msg.author.id === this.client.user?.id) return;
 
+		if (this.client.starboardCooldownManager.isOnCooldown(user.id)) return;
+
 		const minStarboardPermTriggerLvl =
 			starboardConfig.minimumPermLevel ?? PermissionLevel.Everyone;
 
@@ -64,6 +66,7 @@ export default class StarAddListener extends Listener {
 		// Updates existing starboard entries
 		const starboardEntry = await StarMessageModel.findOne({ _id: msg.id });
 		if (starboardEntry !== null) {
+			this.client.starboardCooldownManager.add(user.id);
 			if (starboardEntry.starredBy.includes(user.id)) return;
 			await starboardEntry.updateOne({
 				starredBy: starboardEntry.starredBy.concat(user.id),
