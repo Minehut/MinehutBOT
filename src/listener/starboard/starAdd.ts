@@ -1,11 +1,10 @@
 import { Listener } from 'discord-akairo';
 import { guildConfigs } from '../../guild/config/guildConfigs';
-import { User, TextChannel, MessageReaction } from 'discord.js';
+import { User, TextChannel, MessageReaction, MessageEmbed } from 'discord.js';
 import { getPermissionLevel } from '../../util/permission/getPermissionLevel';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
 import { StarboardMessage } from '../../structure/starboard/starboardMessage';
 import { StarMessageModel } from '../../model/starboardMessage';
-import { MessageEmbed } from 'discord.js';
 import { findImageFromMessage } from '../../util/functions';
 
 export default class StarAddListener extends Listener {
