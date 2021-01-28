@@ -38,7 +38,7 @@ export default class StarAddListener extends Listener {
 		const minStarboardPermTriggerLvl =
 			starboardConfig.minimumPermLevel ?? PermissionLevel.Everyone;
 
-		const emojiAddedByUser = reaction.emoji.toString();	
+		const emojiAddedByUser = reaction.emoji.toString();
 		const starboardTriggerEmoji = starboardConfig.emoji ?? '⭐';
 
 		if (emojiAddedByUser !== starboardTriggerEmoji) return;
@@ -49,10 +49,7 @@ export default class StarAddListener extends Listener {
 
 		if (userPermissionLvl === PermissionLevel.Muted) return;
 
-		if (
-			msg.author.id === user.id &&
-			emojiAddedByUser === starboardTriggerEmoji
-		)
+		if (msg.author.id === user.id && emojiAddedByUser === starboardTriggerEmoji)
 			return;
 
 		const starboardTriggerAmount = starboardConfig.triggerAmount;
@@ -76,10 +73,7 @@ export default class StarAddListener extends Listener {
 			const embed = new MessageEmbed()
 				.setColor('YELLOW')
 				.setTimestamp(msg.createdAt)
-				.setAuthor(
-					msg.author.tag,
-					msg.author.displayAvatarURL()
-				);
+				.setAuthor(msg.author.tag, msg.author.displayAvatarURL());
 			embed.setDescription(
 				`${msg.content ? `${msg.content}\n\n` : ''}[Jump!](${msg.url})`
 			);
