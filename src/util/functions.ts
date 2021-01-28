@@ -222,30 +222,8 @@ export function checkString(content: string): CensorCheckResponse | undefined {
 	}
 }
 
-export function emojiEquals(x: any, y: any) {
-	if (typeof x === 'string' && typeof y === 'string') {
-		return x === y;
-	}
-
-	if (typeof x === 'string') {
-		return x === y.name;
-	}
-
-	if (typeof y === 'string') {
-		return x.name === y;
-	}
-
-	return x.identifier === y.identifier;
-}
-
-export function getEmojiFromId(client: MinehutClient, id: string) {
-	if (/^\d+$/.test(id)) return client.emojis.cache.get(id);
-
-	return id;
-}
-
 export function findImageFromMessage(msg: Message) {
-	let returnAttachment;
+	let returnAttachment: string | undefined;
 	const extensions = ['.png', '.jpg', '.jpeg', '.gif', '.webp'];
 
 	const attachment = msg.attachments.find(file =>
@@ -260,7 +238,7 @@ export function findImageFromMessage(msg: Message) {
 			returnAttachment = match[0];
 	}
 
-	 return returnAttachment;
+	return returnAttachment;
 }
 
 export async function revokeGrantedBoosterPasses(member: GuildMember) {
