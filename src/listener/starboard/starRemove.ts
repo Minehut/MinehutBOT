@@ -5,11 +5,7 @@ import { TextChannel } from 'discord.js';
 import { User } from 'discord.js';
 import { StarMessageModel } from '../../model/starboardMessage';
 import { MessageEmbed } from 'discord.js';
-import {
-	emojiEquals,
-	findImageFromMessage,
-	getEmojiFromId,
-} from '../../util/functions';
+import { findImageFromMessage } from '../../util/functions';
 
 export default class StarRemoveListener extends Listener {
 	constructor() {
@@ -42,27 +38,24 @@ export default class StarRemoveListener extends Listener {
 		)
 			return;
 
-		const emojiAddedByUser = reaction.emoji;
-		const starboardTriggerEmoji = starboardConfig.emoji
-			? getEmojiFromId(this.client, starboardConfig.emoji)
-			: '⭐';
+		const emojiAddedByUser = reaction.emoji.toString();
+		const starboardTriggerEmoji = starboardConfig.emoji ?? '⭐';
 
-		if (!emojiEquals(emojiAddedByUser, starboardTriggerEmoji)) return;
+		if (emojiAddedByUser !== starboardTriggerEmoji) return;
 
-		const addedEmojiCount = reaction.count || 0;
+		const addedEmojiCount = reaction.count ?? 0;
 
 		const starboardChannel = msg.guild.channels.cache.get(
 			starboardConfig.channel
 		) as TextChannel;
 
-		const starboardMsgExists = await StarMessageModel.exists({ _id: msg.id });
-		if (!starboardMsgExists) return;
-
 		const starboardEntry = await StarMessageModel.findOne({ _id: msg.id });
+		if (starboardEntry === null) return;
+
 		const starEntryMessage = await starboardChannel.messages.fetch(
-			starboardEntry!.starEntryId
+			starboardEntry.starEntryId
 		);
-		if (!starboardEntry?.starredBy.includes(user.id)) return;
+		if (!starboardEntry.starredBy.includes(user.id)) return;
 
 		if (addedEmojiCount === 0) {
 			if (starEntryMessage.deletable)
@@ -70,20 +63,17 @@ export default class StarRemoveListener extends Listener {
 			return await StarMessageModel.deleteOne({ _id: msg.id });
 		}
 
-		await starboardEntry?.updateOne({
-			starredBy: starboardEntry.starredBy.splice(
-				starboardEntry.starredBy.indexOf(user.id)
-			),
+		await starboardEntry.updateOne({
+			starredBy: starboardEntry.starredBy.filter(savedUser => savedUser != user.id),
 			starAmount: addedEmojiCount,
 		});
 
-		const starredMsgMember = msg.guild.member(msg.author);
 		const embed = new MessageEmbed()
 			.setColor('YELLOW')
-			.setTimestamp()
+			.setTimestamp(msg.createdAt)
 			.setAuthor(
-				starredMsgMember?.displayName,
-				starredMsgMember?.user.displayAvatarURL()
+				msg.author.tag,
+				msg.author.displayAvatarURL()
 			);
 		embed.setDescription(
 			`${msg.content ? `${msg.content}\n\n` : ''}[Jump!](${msg.url})`
@@ -93,7 +83,7 @@ export default class StarRemoveListener extends Listener {
 		if (img) embed.setImage(img);
 
 		return starEntryMessage.edit(
-			`⭐**${addedEmojiCount}** ${msg.channel} `,
+			`${starboardConfig.emoji ?? '⭐'} **${addedEmojiCount}** ${msg.channel} `,
 			embed
 		);
 	}

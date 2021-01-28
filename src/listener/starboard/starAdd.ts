@@ -1,14 +1,12 @@
 import { Listener } from 'discord-akairo';
 import { guildConfigs } from '../../guild/config/guildConfigs';
-import { MessageReaction } from 'discord.js';
-import { TextChannel } from 'discord.js';
-import { User } from 'discord.js';
+import { User, TextChannel, MessageReaction } from 'discord.js';
 import { getPermissionLevel } from '../../util/permission/getPermissionLevel';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
-import { Starboard } from '../../structure/starboard/starboardMessage';
+import { StarboardMessage } from '../../structure/starboard/starboardMessage';
 import { StarMessageModel } from '../../model/starboardMessage';
 import { MessageEmbed } from 'discord.js';
-import { emojiEquals, findImageFromMessage } from '../../util/functions';
+import { findImageFromMessage } from '../../util/functions';
 
 export default class StarAddListener extends Listener {
 	constructor() {
@@ -37,26 +35,24 @@ export default class StarAddListener extends Listener {
 		if (msg.author.id === this.client.user?.id) return;
 
 		const minStarboardPermTriggerLvl =
-			starboardConfig.minimumPermLevel || PermissionLevel.Everyone;
+			starboardConfig.minimumPermLevel ?? PermissionLevel.Everyone;
 
-		const emojiAddedByUser = reaction.emoji;
-		const starboardTriggerEmoji = starboardConfig.emoji
-			? emojiEquals(this.client, starboardConfig.emoji)
-			: '⭐';
+		const emojiAddedByUser = reaction.emoji.toString();	
+		const starboardTriggerEmoji = starboardConfig.emoji ?? '⭐';
 
-		if (!emojiEquals(emojiAddedByUser, starboardTriggerEmoji)) return;
+		if (emojiAddedByUser !== starboardTriggerEmoji) return;
 
 		const member = msg.guild.member(user)!;
+
 		const userPermissionLvl = getPermissionLevel(member, this.client);
 
-		if (userPermissionLvl === PermissionLevel.Muted)
-			return reaction.users.remove(user);
+		if (userPermissionLvl === PermissionLevel.Muted) return;
 
 		if (
 			msg.author.id === user.id &&
-			emojiEquals(emojiAddedByUser, starboardTriggerEmoji)
+			emojiAddedByUser === starboardTriggerEmoji
 		)
-			return reaction.users.remove(user);
+			return;
 
 		const starboardTriggerAmount = starboardConfig.triggerAmount;
 		const addedEmojiCount = reaction.count;
@@ -67,36 +63,34 @@ export default class StarAddListener extends Listener {
 		) as TextChannel;
 
 		// Updates existing starboard entries
-		const starboardMsgExists = await StarMessageModel.exists({ _id: msg.id });
-		if (starboardMsgExists) {
-			const starboardEntry = await StarMessageModel.findOne({ _id: msg.id });
-			if (starboardEntry?.starredBy.includes(user.id)) return;
-			await starboardEntry?.updateOne({
+		const starboardEntry = await StarMessageModel.findOne({ _id: msg.id });
+		if (starboardEntry !== null) {
+			if (starboardEntry.starredBy.includes(user.id)) return;
+			await starboardEntry.updateOne({
 				starredBy: starboardEntry.starredBy.concat(user.id),
 				starAmount: addedEmojiCount,
 			});
 
-			const starredMsgMember = msg.guild.member(starboardEntry!.author);
 			const embed = new MessageEmbed()
 				.setColor('YELLOW')
-				.setTimestamp()
+				.setTimestamp(msg.createdAt)
 				.setAuthor(
-					starredMsgMember?.displayName,
-					starredMsgMember?.user.displayAvatarURL()
+					msg.author.tag,
+					msg.author.displayAvatarURL()
 				);
 			embed.setDescription(
 				`${msg.content ? `${msg.content}\n\n` : ''}[Jump!](${msg.url})`
 			);
 
-			const img = findImageFromMessage(msg);
-			if (img) embed.setImage(img);
+			const starboardMessageImage = findImageFromMessage(msg);
+			if (starboardMessageImage) embed.setImage(starboardMessageImage);
 
 			const starEntryMessage = await starboardChannel.messages.fetch(
 				starboardEntry!.starEntryId
 			);
 
 			return starEntryMessage.edit(
-				`⭐**${addedEmojiCount}** ${msg.channel} `,
+				`${starboardTriggerEmoji} **${addedEmojiCount}** ${msg.channel} `,
 				embed
 			);
 		}
@@ -110,7 +104,7 @@ export default class StarAddListener extends Listener {
 
 		if (addedEmojiCount >= starboardTriggerAmount && minPermLevelMet) {
 			const starredBy = reaction.users.cache.keyArray();
-			const starboardMessage = new Starboard({
+			const starboardMessage = new StarboardMessage({
 				msg,
 				channel: starboardChannel,
 				count: addedEmojiCount,
