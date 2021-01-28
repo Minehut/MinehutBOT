@@ -90,7 +90,7 @@ export default class StarAddListener extends Listener {
 			);
 
 			return starEntryMessage.edit(
-				`${starboardTriggerEmoji} **${addedEmojiCount}** ${msg.channel} `,
+				`${starboardConfig.emoji} ?? '⭐' **${addedEmojiCount}** ${msg.channel} `,
 				embed
 			);
 		}
