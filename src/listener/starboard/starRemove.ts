@@ -40,6 +40,8 @@ export default class StarRemoveListener extends Listener {
 
 		if (emojiAddedByUser !== starboardTriggerEmoji) return;
 
+		if (this.client.starboardCooldownManager.isOnCooldown(user.id)) return;
+
 		const addedEmojiCount = reaction.count ?? 0;
 
 		const starboardChannel = msg.guild.channels.cache.get(
@@ -79,6 +81,7 @@ export default class StarRemoveListener extends Listener {
 		const img = findImageFromMessage(msg);
 		if (img) embed.setImage(img);
 
+		this.client.starboardCooldownManager.add(user.id);
 		return starEntryMessage.edit(
 			`${starboardConfig.emoji ?? '⭐'} **${addedEmojiCount}** ${msg.channel} `,
 			embed
