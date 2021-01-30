@@ -40,8 +40,6 @@ export default class StarRemoveListener extends Listener {
 
 		if (emojiAddedByUser !== starboardTriggerEmoji) return;
 
-		if (this.client.starboardCooldownManager.isOnCooldown(user.id)) return;
-
 		const addedEmojiCount = reaction.count ?? 0;
 
 		const starboardChannel = msg.guild.channels.cache.get(
@@ -59,7 +57,6 @@ export default class StarRemoveListener extends Listener {
 		if (addedEmojiCount < starboardConfig.triggerAmount) {
 			if (starEntryMessage.deletable)
 				starEntryMessage.delete({ reason: 'unstarred' });
-			this.client.starboardCooldownManager.add(user.id);
 			return await StarMessageModel.deleteOne({ _id: msg.id });
 		}
 
@@ -81,7 +78,6 @@ export default class StarRemoveListener extends Listener {
 		const img = findImageFromMessage(msg);
 		if (img) embed.setImage(img);
 
-		this.client.starboardCooldownManager.add(user.id);
 		return starEntryMessage.edit(
 			`${starboardTriggerEmoji} **${addedEmojiCount}** ${msg.channel} `,
 			embed
