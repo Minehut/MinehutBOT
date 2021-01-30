@@ -33,8 +33,6 @@ export default class StarAddListener extends Listener {
 
 		if (msg.author.id === this.client.user?.id) return;
 
-		if (this.client.starboardCooldownManager.isOnCooldown(user.id)) return;
-
 		const minStarboardPermTriggerLvl =
 			starboardConfig.minimumPermLevel ?? PermissionLevel.Everyone;
 
@@ -51,6 +49,8 @@ export default class StarAddListener extends Listener {
 
 		if (msg.author.id === user.id && emojiAddedByUser === starboardTriggerEmoji)
 			return;
+		
+		if (this.client.starboardCooldownManager.isOnCooldown(user.id)) return reaction.users.remove(user);
 
 		const starboardTriggerAmount = starboardConfig.triggerAmount;
 		const addedEmojiCount = reaction.count;
