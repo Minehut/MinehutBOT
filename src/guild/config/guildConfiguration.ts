@@ -3,6 +3,7 @@ import { ModLogConfiguration } from './feature/modLog';
 import { ReactionRoleConfiguration } from './feature/reactionRole';
 import { AnnouncementConfiguration } from './feature/announcement';
 import { CensorConfiguration } from './feature/censor';
+import { StarboardConfiguration } from './feature/starboard';
 import { AutoReactConfiguration } from './feature/autoReact';
 import { BoosterPassConfiguration } from './feature/boosterPass';
 import { HastebinConversionConfiguration } from './feature/hastbinConversion';
@@ -19,6 +20,7 @@ export interface GuildConfiguration {
 		reactionRole?: ReactionRoleConfiguration;
 		announcement?: AnnouncementConfiguration;
 		censor?: CensorConfiguration;
+		starboard?: StarboardConfiguration;
 		autoReact?: AutoReactConfiguration;
 		boosterPass?: BoosterPassConfiguration;
 		hastebinConversion?: HastebinConversionConfiguration;

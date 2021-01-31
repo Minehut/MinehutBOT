@@ -31,6 +31,7 @@ export class MinehutClient extends AkairoClient {
 	tagCooldownManager: CooldownManager;
 	hastebinCooldownManager: CooldownManager;
 	githubCooldownManager: CooldownManager;
+	starboardCooldownManager: CooldownManager;
   
 	githubCacheManager: CacheManager<number, any>;
 
@@ -104,6 +105,7 @@ export class MinehutClient extends AkairoClient {
 		this.tagCooldownManager = new CooldownManager(10000);
 		this.hastebinCooldownManager = new CooldownManager(10000);
 		this.githubCooldownManager = new CooldownManager(10000);
+		this.starboardCooldownManager = new CooldownManager(10000);
 
 		this.githubCacheManager = new CacheManager(600000);
 
@@ -208,6 +210,7 @@ declare module 'discord-akairo' {
 		tagCooldownManager: CooldownManager;
 		hastebinCooldownManager: CooldownManager;
 		githubCooldownManager: CooldownManager;
+		starboardCooldownManager:CooldownManager;
 		githubCacheManager: CacheManager<
 			number,
 			Promise<OctokitResponse<IssuesGetResponseData>>
