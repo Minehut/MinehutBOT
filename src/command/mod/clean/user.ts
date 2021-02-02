@@ -1,4 +1,4 @@
-import { Message } from 'discord.js';
+import { Message, NewsChannel, TextChannel } from 'discord.js';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
 import { User } from 'discord.js';
 import { Argument } from 'discord-akairo';
@@ -56,8 +56,8 @@ export default class CleanUserCommand extends MinehutCommand {
 			.sort((a, b) => b.createdTimestamp - a.createdTimestamp)
 			.array()
 			.slice(0, count);
-		//@ts-ignore
-		await msg.channel.bulkDelete(filtered);
+		const channel = msg.channel as TextChannel | NewsChannel;
+		await channel.bulkDelete(filtered);
 		const bmsg = await msg.channel.send(
 			`:ok_hand: deleted ${filtered.length} messages`
 		);
