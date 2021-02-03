@@ -36,8 +36,7 @@ export default class CaseClearCommand extends MinehutCommand {
 	}
 
 	async exec(msg: Message, { target }: { target: User }) {
-		//@ts-ignore
-		const m = await msg.channel.send(process.env.EMOJI_LOADING);
+		const m = await msg.channel.send(process.env.EMOJI_LOADING!);
 		await CaseModel.deleteMany({ targetId: target.id, active: false });
 		m.edit(`${process.env.EMOJI_CHECK} cleared ${target.tag}'s case history`);
 	}
