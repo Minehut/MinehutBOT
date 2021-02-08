@@ -82,8 +82,8 @@ guildConfigs.set('239599059415859200', {
 		},
 		starboard: {
 			channel: '805566446527709244',
-			triggerAmount: 5,
-			minimumPermLevel: PermissionLevel.Helper,
+			triggerAmount: 10,
+			minimumPermLevel: PermissionLevel.NitroBooster,
 			ignoredChannels: [
 				'412394499919052810', // #support
 				'364448476458778625', // #marketplace
