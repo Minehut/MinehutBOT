@@ -25,6 +25,7 @@ export const CENSOR_RULES = [
 		enabled: true,
 	},
 	{ rule: '\\b(sl(u|e)t)', type: Swear, enabled: true },
+	{ rule: '\\b(vaggina)', type: Swear, enabled: true },
 	{ rule: '\\b(jerks)', type: Swear, enabled: true },
 	{ rule: '\\b(brainfuck)', type: Swear, enabled: true },
 	{ rule: '\\b(d(i|1|1)ck)', type: Swear, enabled: true },
