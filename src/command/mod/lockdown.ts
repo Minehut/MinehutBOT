@@ -53,7 +53,7 @@ export default class ChannelLockdownCommand extends MinehutCommand {
 		}
 		if (channels.length == 0)
 			return msg.channel.send(MESSAGES.commands.useHelp(prefix, 'lockdown'));
-		let lockedChannels = 0;
+		const lockedChannels = [];
 		for (const channel of channels) {
 			if (
 				!channel.permissionOverwrites.some(
@@ -71,13 +71,13 @@ export default class ChannelLockdownCommand extends MinehutCommand {
 						deny: ['SEND_MESSAGES', 'ADD_REACTIONS'],
 					},
 				]);
-				lockedChannels++;
+				lockedChannels.push(channel);
 			}
 		}
-		const differenceOfLengthAndLocked = channels.length - lockedChannels;
+		const differenceOfLengthAndLocked = channels.length - lockedChannels.length;
 		const m = await msg.channel.send(
-			`${process.env.EMOJI_CHECK} locked **${lockedChannels}** ${
-				lockedChannels == 1 ? 'channel' : 'channels'
+			`${process.env.EMOJI_CHECK} locked **${lockedChannels.length}** ${
+				lockedChannels.length == 1 ? 'channel' : 'channels'
 			} ${
 				differenceOfLengthAndLocked != 0
 					? `(**${differenceOfLengthAndLocked}** ${
@@ -86,6 +86,7 @@ export default class ChannelLockdownCommand extends MinehutCommand {
 					: ''
 			}`
 		);
+		this.client.emit('channelLocked', msg.member!, lockedChannels);
 		if (channels.some(c => c.id === msg.channel.id)) {
 			await msg.delete();
 			setTimeout(async () => await m.delete(), 3000);
