@@ -79,6 +79,17 @@ guildConfigs.set('239599059415859200', {
 		hastebinConversion: {
 			ignoredChannels: ['480889821225549824'],
 			whitelistedExtensions: HASTEBIN_EXTENSIONS_WHITELIST
+		},
+		starboard: {
+			channel: '805566446527709244',
+			triggerAmount: 10,
+			minimumPermLevel: PermissionLevel.NitroBooster,
+			ignoredChannels: [
+				'412394499919052810', // #support
+				'364448476458778625', // #marketplace
+				'240274910688051211', // #servers
+				'480888099547774976', // #staff
+			]
 		}
 	},
 });
@@ -169,6 +180,12 @@ guildConfigs.set('546414872196415501', {
 					allowMessageAuthorReacting: false,
 					allowMultipleUserReactions: false,
 				},
+				{
+					channel: '808144433698570250',
+					reactions: [':yes:546435721444196353', ':no:546435753719103488'],
+					allowMessageAuthorReacting: false,
+					allowMultipleUserReactions: false
+				}
 			],
 		},
 		hastebinConversion: {
