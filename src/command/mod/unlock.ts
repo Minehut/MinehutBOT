@@ -47,8 +47,11 @@ export default class UnlockChannelCommand extends MinehutCommand {
 					`${process.env.EMOJI_CROSS} Cannot use flag \`-all\` as channel lockdown is not configured for this guild.`
 				);
 			for (const channel of channelLockdownConfig.channels) {
-				if (!channels.some(c => c.id === channel))
-					channels.push(this.client.channels.resolve(channel) as TextChannel);
+				if (!channels.some(c => c.id === channel)) {
+					const resolvedChannel = this.client.channels.resolve(channel);
+					if (resolvedChannel && resolvedChannel.type == 'text')
+						channels.push(resolvedChannel as TextChannel);
+				}
 			}
 		}
 		if (channels.length == 0)
