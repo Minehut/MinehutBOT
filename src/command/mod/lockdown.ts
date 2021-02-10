@@ -16,7 +16,11 @@ export default class ChannelLockdownCommand extends MinehutCommand {
 			description: {
 				content: 'Lockdown a channel or a set of channels',
 				usage: '[...channels] [-all]',
-				examples: ['364502598805356545 412394499919052810', '-all'],
+				examples: [
+					'364502598805356545 412394499919052810',
+					'-all',
+					'412394499919052810 -all',
+				],
 			},
 			args: [
 				{
