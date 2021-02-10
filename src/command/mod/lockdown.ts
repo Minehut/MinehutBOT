@@ -1,5 +1,5 @@
 import { PrefixSupplier } from 'discord-akairo';
-import { Message, Permissions, TextChannel } from 'discord.js';
+import { Message, TextChannel } from 'discord.js';
 import { guildConfigs } from '../../guild/config/guildConfigs';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
 import { MESSAGES } from '../../util/constants';
@@ -62,22 +62,20 @@ export default class ChannelLockdownCommand extends MinehutCommand {
 			return msg.channel.send(MESSAGES.commands.useHelp(prefix, 'lockdown'));
 		const lockedChannels = [];
 		for (const channel of channels) {
+			const permissions = channel.permissionsFor(msg.guild!.roles.everyone);
 			if (
-				!channel.permissionOverwrites.some(
-					permissionOverwrite =>
-						permissionOverwrite.id === msg.guild!.roles.everyone.id &&
-						permissionOverwrite.deny.equals(
-							Permissions.FLAGS.SEND_MESSAGES + Permissions.FLAGS.ADD_REACTIONS
-						)
-				)
+				permissions &&
+				permissions.toArray().includes('SEND_MESSAGES') &&
+				permissions.toArray().includes('ADD_REACTIONS')
 			) {
-				await channel.overwritePermissions([
-					...channel.permissionOverwrites.array(),
+				await channel.updateOverwrite(
+					msg.guild!.roles.everyone,
 					{
-						id: msg.guild!.roles.everyone,
-						deny: ['SEND_MESSAGES', 'ADD_REACTIONS'],
+						SEND_MESSAGES: false,
+						ADD_REACTIONS: false,
 					},
-				]);
+					`Channel lock from ${msg.author.tag}`
+				);
 				lockedChannels.push(channel);
 			}
 		}
