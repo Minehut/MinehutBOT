@@ -1,5 +1,9 @@
 import { GuildConfiguration } from './guildConfiguration';
-import { ALL_MODLOG_EVENTS, HASTEBIN_EXTENSIONS_WHITELIST, INVITE_WHITELIST } from './common';
+import {
+	ALL_MODLOG_EVENTS,
+	HASTEBIN_EXTENSIONS_WHITELIST,
+	INVITE_WHITELIST,
+} from './common';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
 
 export const guildConfigs: Map<string, GuildConfiguration> = new Map();
@@ -78,7 +82,7 @@ guildConfigs.set('239599059415859200', {
 		},
 		hastebinConversion: {
 			ignoredChannels: ['480889821225549824'],
-			whitelistedExtensions: HASTEBIN_EXTENSIONS_WHITELIST
+			whitelistedExtensions: HASTEBIN_EXTENSIONS_WHITELIST,
 		},
 		starboard: {
 			channel: '805566446527709244',
@@ -89,8 +93,25 @@ guildConfigs.set('239599059415859200', {
 				'364448476458778625', // #marketplace
 				'240274910688051211', // #servers
 				'480888099547774976', // #staff
-			]
-		}
+			],
+		},
+		channelLockdown: {
+			channels: [
+				'364502598805356545', // #general
+				'373902459883749376', // #random
+				'412394499919052810', // #support
+				'480896531453706240', // #botcmds
+				'240274910688051211', // #servers
+				'364448476458778625', // #marketplace
+				'601544975221653514', // #count-to-1mil
+				'394312418374713344', // #mc-functions
+				'394312589754105857', // #building
+				'568531994485588007', // #art-gfx
+				'400170127737356299', // #skript
+				'660337933743816724', // #code
+				'705481433996853248', // #voice
+			],
+		},
 	},
 });
 
@@ -131,7 +152,7 @@ guildConfigs.set('715281101479739543', {
 		moderator: '715281911529996430',
 		seniorModerator: '715281850385301616',
 		manager: '732327323780513902',
-		admin: '715281797017108531'
+		admin: '715281797017108531',
 	},
 	features: {
 		modLog: {
@@ -181,20 +202,20 @@ guildConfigs.set('546414872196415501', {
 					allowMultipleUserReactions: false,
 				},
 				{
-					channel: '808144433698570250',
+					channel: '808144433698570250', // #cfaq-suggestions
 					reactions: [':yes:546435721444196353', ':no:546435753719103488'],
 					allowMessageAuthorReacting: false,
-					allowMultipleUserReactions: false
-				}
+					allowMultipleUserReactions: false,
+				},
 			],
 		},
 		hastebinConversion: {
 			ignoredChannels: ['548317804076597249'],
-			whitelistedExtensions: HASTEBIN_EXTENSIONS_WHITELIST
-    },
+			whitelistedExtensions: HASTEBIN_EXTENSIONS_WHITELIST,
+		},
 		githubIssue: {
-			githubRepoOwner: "Minehut",
-			githubRepoName: "Meta",
+			githubRepoOwner: 'Minehut',
+			githubRepoName: 'Meta',
 		},
 	},
 });
