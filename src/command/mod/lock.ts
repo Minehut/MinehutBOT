@@ -59,7 +59,7 @@ export default class ChannelLockCommand extends MinehutCommand {
 			}
 		}
 		if (channels.length == 0)
-			return msg.channel.send(MESSAGES.commands.useHelp(prefix, 'lockdown'));
+			return msg.channel.send(MESSAGES.commands.useHelp(prefix, 'lock'));
 		const lockedChannels = [];
 		for (const channel of channels) {
 			const permissions = channel.permissionsFor(msg.guild!.roles.everyone);
