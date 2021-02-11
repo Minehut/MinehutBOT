@@ -5,10 +5,10 @@ import { MinehutCommand } from '../../structure/command/minehutCommand';
 import { MESSAGES } from '../../util/constants';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
 
-export default class ChannelLockdownCommand extends MinehutCommand {
+export default class ChannelLockCommand extends MinehutCommand {
 	constructor() {
-		super('lockdown', {
-			aliases: ['lockdown', 'lock'],
+		super('lock', {
+			aliases: ['lock'],
 			category: 'mod',
 			channel: 'guild',
 			clientPermissions: ['MANAGE_CHANNELS'],
@@ -78,23 +78,24 @@ export default class ChannelLockdownCommand extends MinehutCommand {
 				);
 				lockedChannels.push(channel);
 			}
-		}
-		const differenceOfLengthAndLocked = channels.length - lockedChannels.length;
-		const m = await msg.channel.send(
-			`${process.env.EMOJI_CHECK} locked **${lockedChannels.length}** ${
-				lockedChannels.length == 1 ? 'channel' : 'channels'
-			} ${
-				differenceOfLengthAndLocked != 0
-					? `(**${differenceOfLengthAndLocked}** ${
-							differenceOfLengthAndLocked == 1 ? 'channel' : 'channels'
-					  } already locked)`
-					: ''
-			}`
-		);
-		this.client.emit('channelLocked', msg.member!, lockedChannels);
-		if (channels.some(c => c.id === msg.channel.id)) {
-			await msg.delete();
-			setTimeout(async () => await m.delete(), 3000);
+			const differenceOfLengthAndLocked =
+				channels.length - lockedChannels.length;
+			const m = await msg.channel.send(
+				`${process.env.EMOJI_CHECK} locked **${lockedChannels.length}** ${
+					lockedChannels.length == 1 ? 'channel' : 'channels'
+				} ${
+					differenceOfLengthAndLocked != 0
+						? `(**${differenceOfLengthAndLocked}** ${
+								differenceOfLengthAndLocked == 1 ? 'channel' : 'channels'
+						  } already locked)`
+						: ''
+				}`
+			);
+			this.client.emit('channelLocked', msg.member!, lockedChannels);
+			if (channels.some(c => c.id === msg.channel.id)) {
+				await msg.delete();
+				setTimeout(async () => await m.delete(), 3000);
+			}
 		}
 	}
 }
