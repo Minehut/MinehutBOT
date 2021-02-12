@@ -1,5 +1,5 @@
 import { PrefixSupplier } from 'discord-akairo';
-import { Message, TextChannel } from 'discord.js';
+import { Message, MessageEmbed, TextChannel } from 'discord.js';
 import { guildConfigs } from '../../guild/config/guildConfigs';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
 import { MESSAGES } from '../../util/constants';
@@ -14,12 +14,13 @@ export default class ChannelLockdownCommand extends MinehutCommand {
 			clientPermissions: ['MANAGE_CHANNELS'],
 			permissionLevel: PermissionLevel.Moderator,
 			description: {
-				content: 'Lockdown a channel or a set of channels',
-				usage: '[...channels] [-all]',
+				content: 'Lockdown a channel or a set of channels (MUST USE QUOTES FOR REASON FLAG)',
+				usage: '[...channels] [-all] [reason:""]',
 				examples: [
 					'364502598805356545 412394499919052810',
 					'-all',
 					'412394499919052810 -all',
+					'-all reason:"Minehut is currently in maintenance!"',
 				],
 			},
 			args: [
@@ -34,14 +35,24 @@ export default class ChannelLockdownCommand extends MinehutCommand {
 					match: 'flag',
 					flag: '-all',
 				},
+				{
+					id: 'reason',
+					match: 'option',
+					flag: 'reason:',
+				},
 			],
 		});
 	}
 
 	async exec(
 		msg: Message,
-		{ channels, allChannels }: { channels: TextChannel[]; allChannels: boolean }
+		{
+			channels,
+			allChannels,
+			reason,
+		}: { channels: TextChannel[]; allChannels: boolean; reason: string | null }
 	) {
+		reason;
 		const prefix = (this.handler.prefix as PrefixSupplier)(msg) as string;
 		const guildConfig = guildConfigs.get(msg.guild!.id);
 		if (allChannels) {
@@ -58,7 +69,7 @@ export default class ChannelLockdownCommand extends MinehutCommand {
 				}
 			}
 		}
-		if (channels.length == 0)
+		if (channels.length == 0 || channels.some(c => Array.isArray(c)))
 			return msg.channel.send(MESSAGES.commands.useHelp(prefix, 'lockdown'));
 		const lockedChannels = [];
 		for (const channel of channels) {
@@ -72,6 +83,13 @@ export default class ChannelLockdownCommand extends MinehutCommand {
 					},
 					`Channel lock from ${msg.author.tag}`
 				);
+				if (reason) {
+					const embed = new MessageEmbed()
+						.setTitle('This channel has been locked!')
+						.setDescription(reason)
+						.setColor('BLUE')
+					channel.send(embed);
+				}
 				lockedChannels.push(channel);
 			}
 		}
