@@ -63,11 +63,7 @@ export default class ChannelLockdownCommand extends MinehutCommand {
 		const lockedChannels = [];
 		for (const channel of channels) {
 			const permissions = channel.permissionsFor(msg.guild!.roles.everyone);
-			if (
-				permissions &&
-				permissions.toArray().includes('SEND_MESSAGES') &&
-				permissions.toArray().includes('ADD_REACTIONS')
-			) {
+			if (permissions && permissions.toArray().includes('SEND_MESSAGES')) {
 				await channel.updateOverwrite(
 					msg.guild!.roles.everyone,
 					{
