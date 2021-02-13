@@ -14,7 +14,8 @@ export default class ChannelLockdownCommand extends MinehutCommand {
 			clientPermissions: ['MANAGE_CHANNELS'],
 			permissionLevel: PermissionLevel.Moderator,
 			description: {
-				content: 'Lockdown a channel or a set of channels (MUST USE QUOTES FOR REASON FLAG)',
+				content:
+					'Lockdown a channel or a set of channels (MUST USE QUOTES FOR REASON FLAG)',
 				usage: '[...channels] [-all] [reason:""]',
 				examples: [
 					'364502598805356545 412394499919052810',
@@ -87,7 +88,7 @@ export default class ChannelLockdownCommand extends MinehutCommand {
 					const embed = new MessageEmbed()
 						.setTitle('This channel has been locked!')
 						.setDescription(reason)
-						.setColor('BLUE')
+						.setColor('BLUE');
 					channel.send(embed);
 				}
 				lockedChannels.push(channel);
