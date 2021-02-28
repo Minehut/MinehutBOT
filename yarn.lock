@@ -393,10 +393,10 @@ discord-akairo@^8.0.0:
   resolved "https://registry.yarnpkg.com/discord-akairo/-/discord-akairo-8.0.0.tgz#74cc7924007b13b1cba90d35e942534132ccd8b0"
   integrity sha512-Cc1f8f3GFIhgHxg3TOSSfHD1Nt8haPGcmvoQeqlBKhDFwtWoPL+THBVVLaMUBDCzni7X4g6teM5PPvVocwlfZQ==
 
-discord.js-pagination-ts@^1.0.10:
-  version "1.0.10"
-  resolved "https://registry.yarnpkg.com/discord.js-pagination-ts/-/discord.js-pagination-ts-1.0.10.tgz#4f8b5356f789a18717bfd1970509dbbc1b7e5120"
-  integrity sha512-46KKQaPKcj+B8QeHA2nNGHaTt4E/VzGbLdF5l2dg09Ngz4xm2HAgkOanj73ReJEK2wzxKw+45EiiwbDZS5aGiQ==
+discord.js-pagination-ts@^1.0.13:
+  version "1.0.13"
+  resolved "https://registry.yarnpkg.com/discord.js-pagination-ts/-/discord.js-pagination-ts-1.0.13.tgz#11a3bca2c197dd62c5e2177997d2cbbecb2f5b52"
+  integrity sha512-l3mX2lCYEdM3XFPq+wZRo/PBJPURYAylcxyrOa5R3sR2rDL1dPFg9KVU1mWq5ZOi6uLOZ8NshYuPW0/todqdqg==
   dependencies:
     discord.js "^12.2.0"
 
