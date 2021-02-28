@@ -26,7 +26,7 @@
 		"javascript-time-ago": "^2.0.7",
 		"lodash": "^4.17.19",
 		"minehut": "^0.0.14",
-		"mongoose": "^5.9.10",
+		"mongoose": "^5.11.18",
 		"node-fetch": "^2.6.1",
 		"numeral": "^2.0.6",
 		"parse-duration": "jellz/parse-duration",
