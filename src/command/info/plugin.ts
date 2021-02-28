@@ -35,9 +35,16 @@ export default class PluginInfoCommand extends MinehutCommand {
 		const m = await msg.channel.send(
 			`${process.env.EMOJI_LOADING} fetching plugin **${pluginName}**`
 		);
-		const plugins = await this.getData('https://api.minehut.com/plugins_public');
-		const plugin = plugins.all.filter((x: any) => x.name.toLowerCase() === pluginName.toLowerCase() || x._id.toLowerCase() === pluginName.toLowerCase())[0];
-		if(!plugin) return m.edit(`${process.env.EMOJI_CROSS} could not fetch plugin`);
+		const plugins = await this.getData(
+			'https://api.minehut.com/plugins_public'
+		);
+		const plugin = plugins.all.filter(
+			(x: any) =>
+				x.name.toLowerCase() === pluginName.toLowerCase() ||
+				x._id.toLowerCase() === pluginName.toLowerCase()
+		)[0];
+		if (!plugin)
+			return m.edit(`${process.env.EMOJI_CROSS} could not fetch plugin`);
 		const link = plugin.desc_extended.match(LINK_MATCH)[0];
 		const embed: MessageEmbed = new MessageEmbed();
 		embed.setTitle(`${plugin.name}`);
@@ -47,11 +54,14 @@ export default class PluginInfoCommand extends MinehutCommand {
 		embed.addField('Disabled?', plugin.disabled ? 'Yes' : 'No', true);
 		embed.addField('Version', plugin.version, true);
 		embed.addField('File Name', plugin.file_name, true);
-		if(link) embed.addField('Plugin Link', link, true);
+		if (link) embed.addField('Plugin Link', link, true);
 		embed.addField('Created', prettyDate(new Date(plugin.created)));
 		embed.addField('Last Updated', prettyDate(new Date(plugin.last_updated)));
-		embed.setFooter(`Requested by ${msg.author.tag}`, msg.author.displayAvatarURL());
-		return m.edit(embed);
+		embed.setFooter(
+			`Requested by ${msg.author.tag}`,
+			msg.author.displayAvatarURL()
+		);
+		return m.edit({ content: null, embed });
 	}
 
 	async getData(url: string) {
