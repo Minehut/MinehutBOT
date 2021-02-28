@@ -63,8 +63,10 @@ export default class ServerInfoCommand extends MinehutCommand {
 									? 'Yes'
 									: 'No'
 								: server.serverProperties[key].toString().length > 0
-								? `\`${truncate(server.serverProperties[key]+"", { length: 50 })}\``
-								: truncate(server.serverProperties[key]+"", { length: 50 })
+								? `\`${truncate(server.serverProperties[key] + '', {
+										length: 50,
+								  })}\``
+								: truncate(server.serverProperties[key] + '', { length: 50 })
 						}`
 				),
 				true
@@ -73,7 +75,7 @@ export default class ServerInfoCommand extends MinehutCommand {
 				`Requested by ${msg.author.tag}`,
 				msg.author.displayAvatarURL()
 			);
-			return m.edit(embed);
+			return m.edit({ content: null, embed });
 		} catch (e) {
 			if (process.env.NODE_ENV === 'development') console.log(e);
 			return m.edit(`${process.env.EMOJI_CROSS} could not fetch server`);
