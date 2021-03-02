@@ -12,7 +12,7 @@ export default class TagCommand extends MinehutCommand {
 				content: `Manage tags.
 				Available subcommands:
 				• **show** \`<name/alias>\`
-				• **set** \`<name> <content>\`
+				• **set** \`<section> <name> <content>\`
 				• **setalias** \`<alias> <target>\`
 				• **listaliases**
 				• **deletealias** \`<alias>\`
