@@ -91,7 +91,11 @@ export default class PluginInfoCommand extends MinehutCommand {
 
 		const embed = new MessageEmbed()
 			.setTitle(plugin.name)
-			.setDescription(extendedDescription)
+			.setDescription(
+				extendedDescription.length > 0
+					? extendedDescription
+					: plugin.description
+			)
 			.setColor(isPrivate ? 'RED' : 'BLUE')
 			.addField('Added', prettyDate(plugin.createdAt))
 			.addField('Updated', prettyDate(plugin.lastUpdatedAt), true)
