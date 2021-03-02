@@ -37,7 +37,6 @@ export default class TagSetAliasCommand extends MinehutCommand {
 					`${process.env.EMOJI_CROSS} \`${alias}\` is a name, not an alias`
 				);
 			else if (tag.aliases.includes(alias)) {
-				msg.channel.send(tag.aliases);
 				await tag.updateOne({
 					aliases: tag.aliases.filter(a => a !== alias),
 				});
