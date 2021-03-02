@@ -3,7 +3,15 @@ import { TextChannel } from 'discord.js';
 
 interface RawPacket {
 	t: string;
-	d: any;
+	d: {
+		message_id: string;
+		channel_id: string;
+		user_id: string;
+		emoji: {
+			id: string;
+			name: string;
+		}
+	};
 	s: number;
 	op: number;
 }

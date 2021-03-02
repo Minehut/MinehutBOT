@@ -14,7 +14,7 @@ export default class ModLogCommandListener extends Listener {
 		});
 	}
 
-	async exec(msg: Message, _command: Command, _args: any[]) {
+	async exec(msg: Message, _command: Command, _args: unknown[]) {
 		if (!msg.guild) return;
 		const config = guildConfigs.get(msg.guild.id);
 		if (
