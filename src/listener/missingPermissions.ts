@@ -10,7 +10,7 @@ export default class MissingPermissionsListener extends Listener {
 		});
 	}
 
-	async exec(msg: Message, _command: Command, type: string, _missing: any) {
+	async exec(msg: Message, _command: Command, type: string, _missing: unknown) {
 		if (type === 'user') msg.react('⛔');
 		else if (type === 'client') {
 			await msg.react('⛔');
