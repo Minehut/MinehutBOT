@@ -31,7 +31,7 @@ export default class CleanCommand extends MinehutCommand {
 	}
 
 	*args() {
-		const method = yield {
+		const method: string = yield {
 			type: [
 				['clean-user', 'user'],
 				['clean-all', 'all'],

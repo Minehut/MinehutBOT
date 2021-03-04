@@ -39,7 +39,7 @@ export default class CaseCommand extends MinehutCommand {
 	}
 
 	*args() {
-		const method = yield {
+		const method: string = yield {
 			type: [
 				['case-search', 'search'],
 				['case-search', 'history'],

@@ -43,7 +43,7 @@ export default class TagCommand extends MinehutCommand {
 	}
 
 	*args() {
-		const method = yield {
+		const method: string = yield {
 			type: [
 				['tag-set', 'set'],
 

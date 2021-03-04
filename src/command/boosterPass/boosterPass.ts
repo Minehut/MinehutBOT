@@ -34,7 +34,7 @@ export default class BoosterPassCommand extends MinehutCommand {
 	}
 
 	*args() {
-		const method = yield {
+		const method: string = yield {
 			type: [
 				['boosterpass-give', 'give', 'grant'],
 				['boosterpass-revoke', 'revoke', 'remove'],
