@@ -3,6 +3,7 @@ import { TagModel, Tag } from '../../model/tag';
 import { PrefixSupplier } from 'discord-akairo';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
 import { PermissionLevel } from '../../util/permission/permissionLevel';
+import { capitalize } from 'lodash';
 
 export default class TagSetCommand extends MinehutCommand {
 	constructor() {
@@ -48,6 +49,7 @@ export default class TagSetCommand extends MinehutCommand {
 		msg: Message,
 		{ section, name, content }: { section: string; name: string; content: string }
 	) {
+		section = capitalize(section);
 		name = name.replace(/\s+/g, '-').toLowerCase();
 		const prefix = (this.handler.prefix as PrefixSupplier)(msg) as string;
 		const tag = {
