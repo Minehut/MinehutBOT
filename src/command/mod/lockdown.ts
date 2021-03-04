@@ -76,6 +76,13 @@ export default class ChannelLockdownCommand extends MinehutCommand {
 		for (const channel of channels) {
 			const permissions = channel.permissionsFor(msg.guild!.roles.everyone);
 			if (permissions && permissions.toArray().includes('SEND_MESSAGES')) {
+				if (reason) {
+					const embed = new MessageEmbed()
+						.setTitle('This channel has been locked!')
+						.setDescription(reason)
+						.setColor('BLUE');
+					await channel.send(embed);
+				}
 				await channel.updateOverwrite(
 					msg.guild!.roles.everyone,
 					{
@@ -84,13 +91,6 @@ export default class ChannelLockdownCommand extends MinehutCommand {
 					},
 					`Channel lock from ${msg.author.tag}`
 				);
-				if (reason) {
-					const embed = new MessageEmbed()
-						.setTitle('This channel has been locked!')
-						.setDescription(reason)
-						.setColor('BLUE');
-					channel.send(embed);
-				}
 				lockedChannels.push(channel);
 			}
 		}
