@@ -7,7 +7,7 @@ import { Argument } from 'discord-akairo';
 export default class ChannelCooldownCommand extends MinehutCommand {
 	constructor() {
 		super('cooldown', {
-			aliases: ['cooldown'],
+			aliases: ['cooldown', 'slowmode'],
 			category: 'mod',
 			channel: 'guild',
 			clientPermissions: ["MANAGE_CHANNELS"],
