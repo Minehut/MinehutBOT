@@ -72,9 +72,11 @@ guildConfigs.set('239599059415859200', {
 		reactionRole: {
 			channel: '364453066277388289',
 			roles: [
-				{ roleId: '493861300363984916', emoji: '📰' },
-				{ roleId: '496790951537278996', emoji: '📺' },
-				{ roleId: '493253127366115360', emoji: 'HypeBadge' },
+				{ roleId: '493861300363984916', emoji: '📰' }, // changelog
+				{ roleId: '496790951537278996', emoji: '📺' }, // media
+				{ roleId: '493253127366115360', emoji: '🧑‍🤝‍🧑' }, // community
+				{ roleId: '822168311944052777', emoji: '🌩️' }, // status
+				{ roleId: '822168468027736105', emoji: '🛒' }, // marketplace
 			],
 		},
 		boosterPass: {
