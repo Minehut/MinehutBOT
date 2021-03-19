@@ -98,7 +98,7 @@ guildConfigs.set('239599059415859200', {
 			],
 		},
 		channelLockdown: {
-			channels: [
+			allFlagChannels: [
 				'364502598805356545', // #general
 				'373902459883749376', // #random
 				'412394499919052810', // #community-help
@@ -113,6 +113,18 @@ guildConfigs.set('239599059415859200', {
 				'400170127737356299', // #skript
 				'660337933743816724', // #code
 				'705481433996853248', // #voice
+			],
+			reactionPermissionIgnoredChannels: [
+				'240274910688051211', // #servers
+				'364448476458778625', // #marketplace
+				'601544975221653514', // #count-to-1mill
+				'805566446527709244', // #starboard
+				'731886603173363769', // #rules
+				'364453066277388289', // #info
+				'240269653358805003', // #updates
+				'499340530199560192', // #community
+				'822170056569782302', // #market
+				'744243595632181268', // #media
 			],
 		},
 	},

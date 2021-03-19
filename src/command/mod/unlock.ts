@@ -1,5 +1,5 @@
 import { PrefixSupplier } from 'discord-akairo';
-import { Message, TextChannel } from 'discord.js';
+import { Message, PermissionOverwriteOption, TextChannel } from 'discord.js';
 import { guildConfigs } from '../../guild/config/guildConfigs';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
 import { MESSAGES } from '../../util/constants';
@@ -43,14 +43,14 @@ export default class UnlockChannelCommand extends MinehutCommand {
 		{ channels, allChannels }: { channels: TextChannel[]; allChannels: boolean }
 	) {
 		const prefix = (this.handler.prefix as PrefixSupplier)(msg) as string;
-		const guildConfig = guildConfigs.get(msg.guild!.id);
+		const channelLockdownConfig = guildConfigs.get(msg.guild!.id)?.features
+			.channelLockdown;
 		if (allChannels) {
-			const channelLockdownConfig = guildConfig?.features.channelLockdown;
 			if (!channelLockdownConfig)
 				return msg.channel.send(
 					`${process.env.EMOJI_CROSS} Cannot use flag \`-all\` as channel lockdown is not configured for this guild.`
 				);
-			for (const channel of channelLockdownConfig.channels) {
+			for (const channel of channelLockdownConfig.allFlagChannels) {
 				if (!channels.some(c => c.id === channel)) {
 					const resolvedChannel = this.client.channels.resolve(channel);
 					if (resolvedChannel && resolvedChannel.type == 'text')
@@ -64,12 +64,19 @@ export default class UnlockChannelCommand extends MinehutCommand {
 		for (const channel of channels) {
 			const permissions = channel.permissionsFor(msg.guild!.roles.everyone);
 			if (!permissions || !permissions.toArray().includes('SEND_MESSAGES')) {
+				const permissionsToOverride: PermissionOverwriteOption = {
+					SEND_MESSAGES: null,
+				};
+				if (
+					!channelLockdownConfig?.reactionPermissionIgnoredChannels ||
+					!channelLockdownConfig.reactionPermissionIgnoredChannels.includes(
+						channel.id
+					)
+				)
+					permissionsToOverride['ADD_REACTIONS'] = null;
 				await channel.updateOverwrite(
 					msg.guild!.roles.everyone,
-					{
-						SEND_MESSAGES: null,
-						ADD_REACTIONS: null,
-					},
+					permissionsToOverride,
 					`Channel unlock from ${msg.author.tag}`
 				);
 				unlockedChannels.push(channel);
