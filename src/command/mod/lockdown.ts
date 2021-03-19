@@ -1,5 +1,10 @@
 import { PrefixSupplier } from 'discord-akairo';
-import { Message, MessageEmbed, TextChannel } from 'discord.js';
+import {
+	Message,
+	MessageEmbed,
+	PermissionOverwriteOption,
+	TextChannel,
+} from 'discord.js';
 import { guildConfigs } from '../../guild/config/guildConfigs';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
 import { MESSAGES } from '../../util/constants';
@@ -55,14 +60,14 @@ export default class ChannelLockdownCommand extends MinehutCommand {
 	) {
 		reason;
 		const prefix = (this.handler.prefix as PrefixSupplier)(msg) as string;
-		const guildConfig = guildConfigs.get(msg.guild!.id);
+		const channelLockdownConfig = guildConfigs.get(msg.guild!.id)?.features
+			.channelLockdown;
 		if (allChannels) {
-			const channelLockdownConfig = guildConfig?.features.channelLockdown;
 			if (!channelLockdownConfig)
 				return msg.channel.send(
 					`${process.env.EMOJI_CROSS} Cannot use flag \`-all\` as channel lockdown is not configured for this guild.`
 				);
-			for (const channel of channelLockdownConfig.channels) {
+			for (const channel of channelLockdownConfig.allFlagChannels) {
 				if (!channels.some(c => c.id === channel)) {
 					const resolvedChannel = this.client.channels.resolve(channel);
 					if (resolvedChannel && resolvedChannel.type == 'text')
@@ -83,12 +88,19 @@ export default class ChannelLockdownCommand extends MinehutCommand {
 						.setColor('BLUE');
 					await channel.send(embed);
 				}
+				const permissionsToOverride: PermissionOverwriteOption = {
+					SEND_MESSAGES: false,
+				};
+				if (
+					!channelLockdownConfig?.reactionPermissionIgnoredChannels ||
+					!channelLockdownConfig.reactionPermissionIgnoredChannels.includes(
+						channel.id
+					)
+				)
+					permissionsToOverride['ADD_REACTIONS'] = false;
 				await channel.updateOverwrite(
 					msg.guild!.roles.everyone,
-					{
-						SEND_MESSAGES: false,
-						ADD_REACTIONS: false,
-					},
+					permissionsToOverride,
 					`Channel lock from ${msg.author.tag}`
 				);
 				lockedChannels.push(channel);

@@ -1,3 +1,4 @@
 export interface ChannelLockdownConfiguration {
-	channels: string[];
+	allFlagChannels: string[];
+	reactionPermissionIgnoredChannels?: string[];
 }
