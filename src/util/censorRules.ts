@@ -15,7 +15,7 @@ export const CENSOR_RULES = [
 	{ rule: '\\b(horny)', type: Swear, enabled: true },
 	{ rule: '\\b(boobs?)', type: Swear, enabled: true },
 	{
-		rule: '\\b(anal(?!(ysis|y(s|z)e)))',
+		rule: '\\b(anal(?!(ysis|y(s|z)e|ytic(al|s)?|ogy)))',
 		type: Swear,
 		enabled: true,
 	},
@@ -27,7 +27,7 @@ export const CENSOR_RULES = [
 	{ rule: '\\b(sl(u|e)t)', type: Swear, enabled: true },
 	{ rule: '\\b(jerks)', type: Swear, enabled: true },
 	{ rule: '\\b(brainfuck)', type: Swear, enabled: true },
-	{ rule: '\\b(d(i|1|1)ck)', type: Swear, enabled: true },
+	{ rule: '\\b(d(i|1|1|!)ck)', type: Swear, enabled: true },
 	{
 		rule: '\\b(s(e|3)x(?!(y|uality|ualities)))',
 		type: Swear,
@@ -45,7 +45,7 @@ export const CENSOR_RULES = [
 	{ rule: '\\b(hentai)', type: Swear, enabled: true },
 	{
 		rule:
-			'\\b((n|/\\\\/)(1|i|!|e|3)(g|gg|bb|qq)(?!(otiate|otiation|otiator))(?!(h|at))(a|3r|er)?)',
+			'\\b((n|/\\\\/)(1|i|!|e|3)(g|gg|bb|qq)(?!(otiate|otiation|otiator|otiable|lect(able|ed)?|ative))(?!(h|at))(a|3r|er)?)',
 		type: Swear,
 		enabled: true,
 	},
@@ -122,7 +122,7 @@ export const CENSOR_RULES = [
 	{ rule: '\\b((bull?|horse)shit)', type: Swear, enabled: true },
 	{ rule: '\\b(kanker)', type: Swear, enabled: true },
 	{
-		rule: '\\b((dip)?sh(\\.|,)?(i|1|!)t)',
+		rule: '\\b((dip|dog)?(s|$)h(\\.|,)?(i|1|!)t)',
 		type: Swear,
 		enabled: true,
 	},
