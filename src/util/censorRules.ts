@@ -86,7 +86,7 @@ export const CENSOR_RULES = [
 	{ rule: '\\b(fag(got)?)', type: Swear, enabled: true },
 	{ rule: '\\b(vagina)', type: Swear, enabled: true },
 	{ rule: '\\b(mibb(a|er))', type: Swear, enabled: true },
-	{ rule: '\\b((hub)?porn(hub)?)', type: Swear, enabled: true },
+	{ rule: '\\b((hub)?p(o|0)rn(hub)?)', type: Swear, enabled: true },
 	{ rule: '\\b(sperm)', type: Swear, enabled: true },
 	{ rule: '\\b(aroused)', type: Swear, enabled: true },
 	{ rule: '\\b(wanker)', type: Swear, enabled: true },
