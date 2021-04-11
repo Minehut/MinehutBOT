@@ -66,6 +66,7 @@ export const CENSOR_RULES = [
 		type: Swear,
 		enabled: true,
 	},
+	{ rule: '\\b(wh?at (da|the) fawk)', type: Swear, enabled: true },
 	{ rule: '\\b(intercourse)', type: Swear, enabled: true },
 	{ rule: '\\b(cum)', type: Swear, enabled: true },
 	{ rule: '\\b(anus)', type: Swear, enabled: true },
@@ -95,6 +96,7 @@ export const CENSOR_RULES = [
 	{ rule: '\\b(erection)', type: Swear, enabled: true },
 	{ rule: '\\b(fisting)', type: Swear, enabled: true },
 	{ rule: '\\b(motherfucker)', type: Swear, enabled: true },
+	{ rule: '\\b(chode)', type: Swear, enabled: true },
 	{
 		rule: '\\b(masterbat(e|ion|or))',
 		type: Swear,
@@ -176,6 +178,12 @@ export const CENSOR_RULES = [
 	{
 		rule:
 			'\\b((https://)?(www.)?(.+\\.)?zoom.us/j/.+)',
+			type: Swear,
+			enabled: true,
+	},
+	{
+		rule:
+			'\\b((https://)?(www\\.)?tornadus.net/orange)',
 			type: Swear,
 			enabled: true,
 	},
