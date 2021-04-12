@@ -50,7 +50,7 @@ export const CENSOR_RULES = [
 	{ rule: '\\b(thot)', type: Swear, enabled: true },
 	{
 		rule:
-			'\\b((n|/\\\\/)(1|i|!|e|3)(g|gg|bb|qq)(?!(otiate|otiation|otiator|otiable|lect(able|ed)?|ative|le|erian?))(?!(h|at))(a|3r|er)?)',
+			'\\b((n|/\\\\/)(1|i|!|e|3)(g|gg|bb|qq)(?!(otiat(e|ing|or|ion)|otiable|lect(able|ed)?|ative|le|erian?))(?!(h|at))(a|3r|er)?)',
 		type: Swear,
 		enabled: true,
 	},
