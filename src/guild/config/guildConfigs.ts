@@ -30,16 +30,13 @@ guildConfigs.set('813549431672406028', {
 			events: ALL_MODLOG_EVENTS,
 			prefix: '',
 		},
-		// reactionRole: {
-		// 	channel: '364453066277388289',
-		// 	roles: [
-		// 		{ roleId: '493861300363984916', emoji: '📰' }, // changelog
-		// 		{ roleId: '496790951537278996', emoji: '📺' }, // media
-		// 		{ roleId: '493253127366115360', emoji: '🧑‍🤝‍🧑' }, // community
-		// 		{ roleId: '822168311944052777', emoji: '🌩️' }, // status
-		// 		{ roleId: '822168468027736105', emoji: '🛒' }, // marketplace
-		// 	],
-		// },
+		reactionRole: {
+			channel: '815671552741605376',
+			roles: [
+				{ roleId: '831860597091729439', emoji: '📰' }, // changelog
+				{ roleId: '831860539507474453', emoji: '🧑‍🤝‍🧑' }, // announcements
+			],
+		},
 		channelLockdown: {
 			allFlagChannels: [
 				'814904671293538335', // #main-chat
