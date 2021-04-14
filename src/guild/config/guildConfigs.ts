@@ -52,5 +52,14 @@ guildConfigs.set('813549431672406028', {
 				'814904744883388416', // #suggestions
 			],
 		},
-	},
+		autoReact: {
+			channels: [
+				{
+					channel: '814904744883388416', // #suggestions
+					reactions: [':yestick:831849782283862027', ':nocross:831849753862996000'],
+					allowMessageAuthorReacting: false,
+					allowMultipleUserReactions: false,
+				},
+		]},
+	}
 });
