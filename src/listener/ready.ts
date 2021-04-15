@@ -24,7 +24,7 @@ export default class ReadyListener extends Listener {
 			if (!mainGuild && c.main) mainGuild = this.client.guilds.cache.get(c.id)!;
 		});
 		if (mainGuild) {
-			const memberCount = numeral(mainGuild.memberCount).format('0.0a');
+			const memberCount = numeral(mainGuild.memberCount).format('0a');
 			this.client.user?.setActivity(`👀 ${memberCount}`, {
 				type: 'WATCHING',
 			});
