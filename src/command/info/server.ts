@@ -10,6 +10,7 @@ export default class ServerInfoCommand extends MinehutCommand {
 	constructor() {
 		super('serverInfo', {
 			aliases: ['server'],
+			ownerOnly: true,
 			description: {
 				content: 'Look up a Minehut server',
 				usage: '<server>',

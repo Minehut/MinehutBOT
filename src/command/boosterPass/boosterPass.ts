@@ -8,6 +8,7 @@ export default class BoosterPassCommand extends MinehutCommand {
 	constructor() {
 		super('boosterPass', {
 			aliases: ['boosterpass', 'bp'],
+			ownerOnly: true,
 			description: {
 				content: `Give, revoke, or retrieve info on booster passes
                 Available subcommands:

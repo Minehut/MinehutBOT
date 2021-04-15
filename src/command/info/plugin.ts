@@ -9,6 +9,7 @@ export default class PluginInfoCommand extends MinehutCommand {
 	constructor() {
 		super('pluginInfo', {
 			aliases: ['plugin'],
+			ownerOnly: true,
 			description: {
 				content: 'Look up a plugin on Minehut',
 				usage: '<plugin>',
