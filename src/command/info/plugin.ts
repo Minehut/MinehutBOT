@@ -1,14 +1,14 @@
 import { MinehutCommand } from '../../structure/command/minehutCommand';
-import { Message, MessageEmbed } from 'discord.js';
+import { CollectorFilter, Message, MessageEmbed } from 'discord.js';
 import { prettyDate } from '../../util/functions';
-import fetch from 'node-fetch';
+import { Plugin } from 'minehut/dist/plugin/Plugin';
 
 const LINK_MATCH = /^http.*/gm;
 
 export default class PluginInfoCommand extends MinehutCommand {
 	constructor() {
 		super('pluginInfo', {
-			aliases: ['plugin'],
+			aliases: ['plugin', 'plugininfo'],
 			description: {
 				content: 'Look up a plugin on Minehut',
 				usage: '<plugin>',
@@ -17,7 +17,7 @@ export default class PluginInfoCommand extends MinehutCommand {
 			category: 'info',
 			args: [
 				{
-					id: 'pluginName',
+					id: 'query',
 					type: 'string',
 					match: 'rest',
 					prompt: {
@@ -31,46 +31,82 @@ export default class PluginInfoCommand extends MinehutCommand {
 		});
 	}
 
-	async exec(msg: Message, { pluginName }: { pluginName: string }) {
+	async exec(msg: Message, { query }: { query: string }) {
 		const m = await msg.channel.send(
-			`${process.env.EMOJI_LOADING} fetching plugin **${pluginName}**`
+			`${process.env.EMOJI_LOADING} fetching plugin **${query}**`
 		);
-		const plugins = await this.getData(
-			'https://api.minehut.com/plugins_public'
-		);
-		const plugin = plugins.all.filter(
-			(x: any) =>
-				x.name.toLowerCase() === pluginName.toLowerCase() ||
-				x._id.toLowerCase() === pluginName.toLowerCase()
-		)[0];
-		if (!plugin)
-			return m.edit(`${process.env.EMOJI_CROSS} could not fetch plugin`);
-		const link = plugin.desc_extended.match(LINK_MATCH)[0];
-		const embed: MessageEmbed = new MessageEmbed();
-		embed.setTitle(`${plugin.name}`);
-		embed.setDescription(plugin.desc);
-		embed.setColor('BLUE');
-		embed.addField('Private?', plugin.credits === 0 ? 'No' : 'Yes', true);
-		embed.addField('Disabled?', plugin.disabled ? 'Yes' : 'No', true);
-		embed.addField('Version', plugin.version, true);
-		embed.addField('File Name', plugin.file_name, true);
-		if (link) embed.addField('Plugin Link', link, true);
-		embed.addField('Created', prettyDate(new Date(plugin.created)));
-		embed.addField('Last Updated', prettyDate(new Date(plugin.last_updated)));
-		embed.setFooter(
-			`Requested by ${msg.author.tag}`,
-			msg.author.displayAvatarURL()
-		);
-		return m.edit({ content: null, embed });
-	}
 
-	async getData(url: string) {
-		try {
-			const response = await fetch(url);
-			const json = response.json();
-			return json;
-		} catch (e) {
-			if (process.env.NODE_ENV === 'development') console.log(e);
+		const plugins = await this.client.minehutApi.plugins.search(query);
+		let plugin: Plugin;
+
+		if (plugins.length < 1)
+			return m.edit(`${process.env.EMOJI_CROSS} unknown plugin`);
+		else if (plugins.length > 20) {
+			console.log(plugins.map(p => p.name));
+			return m.edit(
+				`${process.env.EMOJI_CROSS} try to narrow down your search query`
+			);
+		} else if (plugins.length === 1) plugin = plugins[0];
+		else {
+			const max = plugins.length;
+			const pluginList = plugins.map(
+				(plugin, index) => `${index + 1}) ${plugin.name}`
+			);
+
+			await m.edit(`
+			Did you mean one of these? (pick 1-${max}) \`\`\`${pluginList.join(
+				'\n'
+			)}\`\`\``);
+
+			const idFilter = <CollectorFilter>(
+				((input: Message) => msg.author.id === input.author.id)
+			);
+
+			const idMessages = await msg.channel.awaitMessages(idFilter, {
+				max: 1,
+				time: 30000,
+			});
+
+			// Delete the number message by the user
+			idMessages.forEach(m => m.delete());
+
+			const id = idMessages.map(m => Number(m.content))[0];
+			if (!id || id < 1 || id > max)
+				return m.edit(
+					`${process.env.EMOJI_CROSS} you need to specify a number between 1-${max}`
+				);
+
+			plugin = plugins[id - 1];
 		}
+
+		const extendedDescription = plugin.extendedDescription
+			.replace(/Plugin Link(:)?/gm, '')
+			.replace(LINK_MATCH, '')
+			.trim();
+
+		const match = plugin.extendedDescription.match(LINK_MATCH);
+		const link = match ? match[0] : null;
+
+		const isPrivate = plugin.credits > 0;
+
+		const embed = new MessageEmbed()
+			.setTitle(plugin.name)
+			.setDescription(
+				extendedDescription.length > 0
+					? extendedDescription
+					: plugin.description
+			)
+			.setColor(isPrivate ? 'RED' : 'BLUE')
+			.addField('Added', prettyDate(plugin.createdAt))
+			.addField('Updated', prettyDate(plugin.lastUpdatedAt), true)
+			.addField('Version', `\`${plugin.version}\``)
+			.setFooter(
+				`Requested by ${msg.author.tag}`,
+				msg.author.displayAvatarURL()
+			);
+
+		if (link) embed.addField('Link', link);
+
+		return m.edit({ content: null, embed });
 	}
 }
