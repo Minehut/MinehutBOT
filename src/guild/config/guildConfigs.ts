@@ -47,7 +47,6 @@ guildConfigs.set('239599059415859200', {
 					id: '616367029053554708', // Private category (incl. boosters)
 					type: 'category',
 					config: {
-						allowSwearing: true,
 						allowZalgo: true,
 					},
 				},
