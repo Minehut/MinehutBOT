@@ -188,8 +188,8 @@ export const CENSOR_RULES = [
 			enabled: true,
 	},
 	{
-		rule: '\\b(reallybadword)',
-		type: CopyPasta,
+		rule: '\\b((https?://)?(www\\.)?steancomunnity\\.ru(/.+)?',
+		type: Swear,
 		enabled: true,
 	},
 	{
@@ -204,6 +204,11 @@ export const CENSOR_RULES = [
 	},
 	{
 		rule: '\\b(Look out for (a|the) discord user)',
+		type: CopyPasta,
+		enabled: true,
+	},
+	{
+		rule: '\\b(This is a message from the (discord creator|creator of discord))',
 		type: CopyPasta,
 		enabled: true,
 	},
