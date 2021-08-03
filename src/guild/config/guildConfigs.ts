@@ -197,9 +197,18 @@ guildConfigs.set('546414872196415501', {
 		},
 		censor: {
 			inviteWhitelist: INVITE_WHITELIST,
-			allowSwearing: false,
-			minimumChatPermission: PermissionLevel.Everyone,
-			overrides: [],
+			overrides: [
+				{
+					id: '754091669548171357', // #filter-requests channel
+					type: 'channel',
+					config: {
+						allowSwearing: true,
+						allowCopyPasta: true,
+						allowInvites: true,
+						allowZalgo: true,
+					},	
+				},
+			],
 		},
 		autoReact: {
 			channels: [
