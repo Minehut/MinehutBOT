@@ -100,7 +100,7 @@ export function randomAlphanumericString(length: number) {
 
 export function removeMarkdownAndMentions(content: string, msg?: Message) {
 	return Util.escapeMarkdown(
-		msg ? Util.cleanContent(content, msg) : Util.removeMentions(content)
+		msg ? Util.cleanContent(content, msg.channel) : Util.removeMentions(content)
 	);
 }
 
@@ -115,12 +115,12 @@ export async function sendModLogMessage(
 		config.features.modLog.channel
 	) as TextChannel;
 	const date = new Date();
-	channel?.send(
-		`**\`${prettyDate(date, false, false)}\`** ${
+	channel?.send({
+		content: `**\`${prettyDate(date, false, false)}\`** ${
 			config.features.modLog.prefix
 		} ${content}`,
-		{ files: attachmentUrls }
-	);
+		files: attachmentUrls,
+	});
 }
 
 // Thanks draem
@@ -152,7 +152,7 @@ export async function censorMessage(msg: Message) {
 	const override = config.features.censor.overrides.find(o =>
 		o.type === 'channel'
 			? o.id === msg.channel.id
-			: o.id === (msg.channel as TextChannel).parentID
+			: o.id === (msg.channel as TextChannel).parentId
 	);
 	const featureConf = cloneDeep(config.features.censor);
 	const censorConfig = override
@@ -167,7 +167,7 @@ export async function censorMessage(msg: Message) {
 		getPermissionLevel(msg.member!, msg.client as MinehutClient) >=
 		(censorConfig.minimumChatPermission || PermissionLevel.Everyone);
 	if (!canChat) {
-		await msg.delete({ reason: 'Below needed chat permission level!' });
+		await msg.delete();
 		return;
 	}
 
@@ -198,7 +198,7 @@ export async function censorMessage(msg: Message) {
 
 	if (type === Spam && censorConfig.allowSpam) return false;
 
-	await msg.delete({ reason: 'Automated chat filter' });
+	await msg.delete();
 	const feedbackString = msg.content
 		.trim()
 		.replace(/[\u200B-\u200D\uFEFF]/g, '')
@@ -242,23 +242,29 @@ export function findImageFromMessage(msg: Message): string | undefined {
 }
 
 export async function revokeGrantedBoosterPasses(member: GuildMember) {
-    const boosterPasses = await BoosterPassModel.getGrantedByMember(member);
-    if (boosterPasses.length > 0) 
-        boosterPasses.forEach(async bp => {
-            await bp.remove();
-            const boosterPassRole = guildConfigs
-                .get(member.guild.id)?.roles.boostersPass;
-            if (!boosterPassRole)
-                throw new Error(`Guild ${member.guild.id} does not have a configured booster pass role!`);
-            const boosterPassReceiver = await member.guild.members.fetch(bp.grantedId);
-            if (!boosterPassReceiver) return;
-            const receiverReceivedPasses = await BoosterPassModel.getReceivedByMember(boosterPassReceiver);
-            if (
-                receiverReceivedPasses.length < 0 &&
-                boosterPassReceiver.roles.cache.has(boosterPassRole)
-            )
-                boosterPassReceiver.roles.remove(boosterPassRole);
-        });  
+	const boosterPasses = await BoosterPassModel.getGrantedByMember(member);
+	if (boosterPasses.length > 0)
+		boosterPasses.forEach(async bp => {
+			await bp.remove();
+			const boosterPassRole = guildConfigs.get(member.guild.id)?.roles
+				.boostersPass;
+			if (!boosterPassRole)
+				throw new Error(
+					`Guild ${member.guild.id} does not have a configured booster pass role!`
+				);
+			const boosterPassReceiver = await member.guild.members.fetch(
+				bp.grantedId
+			);
+			if (!boosterPassReceiver) return;
+			const receiverReceivedPasses = await BoosterPassModel.getReceivedByMember(
+				boosterPassReceiver
+			);
+			if (
+				receiverReceivedPasses.length < 0 &&
+				boosterPassReceiver.roles.cache.has(boosterPassRole)
+			)
+				boosterPassReceiver.roles.remove(boosterPassRole);
+		});
 }
 
 export async function generateHastebinFromInput(input: string, ext: string) {

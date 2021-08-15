@@ -44,7 +44,7 @@ export default class HelpCommand extends MinehutCommand {
 				);
 			}
 
-			return msg.channel.send(embed);
+			return msg.channel.send({ embeds: [embed] });
 		}
 
 		const embed = new MessageEmbed()
@@ -67,6 +67,6 @@ export default class HelpCommand extends MinehutCommand {
 				)}\``
 			);
 
-		return msg.channel.send(embed);
+		return msg.channel.send({ embeds: [embed] });
 	}
 }

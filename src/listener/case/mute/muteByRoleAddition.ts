@@ -33,7 +33,7 @@ export default class MuteByRoleAdditionListener extends Listener {
 					return;
 				const action = new MuteAction({
 					target: newMember,
-					moderator: newMember.guild.member(this.client.user!)!,
+					moderator: newMember.guild.members.resolve(this.client.user!)!,
 					reason: `Manual role addition`,
 					duration: FOREVER_MS,
 					client: this.client,

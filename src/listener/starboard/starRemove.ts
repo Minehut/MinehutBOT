@@ -13,7 +13,8 @@ export default class StarRemoveListener extends Listener {
 	}
 
 	async exec(reaction: MessageReaction, user: User) {
-		const msg = reaction.message;
+		let msg = reaction.message;
+		if (msg.partial) msg = await msg.fetch();
 		if (!msg.guild) return;
 
 		if (
@@ -55,8 +56,7 @@ export default class StarRemoveListener extends Listener {
 		if (!starboardEntry.starredBy.includes(user.id)) return;
 
 		if (addedEmojiCount < starboardConfig.triggerAmount) {
-			if (starEntryMessage.deletable)
-				starEntryMessage.delete({ reason: 'unstarred' });
+			if (starEntryMessage.deletable) starEntryMessage.delete();
 			return await StarMessageModel.deleteOne({ _id: msg.id });
 		}
 
@@ -78,9 +78,9 @@ export default class StarRemoveListener extends Listener {
 		const img = findImageFromMessage(msg);
 		if (img) embed.setImage(img);
 
-		return starEntryMessage.edit(
-			`${starboardTriggerEmoji} **${addedEmojiCount}** ${msg.channel} `,
-			embed
-		);
+		return starEntryMessage.edit({
+			content: `${starboardTriggerEmoji} **${addedEmojiCount}** ${msg.channel} `,
+			embeds: [embed],
+		});
 	}
 }

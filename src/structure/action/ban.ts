@@ -33,7 +33,7 @@ export class BanAction extends Action {
 
 	async commit() {
 		// To execute the action and the after method
-		const member = this.guild.member(this.target);
+		const member = this.guild.members.resolve(this.target);
 		if (member && !member.bannable) return;
 
 		// Make previous bans inactive
@@ -83,7 +83,7 @@ export class BanAction extends Action {
 				)
 				.addField('Expires', prettyDate(this.expiresAt))
 				.setTimestamp();
-			await this.target.send(embed);
+			await this.target.send({ embeds: [embed] });
 		} catch (err) {}
 	}
 }

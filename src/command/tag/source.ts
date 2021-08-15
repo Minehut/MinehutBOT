@@ -36,6 +36,6 @@ export default class TagSourceCommand extends MinehutCommand {
 				`${process.env.EMOJI_CROSS} tag \`${name}\` does not exist, check \`${prefix}tags\``
 			);
 
-		msg.channel.send(tag.content, { code: true });
+		msg.channel.send(`\`\`\`${tag.content}\`\`\``);
 	}
 }

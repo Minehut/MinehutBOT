@@ -78,7 +78,7 @@ export class MuteAction extends Action {
 				)
 				.addField('Expires', prettyDate(this.expiresAt))
 				.setTimestamp();
-			await this.target.send(embed);
+			await this.target.send({ embeds: [embed] });
 		} catch (err) {}
 	}
 }

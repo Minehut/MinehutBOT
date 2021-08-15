@@ -2,7 +2,7 @@ import { PrefixSupplier } from 'discord-akairo';
 import {
 	Message,
 	MessageEmbed,
-	PermissionOverwriteOption,
+	PermissionOverwriteOptions,
 	TextChannel,
 } from 'discord.js';
 import { guildConfigs } from '../../guild/config/guildConfigs';
@@ -70,7 +70,7 @@ export default class ChannelLockdownCommand extends MinehutCommand {
 			for (const channel of channelLockdownConfig.allFlagChannels) {
 				if (!channels.some(c => c.id === channel)) {
 					const resolvedChannel = this.client.channels.resolve(channel);
-					if (resolvedChannel && resolvedChannel.type == 'text')
+					if (resolvedChannel && resolvedChannel.type == 'GUILD_TEXT')
 						channels.push(resolvedChannel as TextChannel);
 				}
 			}
@@ -86,9 +86,9 @@ export default class ChannelLockdownCommand extends MinehutCommand {
 						.setTitle('This channel has been locked!')
 						.setDescription(reason)
 						.setColor('BLUE');
-					await channel.send(embed);
+					await channel.send({ embeds: [embed] });
 				}
-				const permissionsToOverride: PermissionOverwriteOption = {
+				const permissionsToOverride: PermissionOverwriteOptions = {
 					SEND_MESSAGES: false,
 				};
 				if (
@@ -98,10 +98,12 @@ export default class ChannelLockdownCommand extends MinehutCommand {
 					)
 				)
 					permissionsToOverride['ADD_REACTIONS'] = false;
-				await channel.updateOverwrite(
+				await channel.permissionOverwrites.edit(
 					msg.guild!.roles.everyone,
 					permissionsToOverride,
-					`Channel lock from ${msg.author.tag}`
+					{
+						reason: `Channel lock from ${msg.author.tag}`,
+					}
 				);
 				lockedChannels.push(channel);
 			}

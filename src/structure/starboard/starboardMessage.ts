@@ -42,12 +42,12 @@ export class StarboardMessage {
 		const img = findImageFromMessage(this.msg);
 		if (img) embed.setImage(img);
 
-		const sentStarboardEntry = await this.channel.send(
-			`${this.config?.features?.starboard?.emoji ?? '⭐'}**${this.count}** ${
-				this.msg.channel
-			} `,
-			embed
-		);
+		const sentStarboardEntry = await this.channel.send({
+			content: `${this.config?.features?.starboard?.emoji ?? '⭐'}**${
+				this.count
+			}** ${this.msg.channel} `,
+			embeds: [embed],
+		});
 		await StarMessageModel.create({
 			_id: this.msg.id,
 			author: this.msg.author.id,

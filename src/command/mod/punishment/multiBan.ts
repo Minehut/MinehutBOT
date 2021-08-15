@@ -72,13 +72,13 @@ export default class MultiBanCommand extends MinehutCommand {
 			duration === FOREVER_MS
 				? 'permanent'
 				: humanizeDuration(duration, { largest: 3, round: true });
-		const m = await msg.channel.send(process.env.EMOJI_LOADING);
+		const m = await msg.channel.send(process.env.EMOJI_LOADING!);
 		const banned: { success: string[]; fail: string[] } = {
 			success: [],
 			fail: [],
 		};
 		targets.forEach(target => {
-			const member = msg.guild!.member(target);
+			const member = msg.guild!.members.resolve(target);
 			if (member && !member.bannable) return banned.fail.push(target.id);
 			const action = new BanAction({
 				target,

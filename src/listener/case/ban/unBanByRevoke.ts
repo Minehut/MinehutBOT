@@ -26,7 +26,7 @@ export default class UnBanByRevokeListener extends Listener {
 			return;
 		const action = new UnBanAction({
 			target: user,
-			moderator: guild.member(this.client.user!)!,
+			moderator: guild.members.resolve(this.client.user!)!,
 			reason: `Manual ban revoke`,
 			client: this.client,
 			guild,
