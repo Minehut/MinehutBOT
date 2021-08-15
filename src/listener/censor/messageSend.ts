@@ -6,7 +6,7 @@ export default class CensorMessageSendListener extends Listener {
 	constructor() {
 		super('censorMessageSend', {
 			emitter: 'client',
-			event: 'message',
+			event: 'messageCreate',
 		});
 	}
 

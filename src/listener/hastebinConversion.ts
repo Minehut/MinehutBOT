@@ -9,7 +9,7 @@ export default class HastebinConversionListener extends Listener {
 	constructor() {
 		super('hastebinConversion', {
 			emitter: 'client',
-			event: 'message',
+			event: 'messageCreate',
 		});
 	}
 
