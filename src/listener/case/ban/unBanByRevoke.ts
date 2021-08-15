@@ -1,8 +1,7 @@
 import { Listener } from 'discord-akairo';
 import { CaseModel } from '../../../model/case';
 import { CaseType } from '../../../util/constants';
-import { Guild } from 'discord.js';
-import { User } from 'discord.js';
+import { GuildBan } from 'discord.js';
 import { UnBanAction } from '../../../structure/action/unBan';
 
 export default class UnBanByRevokeListener extends Listener {
@@ -13,23 +12,23 @@ export default class UnBanByRevokeListener extends Listener {
 		});
 	}
 
-	async exec(guild: Guild, user: User) {
+	async exec(ban: GuildBan) {
 		// Stop the flow if the member is not banned
 		if (
 			!(await CaseModel.exists({
-				targetId: user.id,
+				targetId: ban.user.id,
 				$or: [{ type: CaseType.Ban }, { type: CaseType.ForceBan }],
 				active: true,
-				guild: guild.id,
+				guild: ban.guild.id,
 			}))
 		)
 			return;
 		const action = new UnBanAction({
-			target: user,
-			moderator: guild.members.resolve(this.client.user!)!,
+			target: ban.user,
+			moderator: ban.guild.members.resolve(this.client.user!)!,
 			reason: `Manual ban revoke`,
 			client: this.client,
-			guild,
+			guild: ban.guild,
 		});
 		action.commit();
 	}
