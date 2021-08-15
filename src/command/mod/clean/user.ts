@@ -63,8 +63,8 @@ export default class CleanUserCommand extends MinehutCommand {
 			`:ok_hand: deleted ${filtered.length} messages`
 		);
 		setTimeout(() => {
-			msg.delete();
-			bmsg.delete();
+			msg.delete().catch(() => {});
+			bmsg.delete().catch(() => {});
 		}, 5000);
 	}
 }
