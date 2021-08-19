@@ -7,7 +7,7 @@ import { PermissionLevel } from '../../util/permission/permissionLevel';
 export default class TagSetCommand extends MinehutCommand {
 	constructor() {
 		super('tag-set', {
-			permissionLevel: PermissionLevel.Helper,
+			permissionLevel: PermissionLevel.Moderator,
 			category: 'tag',
 			channel: 'guild',
 			description: {

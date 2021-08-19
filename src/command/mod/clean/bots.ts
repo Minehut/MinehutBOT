@@ -7,7 +7,7 @@ export default class CleanBotsCommand extends MinehutCommand {
 		super('clean-bots', {
 			category: 'mod',
 			channel: 'guild',
-			permissionLevel: PermissionLevel.SuperHelper,
+			permissionLevel: PermissionLevel.Moderator,
 			description: {
 				content: 'Clean x amount of bot messages',
 				usage: '<count>',
