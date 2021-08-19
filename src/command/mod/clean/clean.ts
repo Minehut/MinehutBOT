@@ -24,7 +24,7 @@ export default class CleanCommand extends MinehutCommand {
 					'bots 10',
 				],
 			},
-			permissionLevel: PermissionLevel.Moderator,
+			permissionLevel: PermissionLevel.SuperHelper,
 			category: 'mod',
 			channel: 'guild',
 		});

@@ -13,7 +13,7 @@ export default class CaseDurationCommand extends MinehutCommand {
 		super('case-duration', {
 			category: 'mod',
 			channel: 'guild',
-			permissionLevel: PermissionLevel.Moderator,
+			permissionLevel: PermissionLevel.SuperHelper,
 			description: {
 				content: 'Set a case duration',
 				usage: '<case> <new duration>',
