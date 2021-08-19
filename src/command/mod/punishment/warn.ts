@@ -8,7 +8,7 @@ export default class WarnCommand extends MinehutCommand {
 	constructor() {
 		super('warn', {
 			aliases: ['warn'],
-			permissionLevel: PermissionLevel.Moderator,
+			permissionLevel: PermissionLevel.SuperHelper,
 			category: 'mod',
 			channel: 'guild',
 			description: {

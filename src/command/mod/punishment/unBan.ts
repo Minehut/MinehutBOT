@@ -11,7 +11,7 @@ export default class UnBanCommand extends MinehutCommand {
 	constructor() {
 		super('unBan', {
 			aliases: ['unban'],
-			permissionLevel: PermissionLevel.Moderator,
+			permissionLevel: PermissionLevel.SuperHelper,
 			category: 'mod',
 			channel: 'guild',
 			clientPermissions: ['BAN_MEMBERS'],

@@ -14,7 +14,7 @@ export default class CaseInfoCommand extends MinehutCommand {
 			category: 'mod',
 			channel: 'guild',
 			clientPermissions: ['EMBED_LINKS'],
-			permissionLevel: PermissionLevel.Moderator,
+			permissionLevel: PermissionLevel.SuperHelper,
 			description: {
 				content: 'Lookup a specific case',
 				usage: '<case>',

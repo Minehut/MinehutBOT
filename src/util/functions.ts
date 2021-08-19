@@ -160,7 +160,7 @@ export async function censorMessage(msg: Message) {
 		: featureConf;
 	const bypassCensor =
 		getPermissionLevel(msg.member!, msg.client as MinehutClient) >=
-		(censorConfig.minimumBypassPermission || PermissionLevel.Moderator);
+		(censorConfig.minimumBypassPermission || PermissionLevel.Helper);
 	if (bypassCensor) return;
 
 	const canChat =

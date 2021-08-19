@@ -12,7 +12,7 @@ export default class BanCommand extends MinehutCommand {
 	constructor() {
 		super('ban', {
 			aliases: ['ban'],
-			permissionLevel: PermissionLevel.Moderator,
+			permissionLevel: PermissionLevel.SuperHelper,
 			category: 'mod',
 			channel: 'guild',
 			clientPermissions: ['BAN_MEMBERS'],
