@@ -31,7 +31,7 @@ export default class GithubIssueReferenceListener extends Listener {
 					`gh-${issueNumber}-${msg.channel.id}`
 				)
 			)
-			return msg.react('⏲️');
+				return msg.react('⏲️');
 			const issue = await getIssue(
 				this.client,
 				config.features.githubIssue.githubRepoOwner,
@@ -65,7 +65,7 @@ export default class GithubIssueReferenceListener extends Listener {
 							.join(' • ')
 					)
 					.setTimestamp(Date.parse(issue.data.created_at));
-				await msg.channel.send(embed);
+				await msg.channel.send({ embeds: [embed] });
 				this.client.githubCooldownManager.add(
 					`gh-${issue.data.number}-${msg.channel.id}`
 				);

@@ -2,8 +2,7 @@ import { Listener } from 'discord-akairo';
 import { CaseModel } from '../../../model/case';
 import { CaseType, FOREVER_MS } from '../../../util/constants';
 import { BanAction } from '../../../structure/action/ban';
-import { Guild } from 'discord.js';
-import { User } from 'discord.js';
+import { GuildBan } from 'discord.js';
 
 export default class BanByManualBan extends Listener {
 	constructor() {
@@ -13,28 +12,28 @@ export default class BanByManualBan extends Listener {
 		});
 	}
 
-	async exec(guild: Guild, user: User) {
+	async exec(ban: GuildBan) {
 		setTimeout(async () => {
 			// Stop flow if user is not banned anymore (probably softban)
-			const bans = await guild.fetchBans();
-			if (!bans.has(user.id)) return;
+			const bans = await ban.guild.bans.fetch();
+			if (!bans.has(ban.user.id)) return;
 			// Stop the flow if the member has a ban case
 			if (
 				await CaseModel.exists({
-					targetId: user.id,
+					targetId: ban.user.id,
 					$or: [{ type: CaseType.Ban }, { type: CaseType.ForceBan }],
 					active: true,
-					guild: guild.id,
+					guild: ban.guild.id,
 				})
 			)
 				return;
 			const action = new BanAction({
-				target: user,
-				moderator: guild.member(this.client.user!)!,
+				target: ban.user,
+				moderator: ban.guild.members.resolve(this.client.user!)!,
 				reason: `Manual ban`,
 				duration: FOREVER_MS,
 				client: this.client,
-				guild: guild,
+				guild: ban.guild,
 			});
 			action.commit();
 		}, 3000);

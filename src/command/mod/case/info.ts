@@ -62,6 +62,6 @@ export default class CaseInfoCommand extends MinehutCommand {
 			);
 		}
 		embed.addField('Date', prettyDate(c.createdAt), true);
-		msg.channel.send(embed);
+		msg.channel.send({ embeds: [embed] });
 	}
 }

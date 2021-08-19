@@ -45,9 +45,13 @@ export default class ServerInfoCommand extends MinehutCommand {
 			embed.setDescription(server.motd.replace(COLOUR_CODE_EXPR, ''));
 			embed.addField('Last Started', prettyDate(server.lastOnline), true);
 			if (server.playerCount > 0)
-				embed.addField('Player Count', server.playerCount, true);
+				embed.addField('Player Count', server.playerCount.toString(), true);
 			embed.addField('Suspended?', server.suspended ? 'Yes' : 'No', true);
-			embed.addField('Credits/day', Math.round(server.creditsPerDay), true);
+			embed.addField(
+				'Credits/day',
+				Math.round(server.creditsPerDay).toString(),
+				true
+			);
 			const icon = await server.getActiveIcon();
 			if (icon) embed.addField('Icon', icon.displayName, true);
 			const plugins = await server.getActivePlugins();
@@ -55,27 +59,29 @@ export default class ServerInfoCommand extends MinehutCommand {
 				embed.addField('Plugins', plugins.map(p => `⋆ ${p.name}`).join('\n'));
 			embed.addField(
 				'Server Properties',
-				Object.keys(server.serverProperties).map(
-					key =>
-						`⋆ **${startCase(key)}**: ${
-							typeof server.serverProperties[key] === 'boolean'
-								? server.serverProperties[key]
-									? 'Yes'
-									: 'No'
-								: server.serverProperties[key].toString().length > 0
-								? `\`${truncate(server.serverProperties[key] + '', {
-										length: 50,
-								  })}\``
-								: truncate(server.serverProperties[key] + '', { length: 50 })
-						}`
-				),
+				Object.keys(server.serverProperties)
+					.map(
+						key =>
+							`⋆ **${startCase(key)}**: ${
+								typeof server.serverProperties[key] === 'boolean'
+									? server.serverProperties[key]
+										? 'Yes'
+										: 'No'
+									: server.serverProperties[key].toString().length > 0
+									? `\`${truncate(server.serverProperties[key] + '', {
+											length: 50,
+									  })}\``
+									: truncate(server.serverProperties[key] + '', { length: 50 })
+							}`
+					)
+					.join('\n'),
 				true
 			);
 			embed.setFooter(
 				`Requested by ${msg.author.tag}`,
 				msg.author.displayAvatarURL()
 			);
-			return m.edit({ content: null, embed });
+			return m.edit({ content: null, embeds: [embed] });
 		} catch (e) {
 			if (process.env.NODE_ENV === 'development') console.log(e);
 			return m.edit(`${process.env.EMOJI_CROSS} could not fetch server`);

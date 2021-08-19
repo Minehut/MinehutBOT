@@ -16,7 +16,8 @@ export default class StarAddListener extends Listener {
 	}
 
 	async exec(reaction: MessageReaction, user: User) {
-		const msg = reaction.message;
+		let msg = reaction.message;
+		if (msg.partial) msg = await msg.fetch();
 		if (!msg.guild) return;
 		const config = guildConfigs.get(msg.guild.id);
 		const starboardConfig = config?.features.starboard;
@@ -41,7 +42,7 @@ export default class StarAddListener extends Listener {
 
 		if (emojiAddedByUser !== starboardTriggerEmoji) return;
 
-		const member = msg.guild.member(user)!;
+		const member = msg.guild.members.resolve(user)!;
 
 		const userPermissionLvl = getPermissionLevel(member, this.client);
 
@@ -49,8 +50,9 @@ export default class StarAddListener extends Listener {
 
 		if (msg.author.id === user.id && emojiAddedByUser === starboardTriggerEmoji)
 			return;
-		
-		if (this.client.starboardCooldownManager.isOnCooldown(user.id)) return reaction.users.remove(user);
+
+		if (this.client.starboardCooldownManager.isOnCooldown(user.id))
+			return reaction.users.remove(user);
 
 		const starboardTriggerAmount = starboardConfig.triggerAmount;
 		const addedEmojiCount = reaction.count;
@@ -85,21 +87,21 @@ export default class StarAddListener extends Listener {
 				starboardEntry!.starEntryId
 			);
 
-			return starEntryMessage.edit(
-				`${starboardTriggerEmoji} **${addedEmojiCount}** ${msg.channel} `,
-				embed
-			);
+			return starEntryMessage.edit({
+				content: `${starboardTriggerEmoji} **${addedEmojiCount}** ${msg.channel} `,
+				embeds: [embed],
+			});
 		}
 
 		// Checks if any reaction is by a user with permission level greater than the specified config value.
 		const minPermLevelMet = reaction.users.cache.some(
 			user =>
-				getPermissionLevel(msg.guild?.member(user)!, this.client) >=
+				getPermissionLevel(msg.guild?.members.resolve(user)!, this.client) >=
 				minStarboardPermTriggerLvl
 		);
 
 		if (addedEmojiCount >= starboardTriggerAmount && minPermLevelMet) {
-			const starredBy = reaction.users.cache.keyArray();
+			const starredBy = [...reaction.users.cache.keys()];
 			const starboardMessage = new StarboardMessage({
 				msg,
 				channel: starboardChannel,

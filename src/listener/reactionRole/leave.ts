@@ -23,7 +23,7 @@ export default class ReactionRoleLeaveListener extends Listener {
 			return;
 
 		const emoji = reaction.emoji;
-		const member = message.guild.member(user.id);
+		const member = message.guild.members.resolve(user.id);
 		if (!member) return;
 
 		const reactionRole = config.features.reactionRole.roles.find(

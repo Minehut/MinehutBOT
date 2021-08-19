@@ -58,11 +58,12 @@ export default class PluginInfoCommand extends MinehutCommand {
 				'\n'
 			)}\`\`\``);
 
-			const idFilter = <CollectorFilter>(
-				((input: Message) => msg.author.id === input.author.id)
+			const idFilter = <CollectorFilter<Message[]>>(
+				(input => msg.author.id === input.author.id)
 			);
 
-			const idMessages = await msg.channel.awaitMessages(idFilter, {
+			const idMessages = await msg.channel.awaitMessages({
+				filter: idFilter,
 				max: 1,
 				time: 30000,
 			});
@@ -107,6 +108,6 @@ export default class PluginInfoCommand extends MinehutCommand {
 
 		if (link) embed.addField('Link', link);
 
-		return m.edit({ content: null, embed });
+		return m.edit({ content: null, embeds: [embed] });
 	}
 }

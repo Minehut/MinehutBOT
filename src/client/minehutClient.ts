@@ -32,7 +32,7 @@ export class MinehutClient extends AkairoClient {
 	hastebinCooldownManager: CooldownManager;
 	githubCooldownManager: CooldownManager;
 	starboardCooldownManager: CooldownManager;
-  
+
 	githubCacheManager: CacheManager<number, any>;
 
 	minehutApi: Minehut;
@@ -43,14 +43,18 @@ export class MinehutClient extends AkairoClient {
 	constructor(options: MinehutClientOptions) {
 		// TODO: validate options
 
-		super(
-			{
-				ownerID: options.ownerIds,
-			},
-			{
-				disableMentions: 'everyone',
-			}
-		);
+		super({
+			ownerID: options.ownerIds,
+			intents: [
+				'GUILDS',
+				'GUILD_BANS',
+				'GUILD_MEMBERS',
+				'GUILD_MESSAGES',
+				'GUILD_MESSAGE_REACTIONS',
+				'GUILD_EMOJIS_AND_STICKERS',
+			],
+			allowedMentions: { parse: ['roles', 'users'] },
+		});
 
 		this.ownerIds = options.ownerIds;
 		this.mongo = options.mongo;
@@ -185,8 +189,7 @@ export class MinehutClient extends AkairoClient {
 					msg,
 					phrase
 				);
-				if (!Argument.isFailure(member))
-					id = member.id;
+				if (!Argument.isFailure(member)) id = member.id;
 				const grantedBoosterPasses = await BoosterPassModel.getGrantedByMember(
 					msg.member!
 				);
@@ -210,7 +213,7 @@ declare module 'discord-akairo' {
 		tagCooldownManager: CooldownManager;
 		hastebinCooldownManager: CooldownManager;
 		githubCooldownManager: CooldownManager;
-		starboardCooldownManager:CooldownManager;
+		starboardCooldownManager: CooldownManager;
 		githubCacheManager: CacheManager<
 			number,
 			Promise<OctokitResponse<IssuesGetResponseData>>

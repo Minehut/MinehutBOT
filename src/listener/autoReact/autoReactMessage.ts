@@ -6,7 +6,7 @@ export default class AutoReactMessageListener extends Listener {
 	constructor() {
 		super('autoReactMessage', {
 			emitter: 'client',
-			event: 'message',
+			event: 'messageCreate',
 		});
 	}
 

@@ -49,7 +49,7 @@ export default class TagInfoCommand extends MinehutCommand {
 				true
 			);
 		embed.addField('Section', tag.section, true);
-		embed.addField('Uses', tag.uses, true);
+		embed.addField('Uses', tag.uses.toString(), true);
 		const author = await this.client.users.fetch(tag.author);
 		embed.addField(
 			'Author',
@@ -57,6 +57,6 @@ export default class TagInfoCommand extends MinehutCommand {
 		);
 		embed.addField('Created at', prettyDate(tag.createdAt), true);
 		embed.addField('Updated at', prettyDate(tag.updatedAt), true);
-		msg.channel.send(embed);
+		msg.channel.send({ embeds: [embed] });
 	}
 }

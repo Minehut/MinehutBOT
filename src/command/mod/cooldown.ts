@@ -33,7 +33,7 @@ export default class ChannelCooldownCommand extends MinehutCommand {
 	}
 
 	async exec(msg: Message, { duration }: { duration: number | string }) {
-		if (msg.channel.type !== 'text')
+		if (msg.channel.type !== 'GUILD_TEXT')
 			return msg.channel.send(
 				`${process.env.EMOJI_CROSS} channel is not a text channel`
 			);

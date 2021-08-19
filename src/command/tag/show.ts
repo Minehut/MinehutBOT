@@ -59,7 +59,7 @@ export default class TagShowCommand extends MinehutCommand {
 		}
 		embed.setDescription(truncate(content, { length: 2048 }));
 
-		msg.channel.send(embed);
+		msg.channel.send({ embeds: [embed] });
 
 		this.client.tagCooldownManager.add(`t-${tag.name}-${msg.channel.id}`);
 		await tag.updateOne({ uses: tag.uses + 1 });

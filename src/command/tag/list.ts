@@ -60,6 +60,6 @@ export default class TagListCommand extends MinehutCommand {
 				)
 			);
 		}
-		msg.channel.send(embed);
+		msg.channel.send({ embeds: [embed] });
 	}
 }

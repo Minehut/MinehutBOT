@@ -1,4 +1,4 @@
-FROM node:12-alpine
+FROM node:16.6-alpine
 
 RUN apk add dumb-init
 RUN mkdir -p /app

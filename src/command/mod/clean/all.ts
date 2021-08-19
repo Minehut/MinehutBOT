@@ -34,17 +34,20 @@ export default class CleanAllCommand extends MinehutCommand {
 
 	async exec(msg: Message, { count }: { count: number }) {
 		const messages = await msg.channel.messages.fetch();
-		const filtered = messages
-			.filter(m => m.id !== msg.id)
-			.sort((a, b) => b.createdTimestamp - a.createdTimestamp)
-			.array()
-			.slice(0, count);
+		const filtered = [
+			...messages
+				.filter(m => m.id !== msg.id)
+				.sort((a, b) => b.createdTimestamp - a.createdTimestamp)
+				.values(),
+		].slice(0, count);
 		const channel = msg.channel as TextChannel | NewsChannel;
 		await channel.bulkDelete(filtered);
 		const bmsg = await msg.channel.send(
 			`:ok_hand: deleted ${filtered.length} messages`
 		);
-		msg.delete({ timeout: 5000 });
-		bmsg.delete({ timeout: 5000 });
+		setTimeout(() => {
+			msg.delete().catch(() => {});
+			bmsg.delete().catch(() => {});
+		}, 5000);
 	}
 }

@@ -37,12 +37,12 @@ export class MuteScheduler {
 	async unmute(c: DocumentType<Case>) {
 		const guild = this.client.guilds.cache.get(c.guild);
 		if (!guild) return;
-		const member = guild.member(c.targetId);
+		const member = guild.members.resolve(c.targetId);
 		if (!member) return;
 		if (c.type === CaseType.Mute) {
 			const action = new UnMuteAction({
 				target: member,
-				moderator: guild.member(this.client.user!)!,
+				moderator: guild.members.resolve(this.client.user!)!,
 				reason: `Automatic unmute (#${c.id})`,
 				client: this.client,
 				guild,

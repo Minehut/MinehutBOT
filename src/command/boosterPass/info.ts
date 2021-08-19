@@ -72,6 +72,6 @@ export default class BoosterInfoCommand extends MinehutCommand {
 				true
 			)
 			.setColor('BLURPLE');
-		return msg.channel.send(embed);
+		return msg.channel.send({ embeds: [embed] });
 	}
 }

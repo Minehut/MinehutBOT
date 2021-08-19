@@ -76,7 +76,7 @@ export default class BanCommand extends MinehutCommand {
 		const prefix = (this.handler.prefix as PrefixSupplier)(msg) as string;
 		if (!target || !duration)
 			return msg.channel.send(MESSAGES.commands.useHelp(prefix, 'ban'));
-		const member = msg.guild!.member(target);
+		const member = msg.guild!.members.resolve(target);
 		if (member && !member.bannable)
 			return msg.channel.send(
 				`${process.env.EMOJI_CROSS} I cannot ban that user`

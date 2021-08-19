@@ -32,7 +32,7 @@ export default class UnMuteByRoleRemovalListener extends Listener {
 				return;
 			const action = new UnMuteAction({
 				target: newMember,
-				moderator: newMember.guild.member(this.client.user!)!,
+				moderator: newMember.guild.members.resolve(this.client.user!)!,
 				reason: `Manual role removal`,
 				client: this.client,
 				guild: newMember.guild,

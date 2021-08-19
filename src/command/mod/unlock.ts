@@ -1,5 +1,5 @@
 import { PrefixSupplier } from 'discord-akairo';
-import { Message, PermissionOverwriteOption, TextChannel } from 'discord.js';
+import { Message, PermissionOverwriteOptions, TextChannel } from 'discord.js';
 import { guildConfigs } from '../../guild/config/guildConfigs';
 import { MinehutCommand } from '../../structure/command/minehutCommand';
 import { MESSAGES } from '../../util/constants';
@@ -53,7 +53,7 @@ export default class UnlockChannelCommand extends MinehutCommand {
 			for (const channel of channelLockdownConfig.allFlagChannels) {
 				if (!channels.some(c => c.id === channel)) {
 					const resolvedChannel = this.client.channels.resolve(channel);
-					if (resolvedChannel && resolvedChannel.type == 'text')
+					if (resolvedChannel && resolvedChannel.type == 'GUILD_TEXT')
 						channels.push(resolvedChannel as TextChannel);
 				}
 			}
@@ -64,7 +64,7 @@ export default class UnlockChannelCommand extends MinehutCommand {
 		for (const channel of channels) {
 			const permissions = channel.permissionsFor(msg.guild!.roles.everyone);
 			if (!permissions || !permissions.toArray().includes('SEND_MESSAGES')) {
-				const permissionsToOverride: PermissionOverwriteOption = {
+				const permissionsToOverride: PermissionOverwriteOptions = {
 					SEND_MESSAGES: null,
 				};
 				if (
@@ -74,10 +74,12 @@ export default class UnlockChannelCommand extends MinehutCommand {
 					)
 				)
 					permissionsToOverride['ADD_REACTIONS'] = null;
-				await channel.updateOverwrite(
+				await channel.permissionOverwrites.edit(
 					msg.guild!.roles.everyone,
 					permissionsToOverride,
-					`Channel unlock from ${msg.author.tag}`
+					{
+						reason: `Channel unlock from ${msg.author.tag}`,
+					}
 				);
 				unlockedChannels.push(channel);
 			}

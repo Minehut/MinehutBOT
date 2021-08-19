@@ -42,7 +42,7 @@ export default class NetworkStatsCommand extends MinehutCommand {
 				`Requested by ${msg.author.tag}`,
 				msg.author.displayAvatarURL()
 			);
-			return m.edit({ content: null, embed });
+			return m.edit({ content: null, embeds: [embed] });
 		} catch (e) {
 			return m.edit(`${process.env.EMOJI_CROSS} could not fetch network stats`);
 		}

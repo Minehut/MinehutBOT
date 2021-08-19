@@ -9,7 +9,7 @@ export default class HastebinConversionListener extends Listener {
 	constructor() {
 		super('hastebinConversion', {
 			emitter: 'client',
-			event: 'message',
+			event: 'messageCreate',
 		});
 	}
 
@@ -44,10 +44,14 @@ export default class HastebinConversionListener extends Listener {
 			)!
 		);
 		const embed = new MessageEmbed()
-			.setDescription(`__[View ${messageAttachment.name || "attachment"} on hastebin](${hastebinUrl})__.`)
+			.setDescription(
+				`__[View ${
+					messageAttachment.name || 'attachment'
+				} on hastebin](${hastebinUrl})__.`
+			)
 			.setFooter(`Requested by ${msg.author.tag}`, msg.author.avatarURL()!)
 			.setColor('BLUE');
-		await msg.channel.send(embed);
+		await msg.channel.send({ embeds: [embed] });
 		this.client.hastebinCooldownManager.add(msg.author.id);
 	}
 }
