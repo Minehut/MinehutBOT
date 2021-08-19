@@ -8,7 +8,7 @@ export default class KickCommand extends MinehutCommand {
 	constructor() {
 		super('kick', {
 			aliases: ['kick'],
-			permissionLevel: PermissionLevel.SuperHelper,
+			permissionLevel: PermissionLevel.Moderator,
 			category: 'mod',
 			channel: 'guild',
 			clientPermissions: ['KICK_MEMBERS'],

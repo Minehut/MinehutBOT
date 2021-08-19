@@ -19,7 +19,7 @@ export default class CaseSearchCommand extends MinehutCommand {
 			clientPermissions: ['EMBED_LINKS'],
 			category: 'mod',
 			channel: 'guild',
-			permissionLevel: PermissionLevel.SuperHelper,
+			permissionLevel: PermissionLevel.Moderator,
 			description: {
 				content: `Lookup cases where specific user is the target`,
 				usage: '<user>',

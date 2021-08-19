@@ -32,7 +32,7 @@ export default class CaseCommand extends MinehutCommand {
 					'reason AEST This is a better reason!',
 				],
 			},
-			permissionLevel: PermissionLevel.SuperHelper,
+			permissionLevel: PermissionLevel.Moderator,
 			category: 'mod',
 			channel: 'guild',
 		});

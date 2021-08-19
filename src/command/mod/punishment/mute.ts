@@ -12,7 +12,7 @@ export default class MuteCommand extends MinehutCommand {
 	constructor() {
 		super('mute', {
 			aliases: ['mute'],
-			permissionLevel: PermissionLevel.SuperHelper,
+			permissionLevel: PermissionLevel.Moderator,
 			category: 'mod',
 			channel: 'guild',
 			clientPermissions: ['MANAGE_ROLES'],
