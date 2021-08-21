@@ -19,6 +19,7 @@ import { BoosterPassModel } from '../model/boosterPass';
 import { CacheManager } from '../structure/cacheManager';
 
 import { OctokitResponse, IssuesGetResponseData } from '@octokit/types';
+import { ClientUtil } from 'discord-akairo';
 
 export class MinehutClient extends AkairoClient {
 	commandHandler: CommandHandler;
@@ -199,6 +200,30 @@ export class MinehutClient extends AkairoClient {
 				return boosterPassReceived;
 			}
 		);
+
+		this.commandHandler.resolver.addType('member', async (msg, phrase) => {
+			if (!msg.guild) return null;
+			const clientUtil = new ClientUtil(this);
+			// attempt to resolve member
+			let member: GuildMember | null = clientUtil.resolveMember(
+				phrase,
+				msg.guild.members.cache
+			);
+			if (member) return member;
+			// try to fetch member instead
+			member = await msg.guild.members
+				.fetch(phrase)
+				.catch(() => (member = null));
+			if (member) return member;
+			// if all else fails, try to query them only by username
+			const username = phrase.replace(/#[0-9]{4}/g, '');
+			const queriedMembers = await msg.guild.members.search({
+				query: username,
+			});
+			return queriedMembers.find(member =>
+				clientUtil.checkMember(phrase, member)
+			);
+		});
 	}
 }
 
