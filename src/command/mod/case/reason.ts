@@ -10,7 +10,7 @@ export default class CaseSearchCommand extends MinehutCommand {
 		super('case-reason', {
 			category: 'mod',
 			channel: 'guild',
-			permissionLevel: PermissionLevel.SuperHelper,
+			permissionLevel: PermissionLevel.Moderator,
 			description: {
 				content: 'Set a case reason',
 				usage: '<case> <...new reason>',

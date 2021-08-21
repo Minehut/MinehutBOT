@@ -9,7 +9,7 @@ export default class CleanUserCommand extends MinehutCommand {
 		super('clean-user', {
 			category: 'mod',
 			channel: 'guild',
-			permissionLevel: PermissionLevel.SuperHelper,
+			permissionLevel: PermissionLevel.Moderator,
 			description: {
 				content: "Clean x amount of a user's messages",
 				usage: '<user> <count>',
