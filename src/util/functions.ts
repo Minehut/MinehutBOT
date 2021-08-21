@@ -241,7 +241,7 @@ export async function censorThread(
 		getPermissionLevel(
 			threadOwner!.guildMember!,
 			thread.client as MinehutClient
-		) >= (censorConfig.minimumBypassPermission || PermissionLevel.Helper);
+		) >= (censorConfig.minimumBypassPermission || PermissionLevel.Moderator);
 	if (bypassCensor) return;
 	const canChat =
 		getPermissionLevel(
