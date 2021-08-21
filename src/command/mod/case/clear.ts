@@ -10,7 +10,7 @@ export default class CaseClearCommand extends MinehutCommand {
 		super('case-clear', {
 			category: 'mod',
 			channel: 'guild',
-			permissionLevel: PermissionLevel.SeniorModerator,
+			permissionLevel: PermissionLevel.Moderator,
 			description: {
 				content: "Clear a user's punishment history",
 				usage: '<user>',

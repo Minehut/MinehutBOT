@@ -9,7 +9,7 @@ import { guildConfigs } from '../../guild/config/guildConfigs';
 export default class BoosterPassForceRevokeCommand extends MinehutCommand {
 	constructor() {
 		super('boosterpass-force-revoke', {
-			permissionLevel: PermissionLevel.SeniorModerator,
+			permissionLevel: PermissionLevel.Moderator,
 			category: 'boosterpass',
 			channel: 'guild',
 			description: {
