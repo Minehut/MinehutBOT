@@ -136,6 +136,13 @@ guildConfigs.set('370014721556086794', {
 		developer: '391351204187340821',
 		admin: '391351275805081600',
 	},
+	features: {
+		modLog: {
+			channel: '721171219348717679',
+			events: ALL_MODLOG_EVENTS,
+			prefix: '`[STAFF]`',
+		},
+	},
 });
 
 // Minehut Meta
