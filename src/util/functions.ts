@@ -299,7 +299,9 @@ export async function censorThread(
 	if (threadOwner)
 		try {
 			threadOwner.user!.send(
-				`Your thread was deleted because the title was caught by our automated chat filter.\nIf you believe this is a mistake, please use the **!meta** command in the Minehut Discord and tell us about the issue.\n\n\`${feedbackString}\``
+				`Your thread ${oThread ? 'title' : ''} was ${
+					oThread ? 'edited' : 'deleted'
+				} because the title was caught by our automated chat filter.\nIf you believe this is a mistake, please use the **!meta** command in the Minehut Discord and tell us about the issue.\n\n\`${feedbackString}\``
 			);
 		} catch (err) {} // Could not DM the user
 
