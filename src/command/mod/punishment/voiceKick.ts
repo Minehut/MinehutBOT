@@ -8,7 +8,7 @@ export default class VoiceKickCommand extends MinehutCommand {
 	constructor() {
 		super('voiceKick', {
 			aliases: ['voicekick', 'vckick', 'vkick'],
-			permissionLevel: PermissionLevel.SuperHelper,
+			permissionLevel: PermissionLevel.Moderator,
 			category: 'mod',
 			channel: 'guild',
 			clientPermissions: ['MOVE_MEMBERS'],

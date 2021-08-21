@@ -3,7 +3,6 @@ import { TagModel } from '../../../model/tag';
 import { MessageEmbed } from 'discord.js';
 import { truncate, chunk } from 'lodash';
 import { MinehutCommand } from '../../../structure/command/minehutCommand';
-import { PermissionLevel } from '../../../util/permission/permissionLevel';
 import { editMessageWithPaginatedEmbeds } from 'discord.js-pagination-ts';
 
 interface TagAlias {
@@ -14,7 +13,6 @@ interface TagAlias {
 export default class TagListAliasesCommand extends MinehutCommand {
 	constructor() {
 		super('tag-listaliases', {
-			permissionLevel: PermissionLevel.Verified,
 			category: 'tag',
 			channel: 'guild',
 			description: {
