@@ -210,8 +210,8 @@ export async function censorMessage(msg: Message) {
 		.replace(/[\u200B-\u200D\uFEFF]/g, '')
 		.replace(new RegExp(filter.rule.rule, 'i'), '>>>$1<<<');
 	(msg.client as MinehutClient).emit('messageCensor', msg, filter);
+	// author would have already gotten feedback in another message
 	if (msg.type != 'THREAD_CREATED')
-		// author would have already gotten feedback in another message
 		try {
 			msg.author.send(
 				`Your message was deleted because it was caught by our automated chat filter.\nIf you believe this is a mistake, please use the **!meta** command in the Minehut Discord and tell us about the issue.\n\n\`${feedbackString}\``
