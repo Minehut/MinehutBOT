@@ -2,7 +2,7 @@ import { CaseType, HASTEBIN_URL, IMAGE_LINK_REGEX } from './constants';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
 import { guildConfigs } from '../guild/config/guildConfigs';
-import { Guild, Message, TextChannel, Util } from 'discord.js';
+import { Guild, Message, TextChannel, ThreadChannel, Util } from 'discord.js';
 import { CENSOR_RULES, CensorRuleType } from './censorRules';
 import { getPermissionLevel } from './permission/getPermissionLevel';
 import { MinehutClient } from '../client/minehutClient';
@@ -146,7 +146,13 @@ export interface CensorCheckResponse {
 }
 
 export async function censorMessage(msg: Message) {
-	if (!msg.guild || !msg.deletable || msg.author.bot) return;
+	if (
+		!msg.guild ||
+		!msg.deletable ||
+		msg.type == 'CHANNEL_NAME_CHANGE' || // can't delete system messages such as these
+		msg.author.bot
+	)
+		return;
 	const config = guildConfigs.get(msg.guild.id);
 	if (!config || !config.features.censor) return;
 	const override = config.features.censor.overrides.find(o =>
@@ -204,11 +210,100 @@ export async function censorMessage(msg: Message) {
 		.replace(/[\u200B-\u200D\uFEFF]/g, '')
 		.replace(new RegExp(filter.rule.rule, 'i'), '>>>$1<<<');
 	(msg.client as MinehutClient).emit('messageCensor', msg, filter);
-	try {
-		msg.author.send(
-			`Your message was deleted because it was caught by our automated chat filter.\nIf you believe this is a mistake, please use the **!meta** command in the Minehut Discord and tell us about the issue.\n\n\`${feedbackString}\``
+	if (msg.type != 'THREAD_CREATED')
+		// author would have already gotten feedback in another message
+		try {
+			msg.author.send(
+				`Your message was deleted because it was caught by our automated chat filter.\nIf you believe this is a mistake, please use the **!meta** command in the Minehut Discord and tell us about the issue.\n\n\`${feedbackString}\``
+			);
+		} catch (err) {} // Could not DM the user
+}
+
+export async function censorThread(
+	thread: ThreadChannel,
+	oThread?: ThreadChannel
+) {
+	const threadOwner = await thread.fetchOwner();
+	if (threadOwner && threadOwner.user?.bot) return;
+	const config = guildConfigs.get(thread.guildId);
+	if (!config || !config.features.censor) return;
+	const override = config.features.censor.overrides.find(o =>
+		o.type === 'channel'
+			? o.id === thread.parent?.id
+			: o.id === (thread.parent as TextChannel).parentId
+	);
+	const featureConf = cloneDeep(config.features.censor);
+	const censorConfig = override
+		? Object.assign(featureConf, override.config)
+		: featureConf;
+
+	const bypassCensor =
+		getPermissionLevel(
+			threadOwner!.guildMember!,
+			thread.client as MinehutClient
+		) >= (censorConfig.minimumBypassPermission || PermissionLevel.Helper);
+	if (bypassCensor) return;
+	const canChat =
+		getPermissionLevel(
+			threadOwner!.guildMember!,
+			thread.client as MinehutClient
+		) >= (censorConfig.minimumChatPermission || PermissionLevel.Everyone);
+	if (!canChat) {
+		if (oThread) await thread.edit({ name: oThread.name });
+		else
+			await thread.delete(
+				'Thread owner is not allowed to chat in parent channel'
+			);
+		return;
+	}
+
+	const filter = checkString(thread.name);
+	if (!filter) return false;
+
+	const type = filter.rule.type;
+
+	if (
+		type === Invite &&
+		censorConfig.inviteWhitelist &&
+		!censorConfig.allowInvites
+	) {
+		const { invite } = filter.match.groups!;
+		try {
+			const inv = await thread.client.fetchInvite(invite);
+
+			if (inv.guild && censorConfig.inviteWhitelist.includes(inv.guild.id))
+				return false; // Whitelisted invite
+		} catch (err) {} // Invalid invite
+	}
+
+	if (type === CopyPasta && censorConfig.allowCopyPasta) return false;
+
+	if (type === Swear && censorConfig.allowSwearing) return false;
+
+	if (type === Zalgo && censorConfig.allowZalgo) return false;
+
+	if (type === Spam && censorConfig.allowSpam) return false;
+
+	const filteredName = thread.name;
+	if (oThread)
+		await thread.setName(
+			oThread.name,
+			'New thread name was caught by chat filter'
 		);
-	} catch (err) {} // Could not DM the user
+	else await thread.delete('Thread name was caught by chat filter');
+	const feedbackString = filteredName
+		.trim()
+		.replace(/[\u200B-\u200D\uFEFF]/g, '')
+		.replace(new RegExp(filter.rule.rule, 'i'), '>>>$1<<<');
+	(thread.client as MinehutClient).emit('threadCensor', thread, filter);
+	if (threadOwner)
+		try {
+			threadOwner.user!.send(
+				`Your thread was deleted because the title was caught by our automated chat filter.\nIf you believe this is a mistake, please use the **!meta** command in the Minehut Discord and tell us about the issue.\n\n\`${feedbackString}\``
+			);
+		} catch (err) {} // Could not DM the user
+
+	return true;
 }
 
 export function checkString(content: string): CensorCheckResponse | undefined {
