@@ -12,8 +12,6 @@ This is the source code of the Discord bot used on the official Minehut Discord 
   - Advanced message cleaning
   - Punishment commands
   - Customisable chat filter
-  - Anti-spam
-  - Anti-bot
 - Boosterpass tracking
 - Custom permission levels
 - Tags
