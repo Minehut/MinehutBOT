@@ -174,7 +174,7 @@ guildConfigs.set('546414872196415501', {
 					reactions: [':yes:546435721444196353', ':no:546435753719103488'],
 					allowMessageAuthorReacting: false,
 					allowMultipleUserReactions: false,
-				}
+				},
 			],
 		},
 		hastebinConversion: {
