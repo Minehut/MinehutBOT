@@ -8,7 +8,7 @@ const LINK_MATCH = /^http.*/gm;
 export default class AddonInfoCommand extends MinehutCommand {
 	constructor() {
 		super('addonInfo', {
-			aliases: ['addon', 'addoninfo'],
+			aliases: ['addon', 'addoninfo', 'plugin', 'plugininfo'],
 			description: {
 				content: 'Look up an addon on Minehut',
 				usage: '<addon>',
