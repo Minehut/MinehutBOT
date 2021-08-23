@@ -54,9 +54,18 @@ export default class ServerInfoCommand extends MinehutCommand {
 			);
 			const icon = await server.getActiveIcon();
 			if (icon) embed.addField('Icon', icon.displayName, true);
-			const plugins = await server.getActivePlugins();
-			if (plugins.length > 0)
-				embed.addField('Plugins', plugins.map(p => `⋆ ${p.name}`).join('\n'));
+			const addons = await server.getInstalledContent();
+			if (addons.length > 0)
+				embed.addField(
+					'Installed Content',
+					addons
+						.map(p =>
+							`• ${p.title} ${
+								p.category == 'Plugin' ? '' : `(${p.category})`
+							}`.trim()
+						)
+						.join('\n')
+				);
 			embed.addField(
 				'Server Properties',
 				Object.keys(server.serverProperties)
