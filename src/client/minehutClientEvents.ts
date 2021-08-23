@@ -1,4 +1,4 @@
-import { ClientEvents } from 'discord.js';
+import { ClientEvents, ThreadChannel } from 'discord.js';
 import { DocumentType } from '@typegoose/typegoose';
 import { Case } from '../model/case';
 import { GuildMember } from 'discord.js';
@@ -12,6 +12,7 @@ export default interface MinehutClientEvents extends ClientEvents {
 	caseDelete: [DocumentType<Case>, GuildMember];
 	caseCreate: [DocumentType<Case>];
 	messageCensor: [Message, CensorCheckResponse];
+	threadCensor: [ThreadChannel, CensorCheckResponse];
 	channelCooldownSet: [TextChannel, GuildMember, number];
 	boosterPassGrant: [GuildMember, GuildMember];
 	boosterPassRevoke: [GuildMember, DocumentType<BoosterPass>];
