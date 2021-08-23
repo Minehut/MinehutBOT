@@ -1,32 +1,43 @@
 # MinehutBOT
 
-Minehut's Discord Bot.
+This is the source code of the Discord bot used on the official Minehut Discord server.
 
-## How to Use
+## Features
 
-Click [here](https://docs.google.com/document/d/1pInCGtGXnRHMrhpowZ-to6eDUyWm2kRgeChlMvpCzfM) to view a document containing all of the commands and the required permissions.
+- Reaction roles
+- Powerful per-guild configuration
+- Extensive moderation suite
+  - Infraction/case management and tracking
+  - Comprehensive logging
+  - Advanced message cleaning
+  - Punishment commands
+  - Customisable chat filter
+- Boosterpass tracking
+- Custom permission levels
+- Tags
+- Built-in documentation
+- Role announcements
+- Minehut commands
 
-## Setting up the Config
+## Usage
 
-Inside the config.json lies multiple options that can be configured. These are all required for full functionality of the bot.
+### Requirements
 
-| Config Value | What its for                                              |
-|--------------|-----------------------------------------------------------|
-| token        | Discord Bot's private token                               |
-| prefix       | Prefix of all the Bot commands                            |
-| devs         | List of developers of the Bot with additional permissions |
-| guildid      | ID of the Discord server the bot is for                   |
-| logchannel   | Channel to log all misc staff messages to                 |
-| rolechannel  | Channel to look for react messages to give roles for      |
-| muterole     | ID of the role to give to players on mute                 |
-| hsemojiid    | ID of the hypesquad emoji to react with                   |
-| db           | RethinkDB database info to store punishments and more     |
+- A local instance of MongoDB
+- (optional) A Sentry account
+- (optional but recommended) Yarn
 
-## How to Setup
+### Steps
 
-1. Install all of the dependencies by typing ``npm install``
+1. Install all dependencies with `yarn` or `npm install`.
+2. Fill out all values in `.env.example` and change it to `.env`.
+3. In order for the bot to work properly on your guild, you need to add it to the bot's hard-coded [guild configuration](https://github.com/Minehut/MinehutBOT/blob/master/src/guild/config/guildConfigs.ts).
+4. Start the bot with `yarn start` or `npm start`.
 
-2. Copy the ``config-example.json`` file into a new file called ``config.json`` and change settings accordingly.
+## Contributing
 
-3. Start the bot by typing ``node minehut.js``
+We always welcome contributions to the bot, just simply make a pull request.
 
+## Credits
+
+[jellz](https://github.com/jellz) - Made this README with modification from [Facto](https://github.com/Sniped)
