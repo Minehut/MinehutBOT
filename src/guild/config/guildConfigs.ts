@@ -85,7 +85,8 @@ guildConfigs.set('239599059415859200', {
 			triggerAmount: 10,
 			minimumPermLevel: PermissionLevel.NitroBooster,
 			ignoredChannels: [
-				'412394499919052810', // #support
+				'412394499919052810', // #community-help
+				'822170697676750908', // #community-help-2
 				'364448476458778625', // #marketplace
 				'240274910688051211', // #servers
 				'480888099547774976', // #staff
@@ -105,7 +106,9 @@ guildConfigs.set('239599059415859200', {
 				'394312589754105857', // #building
 				'568531994485588007', // #art-gfx
 				'400170127737356299', // #skript
+				'872199146772267088', // #plugin-dev
 				'660337933743816724', // #code
+				'878346438545928273', // #mods
 				'705481433996853248', // #voice
 			],
 			reactionPermissionIgnoredChannels: [
