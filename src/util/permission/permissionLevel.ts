@@ -16,5 +16,5 @@ export enum PermissionLevel {
 	Developer = 13,
 	Admin = 13,
 
-	BotDeveloper = 100,
+	BotDeveloper = 100
 }
