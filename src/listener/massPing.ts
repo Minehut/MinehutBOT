@@ -20,12 +20,12 @@ export default class MassPingListener extends Listener {
 			!guildConfig ||
 			!guildConfig.features.massPing ||
 			msg.mentions.users.size <
-				(guildConfig.features.massPing.mentionSize || 20)
+				(guildConfig.features.massPing.mentionSize || 10)
 		)
 			return;
 		await msg.delete();
 		const muteLength =
-			guildConfig.features.massPing.muteLength?.toLowerCase() || 'forever';
+			guildConfig.features.massPing.muteLength?.toLowerCase() || '3h';
 		let parsedMuteLength =
 			muteLength == 'forever' ? FOREVER_MS : parse(muteLength);
 		if (!parsedMuteLength) parsedMuteLength = FOREVER_MS;
