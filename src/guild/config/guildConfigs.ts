@@ -190,6 +190,7 @@ guildConfigs.set('546414872196415501', {
 			githubRepoOwner: 'Minehut',
 			githubRepoName: 'Meta',
 		},
+		massPing: {},
 	},
 });
 
