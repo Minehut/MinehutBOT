@@ -124,6 +124,10 @@ guildConfigs.set('239599059415859200', {
 				'744243595632181268', // #media
 			],
 		},
+		massPing: {
+			mentionSize: 10,
+			muteLength: '3h',
+		},
 	},
 });
 
