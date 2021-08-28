@@ -1,13 +1,13 @@
 import { Listener } from 'discord-akairo';
 import { Message } from 'discord.js';
 import parse from 'parse-duration';
-import { guildConfigs } from '../guild/config/guildConfigs';
-import { MuteAction } from '../structure/action/mute';
-import { FOREVER_MS } from '../util/constants';
+import { guildConfigs } from '../../guild/config/guildConfigs';
+import { MuteAction } from '../../structure/action/mute';
+import { FOREVER_MS } from '../../util/constants';
 
-export default class MassPingListener extends Listener {
+export default class AutoModerationMassMentionListener extends Listener {
 	constructor() {
-		super('massPing', {
+		super('autoModerationMassMention', {
 			emitter: 'client',
 			event: 'messageCreate',
 		});
@@ -18,14 +18,15 @@ export default class MassPingListener extends Listener {
 		const guildConfig = guildConfigs.get(msg.guild.id);
 		if (
 			!guildConfig ||
-			!guildConfig.features.massPing ||
+			!guildConfig.features.autoModeration?.massMention ||
 			msg.mentions.users.size <
-				(guildConfig.features.massPing.mentionSize || 10)
+				(guildConfig.features.autoModeration.massMention.mentionSize || 10)
 		)
 			return;
 		await msg.delete();
 		const muteLength =
-			guildConfig.features.massPing.muteLength?.toLowerCase() || '3h';
+			guildConfig.features.autoModeration.massMention.muteLength?.toLowerCase() ||
+			'3h';
 		let parsedMuteLength =
 			muteLength == 'forever' ? FOREVER_MS : parse(muteLength);
 		if (!parsedMuteLength) parsedMuteLength = FOREVER_MS;
