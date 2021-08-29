@@ -23,7 +23,9 @@ export default class AutoModerationMassMentionListener extends Listener {
 				(guildConfig.features.autoModeration.massMention.mentionSize || 10)
 		)
 			return;
-		await msg.delete();
+		await msg.delete().catch(() => {
+			// message was probably already deleted
+		});
 		const muteLength =
 			guildConfig.features.autoModeration.massMention.muteLength?.toLowerCase() ||
 			'3h';
