@@ -1,5 +1,6 @@
 import { Listener } from 'discord-akairo';
 import { GuildMember, TextChannel } from 'discord.js';
+import { guildConfigs } from '../../guild/config/guildConfigs';
 import { sendModLogMessage } from '../../util/functions';
 
 export default class ChannelUnlocked extends Listener {
@@ -11,7 +12,14 @@ export default class ChannelUnlocked extends Listener {
 	}
 
 	async exec(member: GuildMember, channels: TextChannel[]) {
-		if (channels.length == 0) return;
+		const config = guildConfigs.get(member.guild.id);
+		if (
+			!config ||
+			!config.features.modLog ||
+			!config.features.modLog.events.includes('channelUnlocked') ||
+			channels.length == 0
+		)
+			return;
 		const mappedChannels = channels.map(
 			channel => `**•** ${channel} (\`${channel.id}\`)`
 		);
