@@ -9,6 +9,7 @@ import { BoosterPassConfiguration } from './feature/boosterPass';
 import { HastebinConversionConfiguration } from './feature/hastbinConversion';
 import { GithubIssueReferenceConfiguration } from './feature/githubIssue';
 import { ChannelLockdownConfiguration } from './feature/channelLockdown';
+import { AutoModerationConfiguration } from './feature/autoModeration';
 
 // The GuildConfiguration can have settings about permissions, log channels, disabled features, etc.
 export interface GuildConfiguration {
@@ -27,5 +28,6 @@ export interface GuildConfiguration {
 		hastebinConversion?: HastebinConversionConfiguration;
 		githubIssue?: GithubIssueReferenceConfiguration;
 		channelLockdown?: ChannelLockdownConfiguration;
+		autoModeration?: AutoModerationConfiguration;
 	};
 }

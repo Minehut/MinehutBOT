@@ -124,6 +124,9 @@ guildConfigs.set('239599059415859200', {
 				'744243595632181268', // #media
 			],
 		},
+		autoModeration: {
+			massMention: {},
+		},
 	},
 });
 
@@ -188,6 +191,9 @@ guildConfigs.set('546414872196415501', {
 		githubIssue: {
 			githubRepoOwner: 'Minehut',
 			githubRepoName: 'Meta',
+		},
+		autoModeration: {
+			massMention: {},
 		},
 	},
 });
