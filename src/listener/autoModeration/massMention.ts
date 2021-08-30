@@ -20,7 +20,7 @@ export default class AutoModerationMassMentionListener extends Listener {
 			!guildConfig ||
 			!guildConfig.features.autoModeration?.massMention ||
 			msg.mentions.users.size <
-				(guildConfig.features.autoModeration.massMention.mentionSize || 10)
+				(guildConfig.features.autoModeration.massMention.mentionSize || 15)
 		)
 			return;
 		await msg.delete().catch(() => {
