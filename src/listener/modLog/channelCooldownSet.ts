@@ -3,6 +3,7 @@ import { GuildMember } from 'discord.js';
 import { TextChannel } from 'discord.js';
 import { sendModLogMessage } from '../../util/functions';
 import humanizeDuration from 'humanize-duration';
+import { guildConfigs } from '../../guild/config/guildConfigs';
 
 export default class ModLogChannelCooldownSetListener extends Listener {
 	constructor() {
@@ -13,6 +14,13 @@ export default class ModLogChannelCooldownSetListener extends Listener {
 	}
 
 	async exec(channel: TextChannel, member: GuildMember, duration: number) {
+		const config = guildConfigs.get(channel.guild.id);
+		if (
+			!config ||
+			!config.features.modLog ||
+			!config.features.modLog.events.includes('channelCooldownSet')
+		)
+			return;
 		const humanizedDuration = humanizeDuration(duration, {
 			largest: 3,
 			round: true,
