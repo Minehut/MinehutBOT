@@ -43,7 +43,12 @@ export default class EvalCommand extends MinehutCommand {
 			if (typeof evaled !== 'string') evaled = inspect(evaled);
 			content = `\`\`\`xl\n${this.clean(evaled)}\`\`\``;
 		} catch (err) {
-			content = `\`ERROR\` \`\`\`xl\n${this.clean(err.toString())}\n\`\`\``;
+			if (err instanceof Error)
+				content = `\`ERROR\` \`\`\`xl\n${this.clean(err.toString())}\n\`\`\``;
+			else {
+				console.log(err);
+				content = `\`ERROR\` \`\`\`xl\nUnknown error\n\`\`\``;
+			}
 		}
 		if (content.length > 2000) {
 			console.log(content);
