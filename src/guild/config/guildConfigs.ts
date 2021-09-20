@@ -77,7 +77,7 @@ guildConfigs.set('239599059415859200', {
 			maximumGrantedBoosterPasses: 2,
 		},
 		hastebinConversion: {
-			ignoredChannels: ['480889821225549824'],
+			ignoredChannels: ['480889821225549824', '601544975221653514'],
 			whitelistedExtensions: HASTEBIN_EXTENSIONS_WHITELIST,
 		},
 		starboard: {
