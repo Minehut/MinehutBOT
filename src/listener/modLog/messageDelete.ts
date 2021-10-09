@@ -43,7 +43,7 @@ export default class ModLogMessageDeleteListener extends Listener {
 				deletedBy ? `by ${deletedBy.tag} (\`${deletedBy.id}\`)` : ''
 			}: (\`${msg.id}\`) ${removeMarkdownAndMentions(
 				msg.content
-			)} (sent at \`${prettyDate(msg.createdAt, false, false)}\`)`,
+			)} (sent at ${prettyDate(msg.createdAt, false)})`,
 			_.take(
 				msg.attachments.map(a => a.proxyURL),
 				20
