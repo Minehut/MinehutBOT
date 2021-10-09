@@ -70,21 +70,11 @@ export function humanReadableCaseType(
 export function prettyDate(
 	date: Date,
 	relative: boolean = true,
-	prettyInvalid: boolean = true
 ) {
-	return prettyInvalid
-		? date.getTime() === -1
-			? 'N/A'
-			: `${date.getDate()}/${
-					date.getMonth() + 1
-			  }/${date.getFullYear()} ${date.toLocaleTimeString()}${
-					relative ? ` (${ago.format(date)})` : ''
-			  }`
-		: `${date.getDate()}/${
-				date.getMonth() + 1
-		  }/${date.getFullYear()} ${date.toLocaleTimeString()}${
-				relative ? ` (${ago.format(date)})` : ''
-		  }`;
+	if (date.getTime() === -1) return 'N/A';
+	const now = Math.round(date.getTime() / 1000);
+	if (relative) return `<t:${now}:R>`;
+	return `<t:${now}>`;
 }
 
 // Thanks to https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
@@ -116,7 +106,7 @@ export async function sendModLogMessage(
 	) as TextChannel;
 	const date = new Date();
 	channel?.send({
-		content: `**\`${prettyDate(date, false, false)}\`** ${
+		content: `${prettyDate(date, false)} ${
 			config.features.modLog.prefix
 		} ${content}`,
 		files: attachmentUrls,
