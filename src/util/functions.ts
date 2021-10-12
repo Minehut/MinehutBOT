@@ -73,7 +73,7 @@ export function prettyDate(
 ) {
 	if (date.getTime() === -1) return 'N/A';
 	const now = Math.round(date.getTime() / 1000);
-	if (relative) return `<t:${now}> <t:${now}:R>`;
+	if (relative) return `<t:${now}> (<t:${now}:R>)`;
 	return `<t:${now}>`;
 }
 
