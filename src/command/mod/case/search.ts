@@ -73,9 +73,9 @@ export default class CaseSearchCommand extends MinehutCommand {
 							{ round: true, largest: 3 }
 					  )}`
 					: null,
-				`- **__Date:__** ${prettyDate(c.createdAt, false)} (${prettyDate(c.createdAt)})`,
+				`- **__Date:__** ${prettyDate(c.createdAt)}`,
 				c.expiresAt.getTime() > -1
-					? `- **__Expires:__** ${prettyDate(c.expiresAt, false)} (${prettyDate(c.createdAt)})`
+					? `- **__Expires:__** ${prettyDate(c.expiresAt)}`
 					: null,
 			]
 				.filter(i => i !== null)
