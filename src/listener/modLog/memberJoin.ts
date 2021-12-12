@@ -26,7 +26,7 @@ export default class ModLogMemberJoinListener extends Listener {
 			member.guild,
 			`:inbox_tray: ${isNew ? ':new: ' : ''}${member.user.tag} (\`${
 				member.id
-			}\`) joined (account created: ${prettyDate(member.user.createdAt)})`
+			}\`) joined (account created: ${prettyDate(member.user.createdAt)}) (#${member.guild.memberCount})`
 		);
 	}
 }
