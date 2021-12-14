@@ -23,7 +23,6 @@ export class MuteScheduler {
 			$or: [{ type: CaseType.Mute }, { type: CaseType.VoiceMute }],
 			expiresAt: {
 				$lte: new Date(Date.now() + EXPIRING_SOON_MS),
-				$gte: new Date(Date.now() - EXPIRING_SOON_MS),
 			},
 			active: true,
 		});
