@@ -19,14 +19,11 @@ export default class AutoModerationMassMentionListener extends Listener {
 		if (msg.mentions.users.size > 0)
 			this.client.mentionCacheManager.addValue(msg.id, msg);
 		const memberMentionCache = this.client.mentionCacheManager.filterValues(
-			v => v.author.id == msg.author.id
-		);
-		const guildMemberMentions = memberMentionCache.filter(
-			m => m.guild!.id == msg.guild!.id
+			m => m.author.id == msg.author.id && m.guild!.id == msg.guild!.id
 		);
 		// if there are zero messages in cache then there is no need to go any further--the message author has not mentioned anyone
-		if (guildMemberMentions.size == 0) return;
-		const mentionCount = guildMemberMentions
+		if (memberMentionCache.size == 0) return;
+		const mentionCount = memberMentionCache
 			.map(m => m.mentions.users.size)
 			.reduce((acc, a) => acc + a);
 		if (
@@ -36,7 +33,7 @@ export default class AutoModerationMassMentionListener extends Listener {
 				(guildConfig.features.autoModeration.massMention.mentionSize || 15)
 		)
 			return;
-		guildMemberMentions.forEach(async (v, k) => {
+		memberMentionCache.forEach(async (v, k) => {
 			await v.delete().catch(() => {
 				// message was probably already deleted
 			});
@@ -52,7 +49,7 @@ export default class AutoModerationMassMentionListener extends Listener {
 			guild: msg.guild,
 			moderator: msg.guild.members.resolve(this.client.user!.id)!,
 			client: this.client,
-			reason: `Spam Detected (${mentionCount} user mentions accumulated in ${guildMemberMentions.size} message(s))`,
+			reason: `Spam Detected (${mentionCount} user mentions accumulated in ${memberMentionCache.size} message(s))`,
 			target: msg.member!,
 			duration: parsedMuteLength,
 		});
