@@ -16,15 +16,31 @@ export default class AutoModerationMassMentionListener extends Listener {
 	async exec(msg: Message) {
 		if (!msg.guild) return;
 		const guildConfig = guildConfigs.get(msg.guild.id);
+		if (msg.mentions.users.size > 0)
+			this.client.mentionCacheManager.addValue(msg.id, msg);
+		const memberMentionCache = this.client.mentionCacheManager.filterValues(
+			v => v.author.id == msg.author.id
+		);
+		const guildMemberMentions = memberMentionCache.filter(
+			m => m.guild!.id == msg.guild!.id
+		);
+		// if there are zero messages in cache then there is no need to go any further--the message author has not mentioned anyone
+		if (guildMemberMentions.size == 0) return;
+		const mentionCount = guildMemberMentions
+			.map(m => m.mentions.users.size)
+			.reduce((acc, a) => acc + a);
 		if (
 			!guildConfig ||
 			!guildConfig.features.autoModeration?.massMention ||
-			msg.mentions.users.size <
+			mentionCount <
 				(guildConfig.features.autoModeration.massMention.mentionSize || 15)
 		)
 			return;
-		await msg.delete().catch(() => {
-			// message was probably already deleted
+		guildMemberMentions.forEach(async (v, k) => {
+			await v.delete().catch(() => {
+				// message was probably already deleted
+			});
+			this.client.mentionCacheManager.removeValue(k);
 		});
 		const muteLength =
 			guildConfig.features.autoModeration.massMention.muteLength?.toLowerCase() ||
@@ -36,7 +52,7 @@ export default class AutoModerationMassMentionListener extends Listener {
 			guild: msg.guild,
 			moderator: msg.guild.members.resolve(this.client.user!.id)!,
 			client: this.client,
-			reason: `Spam Detected (${msg.mentions.users.size} user mentions in a message)`,
+			reason: `Spam Detected (${mentionCount} user mentions accumulated in ${guildMemberMentions.size} message(s))`,
 			target: msg.member!,
 			duration: parsedMuteLength,
 		});
