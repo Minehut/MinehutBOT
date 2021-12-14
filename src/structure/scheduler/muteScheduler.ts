@@ -21,17 +21,17 @@ export class MuteScheduler {
 		// This query will find [voice]mutes that are expiring within 3 days
 		const mutesExpiringSoon = await CaseModel.find({
 			$or: [{ type: CaseType.Mute }, { type: CaseType.VoiceMute }],
-			expiresAt: { $lte: new Date(Date.now() + EXPIRING_SOON_MS) },
+			expiresAt: {
+				$lte: new Date(Date.now() + EXPIRING_SOON_MS),
+				$gte: new Date(Date.now() - EXPIRING_SOON_MS),
+			},
 			active: true,
 		});
 		mutesExpiringSoon.forEach(c => {
 			const expiredDuration = c.expiresAt.getTime() - Date.now();
 			if (expiredDuration > 0) {
-				const timeout = setTimeout(
-					() => this.unmute(c),
-					expiredDuration
-				);
-				this.timeouts.set(timeout, c);	
+				const timeout = setTimeout(() => this.unmute(c), expiredDuration);
+				this.timeouts.set(timeout, c);
 			} else {
 				this.unmute(c);
 			}
@@ -42,7 +42,9 @@ export class MuteScheduler {
 	async unmute(c: DocumentType<Case>) {
 		const guild = this.client.guilds.cache.get(c.guild);
 		if (!guild) return;
-		const member = guild.members.resolve(c.targetId);
+		let member = guild.members.resolve(c.targetId);
+		if (!member)
+			member = await guild.members.fetch(c.targetId).catch(() => null);
 		if (!member) return;
 		if (c.type === CaseType.Mute) {
 			const action = new UnMuteAction({
