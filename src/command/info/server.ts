@@ -42,10 +42,10 @@ export default class ServerInfoCommand extends MinehutCommand {
 				`${server.name} (${server.visibility ? 'visible' : 'unlisted'})`
 			);
 			embed.setColor(server.online ? 'GREEN' : 'RED');
-			embed.setDescription(server.motd.replace(COLOUR_CODE_EXPR, ''));
+			embed.setDescription(`\`\`\`${server.motd.replace(COLOUR_CODE_EXPR, '')}\`\`\``);
 			embed.addField('Last Started', prettyDate(server.lastOnline), true);
 			if (server.playerCount > 0)
-				embed.addField('Player Count', server.playerCount.toString(), true);
+				embed.addField('Player Count', `${server.playerCount.toString()} / ${server.maxPlayers.toString()}`, true);
 			embed.addField('Suspended?', server.suspended ? 'Yes' : 'No', true);
 			embed.addField(
 				'Credits/day',
@@ -54,6 +54,10 @@ export default class ServerInfoCommand extends MinehutCommand {
 			);
 			const icon = await server.getActiveIcon();
 			if (icon) embed.addField('Icon', icon.displayName, true);
+			if(server.categories.length > 0) embed.addField(
+				'Categories',
+				server.categories.map(c => `• ${c}`.trim()).join('\n')
+			);
 			const addons = await server.getInstalledContent();
 			if (addons.length > 0)
 				embed.addField(

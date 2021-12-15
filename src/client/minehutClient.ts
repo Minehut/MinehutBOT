@@ -35,6 +35,7 @@ export class MinehutClient extends AkairoClient {
 	starboardCooldownManager: CooldownManager;
 
 	githubCacheManager: CacheManager<number, any>;
+	mentionCacheManager: CacheManager<string, Message>;
 
 	minehutApi: Minehut;
 
@@ -113,6 +114,7 @@ export class MinehutClient extends AkairoClient {
 		this.starboardCooldownManager = new CooldownManager(10000);
 
 		this.githubCacheManager = new CacheManager(600000);
+		this.mentionCacheManager = new CacheManager(15000);
 
 		this.minehutApi = new Minehut();
 
@@ -246,6 +248,7 @@ declare module 'discord-akairo' {
 			number,
 			Promise<OctokitResponse<IssuesGetResponseData>>
 		>;
+		mentionCacheManager: CacheManager<string, Message>;
 		minehutApi: Minehut;
 
 		start(token: string): Promise<void>;
