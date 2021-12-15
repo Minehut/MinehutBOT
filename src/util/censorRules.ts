@@ -42,7 +42,7 @@ export const CENSOR_RULES = [
 	{ rule: '\\b(testicles?)', type: Swear, enabled: true },
 	{ rule: '\\b(p\\.?ussy)', type: Swear, enabled: true },
 	{ rule: '\\b(hentai)', type: Swear, enabled: true },
-	{ rule: '\\b(virgin(ity)?)', type: Swear, enabled: true },
+	{ rule: '\\b(virgin(?!ia)(ity)?)', type: Swear, enabled: true },
 	{ rule: '\\b(paki)', type: Swear, enabled: true},
 	{ rule: '\\b(milf)', type: Swear, enabled: true },
 	{ rule: '\\b(sped)', type: Swear, enabled: true },
