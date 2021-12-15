@@ -24,6 +24,10 @@ export class CacheManager<K, V> {
 		return null;
 	}
 
+	filterValues(predicate: (v: V, k?: K) => boolean) {
+		return this.store.filter(predicate);
+	}
+
 	getLastUpdate(key: K) {
 		if (this.time.has(key) && this.store.has(key)) return this.time.get(key);
 		return null;
