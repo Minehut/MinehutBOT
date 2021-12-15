@@ -21,17 +21,16 @@ export class BanScheduler {
 		// This query will find bans/forcebans that are expiring within 3 days
 		const bansExpiringSoon = await CaseModel.find({
 			$or: [{ type: CaseType.Ban }, { type: CaseType.ForceBan }],
-			expiresAt: { $lte: new Date(Date.now() + EXPIRING_SOON_MS) },
+			expiresAt: {
+				$lte: new Date(Date.now() + EXPIRING_SOON_MS),
+			},
 			active: true,
 		});
 		bansExpiringSoon.forEach(c => {
 			const expiredDuration = c.expiresAt.getTime() - Date.now();
 			if (expiredDuration > 0) {
-				const timeout = setTimeout(
-					() => this.unban(c),
-					expiredDuration
-				);
-				this.timeouts.set(timeout, c);	
+				const timeout = setTimeout(() => this.unban(c), expiredDuration);
+				this.timeouts.set(timeout, c);
 			} else {
 				this.unban(c);
 			}
