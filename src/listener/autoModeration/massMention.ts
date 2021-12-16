@@ -1,9 +1,10 @@
 import { Listener } from 'discord-akairo';
-import { Message } from 'discord.js';
+import { Message, TextChannel } from 'discord.js';
 import parse from 'parse-duration';
 import { guildConfigs } from '../../guild/config/guildConfigs';
 import { MuteAction } from '../../structure/action/mute';
 import { FOREVER_MS } from '../../util/constants';
+import { groupMessagesByChannel } from '../../util/functions';
 
 export default class AutoModerationMassMentionListener extends Listener {
 	constructor() {
@@ -33,12 +34,12 @@ export default class AutoModerationMassMentionListener extends Listener {
 				(guildConfig.features.autoModeration.massMention.mentionSize || 15)
 		)
 			return;
-		memberMentionCache.forEach(async (v, k) => {
-			await v.delete().catch(() => {
-				// message was probably already deleted
-			});
-			this.client.mentionCacheManager.removeValue(k);
-		});
+		const msgsCollectedByChannel = groupMessagesByChannel([
+			...memberMentionCache.values(),
+		]);
+		msgsCollectedByChannel.forEach(msgs =>
+			(msgs[0].channel as TextChannel).bulkDelete(msgs)
+		);
 		const muteLength =
 			guildConfig.features.autoModeration.massMention.muteLength?.toLowerCase() ||
 			'3h';
@@ -54,5 +55,8 @@ export default class AutoModerationMassMentionListener extends Listener {
 			duration: parsedMuteLength,
 		});
 		await muteAction.commit();
+		memberMentionCache.forEach((_, k) =>
+			this.client.mentionCacheManager.removeValue(k)
+		);
 	}
 }
