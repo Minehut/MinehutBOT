@@ -67,10 +67,7 @@ export function humanReadableCaseType(
 
 // This function will format a Date object to a string like DD/MM/YYYY HH:MM:SS and optionally (x time ago), by default if the Date is -1 it will return "N/A"
 // I wrote it in util so I don't need to copy this in every command that needs nice dates
-export function prettyDate(
-	date: Date,
-	relative: boolean = true,
-) {
+export function prettyDate(date: Date, relative: boolean = true) {
 	if (date.getTime() === -1) return 'N/A';
 	const now = Math.round(date.getTime() / 1000);
 	if (relative) return `<t:${now}> (<t:${now}:R>)`;
@@ -390,4 +387,15 @@ export async function getIssue(
 	} catch {
 		return null;
 	}
+}
+
+export function groupMessagesByChannel(msgs: Message[]) {
+	const msgsCollectedByChannel: Message[][] = [];
+	while (msgs.length != 0) {
+		msgsCollectedByChannel.push(
+			msgs.filter(msg => msg.channel.id == msgs[0].channel.id)
+		);
+		msgs = msgs.filter(msg => msg.channel.id != msgs[0].channel.id);
+	}
+	return msgsCollectedByChannel;
 }
