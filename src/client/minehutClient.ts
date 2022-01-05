@@ -54,6 +54,7 @@ export class MinehutClient extends AkairoClient {
 				'GUILD_MESSAGES',
 				'GUILD_MESSAGE_REACTIONS',
 				'GUILD_EMOJIS_AND_STICKERS',
+				'GUILD_VOICE_STATES',
 			],
 			allowedMentions: { parse: ['roles', 'users'] },
 		});
