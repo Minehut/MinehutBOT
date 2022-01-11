@@ -29,7 +29,7 @@ export const CENSOR_RULES = [
 	{ rule: '\\b(brainfuck)', type: Swear, enabled: true },
 	{ rule: '\\b(d(i|l|1|!)?c!?k)', type: Swear, enabled: true },
 	{
-		rule: '\\b(s(e|3)x(?!(y|uality|ualities)))',
+		rule: '\\b(s(e|3)x(?!(y|uality|ualities|ist|ism)))',
 		type: Swear,
 		enabled: true,
 	},
