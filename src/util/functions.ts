@@ -68,10 +68,14 @@ export function humanReadableCaseType(
 // This function will format a Date object to a string like DD/MM/YYYY HH:MM:SS and optionally (x time ago), by default if the Date is -1 it will return "N/A"
 // I wrote it in util so I don't need to copy this in every command that needs nice dates
 export function prettyDate(date: Date, relative: boolean = true) {
-	if (date.getTime() === -1) return 'N/A';
+	if (date.getTime() === -1 || !isValidDate(date)) return 'N/A';
 	const now = Math.round(date.getTime() / 1000);
 	if (relative) return `<t:${now}> (<t:${now}:R>)`;
 	return `<t:${now}>`;
+}
+
+function isValidDate(date: Date) {
+	return date instanceof Date && !isNaN(date.valueOf())
 }
 
 // Thanks to https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
