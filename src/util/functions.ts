@@ -75,7 +75,7 @@ export function prettyDate(date: Date, relative: boolean = true) {
 }
 
 function isValidDate(date: Date) {
-	return date instanceof Date && !isNaN(date.valueOf())
+	return date instanceof Date && !isNaN(date.valueOf());
 }
 
 // Thanks to https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
