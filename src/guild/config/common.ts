@@ -29,6 +29,7 @@ export const HASTEBIN_EXTENSIONS_WHITELIST = [
 export const INVITE_WHITELIST = [
 	'239599059415859200', // Minehut
 	'546414872196415501', // Minehut Meta
+	'920080419272159264', // Minehut Gaming Studio
 	'405124395401609218', // Super League Gaming Official
 	'302094807046684672', // MINECRAFT
 
