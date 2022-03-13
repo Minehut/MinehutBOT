@@ -44,6 +44,7 @@ export default class ServerInfoCommand extends MinehutCommand {
 			embed.setColor(server.online ? 'GREEN' : 'RED');
 			embed.setDescription(`\`\`\`${server.motd.replace(COLOUR_CODE_EXPR, '')}\`\`\``);
 			embed.addField('Last Started', prettyDate(server.lastOnline), true);
+			embed.addField('Created At', prettyDate(server.createdAt), true);
 			if (server.playerCount > 0)
 				embed.addField('Player Count', `${server.playerCount.toString()} / ${server.maxPlayers.toString()}`, true);
 			embed.addField('Suspended?', server.suspended ? 'Yes' : 'No', true);
