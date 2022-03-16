@@ -56,7 +56,7 @@ export default class TagInfoCommand extends MinehutCommand {
 			author ? `${author.tag} (${author.id})` : `<@${tag.author}>`
 		);
 		embed.addField('Created at', prettyDate(tag.createdAt), true);
-		embed.addField('Updated at', prettyDate(tag.updatedAt), true);
+		embed.addField('Last interaction at', prettyDate(tag.updatedAt), true);
 		msg.channel.send({ embeds: [embed] });
 	}
 }
