@@ -52,7 +52,7 @@ export const CENSOR_RULES = [
 	{ rule: '\\b(p\\.?u\\.?s\\.?s\\.?y)', type: Swear, enabled: true },
 	{ rule: '\\b(h(e|3)nta(i|l|1))', type: Swear, enabled: true },
 	{ rule: '\\b(virgin(?!ia)(ity)?)', type: Swear, enabled: true },
-	{ rule: '\\b(paki)', type: Swear, enabled: true},
+	{ rule: '\\b(paki(?!stan))', type: Swear, enabled: true},
 	{ rule: '\\b(m(i|l|1)lf)', type: Swear, enabled: true },
 	{ rule: '\\b(sped)', type: Swear, enabled: true },
 	{ rule: '\\b(brothel)', type: Swear, enabled: true },
