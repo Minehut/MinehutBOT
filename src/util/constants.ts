@@ -161,9 +161,8 @@ export const ZALGO_REGEX = new RegExp(
 	].join('|'),
 );
 
-export const IMGUR_LINK_REGEX = /((?:https?:)?\/\/(\w+\.)?imgur\.com\/(\S*)(\.[a-zA-Z]{3}))/im;
+export const IMGUR_LINK_REGEX = /(?:http(?:s)?:\/\/(?:w+\.)?)?imgur\.com(?:\/)?(?:gallery|i|a)?\/[a-z0-9]+/img;
 
 export const IMAGE_LINK_REGEX = /https?:\/\/(?:\w+\.)?[\w-]+\.[\w]{2,3}(?:\/[\w-_.]+)+\.(?:png|jpg|jpeg|gif|webp)/;
 
 export const HASTEBIN_URL = 'https://hastebin.com';
-
